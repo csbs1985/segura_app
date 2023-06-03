@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_espaco.dart';
@@ -17,6 +18,7 @@ class PadraoInput extends StatelessWidget {
   final int? maxLength;
   final int? minLines;
   final int? maxLines;
+  final bool? pesquisar;
   final String? Function(String?)? validator;
 
   const PadraoInput({
@@ -32,6 +34,7 @@ class PadraoInput extends StatelessWidget {
     this.maxLength,
     this.minLines = 1,
     this.maxLines = 1,
+    this.pesquisar = false,
     this.validator,
   }) : super(key: key);
 
@@ -40,7 +43,7 @@ class PadraoInput extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, _) {
-        bool isDark = tema == Brightness.dark;
+        bool isEscuro = tema == Brightness.dark;
 
         return SizedBox(
           child: TextFormField(
@@ -54,19 +57,21 @@ class PadraoInput extends StatelessWidget {
             maxLength: maxLength,
             minLines: minLines,
             maxLines: maxLines,
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context).textTheme.displaySmall,
             textAlignVertical: TextAlignVertical.center,
             validator: validator,
             decoration: InputDecoration(
+              suffixIcon: pesquisar! ? const Icon(LineIcons.search) : null,
+              suffixIconColor: UiCor.icone,
               counterStyle: Theme.of(context).textTheme.headlineSmall,
               hintText: hintText,
               filled: true,
-              fillColor: isDark ? UiCor.bordaEscura : UiCor.borda,
+              fillColor: isEscuro ? UiCor.inputEscuro : UiCor.input,
               hintStyle: Theme.of(context).textTheme.bodySmall,
               errorStyle: UiTexto.erro,
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: UiEspaco.medio,
-                vertical: UiEspaco.pequeno,
+                horizontal: UiEspaco.grande,
+                vertical: UiEspaco.medio,
               ),
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,

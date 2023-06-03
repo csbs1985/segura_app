@@ -19,6 +19,12 @@ class UiTextoClaro {
     fontWeight: FontWeight.normal,
     color: UiCor.texto,
   );
+
+  static const TextStyle hintInput = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: UiCor.hintTexto,
+  );
 }
 
 class UiTextoEscuro {
@@ -38,6 +44,12 @@ class UiTextoEscuro {
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: UiCor.textoEscuro,
+  );
+
+  static const TextStyle hintInput = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: UiCor.hintTextoEscuro,
   );
 }
 
