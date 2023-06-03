@@ -10,8 +10,18 @@ class InicioPage extends StatefulWidget {
 class _InicioPageState extends State<InicioPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text("data"),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: Text(
+          "data",
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

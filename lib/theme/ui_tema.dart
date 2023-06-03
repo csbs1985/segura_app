@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:senha_app/theme/ui_cor.dart';
+import 'package:senha_app/theme/ui_texto.dart';
 
 ValueNotifier<Brightness> currentTema = ValueNotifier(
     WidgetsBinding.instance.platformDispatcher.platformBrightness);
@@ -19,7 +20,7 @@ class UiTema {
       SystemUiOverlayStyle(
         statusBarIconBrightness: isEscuro ? Brightness.light : Brightness.dark,
         statusBarBrightness: isEscuro ? Brightness.light : Brightness.dark,
-        statusBarColor: isEscuro ? UiCor.principalEscuro : UiCor.principal,
+        statusBarColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
         systemNavigationBarIconBrightness:
             isEscuro ? Brightness.light : Brightness.dark,
         systemNavigationBarColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
@@ -31,21 +32,41 @@ class UiTema {
 
   static ThemeData tema = ThemeData(
     appBarTheme: const AppBarTheme(
-      backgroundColor: UiCor.principal,
+      backgroundColor: UiCor.fundo,
       elevation: 0,
     ),
     bottomNavigationBarTheme:
-        const BottomNavigationBarThemeData(backgroundColor: UiCor.principal),
+        const BottomNavigationBarThemeData(backgroundColor: UiCor.fundo),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: UiCor.segunda,
+      elevation: 0,
+    ),
     fontFamily: 'nunito',
-    scaffoldBackgroundColor: UiCor.principal,
-    textTheme: const TextTheme(),
+    scaffoldBackgroundColor: UiCor.fundo,
+    textTheme: const TextTheme(
+      displayLarge: UiTextoClaro.headline1,
+      displayMedium: UiTextoClaro.headline2,
+      displaySmall: UiTextoClaro.headline3,
+    ),
   );
 
   static ThemeData temaEscuro = ThemeData(
-    scaffoldBackgroundColor: UiCor.principalEscuro,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: UiCor.fundoEscuro,
+      elevation: 0,
+    ),
+    scaffoldBackgroundColor: UiCor.fundoEscuro,
     fontFamily: 'nunito',
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: UiCor.principalEscuro),
-    textTheme: const TextTheme(),
+    bottomNavigationBarTheme:
+        const BottomNavigationBarThemeData(backgroundColor: UiCor.fundoEscuro),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: UiCor.segunda,
+      elevation: 0,
+    ),
+    textTheme: const TextTheme(
+      displayLarge: UiTextoEscuro.headline1,
+      displayMedium: UiTextoEscuro.headline2,
+      displaySmall: UiTextoEscuro.headline3,
+    ),
   );
 }
