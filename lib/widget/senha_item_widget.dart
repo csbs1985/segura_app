@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/skeleton/favicon_skeleton.dart';
@@ -40,7 +42,8 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {},
+      onTap: () => context.goNamed(RoutesEnum.SENHA.value,
+          pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(
         valueListenable: currentTema,
         builder: (BuildContext context, Brightness tema, _) {

@@ -21,11 +21,11 @@ CustomTransitionPage transicaoPaginas<T>({
   );
 }
 
-enum RouteEnum {
+enum RoutesEnum {
   ENTRAR('/entrar'),
   INICIO('/inicio'),
   SENHA('senha');
 
   final String value;
-  const RouteEnum(this.value);
+  const RoutesEnum(this.value);
 }

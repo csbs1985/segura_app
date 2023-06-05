@@ -15,6 +15,12 @@ class SenhaPage extends StatefulWidget {
 class _SenhaPageState extends State<SenhaPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Expanded(
+        child: Container(
+          color: Colors.green,
+        ),
+      ),
+    );
   }
 }

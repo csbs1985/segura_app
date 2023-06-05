@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
+import 'package:go_router/go_router.dart';
+import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/widget/padrao_input.dart';
@@ -21,17 +23,28 @@ class _InicioPageState extends State<InicioPage> {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 8),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: PadraoInput(
-              callback: (value) => {
-                print(value),
-              },
-              hintText: PESQUISAR,
-              pesquisar: true,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18, 8, 0, 0),
+                child: Text(
+                  "Senhas",
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                child: PadraoInput(
+                  callback: (value) => {
+                    print(value),
+                  },
+                  hintText: PESQUISAR,
+                  pesquisar: true,
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -40,7 +53,7 @@ class _InicioPageState extends State<InicioPage> {
                   FirestoreListView(
                     query: _senhaFirestore.getTodasSenhasUsuario(
                         "03b4940b-7aff-425c-b093-3ec4af22d11f"),
-                    pageSize: 10,
+                    pageSize: 30,
                     shrinkWrap: true,
                     reverse: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -67,7 +80,8 @@ class _InicioPageState extends State<InicioPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => context.goNamed(RoutesEnum.SENHA.value,
+            pathParameters: {'idSenha': "nova_senha"}),
         child: const Icon(Icons.add),
       ),
     );

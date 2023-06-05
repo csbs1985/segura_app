@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:senha_app/config/routes_config.dart';
 import 'package:senha_app/firebase_options.dart';
-import 'package:senha_app/page/inicio_page.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 
 Future<void> main() async {
@@ -47,9 +47,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       builder: (BuildContext context, Brightness tema, _) {
         bool isEscuro = tema == Brightness.dark;
 
-        return MaterialApp(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          home: const InicioPage(),
+          routerDelegate: routes.routerDelegate,
+          routeInformationParser: routes.routeInformationParser,
+          routeInformationProvider: routes.routeInformationProvider,
           theme: isEscuro ? UiTema.temaEscuro : UiTema.tema,
         );
       },
