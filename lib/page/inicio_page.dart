@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
@@ -21,21 +22,25 @@ class _InicioPageState extends State<InicioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 8),
+      appBar: AppBar(
+        titleSpacing: 20,
+        toolbarHeight: 64,
+        title: Text(
+          "Senhas",
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
+        actions: const [
+          Icon(LineIcons.horizontalEllipsis),
+          SizedBox(width: 20)
+        ],
+      ),
       body: Column(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(18, 8, 0, 0),
-                child: Text(
-                  "Senhas",
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ),
               Container(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: PadraoInput(
                   callback: (value) => {
                     print(value),
@@ -67,7 +72,7 @@ class _InicioPageState extends State<InicioPage> {
                     ) {
                       Map<String, dynamic> senha = snapshot.data();
                       return Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                         child: SenhaItemWidget(senha: senha),
                       );
                     },

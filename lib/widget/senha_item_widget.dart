@@ -51,8 +51,11 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
 
           return Container(
             decoration: BoxDecoration(
-              color: isEscuro ? UiCor.inputEscuro : UiCor.input,
               borderRadius: BorderRadius.circular(UiBorda.arredondada),
+              border: Border.all(
+                color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                width: 2,
+              ),
             ),
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: Row(
