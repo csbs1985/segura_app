@@ -28,7 +28,6 @@ dependencies:
   skeleton_animation: ^0.1.4
   styled_text: ^7.0.0
   uuid: ^3.0.7
-  sticky_az_list: ^0.0.2
 
 dev_dependencies:
   flutter_test:
