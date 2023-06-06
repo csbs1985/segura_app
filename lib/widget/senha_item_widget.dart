@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/senha_class.dart';
+import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/skeleton/favicon_skeleton.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/theme/ui_tema.dart';
+import 'package:flutter/services.dart';
 
 class SenhaItemWidget extends StatefulWidget {
   const SenhaItemWidget({
@@ -23,6 +25,7 @@ class SenhaItemWidget extends StatefulWidget {
 
 class _SenhaItemWidgetState extends State<SenhaItemWidget> {
   final SenhaClass _senhaClass = SenhaClass();
+  final ToastClass _toastClass = ToastClass();
 
   String faviconUrl = "";
   String title = "";
@@ -39,10 +42,16 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
     });
   }
 
+  void copiarSenha(BuildContext context) {
+    Clipboard.setData(ClipboardData(text: widget._senha["senha"]));
+    _toastClass.abrirToast(context, SenhaEnum.PADRAO.value, SENHA_COPIADA);
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(UiBorda.arredondada),
+      onLongPress: () => copiarSenha(context),
       onTap: () => context.goNamed(RoutesEnum.SENHA.value,
           pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(
@@ -79,12 +88,11 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
                       ),
                       Row(
                         children: [
-                          Text(
-                            widget._senha["oculto"]
-                                ? SENHA_ASTERISCO
-                                : widget._senha["senha"],
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
+                          if (!widget._senha["oculto"])
+                            Text(
+                              SENHA_ASTERISCO,
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
                           Text(
                             _senhaClass.ultimaAlteracaoSenha(
                                 widget._senha["dataRegistro"]),

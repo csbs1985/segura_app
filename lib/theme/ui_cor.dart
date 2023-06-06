@@ -5,10 +5,10 @@ class UiCor {
   static const Color segunda = Color(0xFF3E8FF4);
   static const Color terceira = Color(0xFF1259E9);
 
-  static const Color erro = Color(0xFFE50D23);
-
   static const Color borda = Color(0xFFCCCCCC);
   static const Color bordaEscura = Color(0xFF424548);
+
+  static const Color erro = Color(0xFFff4b4b);
 
   static const Color fundo = Color(0xFFFFFFFF);
   static const Color fundoEscuro = Color(0xFF181A21);
@@ -26,6 +26,8 @@ class UiCor {
 
   static const Color skeleton = Color(0xFFF8F9F9);
   static const Color skeletonEscuro = Color(0xFF181A20);
+
+  static const Color sucesso = Color(0xFF43c000);
 
   static const Color texto = Colors.black;
   static const Color textoEscuro = Colors.white;

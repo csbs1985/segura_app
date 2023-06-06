@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_espaco.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/theme/ui_texto.dart';
+import 'package:unicons/unicons.dart';
 
 class PadraoInput extends StatelessWidget {
   final bool? autoFocus;
@@ -61,8 +61,9 @@ class PadraoInput extends StatelessWidget {
             textAlignVertical: TextAlignVertical.center,
             validator: validator,
             decoration: InputDecoration(
-              suffixIcon: pesquisar! ? const Icon(LineIcons.search) : null,
-              suffixIconColor: UiCor.icone,
+              prefixIcon:
+                  pesquisar! ? const Icon(UniconsLine.search_alt) : null,
+              prefixIconColor: UiCor.icone,
               counterStyle: Theme.of(context).textTheme.headlineSmall,
               hintText: hintText,
               filled: true,

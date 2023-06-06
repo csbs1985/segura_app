@@ -6,9 +6,11 @@ import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
+import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
 import 'package:senha_app/widget/padrao_input.dart';
 import 'package:senha_app/widget/senha_item_widget.dart';
+import 'package:unicons/unicons.dart';
 
 class InicioPage extends StatefulWidget {
   const InicioPage({super.key});
@@ -85,7 +87,9 @@ class _InicioPageState extends State<InicioPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.goNamed(RoutesEnum.SENHA.value,
             pathParameters: {'idSenha': "nova_senha"}),
-        child: const Icon(Icons.add),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(UiBorda.arredondada)),
+        child: const Icon(UniconsLine.plus),
       ),
     );
   }
