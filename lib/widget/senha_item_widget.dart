@@ -87,7 +87,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
                     children: [
                       TextoText(texto: widget._senha["nome"]),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 4, 0, 2),
                         child: LegendaText(
                           texto: _senhaClass.ultimaAlteracaoSenha(
                               widget._senha["dataRegistro"]),

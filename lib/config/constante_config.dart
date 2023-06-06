@@ -5,7 +5,13 @@ const String ENTRAR_GOOGLE =
 
 const String PESQUISAR = "Pesquisar...";
 
-const String SENHA_ALTERACAO_1 = "ultima alteração há ";
-const String SENHA_ALTERACAO_2 = " dias";
+const String RESULTADO_ERRO =
+    "Nos deparamos com um erro, \n tente novamente mais tarde.";
+const String RESULTADO_VAZIO =
+    "Sua pesquisa não encontrou nenhum resultado correspondente.";
+
+const String SENHA = "Senha";
+const String SENHA_ALTERACAO_1 = "ultima alteração há";
+const String SENHA_ALTERACAO_2 = "dias";
 const String SENHA_ASTERISCO = "********";
 const String SENHA_COPIADA = "Senha copiada para a área de transferência";

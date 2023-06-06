@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_imagem.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
+import 'package:senha_app/theme/ui_tema.dart';
 
 class AvatarWidget extends StatefulWidget {
   const AvatarWidget({
@@ -40,15 +42,31 @@ class _AvatarWidgetState extends State<AvatarWidget> {
         return ValueListenableBuilder(
           valueListenable: currentUsuario,
           builder: (BuildContext context, usuario, _) {
-            return _isImagemAvatar
-                ? CircleAvatar(
-                    radius: widget._size,
-                    backgroundImage: NetworkImage(widget._avatar),
-                  )
-                : CircleAvatar(
-                    radius: widget._size,
-                    backgroundImage: const AssetImage(UiImagem.avatar),
-                  );
+            return ValueListenableBuilder(
+              valueListenable: currentTema,
+              builder: (BuildContext context, Brightness tema, _) {
+                bool isEscuro = tema == Brightness.dark;
+
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                      width: 2,
+                    ),
+                  ),
+                  child: _isImagemAvatar
+                      ? CircleAvatar(
+                          radius: widget._size,
+                          backgroundImage: NetworkImage(widget._avatar),
+                        )
+                      : CircleAvatar(
+                          radius: widget._size,
+                          backgroundImage: const AssetImage(UiImagem.avatar),
+                        ),
+                );
+              },
+            );
           },
         );
       },

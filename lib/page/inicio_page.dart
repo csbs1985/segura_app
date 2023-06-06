@@ -6,9 +6,13 @@ import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
+import 'package:senha_app/skeleton/senha_item_skeleton.dart';
+import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
+import 'package:senha_app/widget/resultado_erro_widget.dart';
 import 'package:senha_app/widget/padrao_input.dart';
+import 'package:senha_app/widget/resultado_vazio_widget.dart';
 import 'package:senha_app/widget/senha_item_widget.dart';
 import 'package:unicons/unicons.dart';
 
@@ -33,14 +37,11 @@ class _InicioPageState extends State<InicioPage> {
               children: [
                 Container(
                   padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Senhas",
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      const AvatarWidget(
+                      TituloText(texto: SENHA),
+                      AvatarWidget(
                         avatar:
                             "https://lh3.googleusercontent.com/a/AGNmyxZHbpShXjv8mADj4h1AjLUw_hw6RXsCspBsH9s6yQ=s96-c",
                       ),
@@ -53,10 +54,10 @@ class _InicioPageState extends State<InicioPage> {
                   pageSize: 30,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  // loadingBuilder: (context) => const HistoriaItemSkeleton(),
-                  // errorBuilder: (context, error, _) =>
-                  //     ErroResultadoWidget(altura: _altura),
-                  // emptyBuilder: (context) => SemResultadoWidget(altura: _altura),
+                  loadingBuilder: (context) => const SenhaItemSkeleton(),
+                  errorBuilder: (context, error, _) =>
+                      const ErroResultadoWidget(),
+                  emptyBuilder: (context) => const ResultadoVazioWidget(),
                   itemBuilder: (
                     BuildContext context,
                     QueryDocumentSnapshot<dynamic> snapshot,

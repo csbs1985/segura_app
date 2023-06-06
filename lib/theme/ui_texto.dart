@@ -22,7 +22,7 @@ class UiTextoClaro {
 
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.bold,
     fontFamily: 'nunito',
     color: UiCor.texto,
     letterSpacing: 0,
@@ -56,7 +56,7 @@ class UiTextoEscuro {
 
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.bold,
     color: UiCor.textoEscuro,
     fontFamily: 'nunito',
     letterSpacing: 0,
