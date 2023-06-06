@@ -4,6 +4,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
@@ -24,6 +25,7 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
+  final AuthConfig _authConfig = AuthConfig();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
 
   @override
@@ -37,13 +39,16 @@ class _InicioPageState extends State<InicioPage> {
               children: [
                 Container(
                   padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TituloText(texto: SENHA),
-                      AvatarWidget(
-                        avatar:
-                            "https://lh3.googleusercontent.com/a/AGNmyxZHbpShXjv8mADj4h1AjLUw_hw6RXsCspBsH9s6yQ=s96-c",
+                      const TituloText(texto: SENHA),
+                      GestureDetector(
+                        onTap: () => _authConfig.signOutWithGoogle(),
+                        child: const AvatarWidget(
+                          avatar:
+                              "https://lh3.googleusercontent.com/a/AGNmyxZHbpShXjv8mADj4h1AjLUw_hw6RXsCspBsH9s6yQ=s96-c",
+                        ),
                       ),
                     ],
                   ),

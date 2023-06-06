@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/text/mensagem_text.dart';
+import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/theme/ui_svg.dart';
 
 class EntrarPage extends StatefulWidget {
@@ -23,19 +25,11 @@ class _EntrarPageState extends State<EntrarPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             // Expanded(child: SvgPicture.asset(UiSvg.logo)),
-            Center(
-              child: Text(
-                ENTRAR_BEM_VINDO,
-                style: Theme.of(context).textTheme.displayLarge,
-                textAlign: TextAlign.center,
-              ),
+            const Center(
+              child: SubtituloText(texto: ENTRAR_BEM_VINDO),
             ),
-            Center(
-              child: Text(
-                ENTRAR_GOOGLE,
-                style: Theme.of(context).textTheme.displayMedium,
-                textAlign: TextAlign.center,
-              ),
+            const Center(
+              child: MensagemText(texto: ENTRAR_GOOGLE),
             ),
             const SizedBox(height: 48),
             IconButton(

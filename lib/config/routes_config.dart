@@ -10,14 +10,25 @@ final AuthConfig _authConfig = AuthConfig();
 final GoRouter routes = GoRouter(
   debugLogDiagnostics: true,
   initialLocation: RoutesEnum.INICIO.value,
+  refreshListenable: _authConfig,
+  redirect: (context, state) {
+    final usuario = _authConfig.usuario;
+    final isLoginRoute = state.matchedLocation == RoutesEnum.ENTRAR.value;
+
+    if (usuario == null) {
+      return isLoginRoute ? null : RoutesEnum.ENTRAR.value;
+    }
+    if (isLoginRoute) return RoutesEnum.INICIO.value;
+    return null;
+  },
   routes: [
     GoRoute(
       name: RoutesEnum.SENHA.value,
-      path: '/senha/:idSenha',
+      path: "/senha/:idSenha",
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: SenhaPage(idSenha: state.pathParameters['idSenha']!),
+        child: SenhaPage(idSenha: state.pathParameters["idSenha"]!),
       ),
     ),
     GoRoute(
