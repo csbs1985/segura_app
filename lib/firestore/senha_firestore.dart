@@ -4,9 +4,7 @@ class SenhaFirestore {
   CollectionReference senhas = FirebaseFirestore.instance.collection('senhas');
 
   getTodasSenhasUsuario(String idUsuario) {
-    return senhas
-        .orderBy('nome', descending: true)
-        .where('idUsuario', isEqualTo: idUsuario);
+    return senhas.orderBy('nome').where('idUsuario', isEqualTo: idUsuario);
   }
 
   snapshotsSenhaId(String idUsuario) {

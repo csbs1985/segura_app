@@ -42,6 +42,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(UiBorda.arredondada),
       onTap: () => context.goNamed(RoutesEnum.SENHA.value,
           pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(

@@ -41,7 +41,7 @@ class UiTema {
       backgroundColor: UiCor.segunda,
       elevation: 0,
     ),
-    fontFamily: 'nunito',
+    fontFamily: 'duolingo',
     scaffoldBackgroundColor: UiCor.fundo,
     textTheme: const TextTheme(
       displayLarge: UiTextoClaro.headline1,
@@ -57,7 +57,7 @@ class UiTema {
       elevation: 0,
     ),
     scaffoldBackgroundColor: UiCor.fundoEscuro,
-    fontFamily: 'nunito',
+    fontFamily: 'duolingo',
     bottomNavigationBarTheme:
         const BottomNavigationBarThemeData(backgroundColor: UiCor.fundoEscuro),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(

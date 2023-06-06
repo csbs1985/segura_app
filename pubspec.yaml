@@ -43,6 +43,9 @@ flutter:
     - assets/images/
 
   fonts:
+    - family: duolingo
+      fonts:
+        - asset: assets/fonts/duolingo.ttf
     - family: nunito
       fonts:
         - asset: assets/fonts/nunito.ttf
