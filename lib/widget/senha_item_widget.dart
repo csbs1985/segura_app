@@ -55,7 +55,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
     return InkWell(
       borderRadius: BorderRadius.circular(UiBorda.arredondada),
       onLongPress: () => copiarSenha(context),
-      onTap: () => context.goNamed(RoutesEnum.SENHA.value,
+      onTap: () => context.pushNamed(RoutesEnum.SENHA.value,
           pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(
         valueListenable: currentTema,

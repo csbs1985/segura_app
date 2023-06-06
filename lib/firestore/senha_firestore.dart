@@ -7,8 +7,8 @@ class SenhaFirestore {
     return senhas.orderBy('nome').where('idUsuario', isEqualTo: idUsuario);
   }
 
-  snapshotsSenhaId(String idUsuario) {
-    return senhas.where('idUsuario', isEqualTo: idUsuario).snapshots();
+  getSenhaId(String idSenha) async {
+    return await senhas.where('idSenha', isEqualTo: idSenha).get();
   }
 
   postSenhaId(Map<String, dynamic> senha) async {

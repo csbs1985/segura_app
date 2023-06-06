@@ -91,8 +91,8 @@ class _InicioPageState extends State<InicioPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(RoutesEnum.SENHA.value,
-            pathParameters: {'idSenha': "nova_senha"}),
+        onPressed: () => context.pushNamed(RoutesEnum.SENHA.value,
+            pathParameters: {'idSenha': EMPTY}),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(UiBorda.arredondada)),
         child: const Icon(UniconsLine.plus),

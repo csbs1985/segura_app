@@ -1,7 +1,10 @@
 import 'package:favicon/favicon.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/firestore/senha_firestore.dart';
 
 class SenhaClass {
+  final SenhaFirestore _senhaFirestore = SenhaFirestore();
+
   Future<String> definirFavicon(String url) async {
     final favicon = await FaviconFinder.getBest(url);
     return favicon!.url;
@@ -13,5 +16,11 @@ class SenhaClass {
     final difference = registro.difference(hoje);
     final diferenca = difference.inDays.abs();
     return "$SENHA_ALTERACAO_1 $diferenca $SENHA_ALTERACAO_2";
+  }
+
+  getSenhaId(String idSenha) async {
+    await _senhaFirestore.getSenhaId(idSenha).then((result) => {
+          result != null,
+        });
   }
 }
