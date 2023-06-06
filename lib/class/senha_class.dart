@@ -1,4 +1,5 @@
 import 'package:favicon/favicon.dart';
+import 'package:senha_app/config/constante_config.dart';
 
 class SenhaClass {
   Future<String> definirFavicon(String url) async {
@@ -11,6 +12,6 @@ class SenhaClass {
     final DateTime hoje = DateTime.now();
     final difference = registro.difference(hoje);
     final diferenca = difference.inDays.abs();
-    return " · alterada há $diferenca dias";
+    return "$SENHA_ALTERACAO_1 $diferenca $SENHA_ALTERACAO_2";
   }
 }

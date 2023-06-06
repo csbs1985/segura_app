@@ -20,6 +20,14 @@ class UiTextoClaro {
     color: UiCor.texto,
   );
 
+  static const TextStyle headline4 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'nunito',
+    color: UiCor.texto,
+    letterSpacing: 0,
+  );
+
   static const TextStyle hintInput = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
@@ -44,6 +52,14 @@ class UiTextoEscuro {
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: UiCor.textoEscuro,
+  );
+
+  static const TextStyle headline4 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: UiCor.textoEscuro,
+    fontFamily: 'nunito',
+    letterSpacing: 0,
   );
 
   static const TextStyle hintInput = TextStyle(

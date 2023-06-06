@@ -5,6 +5,9 @@ import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/skeleton/favicon_skeleton.dart';
+import 'package:senha_app/text/legenda_text.dart';
+import 'package:senha_app/text/texto_text.dart';
+import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
@@ -82,24 +85,16 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget._senha["nome"],
-                        style: Theme.of(context).textTheme.displaySmall,
+                      TextoText(texto: widget._senha["nome"]),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                        child: LegendaText(
+                          texto: _senhaClass.ultimaAlteracaoSenha(
+                              widget._senha["dataRegistro"]),
+                        ),
                       ),
-                      Row(
-                        children: [
-                          if (!widget._senha["oculto"])
-                            Text(
-                              SENHA_ASTERISCO,
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                          Text(
-                            _senhaClass.ultimaAlteracaoSenha(
-                                widget._senha["dataRegistro"]),
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                        ],
-                      ),
+                      if (!widget._senha["oculto"])
+                        SubtituloText(texto: widget._senha["senha"]),
                     ],
                   ),
                 ),
