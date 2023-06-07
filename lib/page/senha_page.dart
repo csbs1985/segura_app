@@ -46,7 +46,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final String _dataAlteracao = "";
   bool _oculto = false;
 
-  final bool _toggleOculto = false;
   final double _espaco = 24;
 
   @override
@@ -89,7 +88,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         "idUsuario": currentUsuario.value.idUsuario,
         "link": _controllerLink.text,
         "nome": _controllerNome.text,
-        "oculto": _toggleOculto,
+        "oculto": _oculto,
         "senha": _controllerSenha.text,
       };
 
@@ -109,6 +108,16 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controllerAnotacao.dispose();
+    _controllerLink.dispose();
+    _controllerNome.dispose();
+    _controllerSenha.dispose();
+    _controllerUsuario.dispose();
+    super.dispose();
   }
 
   @override

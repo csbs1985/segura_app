@@ -29,6 +29,7 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
     with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
+  final TextEditingController _controllerTamanho = TextEditingController();
   final ToastClass _toastClass = ToastClass();
 
   String senhaGerada = "";
@@ -36,7 +37,11 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
 
   final double _height = 16;
 
-  geradorSenhaCallback(List<GerarSenhaModel> value) {}
+  @override
+  void initState() {
+    super.initState();
+    _controllerTamanho.text = "8";
+  }
 
   _gerarSenha() {
     if (_formKey.currentState!.validate()) {
@@ -75,13 +80,14 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
                 const TextoText(texto: SENHA_CARACTERES),
                 SizedBox(height: _height),
                 SelecionarWidget(
-                  callback: (value) => geradorSenhaCallback(value),
+                  callback: (value) => {},
                   lista: listaGeradorSenha,
                 ),
                 SizedBox(height: _height),
                 const TextoText(texto: SENHA_TAMANHO),
                 SizedBox(height: _height),
                 PadraoInput(
+                  controller: _controllerTamanho,
                   keyboardType: TextInputType.number,
                   callback: (value) => setState(() => tamanho = value),
                   validator: (value) => isSenhaCaracteresInt(value!),
