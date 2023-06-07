@@ -74,20 +74,22 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: UiTamanho.favicon,
-                  child: faviconUrl.isNotEmpty
-                      ? Image.network(faviconUrl)
-                      : const FaviconSkeleton(),
-                ),
+                if (widget._senha["link"] != "")
+                  SizedBox(
+                    height: UiTamanho.favicon,
+                    child: faviconUrl.isNotEmpty
+                        ? Image.network(faviconUrl)
+                        : const FaviconSkeleton(),
+                  ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextoText(texto: widget._senha["nome"]),
+                      if (widget._senha["nome"] != "")
+                        TextoText(texto: widget._senha["nome"]),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 4, 0, 2),
+                        padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
                         child: LegendaText(
                           texto: _senhaClass.ultimaAlteracaoSenha(
                               widget._senha["dataRegistro"]),

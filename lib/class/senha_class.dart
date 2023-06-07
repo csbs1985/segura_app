@@ -15,6 +15,8 @@ class SenhaClass {
     final DateTime hoje = DateTime.now();
     final difference = registro.difference(hoje);
     final diferenca = difference.inDays.abs();
+
+    if (diferenca <= 0) return HOJE;
     return "$SENHA_ALTERACAO_1 $diferenca $SENHA_ALTERACAO_2";
   }
 
@@ -22,5 +24,9 @@ class SenhaClass {
     await _senhaFirestore.getSenhaId(idSenha).then((result) => {
           result != null,
         });
+  }
+
+  postSenha(Map<String, dynamic> senha) async {
+    await _senhaFirestore.postSenha(senha);
   }
 }

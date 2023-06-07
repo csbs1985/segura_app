@@ -71,7 +71,7 @@ class UiTextoEscuro {
 
 class UiTexto {
   static const TextStyle erro = TextStyle(
-    fontSize: 32,
+    fontSize: 12,
     fontWeight: FontWeight.bold,
     color: UiCor.erro,
   );

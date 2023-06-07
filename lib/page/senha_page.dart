@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
+import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/formulario_input.dart';
 import 'package:unicons/unicons.dart';
@@ -19,7 +21,8 @@ class SenhaPage extends StatefulWidget {
   State<SenhaPage> createState() => _SenhaPageState();
 }
 
-class _SenhaPageState extends State<SenhaPage> {
+class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final Uuid uuid = const Uuid();
 
@@ -34,6 +37,8 @@ class _SenhaPageState extends State<SenhaPage> {
   final String _nome = "";
   final String _senha = "";
   final String _usuario = "";
+
+  final bool _toggleOculto = false;
 
   @override
   void initState() {
@@ -57,17 +62,21 @@ class _SenhaPageState extends State<SenhaPage> {
   // }
 
   floatingActionButton() {
-    Map<String, dynamic> form = {
-      "anotacao": _controllerAnotacao.text,
-      "dataAlteracao": "",
-      "dataRegistro": DateTime.now().toString(),
-      "idSenha": uuid.v4(),
-      "idUsuario": "idUsuario",
-      "link": _controllerLink.text,
-      "nome": _controllerNome.text,
-      "oculto": false,
-      "senha": _controllerSenha.text,
-    };
+    if (_formKey.currentState!.validate()) {
+      Map<String, dynamic> form = {
+        "anotacao": _controllerAnotacao.text,
+        "dataAlteracao": "",
+        "dataRegistro": DateTime.now().toString(),
+        "idSenha": uuid.v4(),
+        "idUsuario": currentUsuario.value.idUsuario,
+        "link": _controllerLink.text,
+        "nome": _controllerNome.text,
+        "oculto": _toggleOculto,
+        "senha": _controllerSenha.text,
+      };
+
+      _senhaClass.postSenha(form);
+    }
   }
 
   @override
@@ -89,17 +98,24 @@ class _SenhaPageState extends State<SenhaPage> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               FormularioInput(
                 controller: _controllerNome,
                 callback: (value) => {},
                 hintText: NOME,
+                validator: (value) =>
+                    isIdentificador(_controllerLink.text, value!),
               ),
               FormularioInput(
                 controller: _controllerLink,
                 callback: (value) => {},
                 hintText: LINK,
+                validator: (value) => combinarValidacao([
+                  () => isIdentificador(value!, _controllerNome.text),
+                  () => regexUrl(value),
+                ]),
               ),
               FormularioInput(
                 controller: _controllerUsuario,
@@ -110,6 +126,10 @@ class _SenhaPageState extends State<SenhaPage> {
                 controller: _controllerSenha,
                 callback: (value) => {},
                 hintText: SENHA,
+                validator: (value) => combinarValidacao([
+                  () => inNotEmpty(value, SENHA_OBRIGATORIO),
+                  () => isSenhaCaracteres(value!),
+                ]),
               ),
               FormularioInput(
                 controller: _controllerAnotacao,

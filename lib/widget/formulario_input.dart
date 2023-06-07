@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
-import 'package:senha_app/theme/ui_espaco.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/theme/ui_texto.dart';
 
@@ -79,10 +78,7 @@ class _FormularioInputState extends State<FormularioInput> {
               fillColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
               hintStyle: Theme.of(context).textTheme.bodySmall,
               errorStyle: UiTexto.erro,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: UiEspaco.grande,
-                vertical: UiEspaco.medio,
-              ),
+              contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(UiBorda.quadrada),
