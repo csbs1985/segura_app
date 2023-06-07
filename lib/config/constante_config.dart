@@ -31,5 +31,7 @@ const String SENHA_ALTERACAO_2 = "dias";
 const String SENHA_ASTERISCO = "********";
 const String SENHA_COPIADA = "Senha copiada para a área de transferência";
 const String SENHA_OBRIGATORIO = "a senha é obrigatória";
+const String SENHA_OCULTA = "não mostraremos a senha na página inicial";
+const String SENHA_NAO_OCULTA = "mostraremos a senha na página inicial";
 
 const String USUARIO = "Usuário";

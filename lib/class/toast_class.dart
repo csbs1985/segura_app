@@ -4,14 +4,15 @@ import 'package:toastification/toastification.dart';
 import 'package:unicons/unicons.dart';
 
 class ToastClass {
-  void abrirToast(
-    BuildContext context,
-    String estilo,
-    String texto,
-  ) {
+  void abrirToast({
+    required BuildContext context,
+    required String estilo,
+    required String texto,
+    int? duracao,
+  }) {
     toastification.show(
       context: context,
-      autoCloseDuration: const Duration(seconds: 5),
+      autoCloseDuration: Duration(seconds: duracao ?? 2),
       title: texto,
       animationDuration: const Duration(milliseconds: 300),
       icon: definirIcone(estilo),

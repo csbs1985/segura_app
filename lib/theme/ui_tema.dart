@@ -35,6 +35,7 @@ class UiTema {
       backgroundColor: UiCor.fundo,
       elevation: 0,
     ),
+    iconTheme: const IconThemeData(color: UiCor.icone),
     bottomNavigationBarTheme:
         const BottomNavigationBarThemeData(backgroundColor: UiCor.fundo),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -57,6 +58,7 @@ class UiTema {
       backgroundColor: UiCor.fundoEscuro,
       elevation: 0,
     ),
+    iconTheme: const IconThemeData(color: UiCor.icone),
     scaffoldBackgroundColor: UiCor.fundoEscuro,
     fontFamily: 'duolingo',
     bottomNavigationBarTheme:

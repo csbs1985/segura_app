@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
+import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
+import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/formulario_input.dart';
 import 'package:unicons/unicons.dart';
@@ -24,6 +26,7 @@ class SenhaPage extends StatefulWidget {
 class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
+  final ToastClass _toastClass = ToastClass();
   final Uuid uuid = const Uuid();
 
   final TextEditingController _controllerAnotacao = TextEditingController();
@@ -37,6 +40,8 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final String _nome = "";
   final String _senha = "";
   final String _usuario = "";
+  final String _dataAlteracao = "";
+  bool _oculto = false;
 
   final bool _toggleOculto = false;
 
@@ -60,6 +65,15 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   //     });
   //   }
   // }
+
+  toggleOculto() {
+    setState(() => _oculto = !_oculto);
+    _toastClass.abrirToast(
+      context: context,
+      estilo: SenhaEnum.PADRAO.value,
+      texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
+    );
+  }
 
   floatingActionButton() {
     if (_formKey.currentState!.validate()) {
@@ -88,6 +102,10 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           callback: () => Navigator.of(context).pop(),
         ),
         actions: [
+          IconeButton(
+            icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
+            callback: () => toggleOculto(),
+          ),
           IconeButton(
             icone: UniconsLine.trash_alt,
             callback: () => {},
@@ -143,6 +161,16 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           ),
         ),
       ),
+      bottomSheet: !_dataAlteracao.isNotEmpty
+          ? null
+          : Container(
+              width: MediaQuery.sizeOf(context).width,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: LegendaText(
+                texto: _senhaClass.ultimaEdicao(_dataAlteracao),
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => floatingActionButton(),
         shape: RoundedRectangleBorder(
