@@ -23,13 +23,14 @@ dependencies:
   go_router: ^7.1.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  modal_bottom_sheet: ^3.0.0-pre
   provider: ^6.0.5
   skeleton_animation: ^0.1.4
   styled_text: ^7.0.0
   unicons: ^2.1.1
   uuid: ^3.0.7
   toastification: ^0.0.3
-  animated_page_transition: ^0.0.1+2
+  stepper_counter_swipe: ^1.0.2
 
 dev_dependencies:
   flutter_test:

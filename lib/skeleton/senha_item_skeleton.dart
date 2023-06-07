@@ -13,7 +13,7 @@ class SenhaItemSkeleton extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, __) {
-        bool isDark = tema == Brightness.dark;
+        bool isEscuro = tema == Brightness.dark;
 
         return Container(
           width: MediaQuery.sizeOf(context).width,
@@ -24,7 +24,7 @@ class SenhaItemSkeleton extends StatelessWidget {
               Skeleton(
                 width: 32,
                 height: 32,
-                textColor: isDark ? UiCor.skeletonEscuro : UiCor.skeleton,
+                textColor: isEscuro ? UiCor.skeletonEscuro : UiCor.skeleton,
                 borderRadius: BorderRadius.circular(UiBorda.circulo),
               ),
               const SizedBox(width: 16),
@@ -34,21 +34,21 @@ class SenhaItemSkeleton extends StatelessWidget {
                   Skeleton(
                     width: 200,
                     height: 16,
-                    textColor: isDark ? UiCor.skeletonEscuro : UiCor.skeleton,
+                    textColor: isEscuro ? UiCor.skeletonEscuro : UiCor.skeleton,
                     borderRadius: BorderRadius.circular(UiBorda.arredondada),
                   ),
                   const SizedBox(height: UiEspaco.medio),
                   Skeleton(
                     width: MediaQuery.sizeOf(context).width - 80,
                     height: 12,
-                    textColor: isDark ? UiCor.skeletonEscuro : UiCor.skeleton,
+                    textColor: isEscuro ? UiCor.skeletonEscuro : UiCor.skeleton,
                     borderRadius: BorderRadius.circular(UiBorda.arredondada),
                   ),
                   const SizedBox(height: UiEspaco.medio),
                   Skeleton(
                     width: 120,
                     height: 24,
-                    textColor: isDark ? UiCor.skeletonEscuro : UiCor.skeleton,
+                    textColor: isEscuro ? UiCor.skeletonEscuro : UiCor.skeleton,
                     borderRadius: BorderRadius.circular(UiBorda.arredondada),
                   ),
                 ],

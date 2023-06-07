@@ -25,7 +25,14 @@ mixin ValidatorMixin {
   }
 
   String? isSenhaCaracteres(String senha) {
-    if (senha.length < 4 || senha.length > 32) return SENHA_CARACTERES;
+    if (senha.length < 4 || senha.length > 32)
+      return SENHA_CARACTERES_DESCRICAO;
+    return null;
+  }
+
+  String? isSenhaCaracteresInt(String senha) {
+    int numero = int.parse(senha);
+    if (numero < 4 || numero > 32) return SENHA_CARACTERES_DESCRICAO;
     return null;
   }
 

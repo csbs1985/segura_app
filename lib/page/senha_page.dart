@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
@@ -7,7 +8,9 @@ import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
+import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/formulario_input.dart';
+import 'package:senha_app/widget/gerador_senha_widget.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -38,12 +41,13 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final String _anotacao = "";
   final String _link = "";
   final String _nome = "";
-  final String _senha = "";
+  String _senha = "";
   final String _usuario = "";
   final String _dataAlteracao = "";
   bool _oculto = false;
 
   final bool _toggleOculto = false;
+  final double _espaco = 24;
 
   @override
   void initState() {
@@ -93,6 +97,20 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     }
   }
 
+  abrirGerador(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiCor.overlay,
+      builder: (context) => GeradorSenhaWidget(
+        callback: (value) => {
+          Navigator.of(context).pop(),
+          setState(() => _controllerSenha.text = _senha = value),
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +120,10 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           callback: () => Navigator.of(context).pop(),
         ),
         actions: [
+          IconeButton(
+            icone: UniconsLine.asterisk,
+            callback: () => abrirGerador(context),
+          ),
           IconeButton(
             icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
             callback: () => toggleOculto(),
@@ -126,6 +148,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                 validator: (value) =>
                     isIdentificador(_controllerLink.text, value!),
               ),
+              SizedBox(height: _espaco),
               FormularioInput(
                 controller: _controllerLink,
                 callback: (value) => {},
@@ -135,11 +158,13 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                   () => regexUrl(value),
                 ]),
               ),
+              SizedBox(height: _espaco),
               FormularioInput(
                 controller: _controllerUsuario,
                 callback: (value) => {},
                 hintText: USUARIO,
               ),
+              SizedBox(height: _espaco),
               FormularioInput(
                 controller: _controllerSenha,
                 callback: (value) => {},
@@ -149,6 +174,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                   () => isSenhaCaracteres(value!),
                 ]),
               ),
+              SizedBox(height: _espaco),
               FormularioInput(
                 controller: _controllerAnotacao,
                 callback: (value) => {},

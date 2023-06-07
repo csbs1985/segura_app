@@ -25,13 +25,22 @@ const String RESULTADO_VAZIO =
     "Sua pesquisa não encontrou nenhum resultado correspondente.";
 
 const String SENHA = "Senha";
-const String SENHA_CARACTERES = "a senha deve ter de 4 à 32 caracteres";
+const String SENHA_CARACTERES = "Utilizar caracteres";
+const String SENHA_CARACTERES_DESCRICAO =
+    "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_ALTERACAO_1 = "ultima alteração há";
 const String SENHA_ALTERACAO_2 = "dias";
 const String SENHA_ASTERISCO = "********";
 const String SENHA_COPIADA = "Senha copiada para a área de transferência";
+const String SENHA_GERAR = "Gerar senha";
+const String SENHA_GERADA = "senha gerada";
+const String SENHA_GERADOR = "Gerador de Senha";
+const String SENHA_GERADOR_ERRO = "Selecione ao mesno um padrão";
+const String SENHA_GERADOR_DESCRICAO =
+    'O gerador de senhas permite criar uma senha aleatória com diversas opções. Selecione as opções, clique em "Gerar Senha", confira a senha gerada e clique no botão principal para utilizar a senha gerada.';
 const String SENHA_OBRIGATORIO = "a senha é obrigatória";
 const String SENHA_OCULTA = "não mostraremos a senha na página inicial";
 const String SENHA_NAO_OCULTA = "mostraremos a senha na página inicial";
+const String SENHA_TAMANHO = "Tamanho da senha";
 
 const String USUARIO = "Usuário";

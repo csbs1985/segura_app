@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class UiCor {
   static const Color primeira = Color(0xFF246BFD);
   static const Color segunda = Color(0xFF3E8FF4);
-  static const Color terceira = Color(0xFF1259E9);
+  static const Color terceira = Color(0xFF1a8bd8);
 
   static const Color borda = Color(0xFFe1e5e9);
   static const Color bordaEscura = Color(0xFF424548);
+
+  static const Color tag = Color(0xFFF0F2F4);
+  static const Color tagAtivo = segunda;
+  static const Color tagEscuro = Color(0xFF262A34);
 
   static const Color erro = Color(0xFFff4b4b);
 
@@ -22,6 +26,8 @@ class UiCor {
 
   static const Color input = Color(0xFFF0F2F4);
   static const Color inputEscuro = Color(0xFF262A34);
+
+  static const Color overlay = Color(0x90000000);
 
   static const Color principal = Color(0xffffffff);
   static const Color principalEscuro = Color(0xFF1F222A);

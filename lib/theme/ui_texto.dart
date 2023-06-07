@@ -7,19 +7,16 @@ class UiTextoClaro {
     fontWeight: FontWeight.bold,
     color: UiCor.texto,
   );
-
   static const TextStyle headline2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
     color: UiCor.texto,
   );
-
   static const TextStyle headline3 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: UiCor.texto,
   );
-
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
@@ -27,7 +24,6 @@ class UiTextoClaro {
     color: UiCor.texto,
     letterSpacing: 0,
   );
-
   static const TextStyle hintInput = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
@@ -41,19 +37,16 @@ class UiTextoEscuro {
     fontWeight: FontWeight.bold,
     color: UiCor.textoEscuro,
   );
-
   static const TextStyle headline2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
     color: UiCor.textoEscuro,
   );
-
   static const TextStyle headline3 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: UiCor.textoEscuro,
   );
-
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
@@ -61,7 +54,6 @@ class UiTextoEscuro {
     fontFamily: 'nunito',
     letterSpacing: 0,
   );
-
   static const TextStyle hintInput = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
@@ -74,5 +66,25 @@ class UiTexto {
     fontSize: 12,
     fontWeight: FontWeight.bold,
     color: UiCor.erro,
+  );
+  static const TextStyle tag = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: UiCor.segunda,
+  );
+  static const TextStyle tagAtiva = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: UiCor.textoEscuro,
+  );
+  static const TextStyle tagEscuro = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: UiCor.textoEscuro,
+  );
+  static const TextStyle botao = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.normal,
+    color: UiCor.textoEscuro,
   );
 }

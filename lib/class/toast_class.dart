@@ -12,7 +12,7 @@ class ToastClass {
   }) {
     toastification.show(
       context: context,
-      autoCloseDuration: Duration(seconds: duracao ?? 2),
+      autoCloseDuration: Duration(seconds: duracao ?? 3),
       title: texto,
       animationDuration: const Duration(milliseconds: 300),
       icon: definirIcone(estilo),

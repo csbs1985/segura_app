@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:favicon/favicon.dart';
 import 'package:intl/intl.dart';
+import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -51,5 +53,34 @@ class SenhaClass {
 
   postSenha(Map<String, dynamic> senha) async {
     await _senhaFirestore.postSenha(senha);
+  }
+
+  String gerarSenha(
+    List<GerarSenhaModel> listaSelecionado,
+    int tamanho,
+  ) {
+    const letrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const letrasMinusculas = 'abcdefghijklmnopqrstuvwxyz';
+    const numeros = '0123456789';
+    const caracteresEspeciais = '!@#\$%^&*()-_=+[]{}|;:,.<>/?';
+
+    final random = Random();
+    String caracteresPermitidos = '';
+
+    if (listaSelecionado[0].selecionado)
+      caracteresPermitidos += letrasMinusculas;
+    if (listaSelecionado[1].selecionado)
+      caracteresPermitidos += letrasMaiusculas;
+    if (listaSelecionado[2].selecionado) caracteresPermitidos += numeros;
+    if (listaSelecionado[3].selecionado)
+      caracteresPermitidos += caracteresEspeciais;
+
+    String senha = '';
+    for (int i = 0; i < tamanho; i++) {
+      int indice = random.nextInt(caracteresPermitidos.length);
+      senha += caracteresPermitidos[indice];
+    }
+
+    return senha;
   }
 }
