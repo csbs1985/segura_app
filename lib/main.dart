@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:senha_app/config/auth_config.dart';
+import 'package:senha_app/config/hive_config.dart';
 import 'package:senha_app/config/routes_config.dart';
 import 'package:senha_app/firebase_options.dart';
 import 'package:senha_app/theme/ui_tema.dart';
@@ -12,6 +13,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await HiveConfig.start();
 
   runApp(
     MultiProvider(

@@ -8,10 +8,10 @@ class SenhaFirestore {
   }
 
   getSenhaId(String idSenha) async {
-    return await senhas.where('idSenha', isEqualTo: idSenha).get();
+    return await senhas.doc(idSenha).get();
   }
 
-  postSenhaId(Map<String, dynamic> senha) async {
+  postSenha(Map<String, dynamic> senha) async {
     return await senhas.doc(senha['idSenha']).set(senha);
   }
 }

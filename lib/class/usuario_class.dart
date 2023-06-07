@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:senha_app/model/usuario_model.dart';
 
-ValueNotifier<String> currentUsuario =
-    ValueNotifier<String>("03b4940b-7aff-425c-b093-3ec4af22d11f");
+ValueNotifier<UsuarioModel> currentUsuario =
+    ValueNotifier<UsuarioModel>(UsuarioModel(
+  avatarUsuario: '',
+  emailUsuario: '',
+  idUsuario: '',
+  nomeUsuario: '',
+));
 
 class UsuarioClass {}

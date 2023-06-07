@@ -45,17 +45,15 @@ class _InicioPageState extends State<InicioPage> {
                       const TituloText(texto: SENHA),
                       GestureDetector(
                         onTap: () => _authConfig.signOutWithGoogle(),
-                        child: const AvatarWidget(
-                          avatar:
-                              "https://lh3.googleusercontent.com/a/AGNmyxZHbpShXjv8mADj4h1AjLUw_hw6RXsCspBsH9s6yQ=s96-c",
-                        ),
+                        child: AvatarWidget(
+                            avatar: currentUsuario.value.avatarUsuario),
                       ),
                     ],
                   ),
                 ),
                 FirestoreListView(
                   query: _senhaFirestore
-                      .getTodasSenhasUsuario(currentUsuario.value),
+                      .getTodasSenhasUsuario(currentUsuario.value.idUsuario),
                   pageSize: 30,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

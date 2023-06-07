@@ -5,6 +5,7 @@ import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/formulario_input.dart';
 import 'package:unicons/unicons.dart';
+import 'package:uuid/uuid.dart';
 
 class SenhaPage extends StatefulWidget {
   const SenhaPage({
@@ -20,41 +21,53 @@ class SenhaPage extends StatefulWidget {
 
 class _SenhaPageState extends State<SenhaPage> {
   final SenhaClass _senhaClass = SenhaClass();
+  final Uuid uuid = const Uuid();
 
-  TextEditingController _controllerAnotacao = TextEditingController();
-  TextEditingController _controllerLink = TextEditingController();
-  TextEditingController _controllerNome = TextEditingController();
-  TextEditingController _controllerSenha = TextEditingController();
-  TextEditingController _controllerUsuario = TextEditingController();
+  final TextEditingController _controllerAnotacao = TextEditingController();
+  final TextEditingController _controllerLink = TextEditingController();
+  final TextEditingController _controllerNome = TextEditingController();
+  final TextEditingController _controllerSenha = TextEditingController();
+  final TextEditingController _controllerUsuario = TextEditingController();
 
-  String _anotacao = "";
-  String _link = "";
-  String _nome = "";
-  String _senha = "";
-  String _usuario = "";
+  final String _anotacao = "";
+  final String _link = "";
+  final String _nome = "";
+  final String _senha = "";
+  final String _usuario = "";
 
   @override
   void initState() {
     super.initState();
-    Future(() => iniciarSenha());
+    // Future(() => iniciarSenha());
   }
 
-  iniciarSenha() async {
-    final document = await _senhaClass.getSenhaId(widget._idSenha);
+  // iniciarSenha() async {
+  //   final QuerySnapshot<Map<String, dynamic>> document =
+  //       await _senhaClass.getSenhaId(widget._idSenha);
 
-    if (document != null) {
-      setState(() {
-        _controllerAnotacao = _anotacao = document['anotacao'];
-        _controllerLink = _link = document['link'];
-        _controllerNome = _nome = document['nome'];
-        _controllerSenha = _senha = document['senha'];
-        _controllerUsuario = _usuario = document['usuario'];
-      });
-    }
-  }
+  //   if (document != null) {
+  //     setState(() {
+  //       _controllerAnotacao = _anotacao = document['anotacao'];
+  //       _controllerLink = _link = document['link'];
+  //       _controllerNome = _nome = document['nome'];
+  //       _controllerSenha = _senha = document['senha'];
+  //       _controllerUsuario = _usuario = document['usuario'];
+  //     });
+  //   }
+  // }
 
   floatingActionButton() {
-    setState(() {});
+    Map<String, dynamic> form = {
+      "anotacao": _controllerAnotacao.text,
+      "dataAlteracao": "",
+      "dataRegistro": DateTime.now().toString(),
+      "idSenha": uuid.v4(),
+      "idUsuario": "idUsuario",
+      "link": _controllerLink.text,
+      "nome": _controllerNome.text,
+      "oculto": false,
+      "senha": _controllerSenha.text,
+    };
   }
 
   @override

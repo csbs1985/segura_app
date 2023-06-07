@@ -47,7 +47,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
 
   void copiarSenha(BuildContext context) {
     Clipboard.setData(ClipboardData(text: widget._senha["senha"]));
-    _toastClass.abrirToast(context, SenhaEnum.PADRAO.value, SENHA_COPIADA);
+    _toastClass.abrirToast(context, SenhaEnum.SUCESSO.value, SENHA_COPIADA);
   }
 
   @override

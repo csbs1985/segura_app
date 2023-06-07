@@ -5,7 +5,7 @@ import 'package:senha_app/theme/ui_espaco.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/theme/ui_texto.dart';
 
-class FormularioInput extends StatelessWidget {
+class FormularioInput extends StatefulWidget {
   final bool? autoFocus;
   final TextEditingController? controller;
   final Function? callback;
@@ -38,7 +38,19 @@ class FormularioInput extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<FormularioInput> createState() => _FormularioInputState();
+}
+
+class _FormularioInputState extends State<FormularioInput> {
+  @override
   Widget build(BuildContext context) {
+    bool showPrefix = false;
+
+    onChanged(value) {
+      widget.callback!(value);
+      setState(() => showPrefix = value.isNotEmpty);
+    }
+
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, _) {
@@ -46,22 +58,23 @@ class FormularioInput extends StatelessWidget {
 
         return SizedBox(
           child: TextFormField(
-            autofocus: autoFocus!,
-            controller: controller,
-            expands: expands!,
-            focusNode: focusNode,
-            keyboardType: keyboardType,
-            onChanged: (value) => callback!(value),
-            onSaved: onSaved,
-            maxLength: maxLength,
-            minLines: minLines,
-            maxLines: maxLines,
+            autofocus: widget.autoFocus!,
+            controller: widget.controller,
+            expands: widget.expands!,
+            focusNode: widget.focusNode,
+            keyboardType: widget.keyboardType,
+            onChanged: (value) => onChanged(value),
+            onSaved: widget.onSaved,
+            maxLength: widget.maxLength,
+            minLines: widget.minLines,
+            maxLines: widget.maxLines,
             style: Theme.of(context).textTheme.displaySmall,
             textAlignVertical: TextAlignVertical.center,
-            validator: validator,
+            validator: widget.validator,
             decoration: InputDecoration(
+              prefixText: showPrefix ? "prefixo: " : null,
               counterStyle: Theme.of(context).textTheme.headlineSmall,
-              hintText: hintText,
+              hintText: widget.hintText,
               filled: true,
               fillColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
               hintStyle: Theme.of(context).textTheme.bodySmall,

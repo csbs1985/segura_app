@@ -29,6 +29,7 @@ dependencies:
   unicons: ^2.1.1
   uuid: ^3.0.7
   toastification: ^0.0.3
+  animated_page_transition: ^0.0.1+2
 
 dev_dependencies:
   flutter_test:
