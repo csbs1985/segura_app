@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/icone_button.dart';
@@ -51,31 +52,28 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   @override
   void initState() {
     super.initState();
-    // Future(() => iniciarSenha());
+    Future(() => iniciarSenha());
   }
 
-  // iniciarSenha() async {
-  //   final QuerySnapshot<Map<String, dynamic>> document =
-  //       await _senhaClass.getSenhaId(widget._idSenha);
+  iniciarSenha() async {
+    final QuerySnapshot<Map<String, dynamic>> document =
+        await _senhaClass.getSenhaId(widget._idSenha);
 
-  //   if (document != null) {
-  //     setState(() {
-  //       _controllerAnotacao = _anotacao = document['anotacao'];
-  //       _controllerLink = _link = document['link'];
-  //       _controllerNome = _nome = document['nome'];
-  //       _controllerSenha = _senha = document['senha'];
-  //       _controllerUsuario = _usuario = document['usuario'];
-  //     });
-  //   }
-  // }
+    print("object");
+
+    // setState(() {
+    //   _controllerAnotacao = _anotacao = document['anotacao'];
+    //   _controllerLink = _link = document['link'];
+    //   _controllerNome = _nome = document['nome'];
+    //   _controllerSenha = _senha = document['senha'];
+    //   _controllerUsuario = _usuario = document['usuario'];
+    //   _dataAlteracao = document['dataAlteracao'];
+    //   _oculto = document['oculto'];
+    // });
+  }
 
   toggleOculto() {
     setState(() => _oculto = !_oculto);
-    _toastClass.abrirToast(
-      context: context,
-      estilo: SenhaEnum.PADRAO.value,
-      texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
-    );
   }
 
   floatingActionButton() {
@@ -139,73 +137,84 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           ),
           IconeButton(
             icone: UniconsLine.trash_alt,
-            callback: () => {},
+            callback: () => _senhaClass.deletarSenha(context, widget._idSenha),
           ),
           const SizedBox(width: 0),
         ],
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              FormularioInput(
-                controller: _controllerNome,
-                callback: (value) => {},
-                hintText: NOME,
-                validator: (value) =>
-                    isIdentificador(_controllerLink.text, value!),
-              ),
-              SizedBox(height: _espaco),
-              FormularioInput(
-                controller: _controllerLink,
-                callback: (value) => {},
-                hintText: LINK,
-                validator: (value) => combinarValidacao([
-                  () => isIdentificador(value!, _controllerNome.text),
-                  () => regexUrl(value),
-                ]),
-              ),
-              SizedBox(height: _espaco),
-              FormularioInput(
-                controller: _controllerUsuario,
-                callback: (value) => {},
-                hintText: USUARIO,
-              ),
-              SizedBox(height: _espaco),
-              FormularioInput(
-                controller: _controllerSenha,
-                callback: (value) => {},
-                hintText: SENHA,
-                validator: (value) => combinarValidacao([
-                  () => inNotEmpty(value, SENHA_OBRIGATORIO),
-                  () => isSenhaCaracteres(value!),
-                ]),
-              ),
-              SizedBox(height: _espaco),
-              FormularioInput(
-                controller: _controllerAnotacao,
-                callback: (value) => {},
-                hintText: ANOTACAO,
-                minLines: 1,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-              ),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                FormularioInput(
+                  controller: _controllerNome,
+                  callback: (value) => {},
+                  hintText: NOME,
+                  validator: (value) =>
+                      isIdentificador(_controllerLink.text, value!),
+                ),
+                SizedBox(height: _espaco),
+                FormularioInput(
+                  controller: _controllerLink,
+                  callback: (value) => {},
+                  hintText: LINK,
+                  validator: (value) => combinarValidacao([
+                    () => isIdentificador(value!, _controllerNome.text),
+                    () => regexUrl(value),
+                  ]),
+                ),
+                SizedBox(height: _espaco),
+                FormularioInput(
+                  controller: _controllerUsuario,
+                  callback: (value) => {},
+                  hintText: USUARIO,
+                ),
+                SizedBox(height: _espaco),
+                FormularioInput(
+                  controller: _controllerSenha,
+                  callback: (value) => {},
+                  hintText: SENHA,
+                  validator: (value) => combinarValidacao([
+                    () => inNotEmpty(value, SENHA_OBRIGATORIO),
+                    () => isSenhaCaracteres(value!),
+                  ]),
+                ),
+                SizedBox(height: _espaco),
+                FormularioInput(
+                  controller: _controllerAnotacao,
+                  callback: (value) => {},
+                  hintText: ANOTACAO,
+                  minLines: 1,
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                ),
+              ],
+            ),
           ),
         ),
       ),
-      bottomSheet: !_dataAlteracao.isNotEmpty
-          ? null
-          : Container(
-              width: MediaQuery.sizeOf(context).width,
-              color: Theme.of(context).scaffoldBackgroundColor,
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-              child: LegendaText(
+      bottomSheet: Container(
+        width: MediaQuery.sizeOf(context).width,
+        height: 48,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        // color: Colors.amber,
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        child: Column(
+          children: [
+            if (_dataAlteracao != "")
+              LegendaText(
                 texto: _senhaClass.ultimaEdicao(_dataAlteracao),
               ),
-            ),
+            LegendaText(
+              texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
+            )
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => floatingActionButton(),
         shape: RoundedRectangleBorder(

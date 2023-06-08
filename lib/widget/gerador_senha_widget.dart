@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/3d_button.dart';
+import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/senha_class.dart';
-import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
@@ -30,10 +30,10 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final TextEditingController _controllerTamanho = TextEditingController();
-  final ToastClass _toastClass = ToastClass();
 
   String senhaGerada = "";
   int tamanho = 8;
+  bool isSelecionado = false;
 
   final double _height = 16;
 
@@ -51,23 +51,31 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
       if (isSelecionado) {
         setState(() =>
             senhaGerada = _senhaClass.gerarSenha(listaGeradorSenha, tamanho));
-      } else {
+        FocusScope.of(context).unfocus();
+      } else
         setState(() => senhaGerada = "");
-        _toastClass.abrirToast(
-          context: context,
-          estilo: SenhaEnum.ERRO.value,
-          texto: SENHA_GERADOR_ERRO,
-        );
-      }
     }
+  }
+
+  void _verificaSelecionados() {
+    setState(() {
+      int count = listaGeradorSenha.where((item) => item.selecionado).length;
+      isSelecionado = count > 0 ? true : false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconeButton(
+          callback: () => Navigator.of(context).pop(),
+          icone: UniconsLine.times,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: Form(
             key: _formKey,
             child: Column(
@@ -80,7 +88,7 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
                 const TextoText(texto: SENHA_CARACTERES),
                 SizedBox(height: _height),
                 SelecionarWidget(
-                  callback: (value) => {},
+                  callback: (value) => _verificaSelecionados(),
                   lista: listaGeradorSenha,
                 ),
                 SizedBox(height: _height),
@@ -93,10 +101,11 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
                   validator: (value) => isSenhaCaracteresInt(value!),
                 ),
                 SizedBox(height: _height),
-                Button3dWidget(
-                  callback: (value) => _gerarSenha(),
-                  texto: SENHA_GERAR,
-                ),
+                if (isSelecionado)
+                  Button3dWidget(
+                    callback: (value) => _gerarSenha(),
+                    texto: SENHA_GERAR,
+                  ),
                 if (senhaGerada.isNotEmpty)
                   SizedBox(
                     width: double.infinity,

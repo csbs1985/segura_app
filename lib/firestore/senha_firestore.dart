@@ -3,6 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SenhaFirestore {
   CollectionReference senhas = FirebaseFirestore.instance.collection('senhas');
 
+  deletarSenhaId(String idSenha) async {
+    return await senhas.doc(idSenha).delete();
+  }
+
   getTodasSenhasUsuario(String idUsuario) {
     return senhas.orderBy('nome').where('idUsuario', isEqualTo: idUsuario);
   }

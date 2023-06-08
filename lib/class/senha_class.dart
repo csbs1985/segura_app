@@ -1,13 +1,16 @@
 import 'dart:math';
 import 'package:favicon/favicon.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
+import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class SenhaClass {
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
+  final ToastClass _toastClass = ToastClass();
 
   Future<String> definirFavicon(String url) async {
     final favicon = await FaviconFinder.getBest(url);
@@ -82,5 +85,19 @@ class SenhaClass {
     }
 
     return senha;
+  }
+
+  deletarSenha(BuildContext context, String idSenha) {
+    try {
+      _senhaFirestore.deletarSenhaId(idSenha).then(
+            (result) => Navigator.of(context).pop(),
+          );
+    } catch (e) {
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: SENHA_DELETAR_ERRO,
+      );
+    }
   }
 }
