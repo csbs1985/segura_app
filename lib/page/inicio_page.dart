@@ -10,6 +10,7 @@ import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
+import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
 import 'package:senha_app/widget/resultado_erro_widget.dart';
 import 'package:senha_app/widget/padrao_input.dart';
@@ -30,6 +31,8 @@ class _InicioPageState extends State<InicioPage> {
 
   @override
   Widget build(BuildContext context) {
+    double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -59,8 +62,9 @@ class _InicioPageState extends State<InicioPage> {
                   physics: const NeverScrollableScrollPhysics(),
                   loadingBuilder: (context) => const SenhaItemSkeleton(),
                   errorBuilder: (context, error, _) =>
-                      const ErroResultadoWidget(),
-                  emptyBuilder: (context) => const ResultadoVazioWidget(),
+                      ErroResultadoWidget(altura: altura),
+                  emptyBuilder: (context) =>
+                      ResultadoVazioWidget(altura: altura),
                   itemBuilder: (
                     BuildContext context,
                     QueryDocumentSnapshot<dynamic> snapshot,

@@ -89,9 +89,23 @@ class SenhaClass {
 
   deletarSenha(BuildContext context, String idSenha) {
     try {
-      _senhaFirestore.deletarSenhaId(idSenha).then(
-            (result) => Navigator.of(context).pop(),
-          );
+      _senhaFirestore
+          .patchDeletarSenhaId(idSenha)
+          .then((result) => Navigator.of(context).pop());
+    } catch (e) {
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: SENHA_DELETAR_ERRO,
+      );
+    }
+  }
+
+  deletarSenhaDefinitivo(BuildContext context, String idSenha) {
+    try {
+      _senhaFirestore
+          .deletarSenhaId(idSenha)
+          .then((result) => Navigator.of(context).pop());
     } catch (e) {
       _toastClass.abrirToast(
         context: context,
