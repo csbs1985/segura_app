@@ -1,8 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/auth_config.dart';
+import 'package:senha_app/page/biometria_page.dart';
 import 'package:senha_app/page/entrar_page.dart';
+import 'package:senha_app/page/gerar_senha_page.dart';
 import 'package:senha_app/page/inicio_page.dart';
+import 'package:senha_app/page/lixeira_page.dart';
 import 'package:senha_app/page/senha_page.dart';
 
 final AuthConfig _authConfig = AuthConfig();
@@ -23,12 +26,11 @@ final GoRouter routes = GoRouter(
   },
   routes: [
     GoRoute(
-      name: RoutesEnum.SENHA.value,
-      path: "/senha/:idSenha",
+      path: RoutesEnum.BIOMETRIA.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: SenhaPage(idSenha: state.pathParameters["idSenha"]!),
+        child: const BiometriaPage(),
       ),
     ),
     GoRoute(
@@ -40,11 +42,36 @@ final GoRouter routes = GoRouter(
       ),
     ),
     GoRoute(
+      path: RoutesEnum.GERAR_SENHA.value,
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: const GerarSenhaPage(),
+      ),
+    ),
+    GoRoute(
       path: RoutesEnum.INICIO.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
         child: const InicioPage(),
+      ),
+    ),
+    GoRoute(
+      path: RoutesEnum.LIXEIRA.value,
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: const LixeiraPage(),
+      ),
+    ),
+    GoRoute(
+      name: RoutesEnum.SENHA.value,
+      path: "/senha/:idSenha",
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: SenhaPage(idSenha: state.pathParameters["idSenha"]!),
       ),
     ),
   ],

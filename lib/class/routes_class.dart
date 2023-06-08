@@ -22,8 +22,11 @@ CustomTransitionPage transicaoPaginas<T>({
 }
 
 enum RoutesEnum {
+  BIOMETRIA('/biometria'),
   ENTRAR('/entrar'),
+  GERAR_SENHA('/gerar_senha'),
   INICIO('/inicio'),
+  LIXEIRA('/lixeira'),
   SENHA('senha');
 
   final String value;

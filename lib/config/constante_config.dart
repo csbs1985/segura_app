@@ -1,5 +1,7 @@
 const String ANOTACAO = "Anotações";
 
+const String BIOMETRIA = "Biometria";
+
 const String EMPTY = "empty";
 
 const String ENTRAR_BEM_VINDO = "Seja bem vindo";

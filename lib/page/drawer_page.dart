@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:senha_app/button/lista_button.dart';
+import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -43,14 +45,24 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
               ListaButton(
                 texto: SENHA_CRIAR,
-                callback: () => {},
+                callback: () => context.pushNamed(RoutesEnum.SENHA.value,
+                    pathParameters: {'idSenha': EMPTY}),
+              ),
+              const SizedBox(height: 4),
+              ListaButton(
+                texto: SENHA_GERAR,
+                callback: () => context.pushNamed(RoutesEnum.GERAR_SENHA.value),
               ),
               const SizedBox(height: 4),
               ListaButton(
                 texto: LIXEIRA,
-                callback: () => {},
+                callback: () => context.pushNamed(RoutesEnum.LIXEIRA.value),
               ),
               const SizedBox(height: 4),
+              ListaButton(
+                texto: BIOMETRIA,
+                callback: () => context.pushNamed(RoutesEnum.BIOMETRIA.value),
+              ),
             ],
           ),
         ),

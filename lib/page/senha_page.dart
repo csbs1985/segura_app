@@ -135,10 +135,12 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
             callback: () => toggleOculto(),
           ),
-          IconeButton(
-            icone: UniconsLine.trash_alt,
-            callback: () => _senhaClass.deletarSenha(context, widget._idSenha),
-          ),
+          if (_controllerSenha.text != "")
+            IconeButton(
+              icone: UniconsLine.trash_alt,
+              callback: () =>
+                  _senhaClass.deletarSenha(context, widget._idSenha),
+            ),
           const SizedBox(width: 0),
         ],
         elevation: 0,
@@ -214,12 +216,15 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => floatingActionButton(),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UiBorda.arredondada)),
-        child: const Icon(UniconsLine.plus),
-      ),
+      floatingActionButton: _controllerSenha.text == ""
+          ? null
+          : FloatingActionButton(
+              onPressed: () => floatingActionButton(),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(UiBorda.arredondada),
+              ),
+              child: const Icon(UniconsLine.plus),
+            ),
     );
   }
 }

@@ -32,7 +32,7 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
   final TextEditingController _controllerTamanho = TextEditingController();
 
   String senhaGerada = "";
-  int tamanho = 8;
+  String tamanho = "8";
   bool isSelecionado = false;
 
   final double _height = 16;
@@ -49,8 +49,8 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
           listaGeradorSenha.any((registro) => registro.selecionado == true);
 
       if (isSelecionado) {
-        setState(() =>
-            senhaGerada = _senhaClass.gerarSenha(listaGeradorSenha, tamanho));
+        setState(() => senhaGerada =
+            _senhaClass.gerarSenha(listaGeradorSenha, int.parse(tamanho)));
         FocusScope.of(context).unfocus();
       } else
         setState(() => senhaGerada = "");

@@ -6,7 +6,7 @@ import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
-import 'package:senha_app/page/lista_page.dart';
+import 'package:senha_app/page/drawer_page.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
