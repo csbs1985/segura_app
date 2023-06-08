@@ -9,12 +9,9 @@ import 'package:senha_app/theme/ui_tema.dart';
 class AvatarWidget extends StatefulWidget {
   const AvatarWidget({
     super.key,
-    required String avatar,
     double? size = UiTamanho.avatar,
-  })  : _avatar = avatar,
-        _size = size;
+  }) : _size = size;
 
-  final String _avatar;
   final double? _size;
 
   @override
@@ -26,7 +23,8 @@ class _AvatarWidgetState extends State<AvatarWidget> {
 
   Future<void> _vedificarUrl() async {
     try {
-      final response = await http.head(Uri.parse(widget._avatar));
+      final response =
+          await http.head(Uri.parse(currentUsuario.value.avatarUsuario));
       response.statusCode == 200;
       _isImagemAvatar = true;
     } catch (e) {
@@ -58,7 +56,8 @@ class _AvatarWidgetState extends State<AvatarWidget> {
                   child: _isImagemAvatar
                       ? CircleAvatar(
                           radius: widget._size,
-                          backgroundImage: NetworkImage(widget._avatar),
+                          backgroundImage:
+                              NetworkImage(currentUsuario.value.avatarUsuario),
                         )
                       : CircleAvatar(
                           radius: widget._size,

@@ -201,7 +201,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         width: MediaQuery.sizeOf(context).width,
         height: 48,
         color: Theme.of(context).scaffoldBackgroundColor,
-        // color: Colors.amber,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Column(
           children: [

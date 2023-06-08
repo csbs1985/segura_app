@@ -4,9 +4,9 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
-import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
+import 'package:senha_app/page/lista_page.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
@@ -26,14 +26,17 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
-  final AuthConfig _authConfig = AuthConfig();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
     double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
 
     return Scaffold(
+      key: scaffoldKey,
+      endDrawer: const DrawerPage(),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -47,9 +50,8 @@ class _InicioPageState extends State<InicioPage> {
                     children: [
                       const TituloText(texto: SENHA),
                       GestureDetector(
-                        onTap: () => _authConfig.signOutWithGoogle(),
-                        child: AvatarWidget(
-                            avatar: currentUsuario.value.avatarUsuario),
+                        onTap: () => scaffoldKey.currentState!.openEndDrawer(),
+                        child: const AvatarWidget(),
                       ),
                     ],
                   ),

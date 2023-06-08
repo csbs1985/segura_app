@@ -9,6 +9,8 @@ const String ENTRAR_GOOGLE =
 
 const String HOJE = "alterada hoje";
 
+const String LIXEIRA = "Lixeira";
+
 const String LINK = "Link";
 const String LINK_INVALIDO = "Link inválida";
 const String LINK_SEM_RESPOSTA = "Não é possível acessar esse site";
@@ -24,13 +26,16 @@ const String RESULTADO_ERRO =
 const String RESULTADO_VAZIO =
     "Sua pesquisa não encontrou nenhum resultado correspondente.";
 
+const String SAIR = "Sair";
+
 const String SENHA = "Senha";
-const String SENHA_CARACTERES = "Utilizar caracteres";
-const String SENHA_CARACTERES_DESCRICAO =
-    "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_ALTERACAO_1 = "ultima alteração há";
 const String SENHA_ALTERACAO_2 = "dias";
 const String SENHA_ASTERISCO = "********";
+const String SENHA_CARACTERES = "Utilizar caracteres";
+const String SENHA_CARACTERES_DESCRICAO =
+    "a senha deve ter de 4 à 32 caracteres";
+const String SENHA_CRIAR = "Criar senha";
 const String SENHA_COPIADA = "Senha copiada para a área de transferência";
 const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no monento";
 const String SENHA_GERAR = "Gerar senha";
