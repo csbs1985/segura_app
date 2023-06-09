@@ -19,29 +19,48 @@ class AuthConfig extends ChangeNotifier {
   }
 
   _definirUsuario() {
-    _auth.authStateChanges().listen((User? user) {
+    _auth.authStateChanges().listen((User? user) async {
       usuario = (user == null) ? null : user;
-      if (user != null) _verificarHive();
+      await _verificarHive();
       isLoading = false;
       notifyListeners();
     });
   }
 
   _verificarHive() async {
-    Map<String, dynamic> usuarioMap = {
-      'avatarUsuario': usuario!.photoURL,
-      'emailUsuario': usuario!.email,
-      'idUsuario': usuario!.uid,
-      'nomeUsuario': usuario!.displayName,
-    };
+    Map<String, dynamic>? usuarioMap;
 
-    await _usuarioHive.addUsuario(usuarioMap);
+    if (_usuarioHive.verificarUsuario()) {
+      final usuarioHive = await _usuarioHive.readUsuario();
+
+      usuarioMap = {
+        'avatarUsuario': usuarioHive['avatarUsuario'],
+        'biometria': usuarioHive['biometria'],
+        'emailUsuario': usuarioHive['emailUsuario'],
+        'idUsuario': usuarioHive['idUsuario'],
+        'nomeUsuario': usuarioHive['nomeUsuario'],
+        'senha': usuarioHive['senha'],
+      };
+    } else {
+      usuarioMap = {
+        'avatarUsuario': usuario!.photoURL,
+        'biometria': "",
+        'emailUsuario': usuario!.email,
+        'idUsuario': usuario!.uid,
+        'nomeUsuario': usuario!.displayName,
+        'senha': "",
+      };
+
+      await _usuarioHive.addUsuario(usuarioMap);
+    }
 
     currentUsuario.value = UsuarioModel(
       avatarUsuario: usuarioMap['avatarUsuario'],
+      biometria: usuarioMap['biometria'],
       emailUsuario: usuarioMap['emailUsuario'],
       idUsuario: usuarioMap['idUsuario'],
       nomeUsuario: usuarioMap['nomeUsuario'],
+      senha: usuarioMap['senha'],
     );
   }
 

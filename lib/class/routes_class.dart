@@ -27,6 +27,7 @@ enum RoutesEnum {
   GERAR_SENHA('/gerar_senha'),
   INICIO('/inicio'),
   LIXEIRA('/lixeira'),
+  MODO_ENTRADA('/modo_entrada'),
   SENHA('senha');
 
   final String value;

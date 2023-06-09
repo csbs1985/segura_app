@@ -1,6 +1,8 @@
 const String ANOTACAO = "Anotações";
 
-const String BIOMETRIA = "Biometria";
+const String BIOMETRIA = "Modo";
+
+const String MODO_ENTRADA = "Modo de entrada";
 
 const String EMPTY = "empty";
 
@@ -49,7 +51,7 @@ const String SENHA_COPIADA = "Senha copiada para a área de transferência";
 const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no momento";
 const String SENHA_GERAR = "Gerar senha";
 const String SENHA_GERADA = "senha gerada";
-const String SENHA_GERADOR = "Gerador de Senha";
+const String SENHA_GERADOR = "Gerador de senha";
 const String SENHA_GERADOR_DESCRICAO =
     'O gerador de senhas permite criar uma senha aleatória com diversas opções. Selecione as opções, clique em "Gerar Senha", confira a senha gerada e clique no botão principal para utilizar a senha gerada.';
 const String SENHA_OBRIGATORIO = "a senha é obrigatória";

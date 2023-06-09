@@ -8,6 +8,7 @@ import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
+import 'package:unicons/unicons.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
@@ -45,23 +46,27 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
               ListaButton(
                 texto: SENHA_CRIAR,
+                icone: Icons.gpp_good,
                 callback: () => context.pushNamed(RoutesEnum.SENHA.value,
                     pathParameters: {'idSenha': EMPTY}),
               ),
               const SizedBox(height: 4),
               ListaButton(
                 texto: SENHA_GERADOR,
+                icone: UniconsLine.asterisk,
                 callback: () => context.push(RoutesEnum.GERAR_SENHA.value),
               ),
               const SizedBox(height: 4),
               ListaButton(
                 texto: LIXEIRA,
+                icone: UniconsLine.trash_alt,
                 callback: () => context.push(RoutesEnum.LIXEIRA.value),
               ),
               const SizedBox(height: 4),
               ListaButton(
-                texto: BIOMETRIA,
-                callback: () => context.push(RoutesEnum.BIOMETRIA.value),
+                texto: MODO_ENTRADA,
+                icone: Icons.fingerprint,
+                callback: () => context.push(RoutesEnum.MODO_ENTRADA.value),
               ),
             ],
           ),
@@ -72,6 +77,7 @@ class _DrawerPageState extends State<DrawerPage> {
         width: double.infinity,
         child: ListaButton(
           texto: SAIR,
+          icone: UniconsLine.sign_in_alt,
           callback: () => _authConfig.signOutWithGoogle(),
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/auth_config.dart';
-import 'package:senha_app/page/biometria_page.dart';
 import 'package:senha_app/page/entrar_page.dart';
 import 'package:senha_app/page/gerar_senha_page.dart';
 import 'package:senha_app/page/inicio_page.dart';
 import 'package:senha_app/page/lixeira_page.dart';
+import 'package:senha_app/page/modo_entrada_page.dart';
 import 'package:senha_app/page/senha_page.dart';
 
 final AuthConfig _authConfig = AuthConfig();
@@ -26,11 +26,11 @@ final GoRouter routes = GoRouter(
   },
   routes: [
     GoRoute(
-      path: RoutesEnum.BIOMETRIA.value,
+      path: RoutesEnum.MODO_ENTRADA.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const BiometriaPage(),
+        child: const ModoEntradaPage(),
       ),
     ),
     GoRoute(

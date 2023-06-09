@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/senha_class.dart';
-import 'package:senha_app/class/toast_class.dart';
-import 'package:senha_app/skeleton/favicon_skeleton.dart';
 import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
-import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/theme/ui_tema.dart';
+import 'package:senha_app/widget/favicon_widget.dart';
 
 class SenhaItemWidget extends StatefulWidget {
   const SenhaItemWidget({
@@ -26,22 +24,8 @@ class SenhaItemWidget extends StatefulWidget {
 
 class _SenhaItemWidgetState extends State<SenhaItemWidget> {
   final SenhaClass _senhaClass = SenhaClass();
-  final ToastClass _toastClass = ToastClass();
 
-  String faviconUrl = "";
   String title = "";
-
-  @override
-  void initState() {
-    super.initState();
-    definirFavicon();
-  }
-
-  definirFavicon() {
-    _senhaClass.definirFavicon(widget._senha["link"]).then((url) {
-      setState(() => faviconUrl = url);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +52,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget._senha["link"] != "")
-                  SizedBox(
-                    height: UiTamanho.favicon,
-                    child: faviconUrl.isNotEmpty
-                        ? Image.network(faviconUrl)
-                        : const FaviconSkeleton(),
-                  ),
+                FaviconWidget(url: widget._senha["link"]),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
