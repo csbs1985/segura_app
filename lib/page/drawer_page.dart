@@ -51,17 +51,17 @@ class _DrawerPageState extends State<DrawerPage> {
               const SizedBox(height: 4),
               ListaButton(
                 texto: SENHA_GERAR,
-                callback: () => context.pushNamed(RoutesEnum.GERAR_SENHA.value),
+                callback: () => context.push(RoutesEnum.GERAR_SENHA.value),
               ),
               const SizedBox(height: 4),
               ListaButton(
                 texto: LIXEIRA,
-                callback: () => context.pushNamed(RoutesEnum.LIXEIRA.value),
+                callback: () => context.push(RoutesEnum.LIXEIRA.value),
               ),
               const SizedBox(height: 4),
               ListaButton(
                 texto: BIOMETRIA,
-                callback: () => context.pushNamed(RoutesEnum.BIOMETRIA.value),
+                callback: () => context.push(RoutesEnum.BIOMETRIA.value),
               ),
             ],
           ),

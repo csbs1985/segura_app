@@ -12,6 +12,12 @@ const String ENTRAR_GOOGLE =
 const String HOJE = "alterada hoje";
 
 const String LIXEIRA = "Lixeira";
+const String LIXEIRA_OPCOES = "Opções para lixeira";
+const String LIXEIRA_DEFINITIVAMENTE = "Excluir definativamente este senha";
+const String LIXEIRA_LIMPAR = "Esvaziar lixeira";
+const String LIXEIRA_RESTAURAR = "Restaurar lixeira";
+const String LIXEIRA_RESTAURAR_ERRO = "Não foi possível concluir a restauração";
+const String LIXEIRA_RESTAURAR_ITEM = "Restaurar esta senha";
 
 const String LINK = "Link";
 const String LINK_INVALIDO = "Link inválida";
@@ -41,7 +47,7 @@ const String SENHA_CARACTERES_DESCRICAO =
     "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_CRIAR = "Criar senha";
 const String SENHA_COPIADA = "Senha copiada para a área de transferência";
-const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no monento";
+const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no momento";
 const String SENHA_GERAR = "Gerar senha";
 const String SENHA_GERADA = "senha gerada";
 const String SENHA_GERADOR = "Gerador de Senha";

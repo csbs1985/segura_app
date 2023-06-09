@@ -10,7 +10,7 @@ import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/formulario_input.dart';
-import 'package:senha_app/widget/gerador_senha_widget.dart';
+import 'package:senha_app/modal/gerador_senha_modal.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -51,7 +51,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   @override
   void initState() {
     super.initState();
-    Future(() => iniciarSenha());
+    // Future(() => iniciarSenha());
   }
 
   iniciarSenha() async {
@@ -98,7 +98,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       expand: true,
       context: context,
       barrierColor: UiCor.overlay,
-      builder: (context) => GeradorSenhaWidget(
+      builder: (context) => GeradorSenhaModal(
         callback: (value) => {
           Navigator.of(context).pop(),
           setState(() => _controllerSenha.text = _senha = value),
@@ -121,6 +121,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconeButton(
           icone: UniconsLine.arrow_left,
           callback: () => Navigator.of(context).pop(),
@@ -138,11 +139,10 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             IconeButton(
               icone: UniconsLine.trash_alt,
               callback: () =>
-                  _senhaClass.deletarSenha(context, widget._idSenha),
+                  _senhaClass.toggleSenhaTrue(context, widget._idSenha),
             ),
           const SizedBox(width: 0),
         ],
-        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(

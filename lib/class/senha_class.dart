@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
+import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -82,11 +83,10 @@ class SenhaClass {
     return senha;
   }
 
-  deletarSenha(BuildContext context, String idSenha) {
+  toggleSenhaTrue(BuildContext context, String idSenha) async {
     try {
-      _senhaFirestore
-          .patchDeletarSenhaId(idSenha)
-          .then((result) => Navigator.of(context).pop());
+      await _senhaFirestore.toggleSenhaTrue(idSenha);
+      Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
         context: context,
@@ -96,16 +96,61 @@ class SenhaClass {
     }
   }
 
-  deletarSenhaDefinitivo(BuildContext context, String idSenha) {
+  excluirSenha(BuildContext context, String idSenha) async {
     try {
-      _senhaFirestore
-          .deletarSenhaId(idSenha)
-          .then((result) => Navigator.of(context).pop());
+      await _senhaFirestore.deleteSenhaId(idSenha);
+      Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
         context: context,
         estilo: SenhaEnum.ERRO.value,
         texto: SENHA_DELETAR_ERRO,
+      );
+    }
+  }
+
+  esvaziarLixeira(BuildContext context) async {
+    try {
+      List<String> listaSenha = await _senhaFirestore
+          .getTodasSenhasUsuarioGet(currentUsuario.value.idUsuario);
+      for (var item in listaSenha) await _senhaFirestore.deleteSenhaId(item);
+
+      Navigator.of(context).pop();
+    } catch (e) {
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: SENHA_DELETAR_ERRO,
+      );
+    }
+  }
+
+  toggleSenhaFalse(BuildContext context, String idSenha) async {
+    try {
+      await _senhaFirestore.toggleSenhaFalse(idSenha);
+      Navigator.of(context).pop();
+    } catch (error) {
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: LIXEIRA_RESTAURAR_ERRO,
+      );
+    }
+  }
+
+  restaurarLixeira(BuildContext context) async {
+    try {
+      List<String> listaSenha = await _senhaFirestore
+          .getTodasSenhasUsuarioGet(currentUsuario.value.idUsuario);
+      for (var item in listaSenha) await _senhaFirestore.toggleSenhaFalse(item);
+
+      Navigator.of(context).pop();
+    } catch (e) {
+      print(e);
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: LIXEIRA_RESTAURAR_ERRO,
       );
     }
   }
