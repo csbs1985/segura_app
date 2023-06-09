@@ -75,21 +75,24 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     setState(() => _oculto = !_oculto);
   }
 
-  floatingActionButton() {
+  floatingActionButton(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      Map<String, dynamic> form = {
-        "anotacao": _controllerAnotacao.text,
-        "dataAlteracao": "",
-        "dataRegistro": DateTime.now().toString(),
-        "idSenha": uuid.v4(),
-        "idUsuario": currentUsuario.value.idUsuario,
-        "link": _controllerLink.text,
-        "nome": _controllerNome.text,
-        "oculto": _oculto,
-        "senha": _controllerSenha.text,
-      };
+      setState(() {
+        Map<String, dynamic> form = {
+          "anotacao": _controllerAnotacao.text,
+          "dataAlteracao": "",
+          "dataRegistro": DateTime.now().toString(),
+          "idSenha": uuid.v4(),
+          "idUsuario": currentUsuario.value.idUsuario,
+          "link": _controllerLink.text,
+          "lixeira": false,
+          "nome": _controllerNome.text,
+          "oculto": _oculto,
+          "senha": _controllerSenha.text,
+        };
 
-      _senhaClass.postSenha(form);
+        _senhaClass.postSenha(context, form);
+      });
     }
   }
 
@@ -177,7 +180,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                 SizedBox(height: _espaco),
                 FormularioInput(
                   controller: _controllerSenha,
-                  callback: (value) => {},
+                  callback: (value) => setState(() => _senha = value),
                   hintText: SENHA,
                   validator: (value) => combinarValidacao([
                     () => inNotEmpty(value, SENHA_OBRIGATORIO),
@@ -200,7 +203,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       ),
       bottomSheet: Container(
         width: MediaQuery.sizeOf(context).width,
-        height: 48,
+        height: _dataAlteracao.isEmpty ? 32 : 48,
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Column(
@@ -215,10 +218,10 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           ],
         ),
       ),
-      floatingActionButton: _controllerSenha.text == ""
+      floatingActionButton: _senha == ""
           ? null
           : FloatingActionButton(
-              onPressed: () => floatingActionButton(),
+              onPressed: () => floatingActionButton(context),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(UiBorda.arredondada),
               ),

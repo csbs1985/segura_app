@@ -49,8 +49,17 @@ class SenhaClass {
     }
   }
 
-  postSenha(Map<String, dynamic> senha) async {
-    await _senhaFirestore.postSenha(senha);
+  postSenha(BuildContext context, Map<String, dynamic> senha) async {
+    try {
+      await _senhaFirestore.postSenha(senha);
+      Navigator.of(context).pop();
+    } catch (e) {
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: SENHA_SALVAR_ERRO,
+      );
+    }
   }
 
   String gerarSenha(

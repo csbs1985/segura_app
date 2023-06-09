@@ -57,6 +57,7 @@ const String SENHA_GERADOR_DESCRICAO =
 const String SENHA_OBRIGATORIO = "a senha é obrigatória";
 const String SENHA_OCULTA = "não mostraremos a senha na página inicial";
 const String SENHA_NAO_OCULTA = "mostraremos a senha na página inicial";
+const String SENHA_SALVAR_ERRO = "Não foi possível salvar a senha";
 const String SENHA_TAMANHO = "Tamanho da senha";
 
 const String USUARIO = "Usuário";
