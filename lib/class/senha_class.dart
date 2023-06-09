@@ -48,12 +48,6 @@ class SenhaClass {
     }
   }
 
-  getSenhaId(String idSenha) async {
-    await _senhaFirestore.getSenhaId(idSenha).then((result) => {
-          result != null,
-        });
-  }
-
   postSenha(Map<String, dynamic> senha) async {
     await _senhaFirestore.postSenha(senha);
   }

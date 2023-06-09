@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
-import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
@@ -30,7 +29,7 @@ class SenhaPage extends StatefulWidget {
 class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
-  final ToastClass _toastClass = ToastClass();
+  final SenhaFirestore _senhaFirestore = SenhaFirestore();
   final Uuid uuid = const Uuid();
 
   final TextEditingController _controllerAnotacao = TextEditingController();
@@ -39,12 +38,12 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final TextEditingController _controllerSenha = TextEditingController();
   final TextEditingController _controllerUsuario = TextEditingController();
 
-  final String _anotacao = "";
-  final String _link = "";
-  final String _nome = "";
+  String _anotacao = "";
+  String _link = "";
+  String _nome = "";
   String _senha = "";
-  final String _usuario = "";
-  final String _dataAlteracao = "";
+  String _usuario = "";
+  String _dataAlteracao = "";
   bool _oculto = false;
 
   final double _espaco = 24;
@@ -56,20 +55,20 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   }
 
   iniciarSenha() async {
-    final QuerySnapshot<Map<String, dynamic>> document =
-        await _senhaClass.getSenhaId(widget._idSenha);
+    Map<String, dynamic>? data;
 
-    print("object");
-
-    // setState(() {
-    //   _controllerAnotacao = _anotacao = document['anotacao'];
-    //   _controllerLink = _link = document['link'];
-    //   _controllerNome = _nome = document['nome'];
-    //   _controllerSenha = _senha = document['senha'];
-    //   _controllerUsuario = _usuario = document['usuario'];
-    //   _dataAlteracao = document['dataAlteracao'];
-    //   _oculto = document['oculto'];
-    // });
+    await _senhaFirestore.getSenhaId(widget._idSenha).then((document) => {
+          data = document.data() as Map<String, dynamic>,
+          setState(() {
+            _anotacao = data!['anotacao'];
+            _link = data!['link'];
+            _nome = data!['nome'];
+            _senha = data!['senha'];
+            _usuario = data!['usuario'];
+            _dataAlteracao = data!['dataAlteracao'];
+            _oculto = data!['oculto'];
+          }),
+        });
   }
 
   toggleOculto() {
