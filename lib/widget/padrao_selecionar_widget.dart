@@ -5,40 +5,33 @@ import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/theme/ui_texto.dart';
 
-class SelecionarWidget extends StatefulWidget {
-  const SelecionarWidget({
+class PadraoSelecionarWidget extends StatefulWidget {
+  const PadraoSelecionarWidget({
     super.key,
     required Function? callback,
-    required List<GerarSenhaModel> lista,
-  })  : _callback = callback,
-        _lista = lista;
+  }) : _callback = callback;
 
   final Function? _callback;
-  final List<GerarSenhaModel> _lista;
 
   @override
-  _SelecionarWidgetState createState() => _SelecionarWidgetState();
+  _PadraoSelecionarWidgetState createState() => _PadraoSelecionarWidgetState();
 }
 
-class _SelecionarWidgetState extends State<SelecionarWidget> {
-  List<GerarSenhaModel>? listaSelecionado;
+class _PadraoSelecionarWidgetState extends State<PadraoSelecionarWidget> {
+  List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.value];
 
-  @override
-  void initState() {
-    listaSelecionado = widget._lista;
-    super.initState();
-  }
-
-  void _selecionarCategoria(int index) {
+  void _selecionarCategoria(String value) {
     setState(() {
-      listaSelecionado![index].selecionado =
-          !listaSelecionado![index].selecionado;
-      widget._callback!(listaSelecionado);
+      listaSelecionado.contains(value)
+          ? listaSelecionado.remove(value)
+          : listaSelecionado.add(value);
     });
+
+    widget._callback!(listaSelecionado);
   }
 
-  bool isCategoriaSelecionada(int index) {
-    return listaSelecionado![index].selecionado ? true : false;
+  bool isCategoriaSelecionada(String value) {
+    return listaSelecionado.contains(value) ? true : false;
   }
 
   @override
@@ -54,21 +47,21 @@ class _SelecionarWidgetState extends State<SelecionarWidget> {
           children: [
             Wrap(
               children: [
-                for (var item in widget._lista)
+                for (var item in listaGeradorSenha)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
                     child: SizedBox(
                       height: UiTamanho.tag,
                       child: TextButton(
-                        onPressed: () => _selecionarCategoria(item.index),
-                        style: isCategoriaSelecionada(item.index)
+                        onPressed: () => _selecionarCategoria(item.value),
+                        style: isCategoriaSelecionada(item.value)
                             ? UiBotao.tagAtivo
                             : isEscuro
                                 ? UiBotao.tagEscuro
                                 : UiBotao.tag,
                         child: Text(
                           item.texto,
-                          style: isCategoriaSelecionada(item.index)
+                          style: isCategoriaSelecionada(item.value)
                               ? UiTexto.tagAtiva
                               : isEscuro
                                   ? UiTexto.tagEscuro

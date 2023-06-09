@@ -5,12 +5,13 @@ import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
+import 'package:senha_app/text/error_text.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/padrao_input.dart';
-import 'package:senha_app/widget/seleciona_widget.dart';
+import 'package:senha_app/widget/padrao_selecionar_widget.dart';
 import 'package:unicons/unicons.dart';
 
 class GeradorSenhaWidget extends StatefulWidget {
@@ -33,7 +34,8 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
 
   String senhaGerada = "";
   String tamanho = "8";
-  bool isSelecionado = false;
+  bool isSelecionado = true;
+  List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.value];
 
   final double _height = 16;
 
@@ -45,22 +47,19 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
 
   _gerarSenha() {
     if (_formKey.currentState!.validate()) {
-      bool isSelecionado =
-          listaGeradorSenha.any((registro) => registro.selecionado == true);
-
       if (isSelecionado) {
         setState(() => senhaGerada =
-            _senhaClass.gerarSenha(listaGeradorSenha, int.parse(tamanho)));
+            _senhaClass.gerarSenha(listaSelecionado, int.parse(tamanho)));
         FocusScope.of(context).unfocus();
       } else
         setState(() => senhaGerada = "");
-    }
+    } else {}
   }
 
-  void _verificaSelecionados() {
+  void _verificaSelecionados(List<String> value) {
     setState(() {
-      int count = listaGeradorSenha.where((item) => item.selecionado).length;
-      isSelecionado = count > 0 ? true : false;
+      listaSelecionado = value;
+      isSelecionado = listaSelecionado.isEmpty ? false : true;
     });
   }
 
@@ -87,10 +86,11 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
                 SizedBox(height: _height),
                 const TextoText(texto: SENHA_CARACTERES),
                 SizedBox(height: _height),
-                SelecionarWidget(
-                  callback: (value) => _verificaSelecionados(),
-                  lista: listaGeradorSenha,
+                PadraoSelecionarWidget(
+                  callback: (value) => _verificaSelecionados(value),
                 ),
+                if (!isSelecionado)
+                  const ErroText(texto: SENHA_CARACTERES_ERRO),
                 SizedBox(height: _height),
                 const TextoText(texto: SENHA_TAMANHO),
                 SizedBox(height: _height),
@@ -101,11 +101,10 @@ class _GeradorSenhaWidgetState extends State<GeradorSenhaWidget>
                   validator: (value) => isSenhaCaracteresInt(value!),
                 ),
                 SizedBox(height: _height),
-                if (isSelecionado)
-                  Button3dWidget(
-                    callback: (value) => _gerarSenha(),
-                    texto: SENHA_GERAR,
-                  ),
+                Button3dWidget(
+                  callback: (value) => _gerarSenha(),
+                  texto: SENHA_GERAR,
+                ),
                 if (senhaGerada.isNotEmpty)
                   SizedBox(
                     width: double.infinity,

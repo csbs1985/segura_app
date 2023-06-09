@@ -35,6 +35,8 @@ const String SENHA_ALTERACAO_1 = "ultima alteração há";
 const String SENHA_ALTERACAO_2 = "dias";
 const String SENHA_ASTERISCO = "********";
 const String SENHA_CARACTERES = "Utilizar caracteres";
+const String SENHA_CARACTERES_ERRO =
+    "escolha ao menos um caracter para gerar a senha";
 const String SENHA_CARACTERES_DESCRICAO =
     "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_CRIAR = "Criar senha";

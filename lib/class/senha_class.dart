@@ -59,24 +59,25 @@ class SenhaClass {
   }
 
   String gerarSenha(
-    List<GerarSenhaModel> listaSelecionado,
+    List<String> listaSelecionado,
     int tamanho,
   ) {
-    const letrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const letrasMinusculas = 'abcdefghijklmnopqrstuvwxyz';
+    const caracteres = '!@#\$%^&*()-_=+[]{}|;:,.<>/?';
+    const maiuscula = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const minuscula = 'abcdefghijklmnopqrstuvwxyz';
     const numeros = '0123456789';
-    const caracteresEspeciais = '!@#\$%^&*()-_=+[]{}|;:,.<>/?';
 
     final random = Random();
     String caracteresPermitidos = '';
 
-    if (listaSelecionado[0].selecionado)
-      caracteresPermitidos += letrasMinusculas;
-    if (listaSelecionado[1].selecionado)
-      caracteresPermitidos += letrasMaiusculas;
-    if (listaSelecionado[2].selecionado) caracteresPermitidos += numeros;
-    if (listaSelecionado[3].selecionado)
-      caracteresPermitidos += caracteresEspeciais;
+    if (listaSelecionado.contains(GerarSenhaEnum.CARACTERES.value))
+      caracteresPermitidos += caracteres;
+    if (listaSelecionado.contains(GerarSenhaEnum.MAIUSCULA.value))
+      caracteresPermitidos += maiuscula;
+    if (listaSelecionado.contains(GerarSenhaEnum.MINUSCULA.value))
+      caracteresPermitidos += minuscula;
+    if (listaSelecionado.contains(GerarSenhaEnum.NUMEROS.value))
+      caracteresPermitidos += numeros;
 
     String senha = '';
     for (int i = 0; i < tamanho; i++) {
