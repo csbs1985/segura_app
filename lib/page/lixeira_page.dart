@@ -3,9 +3,11 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/modal/lixeira_modal.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
+import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/widget/lixeira_item_widget.dart';
@@ -46,16 +48,22 @@ class _LixeiraPageState extends State<LixeiraPage> {
           callback: () => Navigator.of(context).pop(),
         ),
         actions: [
-          IconeButton(
-            icone: UniconsLine.ellipsis_h,
-            callback: () => _abrirModal(context),
-          ),
+          if (_listaSenha.isNotEmpty)
+            IconeButton(
+              icone: UniconsLine.ellipsis_h,
+              callback: () => _abrirModal(context),
+            ),
           const SizedBox(width: 0),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: SubtituloText(texto: LIXEIRA),
+            ),
             FirestoreListView(
               query: _senhaFirestore
                   .getTodasSenhasLixeira(currentUsuario.value.idUsuario),

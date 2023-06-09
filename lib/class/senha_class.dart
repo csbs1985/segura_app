@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
@@ -64,13 +65,13 @@ class SenhaClass {
     final random = Random();
     String caracteresPermitidos = '';
 
-    if (listaSelecionado.contains(GerarSenhaEnum.CARACTERES.value))
+    if (listaSelecionado.contains(GerarSenhaEnum.CARACTERES.name))
       caracteresPermitidos += caracteres;
-    if (listaSelecionado.contains(GerarSenhaEnum.MAIUSCULA.value))
+    if (listaSelecionado.contains(GerarSenhaEnum.MAIUSCULA.name))
       caracteresPermitidos += maiuscula;
-    if (listaSelecionado.contains(GerarSenhaEnum.MINUSCULA.value))
+    if (listaSelecionado.contains(GerarSenhaEnum.MINUSCULA.name))
       caracteresPermitidos += minuscula;
-    if (listaSelecionado.contains(GerarSenhaEnum.NUMEROS.value))
+    if (listaSelecionado.contains(GerarSenhaEnum.NUMEROS.name))
       caracteresPermitidos += numeros;
 
     String senha = '';
@@ -139,12 +140,20 @@ class SenhaClass {
       for (var item in listaSenha) await _senhaFirestore.toggleSenhaFalse(item);
       Navigator.of(context).pop();
     } catch (e) {
-      print(e);
       _toastClass.abrirToast(
         context: context,
         estilo: SenhaEnum.ERRO.value,
         texto: LIXEIRA_RESTAURAR_ERRO,
       );
     }
+  }
+
+  void copiarSenha(BuildContext context, String texto) {
+    Clipboard.setData(ClipboardData(text: texto));
+    _toastClass.abrirToast(
+      context: context,
+      estilo: SenhaEnum.SUCESSO.value,
+      texto: SENHA_COPIADA,
+    );
   }
 }

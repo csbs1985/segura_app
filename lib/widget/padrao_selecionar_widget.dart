@@ -18,7 +18,7 @@ class PadraoSelecionarWidget extends StatefulWidget {
 }
 
 class _PadraoSelecionarWidgetState extends State<PadraoSelecionarWidget> {
-  List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.value];
+  List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.name];
 
   void _selecionarCategoria(String value) {
     setState(() {

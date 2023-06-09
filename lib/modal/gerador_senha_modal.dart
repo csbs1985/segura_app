@@ -35,7 +35,7 @@ class _GeradorSenhaModalState extends State<GeradorSenhaModal>
   String senhaGerada = "";
   String tamanho = "8";
   bool isSelecionado = true;
-  List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.value];
+  List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.name];
 
   final double _height = 16;
 

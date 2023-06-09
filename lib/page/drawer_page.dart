@@ -50,7 +50,7 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
               const SizedBox(height: 4),
               ListaButton(
-                texto: SENHA_GERAR,
+                texto: SENHA_GERADOR,
                 callback: () => context.push(RoutesEnum.GERAR_SENHA.value),
               ),
               const SizedBox(height: 4),

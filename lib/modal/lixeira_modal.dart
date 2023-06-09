@@ -44,7 +44,7 @@ class _LixeiraModalState extends State<LixeiraModal> {
                 children: [
                   const SubtituloText(texto: LIXEIRA),
                   const SizedBox(height: 16),
-                  const TextoText(texto: LIXEIRA_OPCOES),
+                  const TextoText(texto: RESULTADO_VAZIO),
                   const SizedBox(height: 16),
                   if (widget._idSenha != null)
                     Column(
@@ -66,18 +66,22 @@ class _LixeiraModalState extends State<LixeiraModal> {
                         const SizedBox(height: 4),
                       ],
                     ),
-                  ModalButton(
-                    texto: LIXEIRA_RESTAURAR,
-                    icone: UniconsLine.history,
-                    callback: () => _senhaClass.restaurarLixeira(
-                        context, widget._listaSenha),
-                  ),
-                  const SizedBox(height: 4),
-                  ModalButton(
-                    texto: LIXEIRA_LIMPAR,
-                    icone: UniconsLine.trash_alt,
-                    callback: () => _senhaClass.esvaziarLixeira(
-                        context, widget._listaSenha),
+                  Column(
+                    children: [
+                      ModalButton(
+                        texto: LIXEIRA_RESTAURAR,
+                        icone: UniconsLine.history,
+                        callback: () => _senhaClass.restaurarLixeira(
+                            context, widget._listaSenha),
+                      ),
+                      const SizedBox(height: 4),
+                      ModalButton(
+                        texto: LIXEIRA_LIMPAR,
+                        icone: UniconsLine.trash_alt,
+                        callback: () => _senhaClass.esvaziarLixeira(
+                            context, widget._listaSenha),
+                      ),
+                    ],
                   ),
                 ],
               ),

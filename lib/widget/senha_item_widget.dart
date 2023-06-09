@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
-import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/skeleton/favicon_skeleton.dart';
 import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/text/texto_text.dart';
@@ -12,7 +11,6 @@ import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/theme/ui_tema.dart';
-import 'package:flutter/services.dart';
 
 class SenhaItemWidget extends StatefulWidget {
   const SenhaItemWidget({
@@ -45,20 +43,12 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
     });
   }
 
-  void copiarSenha(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: widget._senha["senha"]));
-    _toastClass.abrirToast(
-      context: context,
-      estilo: SenhaEnum.SUCESSO.value,
-      texto: SENHA_COPIADA,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(UiBorda.arredondada),
-      onLongPress: () => copiarSenha(context),
+      onLongPress: () =>
+          _senhaClass.copiarSenha(context, widget._senha["senha"]),
       onTap: () => context.pushNamed(RoutesEnum.SENHA.value,
           pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(
