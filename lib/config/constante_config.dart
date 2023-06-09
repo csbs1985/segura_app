@@ -31,8 +31,7 @@ const String PESQUISAR = "Pesquisar...";
 
 const String RESULTADO_ERRO =
     "Nos deparamos com um erro, \n tente novamente mais tarde.";
-const String RESULTADO_VAZIO =
-    "Sua pesquisa não encontrou nenhum resultado correspondente.";
+const String RESULTADO_VAZIO = "Nada para mostrar aqui";
 
 const String SAIR = "Sair";
 

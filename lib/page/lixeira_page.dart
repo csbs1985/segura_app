@@ -23,12 +23,14 @@ class LixeiraPage extends StatefulWidget {
 class _LixeiraPageState extends State<LixeiraPage> {
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
 
+  final List<String> _listaSenha = [];
+
   void _abrirModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => const LixeiraModal(),
+      builder: (context) => LixeiraModal(listaSenha: _listaSenha),
     );
   }
 
@@ -69,6 +71,7 @@ class _LixeiraPageState extends State<LixeiraPage> {
                 QueryDocumentSnapshot<dynamic> snapshot,
               ) {
                 Map<String, dynamic> senha = snapshot.data();
+                _listaSenha.add(senha['idSenha']);
 
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),

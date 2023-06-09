@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
-import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -109,12 +108,9 @@ class SenhaClass {
     }
   }
 
-  esvaziarLixeira(BuildContext context) async {
+  esvaziarLixeira(BuildContext context, List<String> listaSenha) async {
     try {
-      List<String> listaSenha = await _senhaFirestore
-          .getTodasSenhasUsuarioGet(currentUsuario.value.idUsuario);
       for (var item in listaSenha) await _senhaFirestore.deleteSenhaId(item);
-
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
@@ -138,12 +134,9 @@ class SenhaClass {
     }
   }
 
-  restaurarLixeira(BuildContext context) async {
+  restaurarLixeira(BuildContext context, List<String> listaSenha) async {
     try {
-      List<String> listaSenha = await _senhaFirestore
-          .getTodasSenhasUsuarioGet(currentUsuario.value.idUsuario);
       for (var item in listaSenha) await _senhaFirestore.toggleSenhaFalse(item);
-
       Navigator.of(context).pop();
     } catch (e) {
       print(e);

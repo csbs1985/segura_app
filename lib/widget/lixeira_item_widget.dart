@@ -47,7 +47,10 @@ class _LixeiraItemWidgetState extends State<LixeiraItemWidget> {
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => LixeiraModal(idSenha: idSenha),
+      builder: (context) => LixeiraModal(
+        idSenha: idSenha,
+        listaSenha: const [],
+      ),
     );
   }
 

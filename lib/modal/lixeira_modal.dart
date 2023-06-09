@@ -12,9 +12,12 @@ class LixeiraModal extends StatefulWidget {
   const LixeiraModal({
     super.key,
     String? idSenha,
-  }) : _idSenha = idSenha;
+    required List<String> listaSenha,
+  })  : _idSenha = idSenha,
+        _listaSenha = listaSenha;
 
   final String? _idSenha;
+  final List<String> _listaSenha;
 
   @override
   State<LixeiraModal> createState() => _LixeiraModalState();
@@ -66,13 +69,15 @@ class _LixeiraModalState extends State<LixeiraModal> {
                   ModalButton(
                     texto: LIXEIRA_RESTAURAR,
                     icone: UniconsLine.history,
-                    callback: () => _senhaClass.restaurarLixeira(context),
+                    callback: () => _senhaClass.restaurarLixeira(
+                        context, widget._listaSenha),
                   ),
                   const SizedBox(height: 4),
                   ModalButton(
                     texto: LIXEIRA_LIMPAR,
                     icone: UniconsLine.trash_alt,
-                    callback: () => _senhaClass.esvaziarLixeira(context),
+                    callback: () => _senhaClass.esvaziarLixeira(
+                        context, widget._listaSenha),
                   ),
                 ],
               ),
