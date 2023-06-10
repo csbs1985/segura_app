@@ -47,6 +47,11 @@ const String PIX_COPIADO = "Chave Pix copiada para a àrea de transferência";
 const String PIX_CODIGO = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";
 
 const String RELATAR_PROBLEMA = "Relatar problema";
+const String RELATAR_PROBLEMA_DESCRICAO =
+    "Olá! Estamos aqui para ajudar. Se você encontrou algum problema em nosso aplicativo, gostaríamos de ouvir sua experiência. Por favor, compartilhe os detalhes no campo abaixo e clique no botão para nos enviar. Agradecemos seu feedback e faremos o possível para resolver qualquer questão que você esteja enfrentando.";
+const String RELATAR_PROBLEMA_ERRO =
+    "Não foi possível relatar o problema, tente novamente mais tarde";
+const String RELATAR_PROBLEMA_SUCESSO = "Obrigado por sua colaboração";
 
 const String RESULTADO_ERRO =
     "Nos deparamos com um erro, \n tente novamente mais tarde.";
