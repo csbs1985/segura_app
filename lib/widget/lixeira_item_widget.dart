@@ -90,10 +90,8 @@ class _LixeiraItemWidgetState extends State<LixeiraItemWidget> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
                         child: LegendaText(
-                          texto: _senhaClass.ultimaEdicao(
-                              widget._senha["dataAlteracao"] != ""
-                                  ? widget._senha["dataAlteracao"]
-                                  : widget._senha["dataRegistro"]),
+                          texto: _senhaClass
+                              .ultimaEdicao(widget._senha["dataRegistro"]),
                         ),
                       ),
                       if (!widget._senha["oculto"])

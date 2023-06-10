@@ -2,7 +2,15 @@ const String ANOTACAO = "Anotações";
 
 const String BIOMETRIA = "Modo";
 
-const String MODO_ENTRADA = "Modo de entrada";
+const String COPIAR = "Copiar";
+const String COPIAR_ANOTACAO = "Copiar anotação";
+const String COPIAR_COPIADO = "Texto copiado para a área de transferência.";
+const String COPIAR_DESCRICAO = "Escolha o texto que deseja copiar";
+const String COPIAR_ERRO = "Não foi possível copiar texto ou em branco.";
+const String COPIAR_LINK = "Copiar link";
+const String COPIAR_NOME = "Copiar nome";
+const String COPIAR_SENHA = "Copiar senha";
+const String COPIAR_USUARIO = "Copiar usuário";
 
 const String DOAR = "Doar";
 const String DOAR_DESCRICAO =
@@ -34,8 +42,10 @@ const String LIXEIRA_RESTAURAR_ERRO = "Não foi possível concluir a restauraç�
 const String LIXEIRA_RESTAURAR_ITEM = "Restaurar esta senha";
 
 const String LINK = "Link";
-const String LINK_INVALIDO = "Link inválida";
+const String LINK_INVALIDO = "url não existe ou inválida";
 const String LINK_SEM_RESPOSTA = "Não é possível acessar esse site";
+
+const String MODO_ENTRADA = "Modo de entrada";
 
 const String NOME = "Nome";
 const String NOME_LINK =
@@ -69,7 +79,6 @@ const String SENHA_CARACTERES_ERRO =
 const String SENHA_CARACTERES_DESCRICAO =
     "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_CRIAR = "Criar senha";
-const String SENHA_COPIADA = "Senha copiada para a área de transferência";
 const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no momento";
 const String SENHA_GERAR = "Gerar senha";
 const String SENHA_GERADA = "senha gerada";

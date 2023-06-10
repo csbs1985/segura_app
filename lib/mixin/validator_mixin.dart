@@ -1,26 +1,18 @@
 import 'package:senha_app/config/constante_config.dart';
 
 mixin ValidatorMixin {
-  String? inNotEmpty(String? value, [String? mensagem]) {
-    if (value!.isEmpty) return mensagem ?? "este campo é obrigatório";
+  String? inNotEmpty(String? value) {
+    if (value!.isEmpty) return "este campo é obrigatório";
     return null;
   }
 
-  String? isIdentificador(String nome, String link) {
-    if (nome.isEmpty && link.isEmpty) return NOME_LINK;
-    return null;
-  }
+  String? regexUrl(String url) {
+    RegExp regex = RegExp(
+        r"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$");
 
-  String? regexUrl(String? value) {
-    RegExp urlRegex = RegExp(
-      r'^(http(s)?:\/\/)?[\w.-]+(\.[\w.-]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?$',
-      caseSensitive: false,
-      multiLine: false,
-    );
+    bool isURLValid = regex.hasMatch(url);
 
-    bool isURLValid = urlRegex.hasMatch(value!);
-
-    if (value.isNotEmpty && !isURLValid) return LINK_INVALIDO;
+    if (url.isNotEmpty && !isURLValid) return LINK_INVALIDO;
     return null;
   }
 

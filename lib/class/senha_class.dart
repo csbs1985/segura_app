@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
@@ -165,12 +164,17 @@ class SenhaClass {
     }
   }
 
-  void copiarSenha(BuildContext context, String texto) {
-    Clipboard.setData(ClipboardData(text: texto));
-    _toastClass.abrirToast(
-      context: context,
-      estilo: SenhaEnum.SUCESSO.value,
-      texto: SENHA_COPIADA,
-    );
+  validarUrl(String url) {
+    if (url.startsWith('http://')) {
+      url = url.replaceFirst('http://', 'https://');
+    } else if (url.startsWith('https://')) {
+      return url;
+    } else if (!url.startsWith('www.')) {
+      url = 'https://$url';
+    }
+
+    url = url.replaceAll(RegExp(r'www\.'), '');
+    print(url);
+    return url;
   }
 }

@@ -6,6 +6,7 @@ import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
+import 'package:senha_app/modal/copiar_modal.dart';
 import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
@@ -39,7 +40,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final TextEditingController _controllerUsuario = TextEditingController();
 
   String _anotacao = "";
-  String _dataAlteracao = "";
   String _dataRegistro = "";
   String _idSenha = "";
   String _link = "";
@@ -47,6 +47,9 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   String _nome = "";
   bool _oculto = false;
   String _senha = "";
+  String _usuario = "";
+
+  Map<String, dynamic>? _copiar;
 
   final double _espaco = 24;
 
@@ -63,7 +66,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           data = document.data() as Map<String, dynamic>,
           setState(() {
             _controllerAnotacao.text = _anotacao = data!['anotacao'];
-            _dataAlteracao = data!['dataAlteracao'];
             _dataRegistro = data!['dataRegistro'];
             _idSenha = data!['idSenha'];
             _controllerLink.text = _link = data!['link'];
@@ -71,6 +73,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             _controllerNome.text = _nome = data!['nome'];
             _oculto = data!['oculto'];
             _controllerSenha.text = _senha = data!['senha'];
+            _controllerUsuario.text = _usuario = data!['usuario'];
           }),
         });
   }
@@ -79,11 +82,27 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     setState(() => _oculto = !_oculto);
   }
 
+  void _abrirModal(BuildContext context) {
+    _copiar = {
+      'anotacao': _anotacao,
+      'link': _link,
+      'nome': _nome,
+      'senha': _senha,
+      'usuario': _usuario
+    };
+
+    showModalBottomSheet(
+      context: context,
+      barrierColor: UiCor.overlay,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      builder: (context) => CopiarModal(copiar: _copiar!),
+    );
+  }
+
   floatingActionButton(BuildContext context) async {
-    String _nomeTile = "";
-    if (_controllerNome.text.isEmpty && _controllerLink.text.isNotEmpty) {
-      _nomeTile = await _senhaClass.definirTitleSite(_controllerLink.text);
-    }
+    // if (_formKey.currentState!.validate()) {
+    //   _senhaClass.validarUrl(_controllerLink.text);
+    // }
 
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic>? form;
@@ -92,31 +111,29 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           //editar
           form = {
             "anotacao": _controllerAnotacao.text,
-            "dataAlteracao": DateTime.now().toString(),
-            "dataRegistro": _dataRegistro,
+            "dataRegistro": DateTime.now().toString(),
             "idSenha": _idSenha,
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": _lixeira,
-            "nome":
-                _controllerNome.text != "" ? _controllerNome.text : _nomeTile,
+            "nome": _nome,
             "oculto": _oculto,
             "senha": _controllerSenha.text,
+            "usuario": _controllerUsuario.text,
           };
         } else {
           // criar
           form = {
             "anotacao": _controllerAnotacao.text,
-            "dataAlteracao": DateTime.now().toString(),
             "dataRegistro": DateTime.now().toString(),
             "idSenha": uuid.v4(),
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": false,
-            "nome":
-                _controllerNome.text != "" ? _controllerNome.text : _nomeTile,
+            "nome": _nome,
             "oculto": _oculto,
             "senha": _controllerSenha.text,
+            "usuario": _controllerUsuario.text,
           };
         }
       });
@@ -137,6 +154,16 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         },
       ),
     );
+  }
+
+  bool _verificarCopiar() {
+    if (_anotacao != "" ||
+        _link != "" ||
+        _nome != "" ||
+        _senha != "" ||
+        _usuario != "") return true;
+
+    return false;
   }
 
   @override
@@ -167,13 +194,17 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
             callback: () => toggleOculto(),
           ),
-          if (_controllerSenha.text != "")
+          if (_verificarCopiar())
+            IconeButton(
+              icone: UniconsLine.copy,
+              callback: () => _abrirModal(context),
+            ),
+          if (_dataRegistro != "")
             IconeButton(
               icone: UniconsLine.trash_alt,
               callback: () =>
                   _senhaClass.toggleSenhaTrue(context, widget._idSenha),
             ),
-          const SizedBox(width: 0),
         ],
       ),
       body: SingleChildScrollView(
@@ -185,25 +216,21 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
               children: [
                 FormularioInput(
                   controller: _controllerNome,
-                  callback: (value) => {},
+                  callback: (value) => setState(() => _nome = value),
                   hintText: NOME,
-                  validator: (value) =>
-                      isIdentificador(_controllerLink.text, value!),
+                  validator: (value) => inNotEmpty(value),
                 ),
                 SizedBox(height: _espaco),
                 FormularioInput(
                   controller: _controllerLink,
-                  callback: (value) => {},
+                  callback: (value) => setState(() => _link = value),
                   hintText: LINK,
-                  validator: (value) => combinarValidacao([
-                    () => isIdentificador(value!, _controllerNome.text),
-                    () => regexUrl(value),
-                  ]),
+                  validator: (value) => regexUrl(value!),
                 ),
                 SizedBox(height: _espaco),
                 FormularioInput(
                   controller: _controllerUsuario,
-                  callback: (value) => {},
+                  callback: (value) => setState(() => _usuario = value),
                   hintText: USUARIO,
                 ),
                 SizedBox(height: _espaco),
@@ -212,14 +239,14 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                   callback: (value) => setState(() => _senha = value),
                   hintText: SENHA,
                   validator: (value) => combinarValidacao([
-                    () => inNotEmpty(value, SENHA_OBRIGATORIO),
+                    () => inNotEmpty(value),
                     () => isSenhaCaracteres(value!),
                   ]),
                 ),
                 SizedBox(height: _espaco),
                 FormularioInput(
                   controller: _controllerAnotacao,
-                  callback: (value) => {},
+                  callback: (value) => setState(() => _anotacao = value),
                   hintText: ANOTACAO,
                   minLines: 1,
                   maxLines: null,
@@ -232,14 +259,14 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       ),
       bottomSheet: Container(
         width: MediaQuery.sizeOf(context).width,
-        height: _dataAlteracao.isEmpty ? 32 : 48,
+        height: _dataRegistro.isEmpty ? 32 : 48,
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Column(
           children: [
-            if (_dataAlteracao != "")
+            if (_dataRegistro != "")
               LegendaText(
-                texto: _senhaClass.ultimaEdicao(_dataAlteracao),
+                texto: _senhaClass.ultimaEdicao(_dataRegistro),
               ),
             LegendaText(
               texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
@@ -247,15 +274,13 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           ],
         ),
       ),
-      floatingActionButton: _senha == ""
-          ? null
-          : FloatingActionButton(
-              onPressed: () => floatingActionButton(context),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(UiBorda.arredondada),
-              ),
-              child: const Icon(UniconsLine.plus),
-            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => floatingActionButton(context),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(UiBorda.arredondada),
+        ),
+        child: const Icon(UniconsLine.plus),
+      ),
     );
   }
 }

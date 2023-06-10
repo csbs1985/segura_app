@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:senha_app/class/copiar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/text/legenda_text.dart';
@@ -24,6 +25,7 @@ class SenhaItemWidget extends StatefulWidget {
 }
 
 class _SenhaItemWidgetState extends State<SenhaItemWidget> {
+  final CopiarClass _copiarClass = CopiarClass();
   final SenhaClass _senhaClass = SenhaClass();
 
   String title = "";
@@ -32,8 +34,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(UiBorda.arredondada),
-      onLongPress: () =>
-          _senhaClass.copiarSenha(context, widget._senha["senha"]),
+      onLongPress: () => _copiarClass.copiar(context, widget._senha["senha"]),
       onTap: () => context.pushNamed(RoutesEnum.SENHA.value,
           pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(
@@ -60,15 +61,12 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (widget._senha["nome"] != "")
-                        TextoText(texto: widget._senha["nome"]),
+                      TextoText(texto: widget._senha["nome"]),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
                         child: LegendaText(
-                          texto: _senhaClass.ultimaEdicao(
-                              widget._senha["dataAlteracao"] != ""
-                                  ? widget._senha["dataAlteracao"]
-                                  : widget._senha["dataRegistro"]),
+                          texto: _senhaClass
+                              .ultimaEdicao(widget._senha["dataRegistro"]),
                         ),
                       ),
                       if (!widget._senha["oculto"])

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/3d_button.dart';
 import 'package:senha_app/button/icone_button.dart';
+import 'package:senha_app/class/copiar_class.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -22,6 +23,7 @@ class GerarSenhaPage extends StatefulWidget {
 }
 
 class _GerarSenhaPageState extends State<GerarSenhaPage> with ValidatorMixin {
+  final CopiarClass _copiarClass = CopiarClass();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final TextEditingController _controllerTamanho = TextEditingController();
@@ -126,7 +128,7 @@ class _GerarSenhaPageState extends State<GerarSenhaPage> with ValidatorMixin {
       floatingActionButton: !_senhaGerada.isNotEmpty
           ? null
           : FloatingActionButton(
-              onPressed: () => _senhaClass.copiarSenha(context, _senhaGerada),
+              onPressed: () => _copiarClass.copiar(context, _senhaGerada),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(UiBorda.arredondada)),
               child: const Icon(UniconsLine.copy),

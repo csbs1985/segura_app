@@ -8,6 +8,7 @@ class SenhaModel {
   late String nome;
   late bool oculto; // indica se a senha deve aparecer ou não no formulario
   late String senha;
+  late String usuario;
 
   SenhaModel(
     this.anotacao,
@@ -19,5 +20,6 @@ class SenhaModel {
     this.nome,
     this.oculto,
     this.senha,
+    this.usuario,
   );
 }

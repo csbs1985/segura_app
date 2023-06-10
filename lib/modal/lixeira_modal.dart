@@ -5,6 +5,7 @@ import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
+import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 import 'package:unicons/unicons.dart';
 
@@ -56,14 +57,14 @@ class _LixeiraModalState extends State<LixeiraModal> {
                           callback: () => _senhaClass.toggleSenhaFalse(
                               context, widget._idSenha!),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: UiTamanho.espacoLista),
                         ModalButton(
                           texto: LIXEIRA_DEFINITIVAMENTE,
                           icone: UniconsLine.trash_alt,
                           callback: () => _senhaClass.excluirSenha(
                               context, widget._idSenha!),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: UiTamanho.espacoLista),
                       ],
                     ),
                   Column(
@@ -74,7 +75,7 @@ class _LixeiraModalState extends State<LixeiraModal> {
                         callback: () => _senhaClass.restaurarLixeira(
                             context, widget._listaSenha),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: UiTamanho.espacoLista),
                       ModalButton(
                         texto: LIXEIRA_LIMPAR,
                         icone: UniconsLine.trash_alt,
