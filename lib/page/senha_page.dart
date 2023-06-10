@@ -39,20 +39,21 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final TextEditingController _controllerUsuario = TextEditingController();
 
   String _anotacao = "";
-  String _link = "";
-  String _nome = "";
-  String _senha = "";
-  String _usuario = "";
   String _dataAlteracao = "";
+  String _dataRegistro = "";
+  String _idSenha = "";
+  String _link = "";
+  bool _lixeira = false;
+  String _nome = "";
   bool _oculto = false;
+  String _senha = "";
 
   final double _espaco = 24;
 
   @override
   void initState() {
     super.initState();
-    print(widget._idSenha);
-    // Future(() => iniciarSenha());
+    if (widget._idSenha != EMPTY) Future(() => iniciarSenha());
   }
 
   iniciarSenha() async {
@@ -61,13 +62,15 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     await _senhaFirestore.getSenhaId(widget._idSenha).then((document) => {
           data = document.data() as Map<String, dynamic>,
           setState(() {
-            _anotacao = data!['anotacao'];
-            _link = data!['link'];
-            _nome = data!['nome'];
-            _senha = data!['senha'];
-            _usuario = data!['usuario'];
+            _controllerAnotacao.text = _anotacao = data!['anotacao'];
             _dataAlteracao = data!['dataAlteracao'];
+            _dataRegistro = data!['dataRegistro'];
+            _idSenha = data!['idSenha'];
+            _controllerLink.text = _link = data!['link'];
+            _lixeira = data!['lixeira'];
+            _controllerNome.text = _nome = data!['nome'];
             _oculto = data!['oculto'];
+            _controllerSenha.text = _senha = data!['senha'];
           }),
         });
   }
@@ -78,22 +81,40 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
 
   floatingActionButton(BuildContext context) {
     if (_formKey.currentState!.validate()) {
+      Map<String, dynamic>? form;
       setState(() {
-        Map<String, dynamic> form = {
-          "anotacao": _controllerAnotacao.text,
-          "dataAlteracao": "",
-          "dataRegistro": DateTime.now().toString(),
-          "idSenha": uuid.v4(),
-          "idUsuario": currentUsuario.value.idUsuario,
-          "link": _controllerLink.text,
-          "lixeira": false,
-          "nome": _controllerNome.text,
-          "oculto": _oculto,
-          "senha": _controllerSenha.text,
-        };
-
-        _senhaClass.postSenha(context, form);
+        if (widget._idSenha != EMPTY) {
+          //editar
+          form = {
+            "anotacao": _controllerAnotacao.text,
+            "dataAlteracao": DateTime.now().toString(),
+            "dataRegistro": _dataRegistro,
+            "idSenha": _idSenha,
+            "idUsuario": currentUsuario.value.idUsuario,
+            "link": _controllerLink.text,
+            "lixeira": _lixeira,
+            "nome": _controllerNome.text,
+            "oculto": _oculto,
+            "senha": _controllerSenha.text,
+          };
+        } else {
+          // criar
+          form = {
+            "anotacao": _controllerAnotacao.text,
+            "dataAlteracao": DateTime.now().toString(),
+            "dataRegistro": DateTime.now().toString(),
+            "idSenha": uuid.v4(),
+            "idUsuario": currentUsuario.value.idUsuario,
+            "link": _controllerLink.text,
+            "lixeira": false,
+            "nome": _controllerNome.text,
+            "oculto": _oculto,
+            "senha": _controllerSenha.text,
+          };
+        }
       });
+
+      _senhaClass.postSenha(context, form!);
     }
   }
 
