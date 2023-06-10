@@ -50,45 +50,60 @@ class _CopiarModalState extends State<CopiarModal> {
                   ],
                 ),
                 if (widget._copiar['nome'] != "")
-                  ModalButton(
-                    texto: COPIAR_NOME,
-                    icone: UniconsLine.copy,
-                    callback: () =>
-                        _copiarClass.copiar(context, widget._copiar['nome']),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: UiTamanho.espacoLista),
+                    child: ModalButton(
+                      texto: COPIAR_NOME,
+                      icone: UniconsLine.copy,
+                      callback: () =>
+                          _copiarClass.copiar(context, widget._copiar['nome']),
+                    ),
                   ),
-                const SizedBox(height: UiTamanho.espacoLista),
                 if (widget._copiar['link'] != "")
-                  ModalButton(
-                    texto: COPIAR_LINK,
-                    icone: UniconsLine.copy,
-                    callback: () =>
-                        _copiarClass.copiar(context, widget._copiar['link']),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: UiTamanho.espacoLista),
+                    child: ModalButton(
+                      texto: COPIAR_LINK,
+                      icone: UniconsLine.copy,
+                      callback: () =>
+                          _copiarClass.copiar(context, widget._copiar['link']),
+                    ),
                   ),
-                const SizedBox(height: UiTamanho.espacoLista),
                 if (widget._copiar['usuario'] != "")
-                  ModalButton(
-                    texto: COPIAR_USUARIO,
-                    icone: UniconsLine.copy,
-                    callback: () =>
-                        _copiarClass.copiar(context, widget._copiar['usuario']),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: UiTamanho.espacoLista),
+                    child: ModalButton(
+                      texto: COPIAR_USUARIO,
+                      icone: UniconsLine.copy,
+                      callback: () => _copiarClass.copiar(
+                          context, widget._copiar['usuario']),
+                    ),
                   ),
-                const SizedBox(height: UiTamanho.espacoLista),
                 if (widget._copiar['senha'] != "")
-                  ModalButton(
-                    texto: COPIAR_SENHA,
-                    icone: UniconsLine.copy,
-                    callback: () =>
-                        _copiarClass.copiar(context, widget._copiar['senha']),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: UiTamanho.espacoLista),
+                    child: ModalButton(
+                      texto: COPIAR_SENHA,
+                      icone: UniconsLine.copy,
+                      callback: () =>
+                          _copiarClass.copiar(context, widget._copiar['senha']),
+                    ),
                   ),
-                const SizedBox(height: UiTamanho.espacoLista),
                 if (widget._copiar['anotacao'] != "")
-                  ModalButton(
-                    texto: COPIAR_ANOTACAO,
-                    icone: UniconsLine.copy,
-                    callback: () => _copiarClass.copiar(
-                        context, widget._copiar['anotacao']),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: UiTamanho.espacoLista),
+                    child: ModalButton(
+                      texto: COPIAR_ANOTACAO,
+                      icone: UniconsLine.copy,
+                      callback: () => _copiarClass.copiar(
+                          context, widget._copiar['anotacao']),
+                    ),
                   ),
-                const SizedBox(height: UiTamanho.espacoLista),
               ],
             ),
           ),

@@ -48,8 +48,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   bool _oculto = false;
   String _senha = "";
   String _usuario = "";
-
-  Map<String, dynamic>? _copiar;
+  String _usuarioAtual = "";
 
   final double _espaco = 24;
 
@@ -72,7 +71,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             _lixeira = data!['lixeira'];
             _controllerNome.text = _nome = data!['nome'];
             _oculto = data!['oculto'];
-            _controllerSenha.text = _senha = data!['senha'];
+            _controllerSenha.text = _senha = _usuarioAtual = data!['senha'];
             _controllerUsuario.text = _usuario = data!['usuario'];
           }),
         });
@@ -83,7 +82,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   }
 
   void _abrirModal(BuildContext context) {
-    _copiar = {
+    Map<String, dynamic> _copiar = {
       'anotacao': _anotacao,
       'link': _link,
       'nome': _nome,
@@ -95,7 +94,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => CopiarModal(copiar: _copiar!),
+      builder: (context) => CopiarModal(copiar: _copiar),
     );
   }
 
@@ -111,14 +110,16 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           //editar
           form = {
             "anotacao": _controllerAnotacao.text,
-            "dataRegistro": DateTime.now().toString(),
+            "dataRegistro": _usuarioAtual == _senha
+                ? _usuarioAtual
+                : DateTime.now().toString(),
             "idSenha": _idSenha,
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": _lixeira,
             "nome": _nome,
             "oculto": _oculto,
-            "senha": _controllerSenha.text,
+            "senha": _senha,
             "usuario": _controllerUsuario.text,
           };
         } else {
