@@ -128,7 +128,8 @@ class _GerarSenhaPageState extends State<GerarSenhaPage> with ValidatorMixin {
       floatingActionButton: !_senhaGerada.isNotEmpty
           ? null
           : FloatingActionButton(
-              onPressed: () => _copiarClass.copiar(context, _senhaGerada),
+              onPressed: () =>
+                  _copiarClass.copiar(context: context, texto: _senhaGerada),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(UiBorda.arredondada)),
               child: const Icon(UniconsLine.copy),

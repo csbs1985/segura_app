@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  algolia: ^1.1.2
   cloud_firestore: ^4.8.0
   cupertino_icons: ^1.0.2
   favicon: ^1.1.1

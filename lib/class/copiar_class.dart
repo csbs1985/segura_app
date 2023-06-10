@@ -6,15 +6,19 @@ import 'package:senha_app/config/constante_config.dart';
 class CopiarClass {
   final ToastClass _toastClass = ToastClass();
 
-  void copiar(BuildContext context, String texto) {
-    if (texto.isNotEmpty) {
+  void copiar({
+    required BuildContext context,
+    required String texto,
+    bool? voltar,
+  }) {
+    if (texto != "") {
       Clipboard.setData(ClipboardData(text: texto));
       _toastClass.abrirToast(
         context: context,
         estilo: SenhaEnum.SUCESSO.value,
         texto: COPIAR_COPIADO,
       );
-      Navigator.of(context).pop();
+      if (voltar!) Navigator.of(context).pop();
     } else {
       _toastClass.abrirToast(
         context: context,

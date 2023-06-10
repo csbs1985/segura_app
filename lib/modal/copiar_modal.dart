@@ -56,8 +56,11 @@ class _CopiarModalState extends State<CopiarModal> {
                     child: ModalButton(
                       texto: COPIAR_NOME,
                       icone: UniconsLine.copy,
-                      callback: () =>
-                          _copiarClass.copiar(context, widget._copiar['nome']),
+                      callback: () => _copiarClass.copiar(
+                        context: context,
+                        texto: widget._copiar['nome'],
+                        voltar: true,
+                      ),
                     ),
                   ),
                 if (widget._copiar['link'] != "")
@@ -67,8 +70,11 @@ class _CopiarModalState extends State<CopiarModal> {
                     child: ModalButton(
                       texto: COPIAR_LINK,
                       icone: UniconsLine.copy,
-                      callback: () =>
-                          _copiarClass.copiar(context, widget._copiar['link']),
+                      callback: () => _copiarClass.copiar(
+                        context: context,
+                        texto: widget._copiar['link'],
+                        voltar: true,
+                      ),
                     ),
                   ),
                 if (widget._copiar['usuario'] != "")
@@ -79,7 +85,10 @@ class _CopiarModalState extends State<CopiarModal> {
                       texto: COPIAR_USUARIO,
                       icone: UniconsLine.copy,
                       callback: () => _copiarClass.copiar(
-                          context, widget._copiar['usuario']),
+                        context: context,
+                        texto: widget._copiar['usuario'],
+                        voltar: true,
+                      ),
                     ),
                   ),
                 if (widget._copiar['senha'] != "")
@@ -89,8 +98,11 @@ class _CopiarModalState extends State<CopiarModal> {
                     child: ModalButton(
                       texto: COPIAR_SENHA,
                       icone: UniconsLine.copy,
-                      callback: () =>
-                          _copiarClass.copiar(context, widget._copiar['senha']),
+                      callback: () => _copiarClass.copiar(
+                        context: context,
+                        texto: widget._copiar['senha'],
+                        voltar: true,
+                      ),
                     ),
                   ),
                 if (widget._copiar['anotacao'] != "")
@@ -101,7 +113,10 @@ class _CopiarModalState extends State<CopiarModal> {
                       texto: COPIAR_ANOTACAO,
                       icone: UniconsLine.copy,
                       callback: () => _copiarClass.copiar(
-                          context, widget._copiar['anotacao']),
+                        context: context,
+                        texto: widget._copiar['anotacao'],
+                        voltar: true,
+                      ),
                     ),
                   ),
               ],

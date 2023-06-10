@@ -32,52 +32,56 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(UiBorda.arredondada),
-      onLongPress: () => _copiarClass.copiar(context, widget._senha["senha"]),
-      onTap: () => context.pushNamed(RoutesEnum.SENHA.value,
-          pathParameters: {'idSenha': widget._senha['idSenha']}),
-      child: ValueListenableBuilder(
-        valueListenable: currentTema,
-        builder: (BuildContext context, Brightness tema, _) {
-          bool isEscuro = tema == Brightness.dark;
-          initializeDateFormatting();
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(UiBorda.arredondada),
+        onLongPress: () => _copiarClass.copiar(
+            context: context, texto: widget._senha["senha"]),
+        onTap: () => context.pushNamed(RoutesEnum.SENHA.value,
+            pathParameters: {'idSenha': widget._senha['idSenha']}),
+        child: ValueListenableBuilder(
+          valueListenable: currentTema,
+          builder: (BuildContext context, Brightness tema, _) {
+            bool isEscuro = tema == Brightness.dark;
+            initializeDateFormatting();
 
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(UiBorda.arredondada),
-              border: Border.all(
-                color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
-                width: 2,
-              ),
-            ),
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FaviconWidget(url: widget._senha["link"]),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextoText(texto: widget._senha["nome"]),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
-                        child: LegendaText(
-                          texto: _senhaClass
-                              .ultimaEdicao(widget._senha["dataRegistro"]),
-                        ),
-                      ),
-                      if (!widget._senha["oculto"])
-                        SubtituloText(texto: widget._senha["senha"]),
-                    ],
-                  ),
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(UiBorda.arredondada),
+                border: Border.all(
+                  color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                  width: 2,
                 ),
-              ],
-            ),
-          );
-        },
+              ),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FaviconWidget(url: widget._senha["link"]),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextoText(texto: widget._senha["nome"]),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
+                          child: LegendaText(
+                            texto: _senhaClass
+                                .ultimaEdicao(widget._senha["dataRegistro"]),
+                          ),
+                        ),
+                        if (!widget._senha["oculto"])
+                          SubtituloText(texto: widget._senha["senha"]),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

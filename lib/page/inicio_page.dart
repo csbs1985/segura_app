@@ -1,9 +1,12 @@
+import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
+import 'package:senha_app/class/pesquisar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/config/algolia_config.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/page/drawer_page.dart';
@@ -12,6 +15,7 @@ import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
+import 'package:senha_app/widget/pesquisar_widget.dart';
 import 'package:senha_app/widget/resultado_erro_widget.dart';
 import 'package:senha_app/widget/padrao_input.dart';
 import 'package:senha_app/widget/resultado_vazio_widget.dart';
@@ -26,68 +30,106 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final PesquisarClass _pesquisarClass = PesquisarClass();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
+
+  Algolia? algoliaSenha;
+
+  List<Map<String, dynamic>> _snapshotSenha = [];
+
+  bool isPesquisar = false;
+
+  @override
+  void initState() {
+    algoliaSenha = AlgoliaConfig.algoliaSenha;
+    super.initState();
+  }
+
+  void _keyUp(String value) async {
+    _snapshotSenha = [];
+    setState(() => isPesquisar = true);
+
+    if (value.length > 2) {
+      if (algoliaSenha != null) {
+        AlgoliaQuery _queryHistoria =
+            algoliaSenha!.instance.index('senhas_senhas').query(value);
+
+        AlgoliaQuerySnapshot _snapSenha = await _queryHistoria.getObjects();
+
+        setState(() {
+          if (_snapSenha.hits.isNotEmpty)
+            _snapshotSenha = _pesquisarClass.converterLista(_snapSenha.hits);
+          if (value.isEmpty) _snapshotSenha = [];
+        });
+      }
+    } else
+      setState(() => isPesquisar = false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
     double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
 
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: Colors.red,
+      ),
       endDrawer: const DrawerPage(),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 88),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          isPesquisar
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 72),
+                  child: PesquisarWidget(senha: _snapshotSenha),
+                )
+              : SingleChildScrollView(
+                  child: Column(
                     children: [
-                      const TituloText(texto: SENHA),
-                      GestureDetector(
-                        onTap: () => scaffoldKey.currentState!.openEndDrawer(),
-                        child: const AvatarWidget(),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(24, 72, 24, 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TituloText(texto: SENHA),
+                            GestureDetector(
+                              onTap: () =>
+                                  scaffoldKey.currentState!.openEndDrawer(),
+                              child: const AvatarWidget(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      FirestoreListView(
+                        query: _senhaFirestore
+                            .getTodasSenhas(currentUsuario.value.idUsuario),
+                        pageSize: 30,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        loadingBuilder: (context) => const SenhaItemSkeleton(),
+                        errorBuilder: (context, error, _) =>
+                            ErroResultadoWidget(altura: altura),
+                        emptyBuilder: (context) =>
+                            ResultadoVazioWidget(altura: altura),
+                        itemBuilder: (
+                          BuildContext context,
+                          QueryDocumentSnapshot<dynamic> snapshot,
+                        ) {
+                          Map<String, dynamic> senha = snapshot.data();
+                          return SenhaItemWidget(senha: senha);
+                        },
                       ),
                     ],
                   ),
                 ),
-                FirestoreListView(
-                  query: _senhaFirestore
-                      .getTodasSenhas(currentUsuario.value.idUsuario),
-                  pageSize: 30,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  loadingBuilder: (context) => const SenhaItemSkeleton(),
-                  errorBuilder: (context, error, _) =>
-                      ErroResultadoWidget(altura: altura),
-                  emptyBuilder: (context) =>
-                      ResultadoVazioWidget(altura: altura),
-                  itemBuilder: (
-                    BuildContext context,
-                    QueryDocumentSnapshot<dynamic> snapshot,
-                  ) {
-                    Map<String, dynamic> senha = snapshot.data();
-
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-                      child: SenhaItemWidget(senha: senha),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
           Positioned(
-            top: 40,
+            top: 8,
             left: 16,
             right: 16,
             child: PadraoInput(
-              callback: (value) => {},
+              callback: (value) => _keyUp(value),
               hintText: PESQUISAR,
               pesquisar: true,
             ),
