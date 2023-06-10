@@ -46,7 +46,7 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
               ListaButton(
                 texto: SENHA_CRIAR,
-                icone: Icons.gpp_good,
+                icone: UniconsLine.shield_check,
                 callback: () => context.pushNamed(RoutesEnum.SENHA.value,
                     pathParameters: {'idSenha': EMPTY}),
               ),
