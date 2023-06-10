@@ -51,6 +51,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   @override
   void initState() {
     super.initState();
+    print(widget._idSenha);
     // Future(() => iniciarSenha());
   }
 

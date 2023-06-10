@@ -1,11 +1,13 @@
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/auth_config.dart';
+import 'package:senha_app/page/doar_page.dart';
 import 'package:senha_app/page/entrar_page.dart';
 import 'package:senha_app/page/gerar_senha_page.dart';
 import 'package:senha_app/page/inicio_page.dart';
 import 'package:senha_app/page/lixeira_page.dart';
 import 'package:senha_app/page/modo_entrada_page.dart';
+import 'package:senha_app/page/relatar_problema_page.dart';
 import 'package:senha_app/page/senha_page.dart';
 
 final AuthConfig _authConfig = AuthConfig();
@@ -31,6 +33,14 @@ final GoRouter routes = GoRouter(
         context: context,
         state: state,
         child: const ModoEntradaPage(),
+      ),
+    ),
+    GoRoute(
+      path: RoutesEnum.DOAR.value,
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: const DoarPage(),
       ),
     ),
     GoRoute(
@@ -63,6 +73,14 @@ final GoRouter routes = GoRouter(
         context: context,
         state: state,
         child: const LixeiraPage(),
+      ),
+    ),
+    GoRoute(
+      path: RoutesEnum.RELATAR_PROBLEMA.value,
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: const RelatarProblemaPage(),
       ),
     ),
     GoRoute(

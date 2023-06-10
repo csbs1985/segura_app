@@ -27,8 +27,6 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
 
   String title = "";
 
-  String? _senha;
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -36,7 +34,7 @@ class _SenhaItemWidgetState extends State<SenhaItemWidget> {
       onLongPress: () =>
           _senhaClass.copiarSenha(context, widget._senha["senha"]),
       onTap: () => context.pushNamed(RoutesEnum.SENHA.value,
-          pathParameters: {'idSenha': _senha!}),
+          pathParameters: {'idSenha': widget._senha['idSenha']}),
       child: ValueListenableBuilder(
         valueListenable: currentTema,
         builder: (BuildContext context, Brightness tema, _) {

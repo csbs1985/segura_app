@@ -68,6 +68,16 @@ class _DrawerPageState extends State<DrawerPage> {
                 icone: Icons.fingerprint,
                 callback: () => context.push(RoutesEnum.MODO_ENTRADA.value),
               ),
+              ListaButton(
+                texto: DOAR,
+                icone: UniconsLine.heart,
+                callback: () => context.push(RoutesEnum.DOAR.value),
+              ),
+              ListaButton(
+                texto: RELATAR_PROBLEMA,
+                icone: UniconsLine.exclamation_triangle,
+                callback: () => context.push(RoutesEnum.RELATAR_PROBLEMA.value),
+              ),
             ],
           ),
         ),
