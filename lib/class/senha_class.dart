@@ -8,24 +8,32 @@ import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:http/http.dart' as http;
+import 'package:html/parser.dart' as parser;
 
 class SenhaClass {
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
   final ToastClass _toastClass = ToastClass();
 
+  Future<String> definirTitleSite(String url) async {
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final document = parser.parse(response.body);
+
+      final titleElement = document.head!.querySelector('title');
+
+      if (titleElement != null) {
+        return titleElement.text;
+      }
+    }
+
+    return '';
+  }
+
   Future<String> definirFavicon(String url) async {
     final favicon = await FaviconFinder.getBest(url);
     return favicon!.url;
-  }
-
-  String ultimaAlteracaoSenha(String data) {
-    final DateTime registro = DateTime.parse(data);
-    final DateTime hoje = DateTime.now();
-    final difference = registro.difference(hoje);
-    final diferenca = difference.inDays.abs();
-
-    if (diferenca <= 0) return HOJE;
-    return "$SENHA_ALTERACAO_1 $diferenca $SENHA_ALTERACAO_2";
   }
 
   String ultimaEdicao(String value) {

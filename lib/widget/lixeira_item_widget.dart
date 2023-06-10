@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/modal/lixeira_modal.dart';
@@ -64,6 +65,7 @@ class _LixeiraItemWidgetState extends State<LixeiraItemWidget> {
         valueListenable: currentTema,
         builder: (BuildContext context, Brightness tema, _) {
           bool isEscuro = tema == Brightness.dark;
+          initializeDateFormatting();
 
           return Container(
             decoration: BoxDecoration(
@@ -88,8 +90,10 @@ class _LixeiraItemWidgetState extends State<LixeiraItemWidget> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
                         child: LegendaText(
-                          texto: _senhaClass.ultimaAlteracaoSenha(
-                              widget._senha["dataRegistro"]),
+                          texto: _senhaClass.ultimaEdicao(
+                              widget._senha["dataAlteracao"] != ""
+                                  ? widget._senha["dataAlteracao"]
+                                  : widget._senha["dataRegistro"]),
                         ),
                       ),
                       if (!widget._senha["oculto"])

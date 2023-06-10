@@ -79,7 +79,12 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     setState(() => _oculto = !_oculto);
   }
 
-  floatingActionButton(BuildContext context) {
+  floatingActionButton(BuildContext context) async {
+    String _nomeTile = "";
+    if (_controllerNome.text.isEmpty && _controllerLink.text.isNotEmpty) {
+      _nomeTile = await _senhaClass.definirTitleSite(_controllerLink.text);
+    }
+
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic>? form;
       setState(() {
@@ -93,7 +98,8 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": _lixeira,
-            "nome": _controllerNome.text,
+            "nome":
+                _controllerNome.text != "" ? _controllerNome.text : _nomeTile,
             "oculto": _oculto,
             "senha": _controllerSenha.text,
           };
@@ -107,7 +113,8 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": false,
-            "nome": _controllerNome.text,
+            "nome":
+                _controllerNome.text != "" ? _controllerNome.text : _nomeTile,
             "oculto": _oculto,
             "senha": _controllerSenha.text,
           };
