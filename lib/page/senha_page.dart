@@ -49,6 +49,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   String _senha = "";
   String _usuario = "";
   String _usuarioAtual = "";
+  String _dataRegistroAtual = "";
 
   final double _espaco = 24;
 
@@ -66,7 +67,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           data = document.data() as Map<String, dynamic>,
           setState(() {
             _controllerAnotacao.text = _anotacao = data!['anotacao'];
-            _dataRegistro = data!['dataRegistro'];
+            _dataRegistro = _dataRegistroAtual = data!['dataRegistro'];
             _idSenha = data!['idSenha'];
             _controllerLink.text = _link = data!['link'];
             _lixeira = data!['lixeira'];
@@ -100,10 +101,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   }
 
   floatingActionButton(BuildContext context) async {
-    // if (_formKey.currentState!.validate()) {
-    //   _senhaClass.validarUrl(_controllerLink.text);
-    // }
-
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic>? form;
       setState(() {
@@ -112,7 +109,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           form = {
             "anotacao": _controllerAnotacao.text,
             "dataRegistro": _usuarioAtual == _senha
-                ? _usuarioAtual
+                ? _dataRegistroAtual
                 : DateTime.now().toString(),
             "idSenha": _idSenha,
             "idUsuario": currentUsuario.value.idUsuario,
@@ -281,7 +278,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(UiBorda.arredondada),
         ),
-        child: const Icon(UniconsLine.plus),
+        child: const Icon(UniconsLine.check),
       ),
     );
   }
