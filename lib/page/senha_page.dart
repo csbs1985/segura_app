@@ -185,6 +185,17 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           callback: () => Navigator.of(context).pop(),
         ),
         actions: [
+          if (_verificarCopiar())
+            IconeButton(
+              icone: UniconsLine.copy,
+              callback: () => _abrirModal(context),
+            ),
+          if (_dataRegistro != "")
+            IconeButton(
+              icone: UniconsLine.trash_alt,
+              callback: () =>
+                  _senhaClass.toggleSenhaTrue(context, widget._idSenha),
+            ),
           IconeButton(
             icone: UniconsLine.asterisk,
             callback: () => abrirGerador(context),
@@ -197,12 +208,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             IconeButton(
               icone: UniconsLine.copy,
               callback: () => _abrirModal(context),
-            ),
-          if (_dataRegistro != "")
-            IconeButton(
-              icone: UniconsLine.trash_alt,
-              callback: () =>
-                  _senhaClass.toggleSenhaTrue(context, widget._idSenha),
             ),
         ],
       ),
