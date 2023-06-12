@@ -52,14 +52,17 @@ class _InicioPageState extends State<InicioPage> {
 
     if (value.length > 2) {
       if (algoliaSenha != null) {
-        AlgoliaQuery _queryHistoria =
-            algoliaSenha!.instance.index('senhas_senhas').query(value);
+        AlgoliaQuery query =
+            algoliaSenha!.instance.index('segura_senhas').query(value);
 
-        AlgoliaQuerySnapshot _snapSenha = await _queryHistoria.getObjects();
+        query = query
+            .setOptionalFilter('idUsuario:${currentUsuario.value.idUsuario}');
+
+        AlgoliaQuerySnapshot snap = await query.getObjects();
 
         setState(() {
-          if (_snapSenha.hits.isNotEmpty)
-            _snapshotSenha = _pesquisarClass.converterLista(_snapSenha.hits);
+          if (snap.hits.isNotEmpty)
+            _snapshotSenha = _pesquisarClass.converterLista(snap.hits);
           if (value.isEmpty) _snapshotSenha = [];
         });
       }

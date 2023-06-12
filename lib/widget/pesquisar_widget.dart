@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:senha_app/config/constante_config.dart';
-import 'package:senha_app/text/mensagem_text.dart';
+import 'package:senha_app/theme/ui_tamanho.dart';
+import 'package:senha_app/widget/pesquisa_vazia_widget.dart';
 import 'package:senha_app/widget/senha_item_widget.dart';
 
 class PesquisarWidget extends StatelessWidget {
@@ -13,10 +13,11 @@ class PesquisarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
     return SizedBox(
       width: double.infinity,
       child: _senha.isEmpty
-          ? const MensagemText(texto: PESQUISAR_VAZIO)
+          ? PesquisaVaziaWidget(altura: altura)
           : ListView.builder(
               itemCount: _senha.length,
               itemBuilder: (BuildContext context, int index) {

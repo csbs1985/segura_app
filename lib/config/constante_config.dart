@@ -52,7 +52,7 @@ const String NOME_LINK =
     'para a identificação, é necessário o "nome" ou o "link"';
 
 const String PESQUISAR = "Pesquisar...";
-const String PESQUISAR_VAZIO = "Não encontramos senhas para sua pesquisa";
+const String PESQUISAR_VAZIO = "Não encontramos itens para sua pesquisa";
 
 const String PIX_COPIADO = "Chave Pix copiada para a àrea de transferência";
 const String PIX_CODIGO = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";

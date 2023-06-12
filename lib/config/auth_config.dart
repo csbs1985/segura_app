@@ -1,18 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/firestore/usuario_firestore.dart';
 import 'package:senha_app/hive/usuario_hive.dart';
 import 'package:senha_app/model/usuario_model.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthConfig extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final UsuarioFirestore _usuarioFirestore = UsuarioFirestore();
   final UsuarioHive _usuarioHive = UsuarioHive();
+  final Uuid uuid = const Uuid();
 
   User? usuario;
 
   bool isLoading = true;
+
+  Map<String, dynamic>? usuarioMap;
 
   AuthConfig() {
     _definirUsuario();
@@ -21,15 +28,46 @@ class AuthConfig extends ChangeNotifier {
   _definirUsuario() {
     _auth.authStateChanges().listen((User? user) async {
       usuario = (user == null) ? null : user;
-      await _verificarHive();
+      _verificarHive();
       isLoading = false;
       notifyListeners();
     });
   }
 
-  _verificarHive() async {
-    Map<String, dynamic>? usuarioMap;
+  void verificarUsuarioFirestore() async {
+    User? user = _auth.currentUser;
 
+    if (user != null) {
+      DocumentSnapshot<Map<String, dynamic>> document =
+          await _usuarioFirestore.getUsuarioDoc(user.uid);
+
+      if (!document.exists) {
+        usuarioMap = {
+          'avatarUsuario': usuario!.photoURL,
+          'biometria': "",
+          'emailUsuario': usuario!.email,
+          'idUsuario': user.uid,
+          'nomeUsuario': usuario!.displayName,
+          'senha': "",
+        };
+
+        await _usuarioFirestore.postUsuario(usuarioMap!);
+      } else {
+        usuarioMap = {
+          'avatarUsuario': document,
+          'biometria': document,
+          'emailUsuario': document,
+          'idUsuario': document,
+          'nomeUsuario': document,
+          'senha': document,
+        };
+      }
+
+      _verificarHive();
+    }
+  }
+
+  _verificarHive() async {
     if (_usuarioHive.verificarUsuario()) {
       final usuarioHive = await _usuarioHive.readUsuario();
 
@@ -51,16 +89,16 @@ class AuthConfig extends ChangeNotifier {
         'senha': "",
       };
 
-      await _usuarioHive.addUsuario(usuarioMap);
+      await _usuarioHive.addUsuario(usuarioMap!);
     }
 
     currentUsuario.value = UsuarioModel(
-      avatarUsuario: usuarioMap['avatarUsuario'],
-      biometria: usuarioMap['biometria'],
-      emailUsuario: usuarioMap['emailUsuario'],
-      idUsuario: usuarioMap['idUsuario'],
-      nomeUsuario: usuarioMap['nomeUsuario'],
-      senha: usuarioMap['senha'],
+      avatarUsuario: usuarioMap!['avatarUsuario'],
+      biometria: usuarioMap!['biometria'],
+      emailUsuario: usuarioMap!['emailUsuario'],
+      idUsuario: usuarioMap!['idUsuario'],
+      nomeUsuario: usuarioMap!['nomeUsuario'],
+      senha: usuarioMap!['senha'],
     );
   }
 

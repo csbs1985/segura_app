@@ -13,6 +13,10 @@ class UsuarioFirestore {
     return await usuarios.where('idUsuario', isEqualTo: idUsuario).get();
   }
 
+  getUsuarioDoc(String docUsuario) async {
+    return await usuarios.doc('docUsuario').get();
+  }
+
   pathPerfil(String nomeUsuario, String biografia, String dataAtualizacaoNome) {
     return usuarios.doc(currentUsuario.value.idUsuario).update({
       'biografia': biografia,
