@@ -6,9 +6,12 @@ import 'package:senha_app/config/hive_config.dart';
 import 'package:senha_app/config/routes_config.dart';
 import 'package:senha_app/firebase_options.dart';
 import 'package:senha_app/theme/ui_tema.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -54,6 +57,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
+
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, _) {
