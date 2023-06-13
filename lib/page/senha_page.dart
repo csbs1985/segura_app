@@ -8,9 +8,9 @@ import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/modal/copiar_modal.dart';
-import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
+import 'package:senha_app/widget/editado_widget.dart';
 import 'package:senha_app/widget/formulario_input.dart';
 import 'package:senha_app/modal/gerar_senha_modal.dart';
 import 'package:unicons/unicons.dart';
@@ -266,18 +266,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           ),
         ),
       ),
-      bottomSheet: Container(
-        width: MediaQuery.sizeOf(context).width,
-        height: 32,
-        color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        child: Column(
-          children: [
-            if (_dataRegistro != "")
-              LegendaText(texto: _senhaClass.ultimaEdicao(_dataRegistro)),
-          ],
-        ),
-      ),
+      bottomSheet: EditadoWidget(dataRegistro: _dataRegistro),
       floatingActionButton: FloatingActionButton(
         onPressed: () => floatingActionButton(context),
         shape: RoundedRectangleBorder(

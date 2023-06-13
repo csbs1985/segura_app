@@ -55,17 +55,17 @@ class SenhaClass {
     Duration diferenca = agora.difference(data);
 
     if (diferenca.inMinutes < 1) {
-      return "editado agora";
+      return SENHA_EDITADA_AGORA;
     } else if (diferenca.inHours < 1) {
-      return "editado há menos de uma hora";
+      return SENHA_EDITADA_UMA_HORA;
     } else if (diferenca.inHours < 24) {
-      return "editado há ${diferenca.inHours} hora(s)";
+      return "$SENHA_EDITADA_HA ${diferenca.inHours} hora(s)";
     } else if (diferenca.inDays < 7) {
       String diaSemana = DateFormat('EEEE', 'pt_BR').format(data);
-      return "editado $diaSemana";
+      return "$SENHA_EDITADA $diaSemana";
     } else {
       String dataFormatada = DateFormat('d MMM yyyy', 'pt_BR').format(data);
-      return "editado $dataFormatada";
+      return "$SENHA_EDITADA $dataFormatada";
     }
   }
 

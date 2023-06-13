@@ -83,6 +83,10 @@ const String SENHA_CARACTERES_DESCRICAO =
     "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_CRIAR = "Criar senha";
 const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no momento";
+const String SENHA_EDITADA = "senha editada";
+const String SENHA_EDITADA_AGORA = "senha editada agora";
+const String SENHA_EDITADA_HA = "senha editada agora há";
+const String SENHA_EDITADA_UMA_HORA = "senha editada há menos de uma hora";
 const String SENHA_GERAR = "Gerar senha";
 const String SENHA_GERADA = "senha gerada";
 const String SENHA_GERADOR = "Gerador de senha";
