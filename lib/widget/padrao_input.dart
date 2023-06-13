@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_espaco.dart';
-import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/theme/ui_texto.dart';
 import 'package:unicons/unicons.dart';
 

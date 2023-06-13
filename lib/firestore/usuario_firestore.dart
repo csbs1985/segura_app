@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 
 class UsuarioFirestore {
   CollectionReference usuarios =

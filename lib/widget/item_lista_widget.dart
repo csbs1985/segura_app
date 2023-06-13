@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/widget/favicon_widget.dart';
 import 'package:senha_app/widget/iniciais_widgte.dart';
 

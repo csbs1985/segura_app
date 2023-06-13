@@ -1,12 +1,4 @@
-class GerarSenhaModel {
-  String value;
-  String texto;
-
-  GerarSenhaModel({
-    required this.value,
-    required this.texto,
-  });
-}
+import 'package:senha_app/modal/gerador_senha_model.dart';
 
 final List<GerarSenhaModel> listaGeradorSenha = [
   GerarSenhaModel(

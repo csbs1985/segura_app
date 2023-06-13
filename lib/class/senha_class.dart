@@ -188,7 +188,6 @@ class SenhaClass {
     }
 
     url = url.replaceAll(RegExp(r'www\.'), '');
-    print(url);
     return url;
   }
 }

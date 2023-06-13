@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_texto.dart';
-
-ValueNotifier<Brightness> currentTema = ValueNotifier(
-    WidgetsBinding.instance.platformDispatcher.platformBrightness);
 
 class UiTema {
   static definirTema() {

@@ -4,7 +4,7 @@ import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/text/mensagem_text.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
-import 'package:senha_app/theme/ui_svg.dart';
+import 'package:senha_app/theme/ui_icone.dart';
 
 class EntrarPage extends StatefulWidget {
   const EntrarPage({super.key});
@@ -26,7 +26,7 @@ class _EntrarPageState extends State<EntrarPage> {
           children: [
             Expanded(
                 child: SvgPicture.asset(
-              UiSvg.segura,
+              UiIcone.segura,
               height: 200,
             )),
             const Center(
@@ -38,7 +38,7 @@ class _EntrarPageState extends State<EntrarPage> {
             const SizedBox(height: 48),
             IconButton(
               onPressed: () => _authConfig.singInWithGoogle(),
-              icon: SvgPicture.asset(UiSvg.google),
+              icon: SvgPicture.asset(UiIcone.google),
             )
           ],
         ),

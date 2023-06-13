@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/toast_class.dart';
-import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/relatar_problema_firebase.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';

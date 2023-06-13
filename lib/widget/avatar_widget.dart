@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_imagem.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/theme/ui_tema.dart';
 
 class AvatarWidget extends StatefulWidget {
   const AvatarWidget({

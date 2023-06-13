@@ -1,5 +1,5 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:senha_app/class/usuario_class.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 
 class CriptografiaClass {
   final key = Key.fromUtf8(currentUsuario.value.idUsuario);

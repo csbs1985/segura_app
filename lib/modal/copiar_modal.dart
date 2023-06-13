@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:senha_app/button/modal_button.dart';
 import 'package:senha_app/class/copiar_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/theme/ui_tema.dart';
 import 'package:unicons/unicons.dart';
 
 class CopiarModal extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_botao.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/theme/ui_tema.dart';
 import 'package:senha_app/theme/ui_texto.dart';
 
 class PadraoSelecionarWidget extends StatefulWidget {

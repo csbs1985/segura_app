@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/hive_config.dart';
 import 'package:senha_app/config/routes_config.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firebase_options.dart';
 import 'package:senha_app/theme/ui_tema.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
