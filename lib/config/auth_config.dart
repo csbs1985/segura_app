@@ -17,8 +17,6 @@ class AuthConfig extends ChangeNotifier {
 
   User? usuario;
 
-  bool isLoading = true;
-
   Map<String, dynamic>? usuarioMap;
 
   AuthConfig() {
@@ -29,7 +27,6 @@ class AuthConfig extends ChangeNotifier {
     _auth.authStateChanges().listen((User? user) async {
       usuario = (user == null) ? null : user;
       _verificarUsuarioFirestore();
-      isLoading = false;
       notifyListeners();
     });
   }
@@ -45,13 +42,11 @@ class AuthConfig extends ChangeNotifier {
         usuarioMap = _usuarioClass.postUsuarioUser(usuario!);
         await _usuarioFirestore.postUsuario(usuarioMap!);
       }
-
       _verificarUsuarioHive();
     }
   }
 
   _verificarUsuarioHive() async {
-    usuarioMap;
     if (_usuarioHive.verificarUsuario()) {
       Map<dynamic, dynamic> usuarioDynamic = await _usuarioHive.readUsuario();
       usuarioMap = _usuarioClass.conveterDymanicToString(usuarioDynamic);

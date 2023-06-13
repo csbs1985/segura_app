@@ -10,6 +10,7 @@ import 'package:senha_app/config/algolia_config.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
+import 'package:senha_app/model/usuario_model.dart';
 import 'package:senha_app/page/drawer_page.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/text/titulo_text.dart';
@@ -99,23 +100,30 @@ class _InicioPageState extends State<InicioPage> {
                           ],
                         ),
                       ),
-                      FirestoreListView(
-                        query: _senhaFirestore
-                            .getTodasSenhas(currentUsuario.value.idUsuario),
-                        pageSize: 30,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        loadingBuilder: (context) => const SenhaItemSkeleton(),
-                        errorBuilder: (context, error, _) =>
-                            ErroResultadoWidget(altura: altura),
-                        emptyBuilder: (context) =>
-                            ResultadoVazioWidget(altura: altura),
-                        itemBuilder: (
-                          BuildContext context,
-                          QueryDocumentSnapshot<dynamic> snapshot,
-                        ) {
-                          Map<String, dynamic> senha = snapshot.data();
-                          return SenhaItemWidget(senha: senha);
+                      ValueListenableBuilder(
+                        valueListenable: currentUsuario,
+                        builder:
+                            (BuildContext context, UsuarioModel usuario, _) {
+                          return FirestoreListView(
+                            query: _senhaFirestore
+                                .getTodasSenhas(usuario.idUsuario),
+                            pageSize: 30,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            loadingBuilder: (context) =>
+                                const SenhaItemSkeleton(),
+                            errorBuilder: (context, error, _) =>
+                                ErroResultadoWidget(altura: altura),
+                            emptyBuilder: (context) =>
+                                ResultadoVazioWidget(altura: altura),
+                            itemBuilder: (
+                              BuildContext context,
+                              QueryDocumentSnapshot<dynamic> snapshot,
+                            ) {
+                              Map<String, dynamic> senha = snapshot.data();
+                              return SenhaItemWidget(senha: senha);
+                            },
+                          );
                         },
                       ),
                     ],
