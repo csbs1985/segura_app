@@ -45,6 +45,7 @@ class AuthConfig extends ChangeNotifier {
         usuarioMap = {
           'avatarUsuario': usuario!.photoURL,
           'biometria': "",
+          'categorias': [],
           'emailUsuario': usuario!.email,
           'idUsuario': user.uid,
           'nomeUsuario': usuario!.displayName,
@@ -56,6 +57,7 @@ class AuthConfig extends ChangeNotifier {
         usuarioMap = {
           'avatarUsuario': document,
           'biometria': document,
+          'categorias': [],
           'emailUsuario': document,
           'idUsuario': document,
           'nomeUsuario': document,
@@ -74,6 +76,7 @@ class AuthConfig extends ChangeNotifier {
       usuarioMap = {
         'avatarUsuario': usuarioHive['avatarUsuario'],
         'biometria': usuarioHive['biometria'],
+        'categorias': usuarioHive['categorias'],
         'emailUsuario': usuarioHive['emailUsuario'],
         'idUsuario': usuarioHive['idUsuario'],
         'nomeUsuario': usuarioHive['nomeUsuario'],
@@ -83,6 +86,7 @@ class AuthConfig extends ChangeNotifier {
       usuarioMap = {
         'avatarUsuario': usuario!.photoURL,
         'biometria': "",
+        'categorias': [],
         'emailUsuario': usuario!.email,
         'idUsuario': usuario!.uid,
         'nomeUsuario': usuario!.displayName,
@@ -95,6 +99,7 @@ class AuthConfig extends ChangeNotifier {
     currentUsuario.value = UsuarioModel(
       avatarUsuario: usuarioMap!['avatarUsuario'],
       biometria: usuarioMap!['biometria'],
+      categorias: usuarioMap!['categorias'].whereType<String>().toList(),
       emailUsuario: usuarioMap!['emailUsuario'],
       idUsuario: usuarioMap!['idUsuario'],
       nomeUsuario: usuarioMap!['nomeUsuario'],

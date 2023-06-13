@@ -5,6 +5,7 @@ ValueNotifier<UsuarioModel> currentUsuario =
     ValueNotifier<UsuarioModel>(UsuarioModel(
   avatarUsuario: '',
   biometria: '',
+  categorias: [],
   emailUsuario: '',
   idUsuario: '',
   nomeUsuario: '',
