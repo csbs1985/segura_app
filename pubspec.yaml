@@ -49,13 +49,11 @@ flutter_launcher_icons: # flutter pub run flutter_launcher_icons
   image_path: "assets/app/ic_launcher.png"
 
 flutter_native_splash: # flutter pub get && flutter pub run flutter_native_splash:create
-  color: "#ffffff"
+  color: "#181A21"
   color_dark: "#181A21"
   image: "assets/app/ic_splash.png"
   android: true
   ios: true
-  android_gravity: center
-  android_fullscreen: true
 
 flutter:
   uses-material-design: true

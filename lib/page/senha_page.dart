@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
+import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
@@ -11,7 +12,7 @@ import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/formulario_input.dart';
-import 'package:senha_app/modal/gerador_senha_modal.dart';
+import 'package:senha_app/modal/gerar_senha_modal.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -31,6 +32,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
+  final ToastClass _toastClass = ToastClass();
   final Uuid uuid = const Uuid();
 
   final TextEditingController _controllerAnotacao = TextEditingController();
@@ -81,9 +83,15 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
 
   toggleOculto() {
     setState(() => _oculto = !_oculto);
+
+    _toastClass.abrirToast(
+      context: context,
+      estilo: SenhaEnum.SUCESSO.value,
+      texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
+    );
   }
 
-  void _abrirModal(BuildContext context) {
+  void _modalCopiar(BuildContext context) {
     Map<String, dynamic> _copiar = {
       'anotacao': _anotacao,
       'link': _link,
@@ -92,7 +100,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       'usuario': _usuario
     };
 
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -141,12 +149,13 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     }
   }
 
-  abrirGerador(BuildContext context) {
+  _modalGerador(BuildContext context) {
     showCupertinoModalBottomSheet(
       expand: true,
       context: context,
       barrierColor: UiCor.overlay,
-      builder: (context) => GeradorSenhaModal(
+      backgroundColor: Colors.red,
+      builder: (context) => GerarSenhaModal(
         callback: (value) => {
           Navigator.of(context).pop(),
           setState(() => _controllerSenha.text = _senha = value),
@@ -188,17 +197,17 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           if (_verificarCopiar())
             IconeButton(
               icone: UniconsLine.copy,
-              callback: () => _abrirModal(context),
+              callback: () => _modalCopiar(context),
             ),
           if (_dataRegistro != "")
             IconeButton(
               icone: UniconsLine.trash_alt,
               callback: () =>
-                  _senhaClass.toggleSenhaTrue(context, widget._idSenha),
+                  _senhaClass.senhaDeletadaTrue(context, widget._idSenha),
             ),
           IconeButton(
             icone: UniconsLine.asterisk,
-            callback: () => abrirGerador(context),
+            callback: () => _modalGerador(context),
           ),
           IconeButton(
             icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
@@ -212,6 +221,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormularioInput(
                   controller: _controllerNome,
@@ -258,18 +268,13 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       ),
       bottomSheet: Container(
         width: MediaQuery.sizeOf(context).width,
-        height: _dataRegistro.isEmpty ? 32 : 48,
+        height: 32,
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Column(
           children: [
             if (_dataRegistro != "")
-              LegendaText(
-                texto: _senhaClass.ultimaEdicao(_dataRegistro),
-              ),
-            LegendaText(
-              texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
-            )
+              LegendaText(texto: _senhaClass.ultimaEdicao(_dataRegistro)),
           ],
         ),
       ),

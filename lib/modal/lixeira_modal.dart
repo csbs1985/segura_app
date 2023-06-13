@@ -54,7 +54,7 @@ class _LixeiraModalState extends State<LixeiraModal> {
                         ModalButton(
                           texto: LIXEIRA_RESTAURAR_ITEM,
                           icone: UniconsLine.history,
-                          callback: () => _senhaClass.toggleSenhaFalse(
+                          callback: () => _senhaClass.senhaDeletadaFalse(
                               context, widget._idSenha!),
                         ),
                         const SizedBox(height: UiTamanho.espacoLista),

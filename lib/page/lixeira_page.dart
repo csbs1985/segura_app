@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -28,7 +29,7 @@ class _LixeiraPageState extends State<LixeiraPage> {
   final List<String> _listaSenha = [];
 
   void _abrirModal(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

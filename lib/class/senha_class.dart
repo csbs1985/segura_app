@@ -6,9 +6,9 @@ import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
+import 'package:intl/date_symbol_data_local.dart';
 
 class SenhaClass {
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
@@ -48,6 +48,8 @@ class SenhaClass {
   }
 
   String ultimaEdicao(String value) {
+    initializeDateFormatting('pt_BR', null);
+
     DateTime data = DateTime.parse(value);
     DateTime agora = DateTime.now();
     Duration diferenca = agora.difference(data);
@@ -59,7 +61,6 @@ class SenhaClass {
     } else if (diferenca.inHours < 24) {
       return "editado há ${diferenca.inHours} hora(s)";
     } else if (diferenca.inDays < 7) {
-      initializeDateFormatting();
       String diaSemana = DateFormat('EEEE', 'pt_BR').format(data);
       return "editado $diaSemana";
     } else {
@@ -111,9 +112,9 @@ class SenhaClass {
     return senha;
   }
 
-  toggleSenhaTrue(BuildContext context, String idSenha) async {
+  senhaDeletadaTrue(BuildContext context, String idSenha) async {
     try {
-      await _senhaFirestore.toggleSenhaTrue(idSenha);
+      await _senhaFirestore.senhaDeletadaTrue(idSenha);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
@@ -150,9 +151,9 @@ class SenhaClass {
     }
   }
 
-  toggleSenhaFalse(BuildContext context, String idSenha) async {
+  senhaDeletadaFalse(BuildContext context, String idSenha) async {
     try {
-      await _senhaFirestore.toggleSenhaFalse(idSenha);
+      await _senhaFirestore.senhaDeletadaFalse(idSenha);
       Navigator.of(context).pop();
     } catch (error) {
       _toastClass.abrirToast(
@@ -165,7 +166,8 @@ class SenhaClass {
 
   restaurarLixeira(BuildContext context, List<String> listaSenha) async {
     try {
-      for (var item in listaSenha) await _senhaFirestore.toggleSenhaFalse(item);
+      for (var item in listaSenha)
+        await _senhaFirestore.senhaDeletadaFalse(item);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(

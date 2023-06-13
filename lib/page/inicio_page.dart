@@ -133,7 +133,7 @@ class _InicioPageState extends State<InicioPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.pushNamed(RoutesEnum.SENHA.value,
-            pathParameters: {'idSenha': EMPTY}),
+            pathParameters: {'idSenha': "EMPTY"}),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(UiBorda.arredondada)),
         child: const Icon(UniconsLine.plus),

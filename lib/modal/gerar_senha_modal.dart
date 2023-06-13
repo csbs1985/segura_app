@@ -14,8 +14,8 @@ import 'package:senha_app/widget/padrao_input.dart';
 import 'package:senha_app/widget/padrao_selecionar_widget.dart';
 import 'package:unicons/unicons.dart';
 
-class GeradorSenhaModal extends StatefulWidget {
-  const GeradorSenhaModal({
+class GerarSenhaModal extends StatefulWidget {
+  const GerarSenhaModal({
     super.key,
     required Function callback,
   }) : _callback = callback;
@@ -23,11 +23,10 @@ class GeradorSenhaModal extends StatefulWidget {
   final Function _callback;
 
   @override
-  State<GeradorSenhaModal> createState() => _GeradorSenhaModalState();
+  State<GerarSenhaModal> createState() => _GerarSenhaModalState();
 }
 
-class _GeradorSenhaModalState extends State<GeradorSenhaModal>
-    with ValidatorMixin {
+class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final TextEditingController _controllerTamanho = TextEditingController();

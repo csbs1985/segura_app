@@ -33,11 +33,11 @@ class SenhaFirestore {
     return await senhas.doc(idSenha).get();
   }
 
-  toggleSenhaTrue(String idSenha) {
+  senhaDeletadaTrue(String idSenha) {
     return senhas.doc(idSenha).update({'lixeira': true});
   }
 
-  toggleSenhaFalse(String idSenha) {
+  senhaDeletadaFalse(String idSenha) {
     return senhas.doc(idSenha).update({'lixeira': false});
   }
 
