@@ -39,29 +39,10 @@ class AuthConfig extends ChangeNotifier {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await _usuarioFirestore.getUsuarioId(usuario!.uid);
 
-      if (querySnapshot.docs.isNotEmpty) {
-        DocumentSnapshot<Map<String, dynamic>> doc = querySnapshot.docs.first;
-
-        usuarioMap = {
-          'avatarUsuario': doc['avatarUsuario'],
-          'biometria': doc['biometria'],
-          'categorias': doc['categorias'],
-          'emailUsuario': doc['emailUsuario'],
-          'idUsuario': doc['idUsuario'],
-          'nomeUsuario': doc['nomeUsuario'],
-          'senha': doc['senha'],
-        };
-      } else {
-        usuarioMap = {
-          'avatarUsuario': usuario!.photoURL,
-          'biometria': "",
-          'categorias': [],
-          'emailUsuario': usuario!.email,
-          'idUsuario': usuario!.uid,
-          'nomeUsuario': usuario!.displayName,
-          'senha': "",
-        };
-
+      if (querySnapshot.docs.isNotEmpty)
+        usuarioMap = _usuarioClass.postUsuarioSnapshot(querySnapshot);
+      else {
+        usuarioMap = _usuarioClass.postUsuarioUser(usuario!);
         await _usuarioFirestore.postUsuario(usuarioMap!);
       }
 
@@ -70,20 +51,13 @@ class AuthConfig extends ChangeNotifier {
   }
 
   _verificarUsuarioHive() async {
-    Map<String, dynamic>? usuarioHive;
+    usuarioMap;
     if (_usuarioHive.verificarUsuario()) {
-      usuarioHive = await _usuarioHive.readUsuario();
+      Map<dynamic, dynamic> usuarioDynamic = await _usuarioHive.readUsuario();
+      usuarioMap = _usuarioClass.conveterDymanicToString(usuarioDynamic);
     } else {
-      usuarioHive = {
-        'avatarUsuario': usuario!.photoURL,
-        'biometria': "",
-        'categorias': [],
-        'emailUsuario': usuario!.email,
-        'idUsuario': usuario!.uid,
-        'nomeUsuario': usuario!.displayName,
-        'senha': "",
-      };
-      _usuarioClass.postUsuarioHive(usuarioHive);
+      final usuarioMap = _usuarioClass.postUsuarioUser(usuario!);
+      _usuarioClass.postUsuarioHive(usuarioMap);
     }
 
     _usuarioClass.postUsuarioCurrent(usuarioMap!);
