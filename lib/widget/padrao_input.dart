@@ -63,7 +63,7 @@ class PadraoInput extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon:
                   pesquisar! ? const Icon(UniconsLine.search_alt) : null,
-              prefixIconColor: UiCor.iconeEspecial,
+              prefixIconColor: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
               counterStyle: Theme.of(context).textTheme.headlineSmall,
               hintText: hintText,
               filled: true,

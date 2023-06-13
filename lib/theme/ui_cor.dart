@@ -17,12 +17,10 @@ class UiCor {
   static const Color fundo = Color(0xFFFFFFFF);
   static const Color fundoEscuro = Color(0xFF181A21);
 
-  static const Color hintTexto = Color(0xFF333333);
-  static const Color hintTextoEscuro = Color(0xFFC6C3CF);
+  static const Color hintTexto = Color(0xFF3E8FF4);
 
   static const Color icone = Color(0xFF333333);
   static const Color iconeEscuro = Color(0xFFC6C3CF);
-  static const Color iconeEspecial = segunda;
 
   static const Color input = Color(0xFFF0F2F4);
   static const Color inputEscuro = Color(0xFF262A34);

@@ -115,7 +115,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": _lixeira,
-            "nome": _nome[0].toUpperCase(),
+            "nome": _nome,
             "oculto": _oculto,
             "senha": _senha,
             "usuario": _controllerUsuario.text,
@@ -129,7 +129,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": false,
-            "nome": _nome[0].toUpperCase(),
+            "nome": _nome,
             "oculto": _oculto,
             "senha": _controllerSenha.text,
             "usuario": _controllerUsuario.text,
@@ -204,11 +204,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
             callback: () => toggleOculto(),
           ),
-          if (_verificarCopiar())
-            IconeButton(
-              icone: UniconsLine.copy,
-              callback: () => _abrirModal(context),
-            ),
         ],
       ),
       body: SingleChildScrollView(

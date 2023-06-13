@@ -24,11 +24,6 @@ class UiTextoClaro {
     color: UiCor.texto,
     letterSpacing: 0,
   );
-  static const TextStyle hintInput = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-    color: UiCor.hintTexto,
-  );
 }
 
 class UiTextoEscuro {
@@ -53,11 +48,6 @@ class UiTextoEscuro {
     color: UiCor.textoEscuro,
     fontFamily: 'nunito',
     letterSpacing: 0,
-  );
-  static const TextStyle hintInput = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-    color: UiCor.hintTextoEscuro,
   );
 }
 
@@ -86,5 +76,10 @@ class UiTexto {
     fontSize: 24,
     fontWeight: FontWeight.normal,
     color: UiCor.textoEscuro,
+  );
+  static const TextStyle hintInput = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: UiCor.hintTexto,
   );
 }

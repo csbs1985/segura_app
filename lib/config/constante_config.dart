@@ -70,6 +70,8 @@ const String RESULTADO_VAZIO = "Nada para mostrar aqui";
 
 const String SAIR = "Sair";
 
+const String SEGURA = "Segura";
+
 const String SENHA = "Senha";
 const String SENHA_ALTERACAO_1 = "ultima alteração há";
 const String SENHA_ALTERACAO_2 = "dias";

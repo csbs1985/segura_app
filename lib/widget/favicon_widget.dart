@@ -3,7 +3,6 @@ import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/theme/ui_tema.dart';
-import 'package:unicons/unicons.dart';
 
 class FaviconWidget extends StatefulWidget {
   const FaviconWidget({
@@ -49,8 +48,9 @@ class _FaviconWidgetState extends State<FaviconWidget> {
           height: UiTamanho.favicon,
           child: isLoading
               ? Icon(
-                  widget._url! != "" ? Icons.public : UniconsLine.shield_check,
-                  color: isEscuro ? UiCor.iconeEscuro : UiCor.icone)
+                  Icons.public,
+                  color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+                )
               : Image.network(faviconUrl!),
         );
       },

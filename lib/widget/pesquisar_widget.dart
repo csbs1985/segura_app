@@ -14,11 +14,14 @@ class PesquisarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(0, 88, 0, 0),
       child: _senha.isEmpty
           ? PesquisaVaziaWidget(altura: altura)
           : ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: _senha.length,
               itemBuilder: (BuildContext context, int index) {
                 return SenhaItemWidget(senha: _senha[index]);

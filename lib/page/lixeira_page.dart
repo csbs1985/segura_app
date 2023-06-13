@@ -81,10 +81,7 @@ class _LixeiraPageState extends State<LixeiraPage> {
                 Map<String, dynamic> senha = snapshot.data();
                 _listaSenha.add(senha['idSenha']);
 
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-                  child: LixeiraItemWidget(senha: senha),
-                );
+                return LixeiraItemWidget(senha: senha);
               },
             ),
           ],

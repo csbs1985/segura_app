@@ -6,5 +6,6 @@ class UiTamanho {
   static const double espacoLista = 4;
   static const double favicon = 24;
   static const double icone = 56;
+  static const double itemLista = 64;
   static const double tag = 36;
 }

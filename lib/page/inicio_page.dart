@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
+import 'package:senha_app/appbar/inicio_appbar.dart';
 import 'package:senha_app/class/pesquisar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/class/usuario_class.dart';
@@ -17,7 +18,6 @@ import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
 import 'package:senha_app/widget/pesquisar_widget.dart';
 import 'package:senha_app/widget/resultado_erro_widget.dart';
-import 'package:senha_app/widget/padrao_input.dart';
 import 'package:senha_app/widget/resultado_vazio_widget.dart';
 import 'package:senha_app/widget/senha_item_widget.dart';
 import 'package:unicons/unicons.dart';
@@ -76,27 +76,21 @@ class _InicioPageState extends State<InicioPage> {
 
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: Colors.red,
-      ),
+      appBar: AppBar(toolbarHeight: 0),
       endDrawer: const DrawerPage(),
       body: Stack(
         children: [
-          isPesquisar
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 72),
-                  child: PesquisarWidget(senha: _snapshotSenha),
-                )
-              : SingleChildScrollView(
-                  child: Column(
+          SingleChildScrollView(
+            child: isPesquisar
+                ? PesquisarWidget(senha: _snapshotSenha)
+                : Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.fromLTRB(24, 72, 24, 16),
+                        padding: const EdgeInsets.fromLTRB(24, 88, 24, 24),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const TituloText(texto: SENHA),
+                            const TituloText(texto: SEGURA),
                             GestureDetector(
                               onTap: () =>
                                   scaffoldKey.currentState!.openEndDrawer(),
@@ -126,15 +120,13 @@ class _InicioPageState extends State<InicioPage> {
                       ),
                     ],
                   ),
-                ),
+          ),
           Positioned(
-            top: 8,
+            top: 16,
             left: 16,
             right: 16,
-            child: PadraoInput(
+            child: InicioAppbar(
               callback: (value) => _keyUp(value),
-              hintText: PESQUISAR,
-              pesquisar: true,
             ),
           ),
         ],

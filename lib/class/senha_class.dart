@@ -14,6 +14,18 @@ class SenhaClass {
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
   final ToastClass _toastClass = ToastClass();
 
+  String definirPrimeirasLetras(String texto) {
+    List<String> palavras = texto.split(' ');
+    String primeiraPalavra = palavras[0].toUpperCase();
+
+    if (palavras.length > 1) {
+      String segundaPalavra = palavras[1].toUpperCase();
+      return primeiraPalavra[0] + segundaPalavra[0];
+    }
+
+    return primeiraPalavra[0];
+  }
+
   Future<String> definirTitleSite(String url) async {
     final response = await http.get(Uri.parse(url));
 
