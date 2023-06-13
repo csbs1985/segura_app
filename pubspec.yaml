@@ -12,6 +12,7 @@ dependencies:
   algolia: ^1.1.2
   cloud_firestore: ^4.8.0
   cupertino_icons: ^1.0.2
+  encrypt: ^5.0.1
   favicon: ^1.1.1
   firebase_auth: ^4.6.2
   firebase_ui_firestore: ^1.5.2

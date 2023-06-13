@@ -39,9 +39,9 @@ class AuthConfig extends ChangeNotifier {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await _usuarioFirestore.getUsuarioId(usuario!.uid);
 
-      if (querySnapshot.docs.isNotEmpty)
+      if (querySnapshot.docs.isNotEmpty) {
         usuarioMap = _usuarioClass.postUsuarioSnapshot(querySnapshot);
-      else {
+      } else {
         usuarioMap = _usuarioClass.postUsuarioUser(usuario!);
         await _usuarioFirestore.postUsuario(usuarioMap!);
       }
