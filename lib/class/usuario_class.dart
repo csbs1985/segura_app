@@ -81,7 +81,7 @@ class UsuarioClass {
         currentUsuario.value.idUsuario,
         biometria,
       );
-      _usuarioHive.updateBiometria(biometria);
+      // _usuarioHive.updateBiometria(biometria);
     } catch (e) {
       _toastClass.abrirToast(
         context: context,

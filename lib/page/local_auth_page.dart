@@ -7,7 +7,6 @@ import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/local_auth_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
-import 'package:senha_app/model/usuario_model.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_icone.dart';
 import 'package:senha_app/widget/loading_widget.dart';
@@ -23,28 +22,27 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
   @override
   void initState() {
     super.initState();
-    Future(() => checkLocalAuth());
+    checkLocalAuth();
   }
 
   checkLocalAuth() async {
-    if (currentUsuario.value.idUsuario.isEmpty &&
-        !currentUsuario.value.biometria) {
-      context.push(RoutesEnum.INICIO.value);
-    } else {
-      final auth = context.read<LocalAuthClass>();
-      final isLocalAuthAvailable = await auth.isBiometricAvailable();
-      currentIsLocalAuthFailed.value = false;
+    // if (currentUsuario.value.idUsuario.isEmpty && !currentUsuario.value.biometria) {
+    //   context.push(RoutesEnum.INICIO.value);
+    // } else {
+    final auth = context.read<LocalAuthClass>();
+    final isLocalAuthAvailable = await auth.isBiometricAvailable();
+    currentIsLocalAuthFailed.value = false;
 
-      if (isLocalAuthAvailable) {
-        final authenticated = await auth.authenticate();
+    if (isLocalAuthAvailable) {
+      final authenticated = await auth.authenticate();
 
-        if (!authenticated) {
-          currentIsLocalAuthFailed.value = true;
-        } else {
-          if (!mounted) return;
-          context.push(RoutesEnum.INICIO.value);
-        }
+      if (!authenticated) {
+        currentIsLocalAuthFailed.value = true;
+      } else {
+        if (!mounted) return;
+        context.push(RoutesEnum.INICIO.value);
       }
+      // }
     }
   }
 
@@ -72,15 +70,9 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
                           height: 200,
                         ),
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: currentUsuario,
-                        builder:
-                            (BuildContext context, UsuarioModel usuario, _) {
-                          return Button3dWidget(
-                            callback: (value) => checkLocalAuth(),
-                            texto: AUTENTICAR_NOVAMENTE,
-                          );
-                        },
+                      Button3dWidget(
+                        callback: (value) => checkLocalAuth(),
+                        texto: AUTENTICAR_NOVAMENTE,
                       ),
                       const SizedBox(height: 24),
                     ],

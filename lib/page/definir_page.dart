@@ -18,11 +18,11 @@ class DefinirPage extends StatefulWidget {
 class _DefinicoesPageState extends State<DefinirPage> {
   final UsuarioClass _usuarioClass = UsuarioClass();
 
-  bool? isBiometria;
+  bool isBiometria = currentUsuario.value.biometria;
 
   void _definirBiometria(BuildContext context) {
-    setState(() => isBiometria = !isBiometria!);
-    _usuarioClass.toogleBiometria(context, isBiometria!);
+    setState(() => isBiometria = !isBiometria);
+    _usuarioClass.toogleBiometria(context, isBiometria);
   }
 
   @override
@@ -52,7 +52,7 @@ class _DefinicoesPageState extends State<DefinirPage> {
                     subtitulo: MODO_ENTRADA,
                     texto: MODO_ENTRADA_DESCRICAO,
                     callback: (value) => _definirBiometria(context),
-                    value: isBiometria!,
+                    value: isBiometria,
                   );
                 },
               )
