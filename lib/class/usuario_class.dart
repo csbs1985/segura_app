@@ -1,10 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:senha_app/class/toast_class.dart';
+import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
+import 'package:senha_app/firestore/usuario_firestore.dart';
 import 'package:senha_app/hive/usuario_hive.dart';
 import 'package:senha_app/model/usuario_model.dart';
 
 class UsuarioClass {
+  final ToastClass _toastClass = ToastClass();
+  final UsuarioFirestore _usuarioFirestore = UsuarioFirestore();
   final UsuarioHive _usuarioHive = UsuarioHive();
 
   Map<String, dynamic> conveterDymanicToString(Map<dynamic, dynamic> usuario) {
@@ -29,7 +35,6 @@ class UsuarioClass {
       'emailUsuario': doc['emailUsuario'],
       'idUsuario': doc['idUsuario'],
       'nomeUsuario': doc['nomeUsuario'],
-      'senha': doc['senha'],
     };
 
     return usuarioMap;
@@ -38,12 +43,11 @@ class UsuarioClass {
   Map<String, dynamic> postUsuarioUser(User usuario) {
     Map<String, dynamic> usuarioMap = {
       'avatarUsuario': usuario.photoURL,
-      'biometria': "",
+      'biometria': false,
       'categorias': [],
       'emailUsuario': usuario.email,
       'idUsuario': usuario.uid,
       'nomeUsuario': usuario.displayName,
-      'senha': "",
     };
 
     return usuarioMap;
@@ -57,7 +61,6 @@ class UsuarioClass {
       'emailUsuario': usuario['emailUsuario'],
       'idUsuario': usuario['idUsuario'],
       'nomeUsuario': usuario['nomeUsuario'],
-      'senha': usuario['senha'],
     });
   }
 
@@ -69,7 +72,22 @@ class UsuarioClass {
       emailUsuario: usuario['emailUsuario'],
       idUsuario: usuario['idUsuario'],
       nomeUsuario: usuario['nomeUsuario'],
-      senha: usuario['senha'],
     );
+  }
+
+  void toogleBiometria(BuildContext context, bool biometria) {
+    try {
+      _usuarioFirestore.pathToogleBiometria(
+        currentUsuario.value.idUsuario,
+        biometria,
+      );
+      _usuarioHive.updateBiometria(biometria);
+    } catch (e) {
+      _toastClass.abrirToast(
+        context: context,
+        estilo: SenhaEnum.ERRO.value,
+        texto: MODO_ENTRADA_ERRO,
+      );
+    }
   }
 }

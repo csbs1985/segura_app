@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:senha_app/config/auth_config.dart';
 import 'package:senha_app/config/hive_config.dart';
+import 'package:senha_app/config/provider_config.dart';
 import 'package:senha_app/config/routes_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firebase_options.dart';
@@ -22,9 +22,7 @@ Future<void> main() async {
 
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthConfig()),
-      ],
+      providers: providers,
       child: const MyApp(),
     ),
   );

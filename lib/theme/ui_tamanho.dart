@@ -8,4 +8,7 @@ class UiTamanho {
   static const double icone = 56;
   static const double itemLista = 64;
   static const double tag = 36;
+  static const double toggleAltura = 32;
+  static const double toggleLargura = 48;
+  static const double toggleTamanho = 20;
 }

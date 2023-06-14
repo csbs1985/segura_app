@@ -63,9 +63,9 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             const SizedBox(height: UiTamanho.espacoLista),
             ListaButton(
-              texto: MODO_ENTRADA,
-              icone: Icons.fingerprint,
-              callback: () => context.push(RoutesEnum.MODO_ENTRADA.value),
+              texto: DEFINIR,
+              icone: UniconsLine.setting,
+              callback: () => context.push(RoutesEnum.DEFINIR.value),
             ),
             ListaButton(
               texto: DOAR,

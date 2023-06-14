@@ -19,4 +19,9 @@ class UsuarioHive {
   verificarUsuario() {
     return _usuarioBox.isNotEmpty;
   }
+
+  updateBiometria(bool biometria) {
+    var hive = _usuarioBox.values.first;
+    hive['biometria'] = biometria;
+  }
 }

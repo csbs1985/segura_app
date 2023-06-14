@@ -6,7 +6,8 @@ import 'package:senha_app/page/entrar_page.dart';
 import 'package:senha_app/page/gerar_senha_page.dart';
 import 'package:senha_app/page/inicio_page.dart';
 import 'package:senha_app/page/lixeira_page.dart';
-import 'package:senha_app/page/modo_entrada_page.dart';
+import 'package:senha_app/page/local_auth_page.dart';
+import 'package:senha_app/page/definir_page.dart';
 import 'package:senha_app/page/relatar_problema_page.dart';
 import 'package:senha_app/page/senha_page.dart';
 
@@ -14,7 +15,7 @@ final AuthConfig _authConfig = AuthConfig();
 
 final GoRouter routes = GoRouter(
   debugLogDiagnostics: true,
-  initialLocation: RoutesEnum.INICIO.value,
+  initialLocation: RoutesEnum.LOCAL_AUTH.value,
   refreshListenable: _authConfig,
   redirect: (context, state) {
     final usuario = _authConfig.usuario;
@@ -23,16 +24,16 @@ final GoRouter routes = GoRouter(
     if (usuario == null) {
       return isLoginRoute ? null : RoutesEnum.ENTRAR.value;
     }
-    if (isLoginRoute) return RoutesEnum.INICIO.value;
+    if (isLoginRoute) return RoutesEnum.LOCAL_AUTH.value;
     return null;
   },
   routes: [
     GoRoute(
-      path: RoutesEnum.MODO_ENTRADA.value,
+      path: RoutesEnum.DEFINIR.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const ModoEntradaPage(),
+        child: const DefinirPage(),
       ),
     ),
     GoRoute(
@@ -73,6 +74,14 @@ final GoRouter routes = GoRouter(
         context: context,
         state: state,
         child: const LixeiraPage(),
+      ),
+    ),
+    GoRoute(
+      path: RoutesEnum.LOCAL_AUTH.value,
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: const LocalAuthPage(),
       ),
     ),
     GoRoute(

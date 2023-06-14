@@ -40,4 +40,7 @@ class UiCor {
 
   static const Color texto3 = Color(0xFFCCCCCC);
   static const Color texto3Escuro = Color(0xFF999999);
+
+  static const Color toogle = Color(0xFFFFFFFF);
+  static const Color toogleEscuro = Color(0xFF181A21);
 }

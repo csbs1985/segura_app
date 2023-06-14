@@ -1,6 +1,8 @@
 const String ANOTACAO = "Anotações";
 
-const String BIOMETRIA = "Modo";
+const String AUTENTICAR_NOVAMENTE = "Usar senha do celular";
+const String AUTENTICAR_DESBLOQUEAR =
+    "Por favor, autentique-se para desbloquear";
 
 const String COPIAR = "Copiar";
 const String COPIAR_ANOTACAO = "Copiar anotação";
@@ -11,6 +13,8 @@ const String COPIAR_LINK = "Copiar link";
 const String COPIAR_NOME = "Copiar nome";
 const String COPIAR_SENHA = "Copiar senha";
 const String COPIAR_USUARIO = "Copiar usuário";
+
+const String DEFINIR = "Definir";
 
 const String DOAR = "Doar";
 const String DOAR_DESCRICAO =
@@ -46,6 +50,9 @@ const String LINK_INVALIDO = "url não existe ou inválida";
 const String LINK_SEM_RESPOSTA = "Não é possível acessar esse site";
 
 const String MODO_ENTRADA = "Modo de entrada";
+const String MODO_ENTRADA_ERRO = "Não foi alterar o modo de entrada";
+const String MODO_ENTRADA_DESCRICAO =
+    "Solicitar biometria, reconhecimento de rosto, ou senha para acessar o app";
 
 const String NOME = "Nome";
 const String NOME_LINK =

@@ -25,6 +25,10 @@ class UsuarioFirestore {
     });
   }
 
+  pathToogleBiometria(String usuario, bool biometria) {
+    return usuarios.doc(usuario).update({'biometria': biometria});
+  }
+
   postUsuario(Map<String, dynamic> _usuario) {
     return usuarios.doc(_usuario['idUsuario']).set(_usuario);
   }
