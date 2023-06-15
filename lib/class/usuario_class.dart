@@ -54,7 +54,9 @@ class UsuarioClass {
   }
 
   void salvarUsuarioHive(Map<String, dynamic> usuario) async {
-    await _usuarioHive.addUsuario({
+    await _usuarioHive.deletarUsuario();
+
+    await _usuarioHive.salvarUsuario({
       'avatarUsuario': usuario['avatarUsuario'],
       'biometria': usuario['biometria'],
       'categorias': usuario['categorias'],
@@ -93,7 +95,7 @@ class UsuarioClass {
   }
 
   editarUsuarioHiveBiometria(bool biometria) async {
-    Map<dynamic, dynamic> usuario = await _usuarioHive.readUsuario();
+    Map<dynamic, dynamic> usuario = await _usuarioHive.receberUsuario();
 
     Map<String, dynamic> usuarioMap = {
       'avatarUsuario': usuario['avatarUsuario'],

@@ -4,24 +4,19 @@ import 'package:hive_flutter/hive_flutter.dart';
 class UsuarioHive {
   final _usuarioBox = Hive.box('usuario');
 
-  addUsuario(Map<String, dynamic> usuario) async {
+  salvarUsuario(Map<String, dynamic> usuario) async {
     await _usuarioBox.add(usuario);
   }
 
-  deleteUsuario() async {
+  deletarUsuario() async {
     await _usuarioBox.clear();
   }
 
-  readUsuario() {
+  receberUsuario() {
     return _usuarioBox.values.first;
   }
 
   verificarUsuario() {
     return _usuarioBox.isNotEmpty;
-  }
-
-  updateBiometria(bool biometria) {
-    var hive = _usuarioBox.values.first;
-    hive['biometria'] = biometria;
   }
 }

@@ -48,7 +48,8 @@ class AuthConfig extends ChangeNotifier {
 
   _verificarUsuarioHive() async {
     if (_usuarioHive.verificarUsuario()) {
-      Map<dynamic, dynamic> usuarioDynamic = await _usuarioHive.readUsuario();
+      Map<dynamic, dynamic> usuarioDynamic =
+          await _usuarioHive.receberUsuario();
       usuarioMap = _usuarioClass.conveterDymanicToString(usuarioDynamic);
     } else {
       final usuarioMap = _usuarioClass.salvarUsuarioUser(usuario!);
@@ -73,7 +74,7 @@ class AuthConfig extends ChangeNotifier {
   signOutWithGoogle() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
-    _usuarioHive.deleteUsuario();
+    _usuarioHive.deletarUsuario();
     _definirUsuario();
     notifyListeners();
   }

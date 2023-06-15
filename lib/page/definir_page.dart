@@ -33,8 +33,6 @@ class _DefinicoesPageState extends State<DefinirPage> {
 
   @override
   Widget build(BuildContext context) {
-    _isBiometria = currentUsuario.value.biometria;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

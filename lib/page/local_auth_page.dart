@@ -19,21 +19,12 @@ class LocalAuthPage extends StatefulWidget {
 }
 
 class _LocalAuthPageState extends State<LocalAuthPage> {
-  @override
-  void initState() {
-    super.initState();
-    checkLocalAuth();
-  }
-
-  checkLocalAuth() async {
-    // if (currentUsuario.value.idUsuario.isEmpty && !currentUsuario.value.biometria) {
-    //   context.push(RoutesEnum.INICIO.value);
-    // } else {
+  _checkLocalAuth() async {
     final auth = context.read<LocalAuthClass>();
     final isLocalAuthAvailable = await auth.isBiometricAvailable();
     currentIsLocalAuthFailed.value = false;
 
-    if (isLocalAuthAvailable) {
+    if (isLocalAuthAvailable && currentUsuario.value.biometria) {
       final authenticated = await auth.authenticate();
 
       if (!authenticated) {
@@ -42,48 +33,52 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
         if (!mounted) return;
         context.push(RoutesEnum.INICIO.value);
       }
-      // }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: ValueListenableBuilder(
-        valueListenable: currentTema,
-        builder: (BuildContext context, Brightness tema, _) {
-          bool isEscuro = tema == Brightness.dark ? true : false;
+    return FutureBuilder<void>(
+      future: _checkLocalAuth(),
+      builder: (BuildContext context, _) {
+        return Scaffold(
+          backgroundColor: Theme.of(context).primaryColor,
+          body: ValueListenableBuilder(
+            valueListenable: currentTema,
+            builder: (BuildContext context, Brightness tema, _) {
+              bool isEscuro = tema == Brightness.dark ? true : false;
 
-          return Container(
-            width: MediaQuery.sizeOf(context).width,
-            color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
-            child: ValueListenableBuilder<bool>(
-              valueListenable: currentIsLocalAuthFailed,
-              builder: (BuildContext context, bool isLocalAuthFailed, _) {
-                if (isLocalAuthFailed)
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: SvgPicture.asset(
-                          UiIcone.segura,
-                          height: 200,
-                        ),
-                      ),
-                      Button3dWidget(
-                        callback: (value) => checkLocalAuth(),
-                        texto: AUTENTICAR_NOVAMENTE,
-                      ),
-                      const SizedBox(height: 24),
-                    ],
-                  );
+              return Container(
+                width: MediaQuery.sizeOf(context).width,
+                color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: currentIsLocalAuthFailed,
+                  builder: (BuildContext context, bool isLocalAuthFailed, _) {
+                    if (isLocalAuthFailed)
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: SvgPicture.asset(
+                              UiIcone.segura,
+                              height: 200,
+                            ),
+                          ),
+                          Button3dWidget(
+                            callback: (value) => _checkLocalAuth(),
+                            texto: AUTENTICAR_NOVAMENTE,
+                          ),
+                          const SizedBox(height: 24),
+                        ],
+                      );
 
-                return const LoadingWidget();
-              },
-            ),
-          );
-        },
-      ),
+                    return const LoadingWidget();
+                  },
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
