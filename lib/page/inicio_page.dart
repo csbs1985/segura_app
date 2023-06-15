@@ -106,7 +106,7 @@ class _InicioPageState extends State<InicioPage> {
                             (BuildContext context, UsuarioModel usuario, _) {
                           return FirestoreListView(
                             query: _senhaFirestore
-                                .getTodasSenhas(usuario.idUsuario),
+                                .receberTodasSenhas(usuario.idUsuario),
                             pageSize: 30,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),

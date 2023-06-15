@@ -3,45 +3,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SenhaFirestore {
   CollectionReference senhas = FirebaseFirestore.instance.collection('senhas');
 
-  deleteSenhaId(String idSenha) async {
+  deletarSenhaId(String idSenha) async {
     return await senhas.doc(idSenha).delete();
   }
 
-  getTodasSenhas(String idUsuario) {
+  receberTodasSenhas(String idUsuario) {
     return senhas
         .orderBy('nome')
         .where('idUsuario', isEqualTo: idUsuario)
         .where('lixeira', isEqualTo: false);
   }
 
-  getTodasSenhasUsuarioGet(String idUsuario) {
-    return senhas
-        .orderBy('nome')
-        .where('idUsuario', isEqualTo: idUsuario)
-        .where('lixeira', isEqualTo: true)
-        .get();
-  }
-
-  getTodasSenhasLixeira(String idUsuario) {
+  receberTodasSenhasLixeira(String idUsuario) {
     return senhas
         .orderBy('nome')
         .where('idUsuario', isEqualTo: idUsuario)
         .where('lixeira', isEqualTo: true);
   }
 
-  getSenhaId(String idSenha) async {
+  receberSenhaId(String idSenha) async {
     return await senhas.doc(idSenha).get();
   }
 
-  senhaDeletadaTrue(String idSenha) {
+  editarSenhaDeletadaTrue(String idSenha) {
     return senhas.doc(idSenha).update({'lixeira': true});
   }
 
-  senhaDeletadaFalse(String idSenha) {
+  editarSenhaDeletadaFalse(String idSenha) {
     return senhas.doc(idSenha).update({'lixeira': false});
   }
 
-  postSenha(Map<String, dynamic> senha) async {
+  salvarSenha(Map<String, dynamic> senha) async {
     return await senhas.doc(senha['idSenha']).set(senha);
   }
 }

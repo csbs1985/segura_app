@@ -69,9 +69,9 @@ class SenhaClass {
     }
   }
 
-  postSenha(BuildContext context, Map<String, dynamic> senha) async {
+  salvarSenha(BuildContext context, Map<String, dynamic> senha) async {
     try {
-      await _senhaFirestore.postSenha(senha);
+      await _senhaFirestore.salvarSenha(senha);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
@@ -114,7 +114,7 @@ class SenhaClass {
 
   senhaDeletadaTrue(BuildContext context, String idSenha) async {
     try {
-      await _senhaFirestore.senhaDeletadaTrue(idSenha);
+      await _senhaFirestore.editarSenhaDeletadaTrue(idSenha);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
@@ -127,7 +127,7 @@ class SenhaClass {
 
   excluirSenha(BuildContext context, String idSenha) async {
     try {
-      await _senhaFirestore.deleteSenhaId(idSenha);
+      await _senhaFirestore.deletarSenhaId(idSenha);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
@@ -140,7 +140,7 @@ class SenhaClass {
 
   esvaziarLixeira(BuildContext context, List<String> listaSenha) async {
     try {
-      for (var item in listaSenha) await _senhaFirestore.deleteSenhaId(item);
+      for (var item in listaSenha) await _senhaFirestore.deletarSenhaId(item);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(
@@ -153,7 +153,7 @@ class SenhaClass {
 
   senhaDeletadaFalse(BuildContext context, String idSenha) async {
     try {
-      await _senhaFirestore.senhaDeletadaFalse(idSenha);
+      await _senhaFirestore.editarSenhaDeletadaFalse(idSenha);
       Navigator.of(context).pop();
     } catch (error) {
       _toastClass.abrirToast(
@@ -167,7 +167,7 @@ class SenhaClass {
   restaurarLixeira(BuildContext context, List<String> listaSenha) async {
     try {
       for (var item in listaSenha)
-        await _senhaFirestore.senhaDeletadaFalse(item);
+        await _senhaFirestore.editarSenhaDeletadaFalse(item);
       Navigator.of(context).pop();
     } catch (e) {
       _toastClass.abrirToast(

@@ -65,7 +65,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   iniciarSenha() async {
     Map<String, dynamic>? data;
 
-    await _senhaFirestore.getSenhaId(widget._idSenha).then((document) => {
+    await _senhaFirestore.receberSenhaId(widget._idSenha).then((document) => {
           data = document.data() as Map<String, dynamic>,
           setState(() {
             _controllerAnotacao.text = _anotacao = data!['anotacao'];
@@ -145,7 +145,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         }
       });
 
-      _senhaClass.postSenha(context, form!);
+      _senhaClass.salvarSenha(context, form!);
     }
   }
 

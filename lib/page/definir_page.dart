@@ -18,16 +18,22 @@ class DefinirPage extends StatefulWidget {
 class _DefinicoesPageState extends State<DefinirPage> {
   final UsuarioClass _usuarioClass = UsuarioClass();
 
-  bool isBiometria = currentUsuario.value.biometria;
+  bool _isBiometria = false;
+
+  @override
+  void initState() {
+    setState(() => _isBiometria = currentUsuario.value.biometria);
+    super.initState();
+  }
 
   void _definirBiometria(BuildContext context) {
-    setState(() => isBiometria = !isBiometria);
-    _usuarioClass.toogleBiometria(context, isBiometria);
+    setState(() => _isBiometria = !_isBiometria);
+    _usuarioClass.toogleBiometria(context, _isBiometria);
   }
 
   @override
   Widget build(BuildContext context) {
-    isBiometria = currentUsuario.value.biometria;
+    _isBiometria = currentUsuario.value.biometria;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,10 +58,10 @@ class _DefinicoesPageState extends State<DefinirPage> {
                     subtitulo: MODO_ENTRADA,
                     texto: MODO_ENTRADA_DESCRICAO,
                     callback: (value) => _definirBiometria(context),
-                    value: isBiometria,
+                    value: _isBiometria,
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

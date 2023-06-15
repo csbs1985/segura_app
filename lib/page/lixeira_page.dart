@@ -67,7 +67,7 @@ class _LixeiraPageState extends State<LixeiraPage> {
             ),
             FirestoreListView(
               query: _senhaFirestore
-                  .getTodasSenhasLixeira(currentUsuario.value.idUsuario),
+                  .receberTodasSenhasLixeira(currentUsuario.value.idUsuario),
               pageSize: 30,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

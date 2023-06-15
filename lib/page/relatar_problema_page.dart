@@ -27,7 +27,7 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
 
   String relatarProblema = "";
 
-  void _postProblema(BuildContext context) async {
+  void _salvarProblema(BuildContext context) async {
     try {
       Map<String, dynamic> problema = {
         'idProblema': uuid.v4(),
@@ -35,7 +35,7 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
         "idUsuario": currentUsuario.value.idUsuario,
         "texto": relatarProblema,
       };
-      await _relatarProblemaFirestore.postProblema(problema);
+      await _relatarProblemaFirestore.salvarProblema(problema);
       _toastClass.abrirToast(
         context: context,
         estilo: SenhaEnum.SUCESSO.value,
@@ -91,7 +91,7 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
       floatingActionButton: relatarProblema.isEmpty
           ? null
           : FloatingActionButton(
-              onPressed: () => _postProblema(context),
+              onPressed: () => _salvarProblema(context),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(UiBorda.arredondada)),
               child: const Icon(UniconsLine.check),

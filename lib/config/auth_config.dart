@@ -34,13 +34,13 @@ class AuthConfig extends ChangeNotifier {
   void _verificarUsuarioFirestore() async {
     if (usuario != null) {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await _usuarioFirestore.getUsuarioId(usuario!.uid);
+          await _usuarioFirestore.receberUsuarioId(usuario!.uid);
 
       if (querySnapshot.docs.isNotEmpty) {
-        usuarioMap = _usuarioClass.postUsuarioSnapshot(querySnapshot);
+        usuarioMap = _usuarioClass.salvarUsuarioSnapshot(querySnapshot);
       } else {
-        usuarioMap = _usuarioClass.postUsuarioUser(usuario!);
-        await _usuarioFirestore.postUsuario(usuarioMap!);
+        usuarioMap = _usuarioClass.salvarUsuarioUser(usuario!);
+        await _usuarioFirestore.salvarUsuario(usuarioMap!);
       }
       _verificarUsuarioHive();
     }
@@ -51,11 +51,11 @@ class AuthConfig extends ChangeNotifier {
       Map<dynamic, dynamic> usuarioDynamic = await _usuarioHive.readUsuario();
       usuarioMap = _usuarioClass.conveterDymanicToString(usuarioDynamic);
     } else {
-      final usuarioMap = _usuarioClass.postUsuarioUser(usuario!);
-      _usuarioClass.postUsuarioHive(usuarioMap);
+      final usuarioMap = _usuarioClass.salvarUsuarioUser(usuario!);
+      _usuarioClass.salvarUsuarioHive(usuarioMap);
     }
 
-    _usuarioClass.postUsuarioCurrent(usuarioMap!);
+    _usuarioClass.salvarUsuarioCurrent(usuarioMap!);
   }
 
   singInWithGoogle() async {

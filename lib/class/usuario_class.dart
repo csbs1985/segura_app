@@ -23,7 +23,7 @@ class UsuarioClass {
     return usuarioMap;
   }
 
-  Map<String, dynamic> postUsuarioSnapshot(
+  Map<String, dynamic> salvarUsuarioSnapshot(
     QuerySnapshot<Map<String, dynamic>> usuario,
   ) {
     DocumentSnapshot<Map<String, dynamic>> doc = usuario.docs.first;
@@ -40,7 +40,7 @@ class UsuarioClass {
     return usuarioMap;
   }
 
-  Map<String, dynamic> postUsuarioUser(User usuario) {
+  Map<String, dynamic> salvarUsuarioUser(User usuario) {
     Map<String, dynamic> usuarioMap = {
       'avatarUsuario': usuario.photoURL,
       'biometria': false,
@@ -53,7 +53,7 @@ class UsuarioClass {
     return usuarioMap;
   }
 
-  void postUsuarioHive(Map<String, dynamic> usuario) async {
+  void salvarUsuarioHive(Map<String, dynamic> usuario) async {
     await _usuarioHive.addUsuario({
       'avatarUsuario': usuario['avatarUsuario'],
       'biometria': usuario['biometria'],
@@ -64,7 +64,7 @@ class UsuarioClass {
     });
   }
 
-  void postUsuarioCurrent(Map<String, dynamic> usuario) {
+  void salvarUsuarioCurrent(Map<String, dynamic> usuario) {
     currentUsuario.value = UsuarioModel(
       avatarUsuario: usuario['avatarUsuario'],
       biometria: usuario['biometria'],
@@ -77,11 +77,12 @@ class UsuarioClass {
 
   void toogleBiometria(BuildContext context, bool biometria) {
     try {
-      _usuarioFirestore.pathToogleBiometria(
+      editarUsuarioHiveBiometria(biometria);
+
+      _usuarioFirestore.editarToogleBiometria(
         currentUsuario.value.idUsuario,
         biometria,
       );
-      // _usuarioHive.updateBiometria(biometria);
     } catch (e) {
       _toastClass.abrirToast(
         context: context,
@@ -89,5 +90,21 @@ class UsuarioClass {
         texto: MODO_ENTRADA_ERRO,
       );
     }
+  }
+
+  editarUsuarioHiveBiometria(bool biometria) async {
+    Map<dynamic, dynamic> usuario = await _usuarioHive.readUsuario();
+
+    Map<String, dynamic> usuarioMap = {
+      'avatarUsuario': usuario['avatarUsuario'],
+      'biometria': biometria,
+      'categorias': usuario['categorias'],
+      'emailUsuario': usuario['emailUsuario'],
+      'idUsuario': usuario['idUsuario'],
+      'nomeUsuario': usuario['nomeUsuario'],
+    };
+
+    salvarUsuarioHive(usuarioMap);
+    salvarUsuarioCurrent(usuarioMap);
   }
 }
