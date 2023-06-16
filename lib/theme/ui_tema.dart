@@ -46,8 +46,9 @@ class UiTema {
       displayLarge: UiTextoClaro.headline1,
       displayMedium: UiTextoClaro.headline2,
       displaySmall: UiTextoClaro.headline3,
-      bodySmall: UiTexto.hintInput,
+      bodySmall: UiTextoClaro.hintInput,
       labelSmall: UiTextoClaro.headline4,
+      labelLarge: UiTextoClaro.botao,
     ),
   );
 
@@ -69,8 +70,9 @@ class UiTema {
       displayLarge: UiTextoEscuro.headline1,
       displayMedium: UiTextoEscuro.headline2,
       displaySmall: UiTextoEscuro.headline3,
-      bodySmall: UiTexto.hintInput,
+      bodySmall: UiTextoEscuro.hintInput,
       labelSmall: UiTextoEscuro.headline4,
+      labelLarge: UiTextoEscuro.botao,
     ),
   );
 }

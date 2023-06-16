@@ -15,15 +15,13 @@ final AuthConfig _authConfig = AuthConfig();
 
 final GoRouter routes = GoRouter(
   debugLogDiagnostics: true,
-  initialLocation: RoutesEnum.LOCAL_AUTH.value,
+  initialLocation: RoutesEnum.INICIO.value,
   refreshListenable: _authConfig,
   redirect: (context, state) {
     final usuario = _authConfig.usuario;
     final isLoginRoute = state.matchedLocation == RoutesEnum.ENTRAR.value;
 
-    if (usuario == null) {
-      return isLoginRoute ? null : RoutesEnum.ENTRAR.value;
-    }
+    if (usuario == null) return isLoginRoute ? null : RoutesEnum.ENTRAR.value;
     if (isLoginRoute) return RoutesEnum.LOCAL_AUTH.value;
     return null;
   },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
@@ -8,7 +9,6 @@ import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/modal/copiar_modal.dart';
-import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/editado_widget.dart';
 import 'package:senha_app/widget/formulario_input.dart';
@@ -267,12 +267,9 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         ),
       ),
       bottomSheet: EditadoWidget(dataRegistro: _dataRegistro),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => floatingActionButton(context),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(UiBorda.arredondada),
-        ),
-        child: const Icon(UniconsLine.check),
+      floatingActionButton: FloatingButton(
+        callback: () => floatingActionButton(context),
+        icone: UniconsLine.check,
       ),
     );
   }

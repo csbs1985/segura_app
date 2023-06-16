@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:senha_app/button/icone_button.dart';
+import 'package:senha_app/appbar/voltar_appbar.dart';
 import 'package:senha_app/button/toggle_button.dart';
 import 'package:senha_app/class/usuario_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/model/usuario_model.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
-import 'package:unicons/unicons.dart';
 
 class DefinirPage extends StatefulWidget {
   const DefinirPage({super.key});
@@ -34,13 +33,7 @@ class _DefinicoesPageState extends State<DefinirPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconeButton(
-          icone: UniconsLine.arrow_left,
-          callback: () => Navigator.of(context).pop(),
-        ),
-      ),
+      appBar: const VoltarAppbar(),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

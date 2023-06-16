@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/3d_button.dart';
+import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/senha_class.dart';
@@ -9,7 +10,6 @@ import 'package:senha_app/text/error_text.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/text/titulo_text.dart';
-import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/padrao_input.dart';
 import 'package:senha_app/widget/padrao_selecionar_widget.dart';
 import 'package:unicons/unicons.dart';
@@ -100,7 +100,7 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
                   validator: (value) => isSenhaCaracteresInt(value!),
                 ),
                 SizedBox(height: _height),
-                Button3dWidget(
+                Button3dButton(
                   callback: (value) => _gerarSenha(),
                   texto: SENHA_GERAR,
                 ),
@@ -124,11 +124,9 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
       ),
       floatingActionButton: !senhaGerada.isNotEmpty
           ? null
-          : FloatingActionButton(
-              onPressed: () => widget._callback(senhaGerada),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(UiBorda.arredondada)),
-              child: const Icon(UniconsLine.check),
+          : FloatingButton(
+              callback: () => widget._callback(senhaGerada),
+              icone: UniconsLine.check,
             ),
     );
   }

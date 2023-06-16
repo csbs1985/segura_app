@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:senha_app/button/icone_button.dart';
+import 'package:senha_app/appbar/voltar_appbar.dart';
+import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/relatar_problema_firebase.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
-import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/widget/padrao_input.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
@@ -60,13 +60,7 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconeButton(
-          icone: UniconsLine.arrow_left,
-          callback: () => Navigator.of(context).pop(),
-        ),
-      ),
+      appBar: const VoltarAppbar(),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -81,7 +75,7 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
                 controller: _controleProblema,
                 hintText: RELATAR_PROBLEMA,
                 maxLines: null,
-                minLines: 10,
+                minLines: 1,
                 callback: (value) => setState(() => relatarProblema = value),
               )
             ],
@@ -90,11 +84,9 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
       ),
       floatingActionButton: relatarProblema.isEmpty
           ? null
-          : FloatingActionButton(
-              onPressed: () => _salvarProblema(context),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(UiBorda.arredondada)),
-              child: const Icon(UniconsLine.check),
+          : FloatingButton(
+              callback: () => _salvarProblema(context),
+              icone: UniconsLine.check,
             ),
     );
   }

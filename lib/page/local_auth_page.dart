@@ -24,7 +24,7 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
     final isLocalAuthAvailable = await auth.isBiometricAvailable();
     currentIsLocalAuthFailed.value = false;
 
-    if (isLocalAuthAvailable && currentUsuario.value.biometria) {
+    if (isLocalAuthAvailable) {
       final authenticated = await auth.authenticate();
 
       if (!authenticated) {
@@ -63,7 +63,7 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
                               height: 200,
                             ),
                           ),
-                          Button3dWidget(
+                          Button3dButton(
                             callback: (value) => _checkLocalAuth(),
                             texto: AUTENTICAR_NOVAMENTE,
                           ),

@@ -61,8 +61,12 @@ class PadraoInput extends StatelessWidget {
             textAlignVertical: TextAlignVertical.center,
             validator: validator,
             decoration: InputDecoration(
-              prefixIcon:
-                  pesquisar! ? const Icon(UniconsLine.search_alt) : null,
+              prefixIcon: pesquisar!
+                  ? const Icon(
+                      UniconsLine.search_alt,
+                      color: UiCor.iconeDestaque,
+                    )
+                  : null,
               prefixIconColor: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
               counterStyle: Theme.of(context).textTheme.headlineSmall,
               hintText: hintText,

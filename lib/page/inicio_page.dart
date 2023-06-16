@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/appbar/inicio_appbar.dart';
+import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/pesquisar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/algolia_config.dart';
@@ -14,7 +15,6 @@ import 'package:senha_app/model/usuario_model.dart';
 import 'package:senha_app/page/drawer_page.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/text/titulo_text.dart';
-import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
 import 'package:senha_app/widget/pesquisar_widget.dart';
@@ -139,12 +139,12 @@ class _InicioPageState extends State<InicioPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.pushNamed(RoutesEnum.SENHA.value,
-            pathParameters: {'idSenha': "EMPTY"}),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UiBorda.arredondada)),
-        child: const Icon(UniconsLine.plus),
+      floatingActionButton: FloatingButton(
+        callback: () => context.pushNamed(
+          RoutesEnum.SENHA.value,
+          pathParameters: {'idSenha': "EMPTY"},
+        ),
+        icone: UniconsLine.plus,
       ),
     );
   }

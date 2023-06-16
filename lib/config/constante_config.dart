@@ -17,6 +17,7 @@ const String COPIAR_USUARIO = "Copiar usuário";
 const String DEFINIR = "Definir";
 
 const String DOAR = "Doar";
+const String DOAR_BUTTON = 'copiar chave pix';
 const String DOAR_DESCRICAO =
     'Aqui quem fala é o gênio por trás desse aplicativo sensacional. Surpreendentemente, eu o criei sozinho, sem um exército de robôs ou um assistente superinteligente. Acreditem, foi um verdadeiro desafio! \n\n'
     'Agora, vocês devem estar se perguntando: "Por que diabos eu deveria doar para esse desenvolvedor solitário?". Bem, deixe-me explicar: sua doação é como café para mim, mantendo meus neurônios acordados e motivados. Além disso, me ajuda a continuar adicionando novidades, consertando os bugs e fazendo malabarismos para manter tudo funcionando sem falhas. \n\n'
@@ -24,9 +25,8 @@ const String DOAR_DESCRICAO =
     'Agora, vamos combinar, ser o apoiador número um deste desenvolvedor solitário não é só sobre agradecer por todo o esforço e talento investidos, mas também sobre ter o orgulho de fazer parte de algo incrível. Você estará alimentando o sonho de um programador que luta contra as forças do cansaço e da pizza fria para tornar sua experiência no app épica. \n\n'
     'Então, caros usuários fantásticos, vamos unir nossos poderes e mostrar ao mundo o que podemos fazer juntos! Façam suas doações e sejam parte dessa jornada divertida, cheia de risadas e surpresas. \n\n'
     'Agradeço a todos vocês pelo apoio, pela risada compartilhada e por ajudar a manter meu estoque de café sempre abastecido! \n\n'
-    'Com gratidão e um sorriso maluco, \n\n'
-    'Charles Santos \n\n\n\n'
-    'Clique no botão para copiar a chave Pix';
+    'Com gratidão e um sorriso, \n\n'
+    'Charles Santos';
 
 const String EMPTY = "empty";
 

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/theme/ui_texto.dart';
 
-class Button3dWidget extends StatefulWidget {
-  const Button3dWidget({
+class Button3dButton extends StatefulWidget {
+  const Button3dButton({
     super.key,
     required Function callback,
     required String texto,
@@ -16,10 +15,10 @@ class Button3dWidget extends StatefulWidget {
   final String _texto;
 
   @override
-  State<Button3dWidget> createState() => _Button3dWidgetState();
+  State<Button3dButton> createState() => _Button3dButtonState();
 }
 
-class _Button3dWidgetState extends State<Button3dWidget> {
+class _Button3dButtonState extends State<Button3dButton> {
   final double _height = UiTamanho.botao;
 
   double _widtht = 0;
@@ -65,8 +64,8 @@ class _Button3dWidgetState extends State<Button3dWidget> {
                 ),
                 child: Center(
                   child: Text(
-                    widget._texto,
-                    style: UiTexto.botao,
+                    widget._texto.toUpperCase(),
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
               ),
