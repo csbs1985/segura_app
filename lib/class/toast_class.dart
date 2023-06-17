@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:senha_app/theme/ui_cor.dart';
+import 'package:senha_app/theme/ui_icone.dart';
 import 'package:toastification/toastification.dart';
-import 'package:unicons/unicons.dart';
 
 class ToastClass {
   void abrirToast({
@@ -15,7 +16,7 @@ class ToastClass {
       autoCloseDuration: Duration(seconds: duracao ?? 3),
       title: texto,
       animationDuration: const Duration(milliseconds: 300),
-      icon: definirIcone(estilo),
+      icon: SvgPicture.asset(UiIcone.icone),
       backgroundColor: definirCor(estilo),
       foregroundColor: UiCor.textoEscuro,
       brightness: Brightness.light,
@@ -31,12 +32,6 @@ class ToastClass {
     if (estilo == SenhaEnum.ERRO.value) return UiCor.erro;
     if (estilo == SenhaEnum.PADRAO.value) return UiCor.segunda;
     return UiCor.sucesso;
-  }
-
-  Widget definirIcone(String estilo) {
-    if (estilo == SenhaEnum.ERRO.value) return const Icon(UniconsLine.angry);
-    if (estilo == SenhaEnum.PADRAO.value) return const Icon(UniconsLine.squint);
-    return const Icon(UniconsLine.meh_closed_eye);
   }
 }
 

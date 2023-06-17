@@ -16,7 +16,7 @@ class PesquisarWidget extends StatelessWidget {
     double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(0, 88, 0, 0),
+      padding: const EdgeInsets.only(top: UiTamanho.topInicioAppbar),
       child: _senha.isEmpty
           ? PesquisaVaziaWidget(altura: altura)
           : ListView.builder(

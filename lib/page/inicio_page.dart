@@ -8,15 +8,12 @@ import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/pesquisar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/algolia_config.dart';
-import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/model/usuario_model.dart';
 import 'package:senha_app/page/drawer_page.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
-import 'package:senha_app/text/titulo_text.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/widget/avatar_widget.dart';
 import 'package:senha_app/widget/pesquisar_widget.dart';
 import 'package:senha_app/widget/resultado_erro_widget.dart';
 import 'package:senha_app/widget/resultado_vazio_widget.dart';
@@ -84,57 +81,43 @@ class _InicioPageState extends State<InicioPage> {
           SingleChildScrollView(
             child: isPesquisar
                 ? PesquisarWidget(senha: _snapshotSenha)
-                : Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(24, 88, 24, 24),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const TituloText(texto: SEGURA),
-                            GestureDetector(
-                              onTap: () =>
-                                  scaffoldKey.currentState!.openEndDrawer(),
-                              child: const AvatarWidget(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ValueListenableBuilder(
-                        valueListenable: currentUsuario,
-                        builder:
-                            (BuildContext context, UsuarioModel usuario, _) {
-                          return FirestoreListView(
-                            query: _senhaFirestore
-                                .receberTodasSenhas(usuario.idUsuario),
-                            pageSize: 30,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            loadingBuilder: (context) =>
-                                const SenhaItemSkeleton(),
-                            errorBuilder: (context, error, _) =>
-                                ErroResultadoWidget(altura: altura),
-                            emptyBuilder: (context) =>
-                                ResultadoVazioWidget(altura: altura),
-                            itemBuilder: (
-                              BuildContext context,
-                              QueryDocumentSnapshot<dynamic> snapshot,
-                            ) {
-                              Map<String, dynamic> senha = snapshot.data();
-                              return SenhaItemWidget(senha: senha);
-                            },
-                          );
-                        },
-                      ),
-                    ],
+                : Container(
+                    padding:
+                        const EdgeInsets.only(top: UiTamanho.topInicioAppbar),
+                    child: ValueListenableBuilder(
+                      valueListenable: currentUsuario,
+                      builder: (BuildContext context, UsuarioModel usuario, _) {
+                        return FirestoreListView(
+                          query: _senhaFirestore
+                              .receberTodasSenhas(usuario.idUsuario),
+                          pageSize: 30,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          loadingBuilder: (context) =>
+                              const SenhaItemSkeleton(),
+                          errorBuilder: (context, error, _) =>
+                              ErroResultadoWidget(altura: altura),
+                          emptyBuilder: (context) =>
+                              ResultadoVazioWidget(altura: altura),
+                          itemBuilder: (
+                            BuildContext context,
+                            QueryDocumentSnapshot<dynamic> snapshot,
+                          ) {
+                            Map<String, dynamic> senha = snapshot.data();
+                            return SenhaItemWidget(senha: senha);
+                          },
+                        );
+                      },
+                    ),
                   ),
           ),
           Positioned(
-            top: 16,
+            top: 8,
             left: 16,
             right: 16,
             child: InicioAppbar(
-              callback: (value) => _keyUp(value),
+              avatar: () => scaffoldKey.currentState!.openEndDrawer(),
+              pesquisar: (value) => _keyUp(value),
             ),
           ),
         ],

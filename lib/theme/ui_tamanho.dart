@@ -13,4 +13,5 @@ class UiTamanho {
   static const double toggleAltura = 32;
   static const double toggleLargura = 48;
   static const double toggleTamanho = 20;
+  static const double topInicioAppbar = 80;
 }

@@ -26,10 +26,11 @@ class _EntrarPageState extends State<EntrarPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
-                child: SvgPicture.asset(
-              UiIcone.segura,
-              height: UiTamanho.logo,
-            )),
+              child: SvgPicture.asset(
+                UiIcone.logo,
+                height: UiTamanho.logo,
+              ),
+            ),
             const Center(
               child: SubtituloText(texto: ENTRAR_BEM_VINDO),
             ),

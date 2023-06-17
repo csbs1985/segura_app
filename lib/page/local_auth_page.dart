@@ -60,7 +60,7 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
                         children: [
                           Expanded(
                             child: SvgPicture.asset(
-                              UiIcone.segura,
+                              UiIcone.logo,
                               height: UiTamanho.logo,
                             ),
                           ),

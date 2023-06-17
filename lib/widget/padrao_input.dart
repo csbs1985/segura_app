@@ -13,12 +13,13 @@ class PadraoInput extends StatelessWidget {
   final bool? expands;
   final FocusNode? focusNode;
   final String? hintText;
+  final bool inputCircular;
   final TextInputType? keyboardType;
   final Function(String?)? onSaved;
   final int? maxLength;
   final int? minLines;
   final int? maxLines;
-  final bool? pesquisar;
+  final bool? pesquisarIcone;
   final String? Function(String?)? validator;
 
   const PadraoInput({
@@ -29,12 +30,13 @@ class PadraoInput extends StatelessWidget {
     this.expands = false,
     this.focusNode,
     this.hintText,
+    this.inputCircular = false,
     this.keyboardType = TextInputType.text,
     this.onSaved,
     this.maxLength,
     this.minLines = 1,
     this.maxLines = 1,
-    this.pesquisar = false,
+    this.pesquisarIcone = false,
     this.validator,
   }) : super(key: key);
 
@@ -61,7 +63,7 @@ class PadraoInput extends StatelessWidget {
             textAlignVertical: TextAlignVertical.center,
             validator: validator,
             decoration: InputDecoration(
-              prefixIcon: pesquisar!
+              prefixIcon: pesquisarIcone!
                   ? const Icon(
                       UniconsLine.search_alt,
                       color: UiCor.iconeDestaque,
@@ -80,15 +82,21 @@ class PadraoInput extends StatelessWidget {
               ),
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(UiBorda.arredondada),
+                borderRadius: BorderRadius.circular(
+                  inputCircular ? UiBorda.circulo : UiBorda.arredondada,
+                ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(UiBorda.arredondada),
+                borderRadius: BorderRadius.circular(
+                  inputCircular ? UiBorda.circulo : UiBorda.arredondada,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(UiBorda.arredondada),
+                borderRadius: BorderRadius.circular(
+                  inputCircular ? UiBorda.circulo : UiBorda.arredondada,
+                ),
               ),
             ),
           ),
