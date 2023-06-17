@@ -9,6 +9,7 @@ import 'package:senha_app/config/local_auth_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_icone.dart';
+import 'package:senha_app/theme/ui_tamanho.dart';
 import 'package:senha_app/widget/loading_widget.dart';
 
 class LocalAuthPage extends StatefulWidget {
@@ -60,7 +61,7 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
                           Expanded(
                             child: SvgPicture.asset(
                               UiIcone.segura,
-                              height: 200,
+                              height: UiTamanho.logo,
                             ),
                           ),
                           Button3dButton(

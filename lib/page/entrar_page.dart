@@ -5,6 +5,7 @@ import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/text/mensagem_text.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/theme/ui_icone.dart';
+import 'package:senha_app/theme/ui_tamanho.dart';
 
 class EntrarPage extends StatefulWidget {
   const EntrarPage({super.key});
@@ -27,7 +28,7 @@ class _EntrarPageState extends State<EntrarPage> {
             Expanded(
                 child: SvgPicture.asset(
               UiIcone.segura,
-              height: 200,
+              height: UiTamanho.logo,
             )),
             const Center(
               child: SubtituloText(texto: ENTRAR_BEM_VINDO),
