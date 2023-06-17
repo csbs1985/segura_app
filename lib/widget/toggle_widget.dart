@@ -33,8 +33,8 @@ class _ToggleWidgetState extends State<ToggleWidget> {
           value: widget._value,
           activeColor: UiCor.segunda,
           inactiveColor: isDark ? UiCor.toogleEscuro : UiCor.toogle,
-          activeToggleColor: UiCor.primeira,
-          inactiveToggleColor: UiCor.primeira,
+          activeToggleColor: UiCor.terceira,
+          inactiveToggleColor: UiCor.terceira,
           toggleSize: UiTamanho.toggleTamanho,
           onToggle: (value) => widget._callback(value),
         );

@@ -38,9 +38,9 @@ class _ToggleSelecionarWidgetState extends State<ToggleButton> {
         bool isDark = tema == Brightness.dark;
 
         return GestureDetector(
-          // onTapDown: (_) => setState(() => isPressed = true),
-          // onTapUp: (_) => setState(() => isPressed = false),
-          // onTapCancel: () => setState(() => isPressed = false),
+          onTapDown: (_) => setState(() => isPressed = true),
+          onTapUp: (_) => setState(() => isPressed = false),
+          onTapCancel: () => setState(() => isPressed = false),
           onTap: () => widget._callback(true),
           child: Container(
             width: double.infinity,
