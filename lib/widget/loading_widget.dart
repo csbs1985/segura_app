@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoadingWidget extends StatefulWidget {
   const LoadingWidget({super.key});
@@ -10,8 +11,11 @@ class LoadingWidget extends StatefulWidget {
 class _LoadingWidgetState extends State<LoadingWidget> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
+    return Center(
+      child: LoadingAnimationWidget.staggeredDotsWave(
+        color: Colors.white,
+        size: 60,
+      ),
     );
   }
 }

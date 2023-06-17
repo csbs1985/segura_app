@@ -15,7 +15,7 @@ final AuthConfig _authConfig = AuthConfig();
 
 final GoRouter routes = GoRouter(
   debugLogDiagnostics: true,
-  initialLocation: RoutesEnum.INICIO.value,
+  initialLocation: RoutesEnum.LOCAL_AUTH.value,
   refreshListenable: _authConfig,
   redirect: (context, state) {
     final usuario = _authConfig.usuario;

@@ -8,6 +8,7 @@ import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/pesquisar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/algolia_config.dart';
+import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/model/usuario_model.dart';
@@ -125,7 +126,7 @@ class _InicioPageState extends State<InicioPage> {
       floatingActionButton: FloatingButton(
         callback: () => context.pushNamed(
           RoutesEnum.SENHA.value,
-          pathParameters: {'idSenha': "EMPTY"},
+          pathParameters: {'idSenha': EMPTY},
         ),
         icone: UniconsLine.plus,
       ),
