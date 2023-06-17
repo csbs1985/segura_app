@@ -10,14 +10,13 @@ class UiCor {
 
   static const Color erro = Color(0xFFff4b4b);
 
-  static const Color floating = Color(0xFF181A21);
-  static const Color floatingEscuro = Color(0xFFFFFFFF);
+  static const Color floating = Color(0xFFFFFFFF);
 
   static const Color fundo = Color(0xFFFFFFFF);
   static const Color fundoEscuro = Color(0xFF181A21);
 
   static const Color hintTexto = Colors.black26;
-  static const Color hintTextoEscuro = Colors.white10;
+  static const Color hintTextoEscuro = Colors.white24;
 
   static const Color icone = Color(0xFF333333);
   static const Color iconeEscuro = Color(0xFFC6C3CF);
