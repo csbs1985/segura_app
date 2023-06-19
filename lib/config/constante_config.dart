@@ -4,6 +4,8 @@ const String AUTENTICAR_NOVAMENTE = "Usar senha do celular";
 const String AUTENTICAR_DESBLOQUEAR =
     "Por favor, autentique-se para desbloquear";
 
+const String CATEGORIAS = "Categorias";
+
 const String COPIAR = "Copiar";
 const String COPIAR_ANOTACAO = "Copiar anotação";
 const String COPIAR_COPIADO = "Texto copiado para a área de transferência.";

@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class UsuarioModel {
   late String avatarUsuario;
   late bool biometria;
@@ -14,4 +16,15 @@ class UsuarioModel {
     required this.idUsuario,
     required this.nomeUsuario,
   });
+
+  static Map<String, dynamic> toMap(usuario) {
+    return <String, dynamic>{
+      'avatarUsuario': usuario['avatarUsuario'],
+      'biometria': usuario['biometria'],
+      'categorias': usuario['categorias'],
+      'emailUsuario': usuario['emailUsuario'],
+      'idUsuario': usuario['idUsuario'],
+      'nomeUsuario': usuario['nomeUsuario'],
+    };
+  }
 }

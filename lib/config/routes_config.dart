@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/auth_config.dart';
+import 'package:senha_app/page/categoria_page.dart';
 import 'package:senha_app/page/doar_page.dart';
 import 'package:senha_app/page/entrar_page.dart';
 import 'package:senha_app/page/gerar_senha_page.dart';
@@ -26,6 +27,14 @@ final GoRouter routes = GoRouter(
     return null;
   },
   routes: [
+    GoRoute(
+      path: RoutesEnum.CATEGORIA.value,
+      pageBuilder: (context, state) => transicaoPaginas(
+        context: context,
+        state: state,
+        child: const CategoriaPage(),
+      ),
+    ),
     GoRoute(
       path: RoutesEnum.DEFINIR.value,
       pageBuilder: (context, state) => transicaoPaginas(

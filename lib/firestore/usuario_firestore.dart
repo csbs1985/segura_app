@@ -5,14 +5,6 @@ class UsuarioFirestore {
   CollectionReference usuarios =
       FirebaseFirestore.instance.collection('usuarios');
 
-  receberUsuarioEmail(String email) {
-    return usuarios.where('email', isEqualTo: email).get();
-  }
-
-  receberUsuarioId(String idUsuario) async {
-    return await usuarios.where('idUsuario', isEqualTo: idUsuario).get();
-  }
-
   editarPerfil(
       String nomeUsuario, String biografia, String dataAtualizacaoNome) {
     return usuarios.doc(currentUsuario.value.idUsuario).update({
@@ -24,6 +16,18 @@ class UsuarioFirestore {
 
   editarToogleBiometria(String usuario, bool biometria) {
     return usuarios.doc(usuario).update({'biometria': biometria});
+  }
+
+  receberTodasCategoriasUsuario(String idUsuario) {
+    return usuarios.where('idUsuario', isEqualTo: idUsuario).snapshots();
+  }
+
+  receberUsuarioEmail(String email) {
+    return usuarios.where('email', isEqualTo: email).get();
+  }
+
+  receberUsuarioId(String idUsuario) async {
+    return await usuarios.where('idUsuario', isEqualTo: idUsuario).get();
   }
 
   salvarUsuario(Map<String, dynamic> _usuario) {

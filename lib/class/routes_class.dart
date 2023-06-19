@@ -22,6 +22,7 @@ CustomTransitionPage transicaoPaginas<T>({
 }
 
 enum RoutesEnum {
+  CATEGORIA('/categoria'),
   DOAR('/doar'),
   ENTRAR('/entrar'),
   GERAR_SENHA('/gerar_senha'),

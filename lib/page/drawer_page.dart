@@ -57,6 +57,12 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             const SizedBox(height: UiTamanho.espacoLista),
             ListaButton(
+              texto: CATEGORIAS,
+              icone: UniconsLine.label,
+              callback: () => context.push(RoutesEnum.CATEGORIA.value),
+            ),
+            const SizedBox(height: UiTamanho.espacoLista),
+            ListaButton(
               texto: LIXEIRA,
               icone: UniconsLine.trash_alt,
               callback: () => context.push(RoutesEnum.LIXEIRA.value),
