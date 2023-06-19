@@ -54,7 +54,7 @@ class ItemListaWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextoText(texto: _item["nome"]),
-                        const SizedBox(height: 4),
+                        if (!_item["oculto"]) const SizedBox(height: 4),
                         if (!_item["oculto"])
                           SubtituloText(texto: _item["senha"]),
                       ],
