@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/theme/ui_duracao.dart';
 
 class CopiarClass {
   final ToastClass _toastClass = ToastClass();
@@ -9,20 +10,20 @@ class CopiarClass {
   void copiar({
     required BuildContext context,
     required String texto,
-    bool? voltar,
+    bool voltar = false,
   }) {
     if (texto != "") {
       Clipboard.setData(ClipboardData(text: texto));
-      _toastClass.abrirToast(
+      _toastClass.sucesso(
         context: context,
-        estilo: SenhaEnum.SUCESSO.value,
         texto: COPIAR_COPIADO,
       );
-      if (voltar!) Navigator.of(context).pop();
+      Future.delayed(const Duration(milliseconds: UiDuracao.toast), () {
+        if (voltar) Navigator.of(context).pop();
+      });
     } else {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: COPIAR_ERRO,
       );
     }

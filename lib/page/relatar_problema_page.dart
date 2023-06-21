@@ -36,16 +36,14 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
         "texto": relatarProblema,
       };
       await _relatarProblemaFirestore.salvarProblema(problema);
-      _toastClass.abrirToast(
+      _toastClass.sucesso(
         context: context,
-        estilo: SenhaEnum.SUCESSO.value,
         texto: RELATAR_PROBLEMA_SUCESSO,
       );
       _controleProblema.clear();
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: RELATAR_PROBLEMA_ERRO,
       );
     }

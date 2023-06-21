@@ -86,9 +86,8 @@ class UsuarioClass {
         biometria,
       );
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: MODO_ENTRADA_ERRO,
       );
     }

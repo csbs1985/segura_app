@@ -45,6 +45,8 @@ class UiCor {
   static const Color textoButton = Color(0xFFFFFFFF);
   static const Color textoButtonEscuro = Color(0xFF181A21);
 
+  static const Color toastElemento = Colors.white;
+
   static const Color toogle = Color(0xFFFFFFFF);
   static const Color toogleEscuro = Color(0xFF181A21);
 }

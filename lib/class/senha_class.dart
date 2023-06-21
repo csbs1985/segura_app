@@ -74,9 +74,8 @@ class SenhaClass {
       await _senhaFirestore.salvarSenha(senha);
       Navigator.of(context).pop();
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: SENHA_SALVAR_ERRO,
       );
     }
@@ -117,9 +116,8 @@ class SenhaClass {
       await _senhaFirestore.editarSenhaDeletadaTrue(idSenha);
       Navigator.of(context).pop();
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: SENHA_DELETAR_ERRO,
       );
     }
@@ -130,9 +128,8 @@ class SenhaClass {
       await _senhaFirestore.deletarSenhaId(idSenha);
       Navigator.of(context).pop();
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: SENHA_DELETAR_ERRO,
       );
     }
@@ -143,9 +140,8 @@ class SenhaClass {
       for (var item in listaSenha) await _senhaFirestore.deletarSenhaId(item);
       Navigator.of(context).pop();
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: SENHA_DELETAR_ERRO,
       );
     }
@@ -156,9 +152,8 @@ class SenhaClass {
       await _senhaFirestore.editarSenhaDeletadaFalse(idSenha);
       Navigator.of(context).pop();
     } catch (error) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: LIXEIRA_RESTAURAR_ERRO,
       );
     }
@@ -170,9 +165,8 @@ class SenhaClass {
         await _senhaFirestore.editarSenhaDeletadaFalse(item);
       Navigator.of(context).pop();
     } catch (e) {
-      _toastClass.abrirToast(
+      _toastClass.erro(
         context: context,
-        estilo: SenhaEnum.ERRO.value,
         texto: LIXEIRA_RESTAURAR_ERRO,
       );
     }

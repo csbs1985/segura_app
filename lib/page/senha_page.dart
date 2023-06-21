@@ -84,9 +84,8 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   toggleOculto() {
     setState(() => _oculto = !_oculto);
 
-    _toastClass.abrirToast(
+    _toastClass.sucesso(
       context: context,
-      estilo: SenhaEnum.SUCESSO.value,
       texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
     );
   }
