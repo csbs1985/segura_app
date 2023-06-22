@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/button/icone_button.dart';
-import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -11,9 +10,9 @@ import 'package:senha_app/firestore/categoria_firestore.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/modal/categoria_modal.dart';
-import 'package:senha_app/modal/copiar_modal.dart';
+import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
-import 'package:senha_app/widget/editado_widget.dart';
+import 'package:senha_app/widget/inicio_bottom_widget.dart';
 import 'package:senha_app/widget/formulario_input.dart';
 import 'package:senha_app/modal/gerar_senha_modal.dart';
 import 'package:senha_app/widget/lista_categoria_modal_widget.dart';
@@ -33,7 +32,6 @@ class SenhaPage extends StatefulWidget {
 }
 
 class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
-  final CategoriaClass _categoriaClass = CategoriaClass();
   final CategoriaFirestore _categoriaFirestore = CategoriaFirestore();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
@@ -62,6 +60,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final List<Map<String, dynamic>> _listaCategorias = [];
 
   final double _espaco = 24;
+  Map<String, dynamic>? selecionada;
 
   @override
   void initState() {
@@ -71,22 +70,21 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   }
 
   iniciarSenha() async {
-    Map<String, dynamic>? data;
-
     await _senhaFirestore.receberSenhaId(widget._idSenha).then((document) => {
-          data = document.data() as Map<String, dynamic>,
+          selecionada = document.data() as Map<String, dynamic>,
           setState(() {
-            _controllerAnotacao.text = _anotacao = data!['anotacao'];
-            _dataRegistro = _dataRegistroAtual = data!['dataRegistro'];
-            _idSenha = data!['idSenha'];
-            _controllerLink.text = _link = data!['link'];
-            _lixeira = data!['lixeira'];
-            _controllerNome.text = _nome = data!['nome'];
-            _oculto = data!['oculto'];
-            _controllerSenha.text = _senha = _usuarioAtual = data!['senha'];
-            _controllerUsuario.text = _usuario = data!['usuario'];
+            _controllerAnotacao.text = _anotacao = selecionada!['anotacao'];
+            _dataRegistro = _dataRegistroAtual = selecionada!['dataRegistro'];
+            _idSenha = selecionada!['idSenha'];
+            _controllerLink.text = _link = selecionada!['link'];
+            _lixeira = selecionada!['lixeira'];
+            _controllerNome.text = _nome = selecionada!['nome'];
+            _oculto = selecionada!['oculto'];
+            _controllerSenha.text =
+                _senha = _usuarioAtual = selecionada!['senha'];
+            _controllerUsuario.text = _usuario = selecionada!['usuario'];
           }),
-          _definirCategorias(data!['categoria']),
+          _definirCategorias(selecionada!['categoria']),
         });
   }
 
@@ -117,23 +115,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     _toastClass.sucesso(
       context: context,
       texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
-    );
-  }
-
-  void _modalCopiar(BuildContext context) {
-    Map<String, dynamic> _copiar = {
-      'anotacao': _anotacao,
-      'link': _link,
-      'nome': _nome,
-      'senha': _senha,
-      'usuario': _usuario
-    };
-
-    showCupertinoModalBottomSheet(
-      context: context,
-      barrierColor: UiCor.overlay,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => CopiarModal(copiar: _copiar),
     );
   }
 
@@ -195,16 +176,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     );
   }
 
-  bool _verificarCopiar() {
-    if (_anotacao != "" ||
-        _link != "" ||
-        _nome != "" ||
-        _senha != "" ||
-        _usuario != "") return true;
-
-    return false;
-  }
-
   @override
   void dispose() {
     _controllerAnotacao.dispose();
@@ -225,11 +196,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           callback: () => Navigator.of(context).pop(),
         ),
         actions: [
-          if (_verificarCopiar())
-            IconeButton(
-              icone: UniconsLine.copy,
-              callback: () => _modalCopiar(context),
-            ),
           if (_dataRegistro != "")
             IconeButton(
               icone: UniconsLine.trash_alt,
@@ -299,12 +265,21 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                     callback: () => _abrirCategoriaModal(),
                   ),
                 ),
+                Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  height: 32,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: LegendaText(
+                    texto: _senhaClass.ultimaEdicao(_dataRegistro),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
-      bottomSheet: EditadoWidget(dataRegistro: _dataRegistro),
+      bottomSheet: InicioBottomWidget(senha: selecionada!),
       floatingActionButton: FloatingButton(
         callback: () => floatingActionButton(context),
         icone: UniconsLine.check,
