@@ -1,15 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/appbar/voltar_appbar.dart';
+import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/class/categoria_class.dart';
+import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
-import 'package:senha_app/firestore/usuario_firestore.dart';
-import 'package:senha_app/model/usuario_model.dart';
+import 'package:senha_app/firestore/categoria_firestore.dart';
+import 'package:senha_app/modal/categoria_form_modal.dart';
 import 'package:senha_app/skeleton/cateroria_skeleton%20copy.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
-import 'package:senha_app/theme/ui_tamanho.dart';
+import 'package:senha_app/text/texto_text.dart';
+import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/lista_categoria_widget.dart';
-import 'package:senha_app/widget/resultado_vazio_widget.dart';
+import 'package:unicons/unicons.dart';
+import 'package:uuid/uuid.dart';
 
 class CategoriaPage extends StatefulWidget {
   const CategoriaPage({super.key});
@@ -19,12 +25,24 @@ class CategoriaPage extends StatefulWidget {
 }
 
 class _CategoriaPageState extends State<CategoriaPage> {
-  final UsuarioFirestore _usuarioFirestore = UsuarioFirestore();
+  final CategoriaClass _categoriaClass = CategoriaClass();
+  final CategoriaFirestore _categoriaFirestore = CategoriaFirestore();
+  final TextEditingController _controller = TextEditingController();
+  final ToastClass _toastClass = ToastClass();
+  final Uuid _uuid = const Uuid();
+
+  void _abrirModal(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiCor.overlay,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      builder: (context) => const CategoriaFormModal(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    double altura = MediaQuery.of(context).size.height - (UiTamanho.appbar * 4);
-
     return Scaffold(
       appBar: const VoltarAppbar(),
       body: SingleChildScrollView(
@@ -35,32 +53,40 @@ class _CategoriaPageState extends State<CategoriaPage> {
             children: [
               const SubtituloText(texto: CATEGORIAS),
               const SizedBox(height: 16),
-              StreamBuilder<QuerySnapshot>(
-                stream: _usuarioFirestore.receberTodasCategoriasUsuario(
-                    currentUsuario.value.idUsuario),
+              StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: _categoriaFirestore.receberTodasCategoriasUsuario(
+                  currentUsuario.value.idUsuario,
+                ),
                 builder: (
                   BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
                 ) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
-                      return ResultadoVazioWidget(altura: altura);
+                      return const TextoText(texto: CATEGORIA_VAZIO);
                     case ConnectionState.waiting:
                       return const CategoriaSkeleton();
                     case ConnectionState.done:
                     default:
-                      Map<String, dynamic> usuario =
-                          UsuarioModel.toMap(snapshot.data!.docs[0]);
+                      List<Map<String, dynamic>> _listaCategorias =
+                          _categoriaClass.converterQuerySnapshotToList(
+                              snapshot.data!.docs);
 
-                      return ItemCategoriaWidget(
-                        categoria: usuario['categorias'],
+                      return ListaCategoriaWidget(
+                        listaCategorias: _listaCategorias,
+                        onTap: (value) => {},
+                        onLongPress: (value) => {},
                       );
                   }
                 },
-              )
+              ),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingButton(
+        callback: () => _abrirModal(context),
+        icone: UniconsLine.plus,
       ),
     );
   }

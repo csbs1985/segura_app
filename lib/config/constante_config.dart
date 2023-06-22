@@ -4,6 +4,15 @@ const String AUTENTICAR_NOVAMENTE = "Usar senha do celular";
 const String AUTENTICAR_DESBLOQUEAR =
     "Por favor, autentique-se para desbloquear";
 
+const String CATEGORIA = "Categoria";
+const String CATEGORIA_CRIAR = "Criar categoria";
+const String CATEGORIA_EDITAR = "Editar categoria";
+const String CATEGORIA_ERRO =
+    "Não foi possível slavar a categoria, tente novamente mais tarde";
+const String CATEGORIA_DESCRICAO =
+    "Digite no campo abaixo para criar uma nova categoria ou selecione uma categoria da lista para editar.";
+const String CATEGORIA_VAZIO =
+    "Crie suas categorias utilizando o botão abaixo.";
 const String CATEGORIAS = "Categorias";
 
 const String COPIAR = "Copiar";

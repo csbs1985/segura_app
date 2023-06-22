@@ -25,14 +25,14 @@ class _ToggleWidgetState extends State<ToggleWidget> {
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness theme, _) {
-        bool isDark = theme == Brightness.dark;
+        bool isEscuro = theme == Brightness.dark;
 
         return FlutterSwitch(
           width: UiTamanho.toggleLargura,
           height: UiTamanho.toggleAltura,
           value: widget._value,
           activeColor: UiCor.segunda,
-          inactiveColor: isDark ? UiCor.toogleEscuro : UiCor.toogle,
+          inactiveColor: isEscuro ? UiCor.toogleEscuro : UiCor.toogle,
           activeToggleColor: UiCor.terceira,
           inactiveToggleColor: UiCor.terceira,
           toggleSize: UiTamanho.toggleTamanho,

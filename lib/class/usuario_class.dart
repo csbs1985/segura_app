@@ -31,7 +31,6 @@ class UsuarioClass {
     Map<String, dynamic> usuarioMap = {
       'avatarUsuario': doc['avatarUsuario'],
       'biometria': doc['biometria'],
-      'categorias': doc['categorias'],
       'emailUsuario': doc['emailUsuario'],
       'idUsuario': doc['idUsuario'],
       'nomeUsuario': doc['nomeUsuario'],
@@ -44,7 +43,6 @@ class UsuarioClass {
     Map<String, dynamic> usuarioMap = {
       'avatarUsuario': usuario.photoURL,
       'biometria': false,
-      'categorias': [],
       'emailUsuario': usuario.email,
       'idUsuario': usuario.uid,
       'nomeUsuario': usuario.displayName,
@@ -59,7 +57,6 @@ class UsuarioClass {
     await _usuarioHive.salvarUsuario({
       'avatarUsuario': usuario['avatarUsuario'],
       'biometria': usuario['biometria'],
-      'categorias': usuario['categorias'],
       'emailUsuario': usuario['emailUsuario'],
       'idUsuario': usuario['idUsuario'],
       'nomeUsuario': usuario['nomeUsuario'],
@@ -70,7 +67,6 @@ class UsuarioClass {
     currentUsuario.value = UsuarioModel(
       avatarUsuario: usuario['avatarUsuario'],
       biometria: usuario['biometria'],
-      categorias: usuario['categorias'].whereType<String>().toList(),
       emailUsuario: usuario['emailUsuario'],
       idUsuario: usuario['idUsuario'],
       nomeUsuario: usuario['nomeUsuario'],
@@ -99,7 +95,6 @@ class UsuarioClass {
     Map<String, dynamic> usuarioMap = {
       'avatarUsuario': usuario['avatarUsuario'],
       'biometria': biometria,
-      'categorias': usuario['categorias'],
       'emailUsuario': usuario['emailUsuario'],
       'idUsuario': usuario['idUsuario'],
       'nomeUsuario': usuario['nomeUsuario'],

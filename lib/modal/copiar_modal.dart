@@ -31,11 +31,11 @@ class _CopiarModalState extends State<CopiarModal> {
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, _) {
-        bool isDark = tema == Brightness.dark;
+        bool isEscuro = tema == Brightness.dark;
 
         return SingleChildScrollView(
           child: Container(
-            color: isDark ? UiCor.fundoEscuro : UiCor.fundo,
+            color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

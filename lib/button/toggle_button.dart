@@ -35,7 +35,7 @@ class _ToggleSelecionarWidgetState extends State<ToggleButton> {
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, _) {
-        bool isDark = tema == Brightness.dark;
+        bool isEscuro = tema == Brightness.dark;
 
         return GestureDetector(
           onTapDown: (_) => setState(() => isPressed = true),
@@ -48,14 +48,14 @@ class _ToggleSelecionarWidgetState extends State<ToggleButton> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(UiBorda.arredondada),
               border: Border.all(
-                color: isDark ? UiCor.bordaEscura : UiCor.borda,
+                color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
                 width: 2.0,
               ),
               color: isPressed
-                  ? isDark
+                  ? isEscuro
                       ? UiCor.fundoEscuro
                       : UiCor.fundo
-                  : isDark
+                  : isEscuro
                       ? UiCor.inputEscuro
                       : UiCor.input,
             ),

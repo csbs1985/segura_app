@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:senha_app/appbar/voltar_appbar.dart';
-import 'package:senha_app/button/3d_button.dart';
+import 'package:senha_app/button/primeiro_button.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
@@ -39,7 +39,7 @@ class _DoarPageState extends State<DoarPage> {
               const SizedBox(height: 16),
               const TextoText(texto: DOAR_DESCRICAO),
               const SizedBox(height: 40),
-              Button3dButton(
+              PrimeirolButton(
                 callback: (value) => _copiarPix(context),
                 texto: DOAR_BUTTON,
               ),

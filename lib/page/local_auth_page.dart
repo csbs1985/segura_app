@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:senha_app/button/3d_button.dart';
+import 'package:senha_app/button/primeiro_button.dart';
 import 'package:senha_app/class/routes_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/local_auth_config.dart';
@@ -64,7 +64,7 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
                               height: UiTamanho.logo,
                             ),
                           ),
-                          Button3dButton(
+                          PrimeirolButton(
                             callback: (value) => _checkLocalAuth(),
                             texto: AUTENTICAR_NOVAMENTE,
                           ),

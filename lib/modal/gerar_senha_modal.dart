@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:senha_app/button/3d_button.dart';
+import 'package:senha_app/appbar/modal_appbar.dart';
+import 'package:senha_app/button/primeiro_button.dart';
 import 'package:senha_app/button/floating_button.dart';
-import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -65,12 +65,7 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconeButton(
-          callback: () => Navigator.of(context).pop(),
-          icone: UniconsLine.times,
-        ),
-      ),
+      appBar: const ModalAppbar(),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -100,7 +95,7 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
                   validator: (value) => isSenhaCaracteresInt(value!),
                 ),
                 SizedBox(height: _height),
-                Button3dButton(
+                PrimeirolButton(
                   callback: (value) => _gerarSenha(),
                   texto: SENHA_GERAR,
                 ),

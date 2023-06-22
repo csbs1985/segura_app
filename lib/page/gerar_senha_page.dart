@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/voltar_appbar.dart';
-import 'package:senha_app/button/3d_button.dart';
+import 'package:senha_app/button/primeiro_button.dart';
 import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/copiar_class.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
@@ -94,7 +94,7 @@ class _GerarSenhaPageState extends State<GerarSenhaPage> with ValidatorMixin {
                       validator: (value) => isSenhaCaracteresInt(value!),
                     ),
                     SizedBox(height: _height),
-                    Button3dButton(
+                    PrimeirolButton(
                       callback: (value) => _gerarSenha(),
                       texto: SENHA_GERAR,
                     ),

@@ -18,10 +18,6 @@ class UsuarioFirestore {
     return usuarios.doc(usuario).update({'biometria': biometria});
   }
 
-  receberTodasCategoriasUsuario(String idUsuario) {
-    return usuarios.where('idUsuario', isEqualTo: idUsuario).snapshots();
-  }
-
   receberUsuarioEmail(String email) {
     return usuarios.where('email', isEqualTo: email).get();
   }
