@@ -21,11 +21,25 @@ class CategoriaClass {
 
   void salvarCategoria(BuildContext context, Map<String, dynamic> _categorias) {
     try {
-      _categoriaFirestore.salvarCategoriaUsuario(_categorias);
+      _categoriaFirestore.salvarCategoria(_categorias);
     } catch (e) {
       _toastClass.erro(
         context: context,
         texto: CATEGORIA_ERRO,
+      );
+    }
+  }
+
+  void deletarCategoria(
+    BuildContext context,
+    String _categoria,
+  ) {
+    try {
+      _categoriaFirestore.deletarCategoria(_categoria);
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        texto: CATEGORIA_EXLUIR_ERRO,
       );
     }
   }

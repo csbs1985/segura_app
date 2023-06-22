@@ -4,6 +4,10 @@ class CategoriaFirestore {
   CollectionReference categorias =
       FirebaseFirestore.instance.collection('categorias');
 
+  deletarCategoria(String _idCategoria) {
+    return categorias.doc(_idCategoria).delete();
+  }
+
   editarToogleBiometria(String usuario, bool biometria) {
     return categorias.doc(usuario).update({'biometria': biometria});
   }
@@ -21,7 +25,7 @@ class CategoriaFirestore {
         .update({'categorias': _categorias});
   }
 
-  salvarCategoriaUsuario(Map<String, dynamic> _categorias) async {
-    return await categorias.doc(_categorias['idSenha']).set(_categorias);
+  salvarCategoria(Map<String, dynamic> _categorias) async {
+    return await categorias.doc(_categorias['idCategoria']).set(_categorias);
   }
 }

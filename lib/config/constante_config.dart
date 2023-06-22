@@ -6,11 +6,16 @@ const String AUTENTICAR_DESBLOQUEAR =
 
 const String CATEGORIA = "Categoria";
 const String CATEGORIA_CRIAR = "Criar categoria";
-const String CATEGORIA_EDITAR = "Editar categoria";
-const String CATEGORIA_ERRO =
-    "Não foi possível slavar a categoria, tente novamente mais tarde";
 const String CATEGORIA_DESCRICAO =
     "Digite no campo abaixo para criar uma nova categoria ou selecione uma categoria da lista para editar.";
+const String CATEGORIA_EDITAR = "Editar categoria";
+const String CATEGORIA_ERRO =
+    "Não foi possível salvar a categoria, tente novamente mais tarde";
+const String CATEGORIA_EXLUIR = "Excluir categoria";
+const String CATEGORIA_EXLUIR_DESCRICAO =
+    "Excluiremos essa categoria e a removeremos de todas as suas senhas. Suas notas não serão excluídas.";
+const String CATEGORIA_EXLUIR_ERRO =
+    "Não foi possível excluir a categoria, tente novamente mais tarde";
 const String CATEGORIA_VAZIO =
     "Crie suas categorias utilizando o botão abaixo.";
 const String CATEGORIAS = "Categorias";
@@ -45,6 +50,8 @@ const String ENTRAR_BEM_VINDO = "Seja bem vindo";
 
 const String ENTRAR_GOOGLE =
     "\n Cadastre-se ou entre com sua conta Google nativa no dispositivo, selecionando o botão a baixo";
+
+const String EXCLUIR = "Excluir";
 
 const String HOJE = "alterada hoje";
 

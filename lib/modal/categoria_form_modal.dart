@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/modal_appbar.dart';
+import 'package:senha_app/button/primeiro_button.dart';
 import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -12,7 +13,12 @@ import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
 class CategoriaFormModal extends StatefulWidget {
-  const CategoriaFormModal({super.key});
+  const CategoriaFormModal({
+    super.key,
+    Map<String, dynamic>? selecionado,
+  }) : _selecionado = selecionado;
+
+  final Map<String, dynamic>? _selecionado;
 
   @override
   State<CategoriaFormModal> createState() => _CategoriaFormModalState();
@@ -21,24 +27,44 @@ class CategoriaFormModal extends StatefulWidget {
 class _CategoriaFormModalState extends State<CategoriaFormModal> {
   final CategoriaClass _categoriaClass = CategoriaClass();
   final TextEditingController _controller = TextEditingController();
+
   final Uuid _uuid = const Uuid();
 
   String _texto = "";
+
+  @override
+  void initState() {
+    if (widget._selecionado!.isNotEmpty)
+      _controller.text = widget._selecionado!['textoCategoria'];
+    super.initState();
+  }
 
   void salvarCategoriaUsuario(BuildContext context) {
     if (_texto.isNotEmpty) {
       _controller.text = _texto;
 
       Map<String, dynamic> _categorias = {
-        "idCategoria": _uuid.v4(),
+        "idCategoria": widget._selecionado!.isNotEmpty
+            ? widget._selecionado!['idCategoria']
+            : _uuid.v4(),
         "idUsuario": currentUsuario.value.idUsuario,
         "textoCategoria": _texto.trim().toLowerCase()
       };
 
       _categoriaClass.salvarCategoria(context, _categorias);
-      _controller.clear();
-      _texto = "";
+
+      if (widget._selecionado!.isEmpty) {
+        _controller.clear();
+        _texto = "";
+      }
+      Navigator.of(context).pop();
     }
+  }
+
+  void _deletarCategoria(BuildContext context) {
+    _categoriaClass.deletarCategoria(
+        context, widget._selecionado!['idCategoria']);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -63,7 +89,10 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SubtituloText(texto: CATEGORIA_CRIAR),
+                  SubtituloText(
+                      texto: widget._selecionado!.isEmpty
+                          ? CATEGORIA_CRIAR
+                          : CATEGORIA_EDITAR),
                   const SizedBox(height: 16),
                   const TextoText(texto: CATEGORIA_DESCRICAO),
                   const SizedBox(height: 16),
@@ -83,6 +112,32 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                       )
                     ],
                   ),
+                  if (widget._selecionado!.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 24),
+                        const SubtituloText(texto: CATEGORIA_EXLUIR),
+                        const SizedBox(height: 16),
+                        const TextoText(texto: CATEGORIA_EXLUIR_DESCRICAO),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SegundolButton(
+                              icone: UniconsLine.times,
+                              callback: () => Navigator.of(context).pop(),
+                            ),
+                            const SizedBox(width: 16),
+                            PrimeirolButton(
+                              callback: (value) => _deletarCategoria(context),
+                              texto: EXCLUIR,
+                              width: 110,
+                            )
+                          ],
+                        )
+                      ],
+                    )
                 ],
               ),
             ),

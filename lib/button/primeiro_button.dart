@@ -8,11 +8,14 @@ class PrimeirolButton extends StatefulWidget {
     super.key,
     required Function callback,
     required String texto,
+    double? width = 0,
   })  : _callback = callback,
-        _texto = texto;
+        _texto = texto,
+        _width = width;
 
   final Function _callback;
   final String _texto;
+  final double? _width;
 
   @override
   State<PrimeirolButton> createState() => _PrimeirolButtonState();
@@ -27,7 +30,7 @@ class _PrimeirolButtonState extends State<PrimeirolButton> {
 
   @override
   Widget build(BuildContext context) {
-    _widtht = MediaQuery.sizeOf(context).width - (2 * 16);
+    _widtht = widget._width! ?? MediaQuery.sizeOf(context).width - (2 * 16);
 
     return GestureDetector(
       child: SizedBox(

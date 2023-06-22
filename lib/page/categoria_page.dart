@@ -4,7 +4,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/appbar/voltar_appbar.dart';
 import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/categoria_class.dart';
-import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/categoria_firestore.dart';
@@ -15,7 +14,6 @@ import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/lista_categoria_widget.dart';
 import 'package:unicons/unicons.dart';
-import 'package:uuid/uuid.dart';
 
 class CategoriaPage extends StatefulWidget {
   const CategoriaPage({super.key});
@@ -27,17 +25,14 @@ class CategoriaPage extends StatefulWidget {
 class _CategoriaPageState extends State<CategoriaPage> {
   final CategoriaClass _categoriaClass = CategoriaClass();
   final CategoriaFirestore _categoriaFirestore = CategoriaFirestore();
-  final TextEditingController _controller = TextEditingController();
-  final ToastClass _toastClass = ToastClass();
-  final Uuid _uuid = const Uuid();
 
-  void _abrirModal(BuildContext context) {
+  void _abrirModal(BuildContext context, Map<String, dynamic> item) {
     showCupertinoModalBottomSheet(
       expand: true,
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => const CategoriaFormModal(),
+      builder: (context) => CategoriaFormModal(selecionado: item),
     );
   }
 
@@ -72,11 +67,15 @@ class _CategoriaPageState extends State<CategoriaPage> {
                           _categoriaClass.converterQuerySnapshotToList(
                               snapshot.data!.docs);
 
-                      return ListaCategoriaWidget(
-                        listaCategorias: _listaCategorias,
-                        onTap: (value) => {},
-                        onLongPress: (value) => {},
-                      );
+                      if (_listaCategorias.isNotEmpty) {
+                        return ListaCategoriaWidget(
+                          listaCategorias: _listaCategorias,
+                          onTap: (value) => {},
+                          onLongPress: (value) => _abrirModal(context, value),
+                        );
+                      } else {
+                        return const TextoText(texto: CATEGORIA_VAZIO);
+                      }
                   }
                 },
               ),
@@ -85,7 +84,7 @@ class _CategoriaPageState extends State<CategoriaPage> {
         ),
       ),
       floatingActionButton: FloatingButton(
-        callback: () => _abrirModal(context),
+        callback: () => _abrirModal(context, {}),
         icone: UniconsLine.plus,
       ),
     );
