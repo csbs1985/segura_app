@@ -5,13 +5,17 @@ const String AUTENTICAR_DESBLOQUEAR =
     "Por favor, autentique-se para desbloquear";
 
 const String CATEGORIA = "Categoria";
-const String CATEGORIA_CRIAR = "Criar categoria";
+const String CATEGORIA_CRIAR = "Criar";
+const String CATEGORIA_CRIAR_DESCRICAO =
+    "Digite a categoria e em seguida clique no botão ao lado para criar.";
 const String CATEGORIA_DESCRICAO =
     "Digite no campo abaixo para criar uma nova categoria ou selecione uma categoria da lista para editar.";
-const String CATEGORIA_EDITAR = "Editar categoria";
+const String CATEGORIA_EDITAR = "Editar";
+const String CATEGORIA_EDITAR_DESCRICAO =
+    "Ao alterar a categoria todas as senhas que tiver associadas tambem serão alteradas.";
 const String CATEGORIA_ERRO =
     "Não foi possível salvar a categoria, tente novamente mais tarde";
-const String CATEGORIA_EXLUIR = "Excluir categoria";
+const String CATEGORIA_EXLUIR = "Excluir";
 const String CATEGORIA_EXLUIR_DESCRICAO =
     "Excluiremos essa categoria e a removeremos de todas as suas senhas. Suas notas não serão excluídas.";
 const String CATEGORIA_EXLUIR_ERRO =

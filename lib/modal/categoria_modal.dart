@@ -1,26 +1,52 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:senha_app/appbar/modal_appbar.dart';
+import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
+import 'package:senha_app/firestore/categoria_firestore.dart';
+import 'package:senha_app/modal/categoria_form_modal.dart';
+import 'package:senha_app/skeleton/cateroria_skeleton%20copy.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
+import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
+import 'package:senha_app/widget/lista_categoria_widget.dart';
+import 'package:unicons/unicons.dart';
 
 class CategoriaModal extends StatefulWidget {
   const CategoriaModal({
     super.key,
-    required String categoria,
-  }) : _categoria = categoria;
-
-  final String _categoria;
+  });
 
   @override
-  State<CategoriaModal> createState() => _categoriaModalState();
+  State<CategoriaModal> createState() => _CategoriaModalState();
 }
 
-class _categoriaModalState extends State<CategoriaModal> {
+class _CategoriaModalState extends State<CategoriaModal> {
+  final CategoriaClass _categoriaClass = CategoriaClass();
+  final CategoriaFirestore _categoriaFirestore = CategoriaFirestore();
+
+  void _abrirModal(BuildContext context, Map<String, dynamic> item) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiCor.overlay,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      builder: (context) => CategoriaFormModal(selecionado: item),
+    );
+  }
+
+  void _selecionarCategorias(String idCategoria) {}
+
+  void _salvarSenha(BuildContext context) {}
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: ValueListenableBuilder(
+    return Scaffold(
+      appBar: const ModalAppbar(),
+      body: ValueListenableBuilder(
         valueListenable: currentTema,
         builder: (BuildContext context, Brightness tema, _) {
           bool isEscuro = tema == Brightness.dark;
@@ -28,16 +54,48 @@ class _categoriaModalState extends State<CategoriaModal> {
           return SingleChildScrollView(
             child: Container(
               color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-              child: const Column(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SubtituloText(texto: CATEGORIA_EDITAR),
-                      SizedBox(height: 16),
-                      SizedBox(height: 16),
+                      const SubtituloText(texto: CATEGORIAS),
+                      const SizedBox(height: 16),
+                      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                        stream:
+                            _categoriaFirestore.receberTodasCategoriasUsuario(
+                          currentUsuario.value.idUsuario,
+                        ),
+                        builder: (
+                          BuildContext context,
+                          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                              snapshot,
+                        ) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.none:
+                              return const TextoText(texto: CATEGORIA_VAZIO);
+                            case ConnectionState.waiting:
+                              return const CategoriaSkeleton();
+                            case ConnectionState.done:
+                            default:
+                              List<Map<String, dynamic>> _listaCategorias =
+                                  _categoriaClass.converterQuerySnapshotToList(
+                                      snapshot.data!.docs);
+
+                              if (_listaCategorias.isNotEmpty) {
+                                return ListaCategoriaWidget(
+                                  listaCategorias: _listaCategorias,
+                                  onTap: (value) =>
+                                      _selecionarCategorias(value),
+                                );
+                              } else {
+                                return const TextoText(texto: CATEGORIA_VAZIO);
+                              }
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -45,6 +103,10 @@ class _categoriaModalState extends State<CategoriaModal> {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingButton(
+        callback: () => _salvarSenha(context),
+        icone: UniconsLine.check,
       ),
     );
   }

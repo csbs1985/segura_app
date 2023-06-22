@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/button/icone_button.dart';
+import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
+import 'package:senha_app/firestore/categoria_firestore.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
+import 'package:senha_app/modal/categoria_modal.dart';
 import 'package:senha_app/modal/copiar_modal.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/editado_widget.dart';
 import 'package:senha_app/widget/formulario_input.dart';
 import 'package:senha_app/modal/gerar_senha_modal.dart';
+import 'package:senha_app/widget/lista_categoria_modal_widget.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,6 +33,8 @@ class SenhaPage extends StatefulWidget {
 }
 
 class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
+  final CategoriaClass _categoriaClass = CategoriaClass();
+  final CategoriaFirestore _categoriaFirestore = CategoriaFirestore();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
@@ -52,6 +58,8 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   String _usuario = "";
   String _usuarioAtual = "";
   String _dataRegistroAtual = "";
+  final List<dynamic> _categorias = [];
+  final List<Map<String, dynamic>> _listaCategorias = [];
 
   final double _espaco = 24;
 
@@ -78,7 +86,29 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             _controllerSenha.text = _senha = _usuarioAtual = data!['senha'];
             _controllerUsuario.text = _usuario = data!['usuario'];
           }),
+          _definirCategorias(data!['categoria']),
         });
+  }
+
+  _definirCategorias(List<dynamic> categorias) {
+    Map<String, dynamic>? categoria;
+
+    for (var item in categorias) {
+      _categoriaFirestore.receberCategoriaId(item).then((result) => {
+            categoria = result.data() as Map<String, dynamic>,
+            setState(() => _listaCategorias.add(categoria!)),
+          });
+    }
+  }
+
+  void _abrirCategoriaModal() {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiCor.overlay,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      builder: (context) => const CategoriaModal(),
+    );
   }
 
   toggleOculto() {
@@ -115,6 +145,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           //editar
           form = {
             "anotacao": _controllerAnotacao.text,
+            "categorias": _categorias,
             "dataRegistro": _usuarioAtual == _senha
                 ? _dataRegistroAtual
                 : DateTime.now().toString(),
@@ -131,6 +162,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           // criar
           form = {
             "anotacao": _controllerAnotacao.text,
+            "categorias": _categorias,
             "dataRegistro": DateTime.now().toString(),
             "idSenha": uuid.v4(),
             "idUsuario": currentUsuario.value.idUsuario,
@@ -259,6 +291,13 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                   minLines: 1,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+                  child: ListaCategoriaModalWidget(
+                    listaCategorias: _listaCategorias,
+                    callback: () => _abrirCategoriaModal(),
+                  ),
                 ),
               ],
             ),

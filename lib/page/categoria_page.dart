@@ -70,12 +70,10 @@ class _CategoriaPageState extends State<CategoriaPage> {
                       if (_listaCategorias.isNotEmpty) {
                         return ListaCategoriaWidget(
                           listaCategorias: _listaCategorias,
-                          onTap: (value) => {},
-                          onLongPress: (value) => _abrirModal(context, value),
+                          onTap: (value) => _abrirModal(context, value),
                         );
-                      } else {
+                      } else
                         return const TextoText(texto: CATEGORIA_VAZIO);
-                      }
                   }
                 },
               ),

@@ -21,7 +21,7 @@ class SegundolButton extends StatefulWidget {
 
 class _SegundolButtonState extends State<SegundolButton> {
   final double _height = UiTamanho.inputBotao;
-  final double _widtht = UiTamanho.inputBotao;
+  final double _width = UiTamanho.inputBotao;
   late double _position = UiTamanho.botaoBorda;
 
   @override
@@ -33,14 +33,14 @@ class _SegundolButtonState extends State<SegundolButton> {
 
         return GestureDetector(
           child: SizedBox(
-            width: _widtht,
+            width: _width,
             height: _height + UiTamanho.botaoBorda,
             child: Stack(
               children: [
                 Positioned(
                   bottom: 0,
                   child: Container(
-                    width: _widtht,
+                    width: _width,
                     height: _height,
                     decoration: BoxDecoration(
                       color: isEscuro ? UiCor.inputEscuro : UiCor.input,
@@ -53,7 +53,7 @@ class _SegundolButtonState extends State<SegundolButton> {
                   bottom: _position,
                   duration: const Duration(milliseconds: 10),
                   child: Container(
-                    width: _widtht,
+                    width: _width,
                     height: _height,
                     decoration: BoxDecoration(
                       color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,

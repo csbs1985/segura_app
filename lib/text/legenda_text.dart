@@ -10,11 +10,9 @@ class LegendaText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        _texto,
-        style: Theme.of(context).textTheme.labelSmall,
-      ),
+    return Text(
+      _texto,
+      style: Theme.of(context).textTheme.labelSmall,
     );
   }
 }

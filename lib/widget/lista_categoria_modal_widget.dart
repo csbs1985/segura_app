@@ -5,23 +5,24 @@ import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 
-class ListaCategoriaWidget extends StatefulWidget {
-  const ListaCategoriaWidget({
+class ListaCategoriaModalWidget extends StatefulWidget {
+  const ListaCategoriaModalWidget({
     super.key,
-    required Function onTap,
+    required Function callback,
     required List<Map<String, dynamic>> listaCategorias,
-  })  : _onTap = onTap,
+  })  : _callback = callback,
         _listaCategorias = listaCategorias;
 
-  final Function _onTap;
+  final Function _callback;
 
   final List<Map<String, dynamic>> _listaCategorias;
 
   @override
-  State<ListaCategoriaWidget> createState() => _ListaCategoriaWidgetState();
+  State<ListaCategoriaModalWidget> createState() =>
+      _ListaCategoriaModalWidgetState();
 }
 
-class _ListaCategoriaWidgetState extends State<ListaCategoriaWidget> {
+class _ListaCategoriaModalWidgetState extends State<ListaCategoriaModalWidget> {
   List<String> listaSelecionadas = [];
 
   @override
@@ -37,7 +38,7 @@ class _ListaCategoriaWidgetState extends State<ListaCategoriaWidget> {
           children: [
             for (var item in widget._listaCategorias)
               GestureDetector(
-                onTap: () => widget._onTap(item),
+                onTap: () => widget._callback(),
                 child: Container(
                   height: UiTamanho.categoria,
                   decoration: BoxDecoration(

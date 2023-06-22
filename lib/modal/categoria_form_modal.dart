@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/modal_appbar.dart';
-import 'package:senha_app/button/primeiro_button.dart';
 import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -75,15 +74,15 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: currentTema,
-      builder: (BuildContext context, Brightness tema, _) {
-        bool isEscuro = tema == Brightness.dark;
+    return Scaffold(
+      appBar: const ModalAppbar(),
+      body: SingleChildScrollView(
+        child: ValueListenableBuilder(
+          valueListenable: currentTema,
+          builder: (BuildContext context, Brightness tema, _) {
+            bool isEscuro = tema == Brightness.dark;
 
-        return Scaffold(
-          appBar: const ModalAppbar(),
-          body: SingleChildScrollView(
-            child: Container(
+            return Container(
               color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Column(
@@ -94,7 +93,10 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                           ? CATEGORIA_CRIAR
                           : CATEGORIA_EDITAR),
                   const SizedBox(height: 16),
-                  const TextoText(texto: CATEGORIA_DESCRICAO),
+                  TextoText(
+                      texto: widget._selecionado!.isEmpty
+                          ? CATEGORIA_CRIAR_DESCRICAO
+                          : CATEGORIA_EDITAR_DESCRICAO),
                   const SizedBox(height: 16),
                   Row(
                     children: [
@@ -105,7 +107,7 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                           callback: (value) => setState(() => _texto = value),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 16),
                       SegundolButton(
                         icone: UniconsLine.check,
                         callback: () => salvarCategoriaUsuario(context),
@@ -129,10 +131,9 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                               callback: () => Navigator.of(context).pop(),
                             ),
                             const SizedBox(width: 16),
-                            PrimeirolButton(
-                              callback: (value) => _deletarCategoria(context),
-                              texto: EXCLUIR,
-                              width: 110,
+                            SegundolButton(
+                              callback: () => _deletarCategoria(context),
+                              icone: UniconsLine.check,
                             )
                           ],
                         )
@@ -140,10 +141,10 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                     )
                 ],
               ),
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }

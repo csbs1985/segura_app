@@ -19,6 +19,10 @@ class CategoriaFirestore {
         .snapshots();
   }
 
+  receberCategoriaId(String _idCategoria) async {
+    return await categorias.doc(_idCategoria).get();
+  }
+
   editarCategoriaUsuario(Map<String, dynamic> _categorias) {
     return categorias
         .doc(_categorias['idCategoria'])
