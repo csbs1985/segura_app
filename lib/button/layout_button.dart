@@ -3,7 +3,6 @@ import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/hive/layout_hive.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:unicons/unicons.dart';
 
 class LayoutButton extends StatefulWidget {
   const LayoutButton({
@@ -43,7 +42,7 @@ class _LayoutButtonState extends State<LayoutButton> {
           height: UiTamanho.iconeLayoput,
           child: GestureDetector(
             child: Icon(
-              _isLista ? UniconsLine.toggle_on : UniconsLine.toggle_off,
+              _isLista ? Icons.view_agenda_outlined : Icons.crop_din_outlined,
               color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
             ),
             onTap: () => _toggleLayout(),
