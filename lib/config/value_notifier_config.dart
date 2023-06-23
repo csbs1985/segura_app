@@ -18,3 +18,5 @@ final ValueNotifier<bool> currentIsLocalAuthFailed = ValueNotifier(false);
 
 final ValueNotifier<List<Map<String, dynamic>>> currentCategorias =
     ValueNotifier<List<Map<String, dynamic>>>([]);
+
+final ValueNotifier<bool> currentLayout = ValueNotifier<bool>(false);

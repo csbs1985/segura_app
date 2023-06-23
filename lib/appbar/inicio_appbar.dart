@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senha_app/button/layout_button.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_borda.dart';
@@ -42,6 +43,8 @@ class InicioAppbar extends StatelessWidget {
                   inputCircular: true,
                 ),
               ),
+              LayoutButton(callback: () => {}),
+              const SizedBox(width: 4),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
                 child: GestureDetector(
