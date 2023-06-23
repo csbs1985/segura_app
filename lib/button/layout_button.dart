@@ -3,14 +3,12 @@ import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/hive/layout_hive.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
+import 'package:unicons/unicons.dart';
 
 class LayoutButton extends StatefulWidget {
   const LayoutButton({
     super.key,
-    required Function callback,
-  }) : _callback = callback;
-
-  final Function _callback;
+  });
 
   @override
   State<LayoutButton> createState() => _LayoutButtonState();
@@ -31,7 +29,6 @@ class _LayoutButtonState extends State<LayoutButton> {
     setState(() => _isLista = !_isLista);
     _layoutHive.salvarLayout(_isLista);
     currentLayout.value = _isLista;
-    widget._callback();
   }
 
   @override
@@ -46,7 +43,7 @@ class _LayoutButtonState extends State<LayoutButton> {
           height: UiTamanho.iconeLayoput,
           child: GestureDetector(
             child: Icon(
-              _isLista ? Icons.view_agenda_outlined : Icons.crop_square,
+              _isLista ? UniconsLine.toggle_on : UniconsLine.toggle_off,
               color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
             ),
             onTap: () => _toggleLayout(),

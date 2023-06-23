@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:senha_app/appbar/senha_appbar.dart';
 import 'package:senha_app/button/floating_button.dart';
-import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
@@ -10,8 +10,6 @@ import 'package:senha_app/firestore/categoria_firestore.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/modal/categoria_modal.dart';
-import 'package:senha_app/modal/gerar_senha_modal.dart';
-import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/inicio_bottom_widget.dart';
 import 'package:senha_app/widget/formulario_input.dart';
@@ -111,21 +109,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     );
   }
 
-  _modalGerador(BuildContext context) {
-    showCupertinoModalBottomSheet(
-      expand: true,
-      context: context,
-      barrierColor: UiCor.overlay,
-      backgroundColor: Colors.red,
-      builder: (context) => GerarSenhaModal(
-        callback: (value) => {
-          Navigator.of(context).pop(),
-          setState(() => _controllerSenha.text = _senha = value),
-        },
-      ),
-    );
-  }
-
   toggleOculto() {
     setState(() => _oculto = !_oculto);
 
@@ -191,29 +174,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconeButton(
-          icone: UniconsLine.arrow_left,
-          callback: () => Navigator.of(context).pop(),
-        ),
-        actions: [
-          if (_dataRegistro != "")
-            IconeButton(
-              icone: UniconsLine.trash_alt,
-              callback: () =>
-                  _senhaClass.senhaDeletadaTrue(context, widget._idSenha),
-            ),
-          IconeButton(
-            icone: UniconsLine.asterisk,
-            callback: () => _modalGerador(context),
-          ),
-          IconeButton(
-            icone: _oculto ? UniconsLine.toggle_on : UniconsLine.toggle_off,
-            callback: () => toggleOculto(),
-          ),
-        ],
-      ),
+      appBar: const SenhaAppbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 16),
@@ -273,17 +234,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                         ),
                       );
                     },
-                  ),
-                if (_listaCategorias.isEmpty) SizedBox(height: _espaco),
-                if (_dataRegistro.isNotEmpty)
-                  Container(
-                    width: MediaQuery.sizeOf(context).width,
-                    height: 32,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: LegendaText(
-                      texto: _senhaClass.ultimaEdicao(_dataRegistro),
-                    ),
                   ),
               ],
             ),

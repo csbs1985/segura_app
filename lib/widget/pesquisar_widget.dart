@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:senha_app/class/copiar_class.dart';
+import 'package:senha_app/class/routes_class.dart';
+import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
+import 'package:senha_app/widget/item_senha_widget.dart';
 import 'package:senha_app/widget/pesquisa_vazia_widget.dart';
-import 'package:senha_app/widget/senha_item_widget.dart';
 
 class PesquisarWidget extends StatelessWidget {
-  const PesquisarWidget({
+  final CopiarClass _copiarClass = CopiarClass();
+
+  PesquisarWidget({
     super.key,
     required List<Map<String, dynamic>> senha,
   }) : _senha = senha;
@@ -24,7 +30,18 @@ class PesquisarWidget extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: _senha.length,
               itemBuilder: (BuildContext context, int index) {
-                return SenhaItemWidget(senha: _senha[index]);
+                return ItemSenhaWidget(
+                  item: _senha[index],
+                  onLongPress: () => _copiarClass.copiar(
+                    context: context,
+                    mensagem: SENHA_COPIADA,
+                    texto: _senha[index]["senha"],
+                  ),
+                  onTap: () => context.pushNamed(
+                    RoutesEnum.SENHA.value,
+                    pathParameters: {'idSenha': _senha[index]['idSenha']},
+                  ),
+                );
               },
             ),
     );

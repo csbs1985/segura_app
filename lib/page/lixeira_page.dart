@@ -11,7 +11,7 @@ import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/widget/lixeira_item_widget.dart';
+import 'package:senha_app/widget/item_lixeira_widget.dart';
 import 'package:senha_app/widget/resultado_erro_widget.dart';
 import 'package:senha_app/widget/resultado_vazio_widget.dart';
 import 'package:unicons/unicons.dart';
@@ -82,7 +82,7 @@ class _LixeiraPageState extends State<LixeiraPage> {
                 Map<String, dynamic> senha = snapshot.data();
                 _listaSenha.add(senha['idSenha']);
 
-                return LixeiraItemWidget(senha: senha);
+                return ItemLixeiraWidget(item: senha);
               },
             ),
           ],

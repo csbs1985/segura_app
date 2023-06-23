@@ -10,13 +10,14 @@ class CopiarClass {
   void copiar({
     required BuildContext context,
     required String texto,
+    String? mensagem,
     bool voltar = false,
   }) {
     if (texto != "") {
       Clipboard.setData(ClipboardData(text: texto));
       _toastClass.sucesso(
         context: context,
-        texto: COPIAR_COPIADO,
+        texto: mensagem ?? COPIAR_COPIADO,
       );
       Future.delayed(const Duration(milliseconds: UiDuracao.toast), () {
         if (voltar) Navigator.of(context).pop();

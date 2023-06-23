@@ -111,6 +111,7 @@ const String SENHA_CARACTERES_ERRO =
 const String SENHA_CARACTERES_DESCRICAO =
     "a senha deve ter de 4 à 32 caracteres";
 const String SENHA_CRIAR = "Criar senha";
+const String SENHA_COPIADA = "Senha copiada para a área de transferência.";
 const String SENHA_DELETAR_ERRO = "Não foi possível deletar a senha no momento";
 const String SENHA_EDITADA = "senha editada";
 const String SENHA_EDITADA_AGORA = "senha editada agora";

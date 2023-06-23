@@ -11,6 +11,9 @@ ValueNotifier<UsuarioModel> currentUsuario = ValueNotifier<UsuarioModel>(
   ),
 );
 
+ValueNotifier<Map<String, dynamic>> currentSenha =
+    ValueNotifier<Map<String, dynamic>>({});
+
 ValueNotifier<Brightness> currentTema = ValueNotifier(
     WidgetsBinding.instance.platformDispatcher.platformBrightness);
 

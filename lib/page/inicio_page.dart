@@ -16,11 +16,10 @@ import 'package:senha_app/model/usuario_model.dart';
 import 'package:senha_app/page/drawer_page.dart';
 import 'package:senha_app/skeleton/senha_item_skeleton.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
-import 'package:senha_app/widget/item_lista_aberto_widget.dart';
+import 'package:senha_app/widget/item_senha_widget.dart';
 import 'package:senha_app/widget/pesquisar_widget.dart';
 import 'package:senha_app/widget/resultado_erro_widget.dart';
 import 'package:senha_app/widget/resultado_vazio_widget.dart';
-import 'package:senha_app/widget/senha_item_widget.dart';
 import 'package:unicons/unicons.dart';
 
 class InicioPage extends StatefulWidget {
@@ -31,6 +30,7 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
+  final CopiarClass _copiarClass = CopiarClass();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final PesquisarClass _pesquisarClass = PesquisarClass();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
@@ -73,8 +73,6 @@ class _InicioPageState extends State<InicioPage> {
 
   @override
   Widget build(BuildContext context) {
-    final CopiarClass _copiarClass = CopiarClass();
-
     double altura = MediaQuery.sizeOf(context).height - (UiTamanho.appbar * 4);
 
     return Scaffold(
@@ -112,20 +110,20 @@ class _InicioPageState extends State<InicioPage> {
                             return ValueListenableBuilder(
                               valueListenable: currentLayout,
                               builder: (BuildContext context, bool layout, _) {
-                                return layout
-                                    ? SenhaItemWidget(senha: senha)
-                                    : ItemListaAbertoWidget(
-                                        item: senha,
-                                        onLongPress: () => _copiarClass.copiar(
-                                            context: context,
-                                            texto: senha["senha"]),
-                                        onTap: () => context.pushNamed(
-                                          RoutesEnum.SENHA.value,
-                                          pathParameters: {
-                                            'idSenha': senha['idSenha']
-                                          },
-                                        ),
-                                      );
+                                return ItemSenhaWidget(
+                                  item: senha,
+                                  onLongPress: () => _copiarClass.copiar(
+                                    context: context,
+                                    mensagem: SENHA_COPIADA,
+                                    texto: senha["senha"],
+                                  ),
+                                  onTap: () => context.pushNamed(
+                                    RoutesEnum.SENHA.value,
+                                    pathParameters: {
+                                      'idSenha': senha['idSenha']
+                                    },
+                                  ),
+                                );
                               },
                             );
                           },
