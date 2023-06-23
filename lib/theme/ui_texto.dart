@@ -43,8 +43,7 @@ class UiTextoClaro {
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    fontFamily: 'nunito',
-    color: UiCor.texto,
+    color: UiCor.hintTexto,
     letterSpacing: 0,
   );
   static const TextStyle botao = TextStyle(
@@ -78,8 +77,7 @@ class UiTextoEscuro {
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    color: UiCor.textoEscuro,
-    fontFamily: 'nunito',
+    color: UiCor.hintTextoEscuro,
     letterSpacing: 0,
   );
   static const TextStyle botao = TextStyle(

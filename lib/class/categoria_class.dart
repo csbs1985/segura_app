@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/categoria_firestore.dart';
 
 class CategoriaClass {
@@ -42,5 +43,20 @@ class CategoriaClass {
         texto: CATEGORIA_EXLUIR_ERRO,
       );
     }
+  }
+
+  List<Map<String, dynamic>> verificarCategoria(String _categoria) {
+    List<Map<String, dynamic>> lista = currentCategorias.value;
+    lista.removeWhere((map) => map['idCategoria'] == _categoria);
+
+    if (lista.any((map) => map['idCategoria'] == _categoria)) {
+      for (var item in currentCategorias.value) {
+        if (item['idCategoria'] == _categoria) {
+          lista.add(item);
+        }
+      }
+    }
+
+    return lista;
   }
 }

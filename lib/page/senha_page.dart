@@ -10,12 +10,12 @@ import 'package:senha_app/firestore/categoria_firestore.dart';
 import 'package:senha_app/firestore/senha_firestore.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/modal/categoria_modal.dart';
+import 'package:senha_app/modal/gerar_senha_modal.dart';
 import 'package:senha_app/text/legenda_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/inicio_bottom_widget.dart';
 import 'package:senha_app/widget/formulario_input.dart';
-import 'package:senha_app/modal/gerar_senha_modal.dart';
-import 'package:senha_app/widget/lista_categoria_modal_widget.dart';
+import 'package:senha_app/widget/lista_categoria_senha_widget.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -60,7 +60,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final List<Map<String, dynamic>> _listaCategorias = [];
 
   final double _espaco = 24;
-  Map<String, dynamic>? selecionada;
+  Map<String, dynamic> selecionada = {};
 
   @override
   void initState() {
@@ -73,18 +73,18 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     await _senhaFirestore.receberSenhaId(widget._idSenha).then((document) => {
           selecionada = document.data() as Map<String, dynamic>,
           setState(() {
-            _controllerAnotacao.text = _anotacao = selecionada!['anotacao'];
-            _dataRegistro = _dataRegistroAtual = selecionada!['dataRegistro'];
-            _idSenha = selecionada!['idSenha'];
-            _controllerLink.text = _link = selecionada!['link'];
-            _lixeira = selecionada!['lixeira'];
-            _controllerNome.text = _nome = selecionada!['nome'];
-            _oculto = selecionada!['oculto'];
+            _controllerAnotacao.text = _anotacao = selecionada['anotacao'];
+            _dataRegistro = _dataRegistroAtual = selecionada['dataRegistro'];
+            _idSenha = selecionada['idSenha'];
+            _controllerLink.text = _link = selecionada['link'];
+            _lixeira = selecionada['lixeira'];
+            _controllerNome.text = _nome = selecionada['nome'];
+            _oculto = selecionada['oculto'];
             _controllerSenha.text =
-                _senha = _usuarioAtual = selecionada!['senha'];
-            _controllerUsuario.text = _usuario = selecionada!['usuario'];
+                _senha = _usuarioAtual = selecionada['senha'];
+            _controllerUsuario.text = _usuario = selecionada['usuario'];
           }),
-          _definirCategorias(selecionada!['categoria']),
+          _definirCategorias(selecionada['categoria']),
         });
   }
 
@@ -97,6 +97,8 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             setState(() => _listaCategorias.add(categoria!)),
           });
     }
+
+    currentCategorias.value = _listaCategorias;
   }
 
   void _abrirCategoriaModal() {
@@ -106,6 +108,21 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       builder: (context) => const CategoriaModal(),
+    );
+  }
+
+  _modalGerador(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiCor.overlay,
+      backgroundColor: Colors.red,
+      builder: (context) => GerarSenhaModal(
+        callback: (value) => {
+          Navigator.of(context).pop(),
+          setState(() => _controllerSenha.text = _senha = value),
+        },
+      ),
     );
   }
 
@@ -159,21 +176,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
 
       _senhaClass.salvarSenha(context, form!);
     }
-  }
-
-  _modalGerador(BuildContext context) {
-    showCupertinoModalBottomSheet(
-      expand: true,
-      context: context,
-      barrierColor: UiCor.overlay,
-      backgroundColor: Colors.red,
-      builder: (context) => GerarSenhaModal(
-        callback: (value) => {
-          Navigator.of(context).pop(),
-          setState(() => _controllerSenha.text = _senha = value),
-        },
-      ),
-    );
   }
 
   @override
@@ -258,28 +260,37 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
-                  child: ListaCategoriaModalWidget(
-                    listaCategorias: _listaCategorias,
-                    callback: () => _abrirCategoriaModal(),
+                if (_listaCategorias.isNotEmpty)
+                  ValueListenableBuilder(
+                    valueListenable: currentCategorias,
+                    builder: (BuildContext context,
+                        List<Map<String, dynamic>> categorias, _) {
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+                        child: ListaCategoriaSenhaWidget(
+                          listaCategorias: categorias,
+                          callback: () => _abrirCategoriaModal(),
+                        ),
+                      );
+                    },
                   ),
-                ),
-                Container(
-                  width: MediaQuery.sizeOf(context).width,
-                  height: 32,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: LegendaText(
-                    texto: _senhaClass.ultimaEdicao(_dataRegistro),
+                if (_listaCategorias.isEmpty) SizedBox(height: _espaco),
+                if (_dataRegistro.isNotEmpty)
+                  Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: 32,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    child: LegendaText(
+                      texto: _senhaClass.ultimaEdicao(_dataRegistro),
+                    ),
                   ),
-                ),
               ],
             ),
           ),
         ),
       ),
-      bottomSheet: InicioBottomWidget(senha: selecionada!),
+      bottomSheet: InicioBottomWidget(senha: selecionada),
       floatingActionButton: FloatingButton(
         callback: () => floatingActionButton(context),
         icone: UniconsLine.check,

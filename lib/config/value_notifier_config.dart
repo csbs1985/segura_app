@@ -15,3 +15,6 @@ ValueNotifier<Brightness> currentTema = ValueNotifier(
     WidgetsBinding.instance.platformDispatcher.platformBrightness);
 
 final ValueNotifier<bool> currentIsLocalAuthFailed = ValueNotifier(false);
+
+final ValueNotifier<List<Map<String, dynamic>>> currentCategorias =
+    ValueNotifier<List<Map<String, dynamic>>>([]);

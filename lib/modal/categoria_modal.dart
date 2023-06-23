@@ -12,13 +12,11 @@ import 'package:senha_app/skeleton/cateroria_skeleton%20copy.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
 import 'package:senha_app/theme/ui_cor.dart';
-import 'package:senha_app/widget/lista_categoria_widget.dart';
+import 'package:senha_app/widget/lista_categoria_modal_widget.dart';
 import 'package:unicons/unicons.dart';
 
 class CategoriaModal extends StatefulWidget {
-  const CategoriaModal({
-    super.key,
-  });
+  const CategoriaModal({super.key});
 
   @override
   State<CategoriaModal> createState() => _CategoriaModalState();
@@ -28,17 +26,23 @@ class _CategoriaModalState extends State<CategoriaModal> {
   final CategoriaClass _categoriaClass = CategoriaClass();
   final CategoriaFirestore _categoriaFirestore = CategoriaFirestore();
 
-  void _abrirModal(BuildContext context, Map<String, dynamic> item) {
+  final List<dynamic> _listaCategorias = [];
+
+  void _abrirModal(BuildContext context) {
     showCupertinoModalBottomSheet(
       expand: true,
       context: context,
       barrierColor: UiCor.overlay,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => CategoriaFormModal(selecionado: item),
+      builder: (context) => const CategoriaFormModal(),
     );
   }
 
-  void _selecionarCategorias(String idCategoria) {}
+  void _selecionarCategoria(String _idCategoria) {
+    _listaCategorias.contains(_idCategoria)
+        ? _listaCategorias.remove(_idCategoria)
+        : _listaCategorias.add(_idCategoria);
+  }
 
   void _salvarSenha(BuildContext context) {}
 
@@ -82,14 +86,20 @@ class _CategoriaModalState extends State<CategoriaModal> {
                             default:
                               List<Map<String, dynamic>> _listaCategorias =
                                   _categoriaClass.converterQuerySnapshotToList(
-                                      snapshot.data!.docs);
+                                      snapshot.data?.docs);
 
                               if (_listaCategorias.isNotEmpty) {
-                                return ListaCategoriaWidget(
-                                  listaCategorias: _listaCategorias,
-                                  onTap: (value) =>
-                                      _selecionarCategorias(value),
-                                );
+                                return ValueListenableBuilder(
+                                    valueListenable: currentCategorias,
+                                    builder: (BuildContext context,
+                                        List<Map<String, dynamic>> categorias,
+                                        _) {
+                                      return ListaCategoriaModalWidget(
+                                        listaSelecionadas: const [],
+                                        callback: (value) =>
+                                            _selecionarCategoria(value),
+                                      );
+                                    });
                               } else {
                                 return const TextoText(texto: CATEGORIA_VAZIO);
                               }
@@ -105,7 +115,7 @@ class _CategoriaModalState extends State<CategoriaModal> {
         },
       ),
       floatingActionButton: FloatingButton(
-        callback: () => _salvarSenha(context),
+        callback: () => _abrirModal(context),
         icone: UniconsLine.check,
       ),
     );
