@@ -41,6 +41,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     UiTema.definirTema();
     super.initState();
+    // FlutterNativeSplash.remove();
+    Future.delayed(const Duration(seconds: 5), () {
+      FlutterNativeSplash.remove();
+    });
   }
 
   @override
@@ -56,8 +60,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    FlutterNativeSplash.remove();
-
     return ValueListenableBuilder(
       valueListenable: currentTema,
       builder: (BuildContext context, Brightness tema, _) {

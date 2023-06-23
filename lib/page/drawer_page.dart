@@ -83,16 +83,13 @@ class _DrawerPageState extends State<DrawerPage> {
               icone: UniconsLine.exclamation_triangle,
               callback: () => context.push(RoutesEnum.RELATAR_PROBLEMA.value),
             ),
+            const SizedBox(height: 40),
+            ListaButton(
+              texto: SAIR,
+              icone: UniconsLine.sign_in_alt,
+              callback: () => _authConfig.signOutWithGoogle(),
+            ),
           ],
-        ),
-      ),
-      bottomSheet: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        width: double.infinity,
-        child: ListaButton(
-          texto: SAIR,
-          icone: UniconsLine.sign_in_alt,
-          callback: () => _authConfig.signOutWithGoogle(),
         ),
       ),
     );
