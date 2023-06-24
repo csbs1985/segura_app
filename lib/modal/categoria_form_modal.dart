@@ -41,17 +41,21 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
 
   void salvarCategoriaUsuario(BuildContext context) {
     if (_texto.isNotEmpty) {
-      _controller.text = _texto;
+      List<String> textos = _categoriaClass.separarPorVirgula(_texto);
 
-      Map<String, dynamic> _categorias = {
-        "idCategoria": widget._selecionado!.isNotEmpty
-            ? widget._selecionado!['idCategoria']
-            : _uuid.v4(),
-        "idUsuario": currentUsuario.value.idUsuario,
-        "textoCategoria": _texto.trim().toLowerCase()
-      };
+      for (var item in textos) {
+        _controller.text = item;
 
-      _categoriaClass.salvarCategoria(context, _categorias);
+        Map<String, dynamic> _categorias = {
+          "idCategoria": widget._selecionado!.isNotEmpty
+              ? widget._selecionado!['idCategoria']
+              : _uuid.v4(),
+          "idUsuario": currentUsuario.value.idUsuario,
+          "textoCategoria": item.trim().toLowerCase()
+        };
+
+        _categoriaClass.salvarCategoria(context, _categorias);
+      }
 
       if (widget._selecionado!.isEmpty) {
         _controller.clear();

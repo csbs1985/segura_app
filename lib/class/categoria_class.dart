@@ -59,6 +59,10 @@ class CategoriaClass {
 
     return lista;
   }
+
+  List<String> separarPorVirgula(String inputString) {
+    return inputString.contains(',') ? inputString.split(',') : [inputString];
+  }
 }
 
 enum CategoriaButtonEnum {

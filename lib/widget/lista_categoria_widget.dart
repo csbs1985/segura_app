@@ -32,7 +32,7 @@ class _ListaCategoriaWidgetState extends State<ListaCategoriaWidget> {
         bool isEscuro = tema == Brightness.dark;
 
         return Wrap(
-          runSpacing: 16,
+          runSpacing: 8,
           spacing: 8,
           children: [
             for (var item in widget._listaCategorias)

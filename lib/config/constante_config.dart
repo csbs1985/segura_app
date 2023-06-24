@@ -7,7 +7,7 @@ const String AUTENTICAR_DESBLOQUEAR =
 const String CATEGORIA = "Categoria";
 const String CATEGORIA_CRIAR = "Criar";
 const String CATEGORIA_CRIAR_DESCRICAO =
-    "Digite a categoria e em seguida clique no botão ao lado para criar.";
+    "Digite a categoria desejada e, em seguida, clique no botão ao lado para criar. Se desejar criar várias categorias de uma só vez, separe-as por vírgulas.";
 const String CATEGORIA_DESCRICAO =
     "Digite no campo abaixo para criar uma nova categoria ou selecione uma categoria da lista para editar.";
 const String CATEGORIA_EDITAR = "Editar";
