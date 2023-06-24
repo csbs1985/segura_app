@@ -5,6 +5,7 @@ import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
+import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
 import 'package:senha_app/text/error_text.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
@@ -31,7 +32,6 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
   final SenhaClass _senhaClass = SenhaClass();
   final TextEditingController _controllerTamanho = TextEditingController();
 
-  String senhaGerada = "";
   String tamanho = "8";
   bool isSelecionado = true;
   List<String> listaSelecionado = [GerarSenhaEnum.MINUSCULA.name];
@@ -47,11 +47,11 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
   _gerarSenha() {
     if (_formKey.currentState!.validate()) {
       if (isSelecionado) {
-        setState(() => senhaGerada =
-            _senhaClass.gerarSenha(listaSelecionado, int.parse(tamanho)));
+        currentForm.value['senha'] =
+            _senhaClass.gerarSenha(listaSelecionado, int.parse(tamanho));
         FocusScope.of(context).unfocus();
       } else
-        setState(() => senhaGerada = "");
+        currentForm.value['senha'] = "";
     } else {}
   }
 
@@ -99,14 +99,14 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
                   callback: (value) => _gerarSenha(),
                   texto: SENHA_GERAR,
                 ),
-                if (senhaGerada.isNotEmpty)
+                if (currentForm.value['senha'].isNotEmpty)
                   SizedBox(
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(height: 40),
-                        TituloText(texto: senhaGerada),
+                        TituloText(texto: currentForm.value['senha']),
                         const TextoText(texto: SENHA_GERADA),
                         const SizedBox(height: 16),
                       ],
@@ -117,10 +117,10 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
           ),
         ),
       ),
-      floatingActionButton: !senhaGerada.isNotEmpty
+      floatingActionButton: !currentForm.value['senha'].isNotEmpty
           ? null
           : FloatingButton(
-              callback: () => widget._callback(senhaGerada),
+              callback: () => widget._callback(currentForm.value['senha']),
               icone: UniconsLine.check,
             ),
     );

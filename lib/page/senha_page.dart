@@ -3,7 +3,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/appbar/senha_appbar.dart';
 import 'package:senha_app/button/floating_button.dart';
 import 'package:senha_app/class/senha_class.dart';
-import 'package:senha_app/class/toast_class.dart';
+import 'package:senha_app/class/texto_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firestore/categoria_firestore.dart';
@@ -34,7 +34,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SenhaClass _senhaClass = SenhaClass();
   final SenhaFirestore _senhaFirestore = SenhaFirestore();
-  final ToastClass _toastClass = ToastClass();
+  final TextoClass _textoClass = TextoClass();
   final Uuid uuid = const Uuid();
 
   final TextEditingController _controllerAnotacao = TextEditingController();
@@ -43,22 +43,15 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final TextEditingController _controllerSenha = TextEditingController();
   final TextEditingController _controllerUsuario = TextEditingController();
 
-  String _anotacao = "";
-  String _dataRegistro = "";
-  String _idSenha = "";
-  String _link = "";
-  bool _lixeira = false;
-  String _nome = "";
-  bool _oculto = false;
-  String _senha = "";
-  String _usuario = "";
-  String _usuarioAtual = "";
-  String _dataRegistroAtual = "";
+  final String _senhaAtual = "";
+  final String _dataRegistroAtual = "";
   final List<dynamic> _categorias = [];
   final List<Map<String, dynamic>> _listaCategorias = [];
 
   final double _espaco = 24;
   Map<String, dynamic> selecionada = {};
+
+  Map<String, dynamic> senhaForm = {};
 
   @override
   void initState() {
@@ -70,20 +63,26 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   iniciarSenha() async {
     await _senhaFirestore.receberSenhaId(widget._idSenha).then((document) => {
           selecionada = document.data() as Map<String, dynamic>,
-          setState(() {
-            _controllerAnotacao.text = _anotacao = selecionada['anotacao'];
-            _dataRegistro = _dataRegistroAtual = selecionada['dataRegistro'];
-            _idSenha = selecionada['idSenha'];
-            _controllerLink.text = _link = selecionada['link'];
-            _lixeira = selecionada['lixeira'];
-            _controllerNome.text = _nome = selecionada['nome'];
-            _oculto = selecionada['oculto'];
-            _controllerSenha.text =
-                _senha = _usuarioAtual = selecionada['senha'];
-            _controllerUsuario.text = _usuario = selecionada['usuario'];
-          }),
+          senhaForm = {
+            "anotacao": selecionada['anotacao'],
+            "categoria": selecionada['categoria'],
+            "compartilhada": selecionada['compartilhada'],
+            "dataRegistro": selecionada['dataRegistro'],
+            "idSenha": selecionada['idSenha'],
+            "idUsuario": selecionada['idUsuario'],
+            "link": selecionada['link'],
+            "nome": selecionada['nome'],
+            "senha": selecionada['senha'],
+            "usuario": selecionada['usuario'],
+          },
+          currentForm.value = senhaForm,
+          _definirControllers(),
           _definirCategorias(selecionada['categoria']),
         });
+  }
+
+  _definirControllers() {
+    _controllerSenha.text = currentForm.value['senha'];
   }
 
   _definirCategorias(List<dynamic> categorias) {
@@ -109,15 +108,6 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     );
   }
 
-  toggleOculto() {
-    setState(() => _oculto = !_oculto);
-
-    _toastClass.sucesso(
-      context: context,
-      texto: _oculto ? SENHA_OCULTA : SENHA_NAO_OCULTA,
-    );
-  }
-
   floatingActionButton(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic>? form;
@@ -127,16 +117,15 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           form = {
             "anotacao": _controllerAnotacao.text,
             "categorias": _categorias,
-            "dataRegistro": _usuarioAtual == _senha
+            "dataRegistro": _senhaAtual == currentForm.value['senha']
                 ? _dataRegistroAtual
                 : DateTime.now().toString(),
-            "idSenha": _idSenha,
+            "idSenha": currentForm.value['idSenha'],
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
-            "lixeira": _lixeira,
-            "nome": _nome,
-            "oculto": _oculto,
-            "senha": _senha,
+            "lixeira": currentForm.value['lixeira'],
+            "nome": currentForm.value['nome'],
+            "senha": currentForm.value['senha'],
             "usuario": _controllerUsuario.text,
           };
         } else {
@@ -149,8 +138,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": false,
-            "nome": _nome,
-            "oculto": _oculto,
+            "nome": currentForm.value['nome'],
             "senha": _controllerSenha.text,
             "usuario": _controllerUsuario.text,
           };
@@ -168,6 +156,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
     _controllerNome.dispose();
     _controllerSenha.dispose();
     _controllerUsuario.dispose();
+    currentForm.value = {};
     super.dispose();
   }
 
@@ -178,69 +167,82 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FormularioInput(
-                  controller: _controllerNome,
-                  callback: (value) => setState(() => _nome = value),
-                  hintText: NOME,
-                  validator: (value) => inNotEmpty(value),
+          child: ValueListenableBuilder(
+            valueListenable: currentForm,
+            builder: (BuildContext context, Map<String, dynamic> senha, _) {
+              return Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FormularioInput(
+                      controller: _controllerNome,
+                      callback: (value) =>
+                          setState(() => senha['nome'] = value),
+                      hintText: NOME,
+                      validator: (value) => inNotEmpty(value),
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerLink,
+                      callback: (value) =>
+                          setState(() => senha['link'] = value),
+                      hintText: LINK,
+                      validator: (value) => regexUrl(value!),
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerUsuario,
+                      callback: (value) =>
+                          setState(() => senha['usuario'] = value),
+                      hintText: USUARIO,
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerSenha,
+                      callback: (value) =>
+                          setState(() => senha['senha'] = value),
+                      hintText: SENHA,
+                      validator: (value) => combinarValidacao([
+                        () => inNotEmpty(value),
+                        () => isSenhaCaracteres(value!),
+                      ]),
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerAnotacao,
+                      callback: (value) =>
+                          setState(() => senha['anotacao'] = value),
+                      hintText: ANOTACAO,
+                      minLines: 1,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                    ),
+                    if (_listaCategorias.isNotEmpty)
+                      ValueListenableBuilder(
+                        valueListenable: currentCategorias,
+                        builder: (BuildContext context,
+                            List<Map<String, dynamic>> categorias, _) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+                            child: ListaCategoriaSenhaWidget(
+                              listaCategorias: categorias,
+                              callback: () => _abrirCategoriaModal(),
+                            ),
+                          );
+                        },
+                      ),
+                  ],
                 ),
-                SizedBox(height: _espaco),
-                FormularioInput(
-                  controller: _controllerLink,
-                  callback: (value) => setState(() => _link = value),
-                  hintText: LINK,
-                  validator: (value) => regexUrl(value!),
-                ),
-                SizedBox(height: _espaco),
-                FormularioInput(
-                  controller: _controllerUsuario,
-                  callback: (value) => setState(() => _usuario = value),
-                  hintText: USUARIO,
-                ),
-                SizedBox(height: _espaco),
-                FormularioInput(
-                  controller: _controllerSenha,
-                  callback: (value) => setState(() => _senha = value),
-                  hintText: SENHA,
-                  validator: (value) => combinarValidacao([
-                    () => inNotEmpty(value),
-                    () => isSenhaCaracteres(value!),
-                  ]),
-                ),
-                SizedBox(height: _espaco),
-                FormularioInput(
-                  controller: _controllerAnotacao,
-                  callback: (value) => setState(() => _anotacao = value),
-                  hintText: ANOTACAO,
-                  minLines: 1,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                ),
-                if (_listaCategorias.isNotEmpty)
-                  ValueListenableBuilder(
-                    valueListenable: currentCategorias,
-                    builder: (BuildContext context,
-                        List<Map<String, dynamic>> categorias, _) {
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
-                        child: ListaCategoriaSenhaWidget(
-                          listaCategorias: categorias,
-                          callback: () => _abrirCategoriaModal(),
-                        ),
-                      );
-                    },
-                  ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),
-      bottomSheet: InicioBottomWidget(senha: selecionada),
+      bottomSheet:
+          _textoClass.validarVariavel(currentForm.value['dataRegistro'])
+              ? InicioBottomWidget()
+              : Container(),
       floatingActionButton: FloatingButton(
         callback: () => floatingActionButton(context),
         icone: UniconsLine.check,

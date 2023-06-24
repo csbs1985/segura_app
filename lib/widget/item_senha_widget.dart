@@ -38,24 +38,24 @@ class ItemSenhaWidget extends StatelessWidget {
 
             return ValueListenableBuilder(
               valueListenable: currentLayout,
-              builder: (BuildContext context, bool isLayout, _) {
+              builder: (BuildContext context, bool isLayoutAberto, _) {
                 return AnimatedContainer(
                   curve: Curves.easeInOut,
                   decoration: BoxDecoration(
                     color: isEscuro ? UiCor.inputEscuro : UiCor.input,
                     borderRadius: BorderRadius.circular(UiBorda.arredondada),
                   ),
-                  padding: isLayout
+                  padding: !isLayoutAberto
                       ? const EdgeInsets.fromLTRB(16, 8, 16, 8)
                       : const EdgeInsets.fromLTRB(16, 12, 16, 12),
                   duration: const Duration(milliseconds: 500),
                   child: Row(
-                    crossAxisAlignment: isLayout
+                    crossAxisAlignment: !isLayoutAberto
                         ? CrossAxisAlignment.center
                         : CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: isLayout ? 0 : 4),
+                        padding: EdgeInsets.only(top: !isLayoutAberto ? 0 : 4),
                         child: _item["link"] != ""
                             ? FaviconWidget(url: _item["link"])
                             : IniciaisWidget(texto: _item["nome"]),
@@ -66,7 +66,7 @@ class ItemSenhaWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextoText(texto: _item["nome"]),
-                            isLayout
+                            !isLayoutAberto
                                 ? Container()
                                 : Column(
                                     crossAxisAlignment:

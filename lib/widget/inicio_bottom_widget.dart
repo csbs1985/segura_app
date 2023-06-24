@@ -7,12 +7,7 @@ import 'package:senha_app/theme/ui_cor.dart';
 class InicioBottomWidget extends StatelessWidget {
   final SenhaClass _senhaClass = SenhaClass();
 
-  InicioBottomWidget({
-    super.key,
-    required Map<String, dynamic> senha,
-  }) : _senha = senha;
-
-  final Map<String, dynamic> _senha;
+  InicioBottomWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +26,8 @@ class InicioBottomWidget extends StatelessWidget {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: LegendaText(
-                  texto: _senhaClass.ultimaEdicao(_senha['dataRegistro']),
+                  texto: _senhaClass
+                      .ultimaEdicao(currentForm.value['dataRegistro']),
                 ),
               ),
             ],

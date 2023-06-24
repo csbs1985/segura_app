@@ -6,6 +6,7 @@ import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
+import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/padrao_input.dart';
 import 'package:unicons/unicons.dart';
@@ -88,56 +89,87 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SubtituloText(
-                      texto: widget._selecionado!.isEmpty
-                          ? CATEGORIA_CRIAR
-                          : CATEGORIA_EDITAR),
+                  const SubtituloText(texto: CATEGORIA),
                   const SizedBox(height: 16),
-                  TextoText(
-                      texto: widget._selecionado!.isEmpty
-                          ? CATEGORIA_CRIAR_DESCRICAO
-                          : CATEGORIA_EDITAR_DESCRICAO),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(UiBorda.arredondada),
+                      border: Border.all(
+                        color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SubtituloText(
+                              texto: widget._selecionado!.isEmpty
+                                  ? CATEGORIA_CRIAR
+                                  : CATEGORIA_EDITAR),
+                          const SizedBox(height: 16),
+                          TextoText(
+                              texto: widget._selecionado!.isEmpty
+                                  ? CATEGORIA_CRIAR_DESCRICAO
+                                  : CATEGORIA_EDITAR_DESCRICAO),
+                          const SizedBox(height: 16),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: PadraoInput(
+                                  hintText: CATEGORIA,
+                                  controller: _controller,
+                                  callback: (value) =>
+                                      setState(() => _texto = value),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              SegundoButton(
+                                icone: UniconsLine.check,
+                                callback: () => salvarCategoriaUsuario(context),
+                              )
+                            ],
+                          ),
+                        ]),
+                  ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: PadraoInput(
-                          hintText: CATEGORIA,
-                          controller: _controller,
-                          callback: (value) => setState(() => _texto = value),
+                  if (widget._selecionado!.isNotEmpty)
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(UiBorda.arredondada),
+                        border: Border.all(
+                          color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                          width: 2.0,
                         ),
                       ),
-                      const SizedBox(width: 16),
-                      SegundolButton(
-                        icone: UniconsLine.check,
-                        callback: () => salvarCategoriaUsuario(context),
-                      )
-                    ],
-                  ),
-                  if (widget._selecionado!.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 24),
-                        const SubtituloText(texto: CATEGORIA_EXLUIR),
-                        const SizedBox(height: 16),
-                        const TextoText(texto: CATEGORIA_EXLUIR_DESCRICAO),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SegundolButton(
-                              icone: UniconsLine.times,
-                              callback: () => Navigator.of(context).pop(),
-                            ),
-                            const SizedBox(width: 16),
-                            SegundolButton(
-                              callback: () => _deletarCategoria(context),
-                              icone: UniconsLine.check,
-                            )
-                          ],
-                        )
-                      ],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SubtituloText(texto: CATEGORIA_EXLUIR),
+                          const SizedBox(height: 16),
+                          const TextoText(texto: CATEGORIA_EXLUIR_DESCRICAO),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SegundoButton(
+                                icone: UniconsLine.times,
+                                callback: () => Navigator.of(context).pop(),
+                                estilo: CategoriaButtonEnum.SECUNDARIO,
+                              ),
+                              const SizedBox(width: 16),
+                              SegundoButton(
+                                callback: () => _deletarCategoria(context),
+                                icone: UniconsLine.check,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     )
                 ],
               ),

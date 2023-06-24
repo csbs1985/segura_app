@@ -17,7 +17,7 @@ const String CATEGORIA_ERRO =
     "Não foi possível salvar a categoria, tente novamente mais tarde";
 const String CATEGORIA_EXLUIR = "Excluir";
 const String CATEGORIA_EXLUIR_DESCRICAO =
-    "Excluiremos essa categoria e a removeremos de todas as suas senhas. Suas notas não serão excluídas.";
+    "Excluiremos essa categoria e a removeremos de todas as suas senhas. Suas senhas não serão excluídas. Tem certeza que deseja excluir?";
 const String CATEGORIA_EXLUIR_ERRO =
     "Não foi possível excluir a categoria, tente novamente mais tarde";
 const String CATEGORIA_VAZIO =

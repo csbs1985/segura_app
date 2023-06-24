@@ -60,3 +60,11 @@ class CategoriaClass {
     return lista;
   }
 }
+
+enum CategoriaButtonEnum {
+  PRIMARIO('primario'),
+  SECUNDARIO('secundario');
+
+  final String value;
+  const CategoriaButtonEnum(this.value);
+}

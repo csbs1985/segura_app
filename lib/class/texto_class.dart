@@ -6,4 +6,11 @@ class TextoClass {
     sortedList.sort();
     return sortedList;
   }
+
+  bool validarVariavel(dynamic value) {
+    if (value == null) return false;
+    if (value == "") return false;
+    if (value.isEmpty) return false;
+    return true;
+  }
 }

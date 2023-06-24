@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 
-class SegundolButton extends StatefulWidget {
-  const SegundolButton({
+class SegundoButton extends StatefulWidget {
+  const SegundoButton({
     super.key,
     required Function callback,
     required IconData icone,
+    CategoriaButtonEnum? estilo = CategoriaButtonEnum.PRIMARIO,
   })  : _callback = callback,
-        _icone = icone;
+        _icone = icone,
+        _estilo = estilo;
 
   final Function _callback;
   final IconData _icone;
+  final CategoriaButtonEnum? _estilo;
 
   @override
-  State<SegundolButton> createState() => _SegundolButtonState();
+  State<SegundoButton> createState() => _SegundoButtonState();
 }
 
-class _SegundolButtonState extends State<SegundolButton> {
+class _SegundoButtonState extends State<SegundoButton> {
   final double _height = UiTamanho.inputBotao;
   final double _width = UiTamanho.inputBotao;
   late double _position = UiTamanho.botaoBorda;
@@ -43,7 +47,11 @@ class _SegundolButtonState extends State<SegundolButton> {
                     width: _width,
                     height: _height,
                     decoration: BoxDecoration(
-                      color: isEscuro ? UiCor.inputEscuro : UiCor.input,
+                      color: widget._estilo == CategoriaButtonEnum.PRIMARIO
+                          ? UiCor.iconeDestaque
+                          : isEscuro
+                              ? UiCor.bordaEscura
+                              : UiCor.borda,
                       borderRadius: BorderRadius.circular(UiBorda.arredondada),
                     ),
                   ),
@@ -59,13 +67,21 @@ class _SegundolButtonState extends State<SegundolButton> {
                       color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
                       borderRadius: BorderRadius.circular(UiBorda.arredondada),
                       border: Border.all(
-                        color: isEscuro ? UiCor.inputEscuro : UiCor.input,
-                        width: 2.0,
+                        color: widget._estilo == CategoriaButtonEnum.PRIMARIO
+                            ? UiCor.iconeDestaque
+                            : isEscuro
+                                ? UiCor.bordaEscura
+                                : UiCor.borda,
+                        width: 2,
                       ),
                     ),
                     child: Icon(
                       widget._icone,
-                      color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+                      color: widget._estilo == CategoriaButtonEnum.PRIMARIO
+                          ? UiCor.iconeDestaque
+                          : isEscuro
+                              ? UiCor.bordaEscura
+                              : UiCor.borda,
                     ),
                   ),
                 ),

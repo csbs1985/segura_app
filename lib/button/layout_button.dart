@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
-import 'package:senha_app/hive/layout_hive.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_tamanho.dart';
 
@@ -14,20 +13,11 @@ class LayoutButton extends StatefulWidget {
 }
 
 class _LayoutButtonState extends State<LayoutButton> {
-  final LayoutHive _layoutHive = LayoutHive();
-
-  bool _isLista = true;
-
-  @override
-  void initState() {
-    _isLista = _layoutHive.receberLayout();
-    super.initState();
-  }
+  bool _isAberto = false;
 
   void _toggleLayout() {
-    setState(() => _isLista = !_isLista);
-    _layoutHive.salvarLayout(_isLista);
-    currentLayout.value = _isLista;
+    setState(() => _isAberto = !_isAberto);
+    currentLayout.value = _isAberto;
   }
 
   @override
@@ -42,7 +32,7 @@ class _LayoutButtonState extends State<LayoutButton> {
           height: UiTamanho.iconeLayoput,
           child: GestureDetector(
             child: Icon(
-              _isLista ? Icons.view_agenda_outlined : Icons.crop_din_outlined,
+              _isAberto ? Icons.crop_din_outlined : Icons.view_agenda_outlined,
               color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
             ),
             onTap: () => _toggleLayout(),

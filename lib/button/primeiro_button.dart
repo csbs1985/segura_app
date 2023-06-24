@@ -30,7 +30,9 @@ class _PrimeirolButtonState extends State<PrimeirolButton> {
 
   @override
   Widget build(BuildContext context) {
-    _widtht = widget._width! ?? MediaQuery.sizeOf(context).width - (2 * 16);
+    _widtht = widget._width != null
+        ? MediaQuery.sizeOf(context).width - (2 * 16)
+        : widget._width!;
 
     return GestureDetector(
       child: SizedBox(

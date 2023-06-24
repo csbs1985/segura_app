@@ -47,56 +47,54 @@ class PadraoInput extends StatelessWidget {
       builder: (BuildContext context, Brightness tema, _) {
         bool isEscuro = tema == Brightness.dark;
 
-        return SizedBox(
-          child: TextFormField(
-            autofocus: autoFocus!,
-            controller: controller,
-            expands: expands!,
-            focusNode: focusNode,
-            keyboardType: keyboardType,
-            onChanged: (value) => callback!(value),
-            onSaved: onSaved,
-            maxLength: maxLength,
-            minLines: minLines,
-            maxLines: maxLines,
-            style: Theme.of(context).textTheme.displaySmall,
-            textAlignVertical: TextAlignVertical.center,
-            validator: validator,
-            decoration: InputDecoration(
-              prefixIcon: pesquisarIcone!
-                  ? const Icon(
-                      UniconsLine.search_alt,
-                      color: UiCor.iconeDestaque,
-                    )
-                  : null,
-              prefixIconColor: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
-              counterStyle: Theme.of(context).textTheme.headlineSmall,
-              hintText: hintText,
-              filled: true,
-              fillColor: isEscuro ? UiCor.inputEscuro : UiCor.input,
-              hintStyle: Theme.of(context).textTheme.bodySmall,
-              errorStyle: UiTexto.erro,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: UiEspaco.grande,
-                vertical: UiEspaco.medio,
+        return TextFormField(
+          autofocus: autoFocus!,
+          controller: controller,
+          expands: expands!,
+          focusNode: focusNode,
+          keyboardType: keyboardType,
+          onChanged: (value) => callback!(value),
+          onSaved: onSaved,
+          maxLength: maxLength,
+          minLines: minLines,
+          maxLines: maxLines,
+          style: Theme.of(context).textTheme.displaySmall,
+          textAlignVertical: TextAlignVertical.center,
+          validator: validator,
+          decoration: InputDecoration(
+            prefixIcon: pesquisarIcone!
+                ? const Icon(
+                    UniconsLine.search_alt,
+                    color: UiCor.iconeDestaque,
+                  )
+                : null,
+            prefixIconColor: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+            counterStyle: Theme.of(context).textTheme.headlineSmall,
+            hintText: hintText,
+            filled: true,
+            fillColor: isEscuro ? UiCor.inputEscuro : UiCor.input,
+            hintStyle: Theme.of(context).textTheme.bodySmall,
+            errorStyle: UiTexto.erro,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: UiEspaco.grande,
+              vertical: UiEspaco.medio,
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(
+                inputCircular ? UiBorda.circulo : UiBorda.arredondada,
               ),
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(
-                  inputCircular ? UiBorda.circulo : UiBorda.arredondada,
-                ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(
+                inputCircular ? UiBorda.circulo : UiBorda.arredondada,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(
-                  inputCircular ? UiBorda.circulo : UiBorda.arredondada,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(
-                  inputCircular ? UiBorda.circulo : UiBorda.arredondada,
-                ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(
+                inputCircular ? UiBorda.circulo : UiBorda.arredondada,
               ),
             ),
           ),

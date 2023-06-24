@@ -1,25 +1,27 @@
 class SenhaModel {
   late String? anotacao;
+  late List<String> categoria;
+  late List<String> compartilhada;
   late String dataRegistro;
-  late String? expiracao;
   late String idSenha;
   late String idUsuario;
   late String? link;
+  late bool lixeira;
   late String nome;
-  late bool oculto; // indica se a senha deve aparecer ou não no formulario
   late String senha;
   late String usuario;
 
-  SenhaModel(
+  SenhaModel({
     this.anotacao,
-    this.dataRegistro,
-    this.expiracao,
-    this.idSenha,
-    this.idUsuario,
+    required this.categoria,
+    required this.compartilhada,
+    required this.dataRegistro,
+    required this.idSenha,
+    required this.idUsuario,
     this.link,
-    this.nome,
-    this.oculto,
-    this.senha,
-    this.usuario,
-  );
+    required this.lixeira,
+    required this.nome,
+    required this.senha,
+    required this.usuario,
+  });
 }
