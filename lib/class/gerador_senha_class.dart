@@ -1,4 +1,4 @@
-import 'package:senha_app/modal/gerador_senha_model.dart';
+import 'package:senha_app/modal/gerar_senha_model.dart';
 
 final List<GerarSenhaModel> listaGeradorSenha = [
   GerarSenhaModel(
@@ -22,4 +22,12 @@ enum GerarSenhaEnum {
 
   final String value;
   const GerarSenhaEnum(this.value);
+}
+
+enum GerarSenhaTipoEnum {
+  PAGE('page'),
+  MODAL('modal');
+
+  final String value;
+  const GerarSenhaTipoEnum(this.value);
 }

@@ -119,8 +119,7 @@ const String SENHA_EDITADA_HA = "senha editada agora há";
 const String SENHA_EDITADA_UMA_HORA = "senha editada há menos de uma hora";
 const String SENHA_GERAR = "Gerar senha";
 const String SENHA_GERADA = "senha gerada";
-const String SENHA_GERADOR = "Gerador de senha";
-const String SENHA_GERADOR_DESCRICAO =
+const String SENHA_GERAR_DESCRICAO =
     'O gerador de senhas permite criar uma senha aleatória com diversas opções. Selecione as opções, clique em "Gerar Senha", confira a senha gerada e clique no botão principal para utilizar a senha gerada.';
 const String SENHA_OBRIGATORIO = "a senha é obrigatória";
 const String SENHA_OCULTA = "não mostraremos a senha na página inicial";
