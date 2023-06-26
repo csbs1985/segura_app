@@ -41,24 +41,21 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final TextEditingController _controllerSenha = TextEditingController();
   final TextEditingController _controllerUsuario = TextEditingController();
 
-  String? _senhaAtual;
-  final String _dataRegistroAtual = "";
   final List<dynamic> _categorias = [];
   final List<dynamic> _compartilhada = [];
   final List<Map<String, dynamic>> _listaCategorias = [];
-
   final double _espaco = 24;
 
+  String? _senhaAtual;
   bool _jaPassou = false;
-
-  Map<String, dynamic> senhaForm = {};
+  Map<String, dynamic> _senhaForm = {};
 
   iniciarSenha() async {
     if (!_jaPassou && widget._idSenha != EMPTY) {
       Map<String, dynamic> senhaAtual = {};
       await _senhaFirestore.receberSenhaId(widget._idSenha).then((document) => {
             senhaAtual = document.data() as Map<String, dynamic>,
-            senhaForm = {
+            _senhaForm = {
               "anotacao": senhaAtual['anotacao'],
               "categoria": senhaAtual['categoria'],
               "compartilhada": senhaAtual['compartilhada'],
@@ -71,7 +68,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
               "senha": senhaAtual['senha'],
               "usuario": senhaAtual['usuario'],
             },
-            _senhaAtual = senhaForm['senha'],
+            _senhaAtual = _senhaForm['senha'],
             _definirControllers(),
             _definirCategorias(senhaAtual['categoria']),
           });
@@ -79,11 +76,11 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   }
 
   _definirControllers() {
-    _controllerAnotacao.text = senhaForm['anotacao'];
-    _controllerLink.text = senhaForm['link'];
-    _controllerNome.text = senhaForm['nome'];
-    _controllerSenha.text = senhaForm['senha'];
-    _controllerUsuario.text = senhaForm['usuario'];
+    _controllerAnotacao.text = _senhaForm['anotacao'];
+    _controllerLink.text = _senhaForm['link'];
+    _controllerNome.text = _senhaForm['nome'];
+    _controllerSenha.text = _senhaForm['senha'];
+    _controllerUsuario.text = _senhaForm['usuario'];
   }
 
   _definirCategorias(List<dynamic> categorias) {
@@ -114,40 +111,40 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       setState(() {
         if (widget._idSenha != EMPTY) {
           // editar
-          senhaForm = {
+          _senhaForm = {
             "anotacao": _controllerAnotacao.text,
-            "categorias": _categorias,
+            "categoria": _categorias,
             "compartilhada": _compartilhada,
-            "dataRegistro": _senhaAtual == senhaForm['senha']
-                ? senhaForm['dataRegistro']
+            "dataRegistro": _senhaAtual == _senhaForm['senha']
+                ? _senhaForm['dataRegistro']
                 : DateTime.now().toString(),
-            "idSenha": senhaForm['idSenha'],
+            "idSenha": _senhaForm['idSenha'],
             "idUsuario": currentUsuario.value.idUsuario,
-            "link": senhaForm['link'],
-            "lixeira": senhaForm['lixeira'],
-            "nome": senhaForm['nome'],
-            "senha": senhaForm['senha'],
+            "link": _senhaClass.validarUrl(_senhaForm['link']),
+            "lixeira": _senhaForm['lixeira'],
+            "nome": _senhaForm['nome'],
+            "senha": _senhaForm['senha'],
             "usuario": _controllerUsuario.text,
           };
         } else {
           // criar
-          senhaForm = {
+          _senhaForm = {
             "anotacao": _controllerAnotacao.text,
-            "categorias": _categorias,
+            "categoria": _categorias,
             "compartilhada": _compartilhada,
             "dataRegistro": DateTime.now().toString(),
             "idSenha": uuid.v4(),
             "idUsuario": currentUsuario.value.idUsuario,
-            "link": _controllerLink.text,
+            "link": _senhaClass.validarUrl(_senhaForm['link']),
             "lixeira": false,
-            "nome": senhaForm['nome'],
+            "nome": _senhaForm['nome'],
             "senha": _controllerSenha.text,
             "usuario": _controllerUsuario.text,
           };
         }
       });
 
-      _senhaClass.salvarSenha(context, senhaForm);
+      _senhaClass.salvarSenha(context, _senhaForm);
     }
   }
 
@@ -171,10 +168,10 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           appBar: SenhaAppbar(
             callback: (value) => setState(() => {
                   _jaPassou = true,
-                  senhaForm = value,
-                  _controllerSenha.text = senhaForm['senha'],
+                  _senhaForm = value,
+                  _controllerSenha.text = _senhaForm['senha'],
                 }),
-            senha: senhaForm,
+            senha: _senhaForm,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -190,7 +187,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                         FormularioInput(
                           controller: _controllerNome,
                           callback: (value) =>
-                              setState(() => senhaForm['nome'] = value),
+                              setState(() => _senhaForm['nome'] = value),
                           hintText: NOME,
                           validator: (value) => inNotEmpty(value),
                         ),
@@ -198,7 +195,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                         FormularioInput(
                           controller: _controllerLink,
                           callback: (value) =>
-                              setState(() => senhaForm['link'] = value),
+                              setState(() => _senhaForm['link'] = value),
                           hintText: LINK,
                           validator: (value) => regexUrl(value!),
                         ),
@@ -206,14 +203,14 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                         FormularioInput(
                           controller: _controllerUsuario,
                           callback: (value) =>
-                              setState(() => senhaForm['usuario'] = value),
+                              setState(() => _senhaForm['usuario'] = value),
                           hintText: USUARIO,
                         ),
                         SizedBox(height: _espaco),
                         FormularioInput(
                           controller: _controllerSenha,
                           callback: (value) =>
-                              setState(() => senhaForm['senha'] = value),
+                              setState(() => _senhaForm['senha'] = value),
                           hintText: SENHA,
                           validator: (value) => combinarValidacao([
                             () => inNotEmpty(value),
@@ -224,7 +221,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                         FormularioInput(
                           controller: _controllerAnotacao,
                           callback: (value) =>
-                              setState(() => senhaForm['anotacao'] = value),
+                              setState(() => _senhaForm['anotacao'] = value),
                           hintText: ANOTACAO,
                           minLines: 1,
                           maxLines: null,
@@ -252,7 +249,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
               ),
             ),
           ),
-          bottomSheet: InicioBottomWidget(item: senhaForm),
+          bottomSheet: InicioBottomWidget(item: _senhaForm),
           floatingActionButton: FloatingButton(
             callback: () => floatingActionButton(context),
             icone: UniconsLine.check,
