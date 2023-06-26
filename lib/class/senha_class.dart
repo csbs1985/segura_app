@@ -51,13 +51,12 @@ class SenhaClass {
     initializeDateFormatting('pt_BR', null);
 
     DateTime data = DateTime.parse(value);
-    DateTime agora = DateTime.now();
-    Duration diferenca = agora.difference(data);
+    Duration diferenca = DateTime.now().difference(data);
 
     if (diferenca.inMinutes < 1) {
       return SENHA_EDITADA_AGORA;
     } else if (diferenca.inHours < 1) {
-      return SENHA_EDITADA_UMA_HORA;
+      return "$SENHA_EDITADA_MINUTO_1 ${diferenca.inMinutes} $SENHA_EDITADA_MINUTO_2";
     } else if (diferenca.inHours < 24) {
       return "$SENHA_EDITADA_HA ${diferenca.inHours} hora(s)";
     } else if (diferenca.inDays < 7) {
