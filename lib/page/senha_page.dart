@@ -50,6 +50,12 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   bool _jaPassou = false;
   Map<String, dynamic> _senhaForm = {};
 
+  @override
+  void initState() {
+    iniciarSenha();
+    super.initState();
+  }
+
   iniciarSenha() async {
     if (!_jaPassou && widget._idSenha != EMPTY) {
       Map<String, dynamic> senhaAtual = {};
@@ -120,7 +126,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
                 : DateTime.now().toString(),
             "idSenha": _senhaForm['idSenha'],
             "idUsuario": currentUsuario.value.idUsuario,
-            "link": _senhaClass.validarUrl(_senhaForm['link']),
+            "link": _senhaForm['link'],
             "lixeira": _senhaForm['lixeira'],
             "nome": _senhaForm['nome'],
             "senha": _senhaForm['senha'],
@@ -135,7 +141,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "dataRegistro": DateTime.now().toString(),
             "idSenha": uuid.v4(),
             "idUsuario": currentUsuario.value.idUsuario,
-            "link": _senhaClass.validarUrl(_senhaForm['link']),
+            "link": _senhaForm['link'],
             "lixeira": false,
             "nome": _senhaForm['nome'],
             "senha": _controllerSenha.text,
@@ -161,101 +167,95 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: iniciarSenha(),
-      builder: (BuildContext context, _) {
-        return Scaffold(
-          appBar: SenhaAppbar(
-            callback: (value) => setState(() => {
-                  _jaPassou = true,
-                  _senhaForm = value,
-                  _controllerSenha.text = _senhaForm['senha'],
-                }),
-            senha: _senhaForm,
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: ValueListenableBuilder(
-                valueListenable: currentForm,
-                builder: (BuildContext context, Map<String, dynamic> senha, _) {
-                  return Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FormularioInput(
-                          controller: _controllerNome,
-                          callback: (value) =>
-                              setState(() => _senhaForm['nome'] = value),
-                          hintText: NOME,
-                          validator: (value) => inNotEmpty(value),
-                        ),
-                        SizedBox(height: _espaco),
-                        FormularioInput(
-                          controller: _controllerLink,
-                          callback: (value) =>
-                              setState(() => _senhaForm['link'] = value),
-                          hintText: LINK,
-                          validator: (value) => regexUrl(value!),
-                        ),
-                        SizedBox(height: _espaco),
-                        FormularioInput(
-                          controller: _controllerUsuario,
-                          callback: (value) =>
-                              setState(() => _senhaForm['usuario'] = value),
-                          hintText: USUARIO,
-                        ),
-                        SizedBox(height: _espaco),
-                        FormularioInput(
-                          controller: _controllerSenha,
-                          callback: (value) =>
-                              setState(() => _senhaForm['senha'] = value),
-                          hintText: SENHA,
-                          validator: (value) => combinarValidacao([
-                            () => inNotEmpty(value),
-                            () => isSenhaCaracteres(value!),
-                          ]),
-                        ),
-                        SizedBox(height: _espaco),
-                        FormularioInput(
-                          controller: _controllerAnotacao,
-                          callback: (value) =>
-                              setState(() => _senhaForm['anotacao'] = value),
-                          hintText: ANOTACAO,
-                          minLines: 1,
-                          maxLines: null,
-                          keyboardType: TextInputType.multiline,
-                        ),
-                        if (_listaCategorias.isNotEmpty)
-                          ValueListenableBuilder(
-                            valueListenable: currentCategorias,
-                            builder: (BuildContext context,
-                                List<Map<String, dynamic>> categorias, _) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(16, 40, 16, 16),
-                                child: ListaCategoriaSenhaWidget(
-                                  listaCategorias: categorias,
-                                  callback: () => _abrirCategoriaModal(),
-                                ),
-                              );
-                            },
-                          ),
-                      ],
+    return Scaffold(
+      appBar: SenhaAppbar(
+        callback: (value) => setState(() => {
+              _jaPassou = true,
+              _senhaForm = value,
+              _controllerSenha.text = _senhaForm['senha'],
+            }),
+        senha: _senhaForm,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: ValueListenableBuilder(
+            valueListenable: currentForm,
+            builder: (BuildContext context, Map<String, dynamic> senha, _) {
+              return Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FormularioInput(
+                      controller: _controllerNome,
+                      callback: (value) =>
+                          setState(() => _senhaForm['nome'] = value),
+                      hintText: NOME,
+                      validator: (value) => inNotEmpty(value),
                     ),
-                  );
-                },
-              ),
-            ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerLink,
+                      callback: (value) =>
+                          setState(() => _senhaForm['link'] = value),
+                      hintText: LINK,
+                      validator: (value) => regexUrl(value!),
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerUsuario,
+                      callback: (value) =>
+                          setState(() => _senhaForm['usuario'] = value),
+                      hintText: USUARIO,
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerSenha,
+                      callback: (value) =>
+                          setState(() => _senhaForm['senha'] = value),
+                      hintText: SENHA,
+                      validator: (value) => combinarValidacao([
+                        () => inNotEmpty(value),
+                        () => isSenhaCaracteres(value!),
+                      ]),
+                    ),
+                    SizedBox(height: _espaco),
+                    FormularioInput(
+                      controller: _controllerAnotacao,
+                      callback: (value) =>
+                          setState(() => _senhaForm['anotacao'] = value),
+                      hintText: ANOTACAO,
+                      minLines: 1,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                    ),
+                    if (_listaCategorias.isNotEmpty)
+                      ValueListenableBuilder(
+                        valueListenable: currentCategorias,
+                        builder: (BuildContext context,
+                            List<Map<String, dynamic>> categorias, _) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+                            child: ListaCategoriaSenhaWidget(
+                              listaCategorias: categorias,
+                              callback: () => _abrirCategoriaModal(),
+                            ),
+                          );
+                        },
+                      ),
+                  ],
+                ),
+              );
+            },
           ),
-          bottomSheet: InicioBottomWidget(item: _senhaForm),
-          floatingActionButton: FloatingButton(
-            callback: () => floatingActionButton(context),
-            icone: UniconsLine.check,
-          ),
-        );
-      },
+        ),
+      ),
+      bottomSheet: InicioBottomWidget(item: _senhaForm),
+      floatingActionButton: FloatingButton(
+        callback: () => floatingActionButton(context),
+        icone: UniconsLine.check,
+      ),
     );
   }
 }

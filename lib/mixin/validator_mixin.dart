@@ -8,7 +8,7 @@ mixin ValidatorMixin {
 
   String? regexUrl(String url) {
     RegExp regex = RegExp(
-        r"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$");
+        r"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$");
 
     bool isURLValid = regex.hasMatch(url);
 

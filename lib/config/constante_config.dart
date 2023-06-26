@@ -72,7 +72,7 @@ const String LIXEIRA_RESTAURAR_ERRO = "Não foi possível concluir a restauraç�
 const String LIXEIRA_RESTAURAR_ITEM = "Restaurar esta senha";
 
 const String LINK = "Link";
-const String LINK_INVALIDO = "url não existe ou inválida";
+const String LINK_INVALIDO = 'link inválido, ex.: "https://google.com"';
 const String LINK_SEM_RESPOSTA = "Não é possível acessar esse site";
 
 const String MODO_ENTRADA = "Modo de entrada";
