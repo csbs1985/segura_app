@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:senha_app/theme/ui_borda.dart';
-import 'package:senha_app/theme/ui_cor.dart';
-import 'package:senha_app/theme/ui_tamanho.dart';
+import 'package:senha_app/button/segundo_button.dart';
 
 class FloatingButton extends StatefulWidget {
   const FloatingButton({
@@ -21,15 +19,9 @@ class FloatingButton extends StatefulWidget {
 class _FloatingButtonState extends State<FloatingButton> {
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => widget._callback(),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(UiBorda.arredondada)),
-      child: Icon(
-        widget._icone,
-        size: UiTamanho.iconefloating,
-        color: UiCor.floating,
-      ),
+    return SegundoButton(
+      icone: widget._icone,
+      callback: () => widget._callback(),
     );
   }
 }

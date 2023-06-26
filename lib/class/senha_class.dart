@@ -58,7 +58,7 @@ class SenhaClass {
     } else if (diferenca.inHours < 1) {
       return "$SENHA_EDITADA_MINUTO_1 ${diferenca.inMinutes} $SENHA_EDITADA_MINUTO_2";
     } else if (diferenca.inHours < 24) {
-      return "$SENHA_EDITADA_HA ${diferenca.inHours} hora(s)";
+      return "$SENHA_EDITADA_HA_1 ${diferenca.inHours} $SENHA_EDITADA_HA_2";
     } else if (diferenca.inDays < 7) {
       String diaSemana = DateFormat('EEEE', 'pt_BR').format(data);
       return "$SENHA_EDITADA $diaSemana";
