@@ -19,7 +19,7 @@ class _DoarPageState extends State<DoarPage> {
 
   void _copiarPix(BuildContext context) {
     Clipboard.setData(const ClipboardData(text: PIX_CODIGO));
-    _toastClass.erro(
+    _toastClass.sucesso(
       context: context,
       texto: PIX_COPIADO,
     );

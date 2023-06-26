@@ -41,7 +41,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     UiTema.definirTema();
     super.initState();
-    // FlutterNativeSplash.remove();
     Future.delayed(const Duration(seconds: 5), () {
       FlutterNativeSplash.remove();
     });
