@@ -41,7 +41,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
   final TextEditingController _controllerSenha = TextEditingController();
   final TextEditingController _controllerUsuario = TextEditingController();
 
-  final String _senhaAtual = "";
+  String? _senhaAtual;
   final String _dataRegistroAtual = "";
   final List<dynamic> _categorias = [];
   final List<dynamic> _compartilhada = [];
@@ -49,16 +49,12 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
 
   final double _espaco = 24;
 
+  bool _jaPassou = false;
+
   Map<String, dynamic> senhaForm = {};
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (widget._idSenha != EMPTY) Future(() => iniciarSenha());
-  // }
-
   iniciarSenha() async {
-    if (widget._idSenha != EMPTY) {
+    if (!_jaPassou && widget._idSenha != EMPTY) {
       Map<String, dynamic> senhaAtual = {};
       await _senhaFirestore.receberSenhaId(widget._idSenha).then((document) => {
             senhaAtual = document.data() as Map<String, dynamic>,
@@ -114,11 +110,10 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
 
   floatingActionButton(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      Map<String, dynamic>? form;
       setState(() {
         if (widget._idSenha != EMPTY) {
           // editar
-          form = {
+          senhaForm = {
             "anotacao": _controllerAnotacao.text,
             "categorias": _categorias,
             "compartilhada": _compartilhada,
@@ -135,7 +130,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
           };
         } else {
           // criar
-          form = {
+          senhaForm = {
             "anotacao": _controllerAnotacao.text,
             "categorias": _categorias,
             "compartilhada": _compartilhada,
@@ -144,14 +139,14 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "idUsuario": currentUsuario.value.idUsuario,
             "link": _controllerLink.text,
             "lixeira": false,
-            "nome": currentForm.value['nome'],
+            "nome": senhaForm['nome'],
             "senha": _controllerSenha.text,
             "usuario": _controllerUsuario.text,
           };
         }
       });
 
-      _senhaClass.salvarSenha(context, form!);
+      _senhaClass.salvarSenha(context, senhaForm);
     }
   }
 
@@ -172,7 +167,14 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
       future: iniciarSenha(),
       builder: (BuildContext context, _) {
         return Scaffold(
-          appBar: const SenhaAppbar(),
+          appBar: SenhaAppbar(
+            callback: (value) => setState(() => {
+                  _jaPassou = true,
+                  senhaForm = value,
+                  _controllerSenha.text = senhaForm['senha'],
+                }),
+            senha: senhaForm,
+          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(top: 16),

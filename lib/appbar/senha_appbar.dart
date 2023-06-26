@@ -3,7 +3,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/texto_class.dart';
-import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/modal/categoria_modal.dart';
 import 'package:senha_app/modal/copiar_modal.dart';
 import 'package:senha_app/modal/gerar_senha_modal.dart';
@@ -11,7 +10,15 @@ import 'package:senha_app/theme/ui_cor.dart';
 import 'package:unicons/unicons.dart';
 
 class SenhaAppbar extends StatefulWidget implements PreferredSizeWidget {
-  const SenhaAppbar({super.key});
+  const SenhaAppbar({
+    super.key,
+    required Function callback,
+    required Map<String, dynamic> senha,
+  })  : _callback = callback,
+        _senha = senha;
+
+  final Function _callback;
+  final Map<String, dynamic> _senha;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -36,11 +43,11 @@ class _SenhaAppbarState extends State<SenhaAppbar> {
 
   void _abrirCopiarModal(BuildContext context) {
     Map<String, dynamic> _copiar = {
-      'anotacao': currentForm.value['anotacao'],
-      'link': currentForm.value['link'],
-      'nome': currentForm.value['nome'],
-      'senha': currentForm.value['senha'],
-      'usuario': currentForm.value['usuario'],
+      'anotacao': widget._senha['anotacao'],
+      'link': widget._senha['link'],
+      'nome': widget._senha['nome'],
+      'senha': widget._senha['senha'],
+      'usuario': widget._senha['usuario'],
     };
 
     showCupertinoModalBottomSheet(
@@ -60,20 +67,24 @@ class _SenhaAppbarState extends State<SenhaAppbar> {
       builder: (context) => GerarSenhaModal(
         callback: (value) => {
           Navigator.of(context).pop(),
-          setState(() => currentForm.value['senha'] = value),
+          setState(
+            () => {
+              widget._senha['senha'] = value,
+              widget._callback(widget._senha),
+            },
+          ),
         },
       ),
     );
   }
 
   bool _verificarCopiar() {
-    if (!_textoClass.validarVariavel(currentForm.value['anotacao']) ||
-        !_textoClass.validarVariavel(currentForm.value['link']) ||
-        !_textoClass.validarVariavel(currentForm.value['anonometacao']) ||
-        !_textoClass.validarVariavel(currentForm.value['senha']) ||
-        !_textoClass.validarVariavel(currentForm.value['usuario']))
-      return false;
-    return true;
+    if (_textoClass.validarVariavel(widget._senha['anotacao']) ||
+        _textoClass.validarVariavel(widget._senha['link']) ||
+        _textoClass.validarVariavel(widget._senha['anonometacao']) ||
+        _textoClass.validarVariavel(widget._senha['senha']) ||
+        _textoClass.validarVariavel(widget._senha['usuario'])) return true;
+    return false;
   }
 
   @override
@@ -85,12 +96,12 @@ class _SenhaAppbarState extends State<SenhaAppbar> {
         callback: () => Navigator.of(context).pop(),
       ),
       actions: [
-        if (currentForm.value['dataRegistro'] != null)
+        if (_textoClass.validarVariavel(widget._senha['dataRegistro']))
           IconeButton(
             icone: UniconsLine.trash_alt,
             callback: () => _senhaClass.senhaDeletadaTrue(
               context,
-              currentForm.value['idSenha'],
+              widget._senha['idSenha'],
             ),
           ),
         if (_verificarCopiar())

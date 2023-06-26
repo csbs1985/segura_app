@@ -123,7 +123,7 @@ class _CategoriaComponentState extends State<CategoriaComponent> {
                                               ),
                                             ),
                                       padding: const EdgeInsets.fromLTRB(
-                                          16, 10, 16, 8),
+                                          16, 8, 16, 8),
                                       child: TextoText(
                                           texto: item['textoCategoria']),
                                     ),
