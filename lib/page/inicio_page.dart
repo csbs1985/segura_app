@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:senha_app/appbar/inicio_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/copiar_class.dart';
 import 'package:senha_app/class/pesquisar_class.dart';
 import 'package:senha_app/class/routes_class.dart';
@@ -143,7 +143,7 @@ class _InicioPageState extends State<InicioPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingButton(
+      floatingActionButton: SegundoButton(
         callback: () => context.pushNamed(
           RoutesEnum.SENHA.value,
           pathParameters: {'idSenha': EMPTY},

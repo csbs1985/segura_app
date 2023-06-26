@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/modal_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/component/gerar_senha_component.dart';
 import 'package:senha_app/mixin/validator_mixin.dart';
@@ -31,7 +31,7 @@ class _GerarSenhaModalState extends State<GerarSenhaModal> with ValidatorMixin {
       ),
       floatingActionButton: _senhaGerada == ""
           ? null
-          : FloatingButton(
+          : SegundoButton(
               callback: () => widget._callback(_senhaGerada),
               icone: UniconsLine.check,
             ),

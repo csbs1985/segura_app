@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/appbar/senha_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
@@ -252,7 +252,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
         ),
       ),
       bottomSheet: InicioBottomWidget(item: _senhaForm),
-      floatingActionButton: FloatingButton(
+      floatingActionButton: SegundoButton(
         callback: () => floatingActionButton(context),
         icone: UniconsLine.check,
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/voltar_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/copiar_class.dart';
 import 'package:senha_app/class/gerador_senha_class.dart';
 import 'package:senha_app/component/gerar_senha_component.dart';
@@ -30,7 +30,7 @@ class _GerarSenhaPageState extends State<GerarSenhaPage> with ValidatorMixin {
       ),
       floatingActionButton: _senhaGerada.isEmpty
           ? null
-          : FloatingButton(
+          : SegundoButton(
               callback: () => _copiarClass.copiar(
                 context: context,
                 texto: _senhaGerada,

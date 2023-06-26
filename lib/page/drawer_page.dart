@@ -73,17 +73,19 @@ class _DrawerPageState extends State<DrawerPage> {
               icone: UniconsLine.setting,
               callback: () => context.push(RoutesEnum.DEFINIR.value),
             ),
+            const SizedBox(height: UiTamanho.espacoLista),
             ListaButton(
               texto: DOAR,
               icone: UniconsLine.heart,
               callback: () => context.push(RoutesEnum.DOAR.value),
             ),
+            const SizedBox(height: UiTamanho.espacoLista),
             ListaButton(
               texto: RELATAR_PROBLEMA,
               icone: UniconsLine.exclamation_triangle,
               callback: () => context.push(RoutesEnum.RELATAR_PROBLEMA.value),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 24),
             ListaButton(
               texto: SAIR,
               icone: UniconsLine.sign_in_alt,

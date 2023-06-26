@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:senha_app/appbar/modal_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/categoria_class.dart';
 import 'package:senha_app/component/categoria_component.dart';
 import 'package:senha_app/modal/categoria_form_modal.dart';
@@ -48,7 +48,7 @@ class _CategoriaModalState extends State<CategoriaModal> {
         onLongPress: (value) => _abrirCategoriaFormModal(context, value),
         onTap: (value) => _selecionarCategoria(value),
       ),
-      floatingActionButton: FloatingButton(
+      floatingActionButton: SegundoButton(
         callback: () => _salvarSenha(context),
         icone: UniconsLine.check,
       ),

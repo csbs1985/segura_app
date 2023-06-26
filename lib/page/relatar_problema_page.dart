@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/voltar_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/class/toast_class.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/config/value_notifier_config.dart';
@@ -82,7 +82,7 @@ class _RelatarProblemaPageState extends State<RelatarProblemaPage> {
       ),
       floatingActionButton: relatarProblema.isEmpty
           ? null
-          : FloatingButton(
+          : SegundoButton(
               callback: () => _salvarProblema(context),
               icone: UniconsLine.check,
             ),

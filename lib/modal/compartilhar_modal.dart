@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/appbar/modal_appbar.dart';
-import 'package:senha_app/button/floating_button.dart';
+import 'package:senha_app/button/segundo_button.dart';
 import 'package:senha_app/config/constante_config.dart';
 import 'package:senha_app/text/subtitulo_text.dart';
 import 'package:senha_app/text/texto_text.dart';
@@ -95,7 +95,7 @@ class _CompartilharModalState extends State<CompartilharModal> {
           ],
         ),
       ),
-      floatingActionButton: FloatingButton(
+      floatingActionButton: SegundoButton(
         callback: () => _salvarCampartilhar(context),
         icone: UniconsLine.check,
       ),

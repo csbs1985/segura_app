@@ -45,7 +45,7 @@ class _ListaCategoriaSenhaWidgetState extends State<ListaCategoriaSenhaWidget> {
                     color: isEscuro ? UiCor.inputEscuro : UiCor.input,
                     borderRadius: BorderRadius.circular(UiBorda.arredondada),
                   ),
-                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: TextoText(texto: item['textoCategoria']),
                 ),
               ),
