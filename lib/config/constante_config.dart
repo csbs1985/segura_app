@@ -24,6 +24,10 @@ const String CATEGORIA_VAZIO =
     "Crie suas categorias utilizando o botão abaixo.";
 const String CATEGORIAS = "Categorias";
 
+const String COMPATILHADO = "Compartilhado";
+const String COMPATILHAR = "Compartilhar";
+const String COMPATILHAR_HINT = "Digite o e-mail para compartilhar";
+
 const String COPIAR = "Copiar";
 const String COPIAR_ANOTACAO = "Copiar anotação";
 const String COPIAR_COPIADO = "Texto copiado para a área de transferência.";
@@ -82,6 +86,7 @@ const String NOME_LINK =
 
 const String PESQUISAR = "Pesquisar...";
 const String PESQUISAR_VAZIO = "Não encontramos itens para sua pesquisa";
+const String PESQUISAR_EMAIL = "Resultado da pesquisa";
 
 const String PIX_COPIADO = "Chave Pix copiada para a àrea de transferência";
 const String PIX_CODIGO = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";

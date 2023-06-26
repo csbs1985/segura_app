@@ -4,6 +4,7 @@ import 'package:senha_app/button/icone_button.dart';
 import 'package:senha_app/class/senha_class.dart';
 import 'package:senha_app/class/texto_class.dart';
 import 'package:senha_app/modal/categoria_modal.dart';
+import 'package:senha_app/modal/compartilhar_modal.dart';
 import 'package:senha_app/modal/copiar_modal.dart';
 import 'package:senha_app/modal/gerar_senha_modal.dart';
 import 'package:senha_app/theme/ui_cor.dart';
@@ -58,7 +59,7 @@ class _SenhaAppbarState extends State<SenhaAppbar> {
     );
   }
 
-  _abrirGeradorModal(BuildContext context) {
+  void _abrirGeradorModal(BuildContext context) {
     showCupertinoModalBottomSheet(
       expand: true,
       context: context,
@@ -75,6 +76,16 @@ class _SenhaAppbarState extends State<SenhaAppbar> {
           ),
         },
       ),
+    );
+  }
+
+  void _abrirCompartilharModal(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiCor.overlay,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      builder: (context) => const CompartilharModal(),
     );
   }
 
@@ -119,7 +130,7 @@ class _SenhaAppbarState extends State<SenhaAppbar> {
         ),
         IconeButton(
           icone: UniconsLine.user_plus,
-          callback: () => {},
+          callback: () => _abrirCompartilharModal(context),
         ),
       ],
     );

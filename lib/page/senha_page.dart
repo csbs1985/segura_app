@@ -71,6 +71,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
               "senha": senhaAtual['senha'],
               "usuario": senhaAtual['usuario'],
             },
+            _senhaAtual = senhaForm['senha'],
             _definirControllers(),
             _definirCategorias(senhaAtual['categoria']),
           });
@@ -118,7 +119,7 @@ class _SenhaPageState extends State<SenhaPage> with ValidatorMixin {
             "categorias": _categorias,
             "compartilhada": _compartilhada,
             "dataRegistro": _senhaAtual == senhaForm['senha']
-                ? _dataRegistroAtual
+                ? senhaForm['dataRegistro']
                 : DateTime.now().toString(),
             "idSenha": senhaForm['idSenha'],
             "idUsuario": currentUsuario.value.idUsuario,
