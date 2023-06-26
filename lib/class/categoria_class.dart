@@ -72,3 +72,11 @@ enum CategoriaButtonEnum {
   final String value;
   const CategoriaButtonEnum(this.value);
 }
+
+enum CategoriaRouteEnum {
+  PAGE('page'),
+  MODAL('modal');
+
+  final String value;
+  const CategoriaRouteEnum(this.value);
+}
