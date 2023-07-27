@@ -24,7 +24,7 @@ class InicioBottomWidget extends StatelessWidget {
         bool isEscuro = tema == Brightness.dark ? true : false;
 
         return Material(
-          color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+          color: isEscuro ? UiCor.backgroundEscuro : UiCor.background,
           child: _textoClass.validarVariavel(_item['dataRegistro'])
               ? Row(
                   children: [

@@ -41,7 +41,7 @@ class _ListaButtonState extends State<ListaButton> {
 
                   return Icon(
                     widget._icone,
-                    color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+                    color: isEscuro ? UiCor.iconEscuro : UiCor.icon,
                   );
                 }),
             const SizedBox(width: 16),

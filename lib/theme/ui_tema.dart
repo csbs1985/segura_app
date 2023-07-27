@@ -18,10 +18,11 @@ class UiTema {
       SystemUiOverlayStyle(
         statusBarIconBrightness: isEscuro ? Brightness.light : Brightness.dark,
         statusBarBrightness: isEscuro ? Brightness.light : Brightness.dark,
-        statusBarColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+        statusBarColor: isEscuro ? UiCor.statusBarEscura : UiCor.statusBar,
         systemNavigationBarIconBrightness:
             isEscuro ? Brightness.light : Brightness.dark,
-        systemNavigationBarColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+        systemNavigationBarColor:
+            isEscuro ? UiCor.navigationBarEscura : UiCor.navigationBar,
       ),
     );
 
@@ -30,49 +31,49 @@ class UiTema {
 
   static ThemeData tema = ThemeData(
     appBarTheme: const AppBarTheme(
-      backgroundColor: UiCor.fundo,
+      backgroundColor: UiCor.appBar,
       elevation: 0,
     ),
-    iconTheme: const IconThemeData(color: UiCor.icone),
-    bottomNavigationBarTheme:
-        const BottomNavigationBarThemeData(backgroundColor: UiCor.fundo),
+    iconTheme: const IconThemeData(color: UiCor.icon),
+    inputDecorationTheme: const InputDecorationTheme(
+      fillColor: UiCor.input,
+    ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: UiCor.segunda,
       elevation: 0,
     ),
-    fontFamily: 'duolingo',
-    scaffoldBackgroundColor: UiCor.fundo,
+    scaffoldBackgroundColor: UiCor.background,
     textTheme: const TextTheme(
-      displayLarge: UiTextoClaro.headline1,
-      displayMedium: UiTextoClaro.headline2,
-      displaySmall: UiTextoClaro.headline3,
-      bodySmall: UiTextoClaro.hintInput,
-      labelSmall: UiTextoClaro.headline4,
-      labelLarge: UiTextoClaro.botao,
+      displayLarge: UiTextClaro.headline1,
+      displayMedium: UiTextClaro.headline2,
+      displaySmall: UiTextClaro.headline3,
+      bodySmall: UiTextClaro.hintInput,
+      labelSmall: UiTextClaro.headline4,
+      labelLarge: UiTextClaro.botao,
     ),
   );
 
   static ThemeData temaEscuro = ThemeData(
     appBarTheme: const AppBarTheme(
-      backgroundColor: UiCor.fundoEscuro,
+      backgroundColor: UiCor.backgroundEscuro,
       elevation: 0,
     ),
-    iconTheme: const IconThemeData(color: UiCor.icone),
-    scaffoldBackgroundColor: UiCor.fundoEscuro,
-    fontFamily: 'duolingo',
-    bottomNavigationBarTheme:
-        const BottomNavigationBarThemeData(backgroundColor: UiCor.fundoEscuro),
+    iconTheme: const IconThemeData(color: UiCor.iconEscuro),
+    inputDecorationTheme: const InputDecorationTheme(
+      fillColor: UiCor.inputEscuro,
+    ),
+    scaffoldBackgroundColor: UiCor.backgroundEscuro,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: UiCor.segunda,
       elevation: 0,
     ),
     textTheme: const TextTheme(
-      displayLarge: UiTextoEscuro.headline1,
-      displayMedium: UiTextoEscuro.headline2,
-      displaySmall: UiTextoEscuro.headline3,
-      bodySmall: UiTextoEscuro.hintInput,
-      labelSmall: UiTextoEscuro.headline4,
-      labelLarge: UiTextoEscuro.botao,
+      displayLarge: UiTextEscuro.headline1,
+      displayMedium: UiTextEscuro.headline2,
+      displaySmall: UiTextEscuro.headline3,
+      bodySmall: UiTextEscuro.hintInput,
+      labelSmall: UiTextEscuro.headline4,
+      labelLarge: UiTextEscuro.botao,
     ),
   );
 }

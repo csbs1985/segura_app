@@ -88,7 +88,7 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
             bool isEscuro = tema == Brightness.dark;
 
             return Container(
-              color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+              color: isEscuro ? UiCor.backgroundEscuro : UiCor.background,
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +100,8 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(UiBorda.arredondada),
                       border: Border.all(
-                        color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                        color:
+                            isEscuro ? UiCor.borderEscura : UiCor.borderEscura,
                         width: 2.0,
                       ),
                     ),
@@ -146,7 +147,9 @@ class _CategoriaFormModalState extends State<CategoriaFormModal> {
                         borderRadius:
                             BorderRadius.circular(UiBorda.arredondada),
                         border: Border.all(
-                          color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                          color: isEscuro
+                              ? UiCor.borderEscura
+                              : UiCor.borderEscura,
                           width: 2.0,
                         ),
                       ),

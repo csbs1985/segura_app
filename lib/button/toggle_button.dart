@@ -48,13 +48,13 @@ class _ToggleSelecionarWidgetState extends State<ToggleButton> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(UiBorda.arredondada),
               border: Border.all(
-                color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
+                color: isEscuro ? UiCor.borderEscura : UiCor.borderEscura,
                 width: 2.0,
               ),
               color: isPressed
                   ? isEscuro
-                      ? UiCor.fundoEscuro
-                      : UiCor.fundo
+                      ? UiCor.backgroundEscuro
+                      : UiCor.background
                   : isEscuro
                       ? UiCor.inputEscuro
                       : UiCor.input,

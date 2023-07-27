@@ -4,15 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:senha_app/config/hive_config.dart';
 import 'package:senha_app/config/provider_config.dart';
 import 'package:senha_app/config/routes_config.dart';
-import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/firebase_options.dart';
 import 'package:senha_app/theme/ui_tema.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -41,9 +37,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     UiTema.definirTema();
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
-      FlutterNativeSplash.remove();
-    });
   }
 
   @override
@@ -59,19 +52,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: currentTema,
-      builder: (BuildContext context, Brightness tema, _) {
-        bool isEscuro = tema == Brightness.dark;
-
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerDelegate: routes.routerDelegate,
-          routeInformationParser: routes.routeInformationParser,
-          routeInformationProvider: routes.routeInformationProvider,
-          theme: isEscuro ? UiTema.temaEscuro : UiTema.tema,
-        );
-      },
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerDelegate: routes.routerDelegate,
+      routeInformationParser: routes.routeInformationParser,
+      routeInformationProvider: routes.routeInformationProvider,
+      darkTheme: UiTema.temaEscuro,
+      theme: UiTema.tema,
     );
   }
 }

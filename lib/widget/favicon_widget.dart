@@ -49,7 +49,7 @@ class _FaviconWidgetState extends State<FaviconWidget> {
           child: isLoading
               ? Icon(
                   Icons.public,
-                  color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+                  color: isEscuro ? UiCor.iconEscuro : UiCor.icon,
                 )
               : Image.network(faviconUrl!),
         );

@@ -33,7 +33,7 @@ class _LayoutButtonState extends State<LayoutButton> {
           child: GestureDetector(
             child: Icon(
               _isAberto ? Icons.crop_din_outlined : Icons.view_agenda_outlined,
-              color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+              color: isEscuro ? UiCor.iconEscuro : UiCor.icon,
             ),
             onTap: () => _toggleLayout(),
           ),

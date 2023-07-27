@@ -52,15 +52,15 @@ class _ModalButtonState extends State<ModalButton> {
               ),
               color: isPressed
                   ? isEscuro
-                      ? UiCor.fundoEscuro
-                      : UiCor.fundo
+                      ? UiCor.backgroundEscuro
+                      : UiCor.background
                   : (isEscuro ? UiCor.inputEscuro : UiCor.input),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Icon(widget.icone,
-                    color: isEscuro ? UiCor.iconeEscuro : UiCor.icone),
+                    color: isEscuro ? UiCor.iconEscuro : UiCor.icon),
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextoText(texto: widget.texto),

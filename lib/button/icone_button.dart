@@ -34,7 +34,7 @@ class _IconeButtonState extends State<IconeButton> {
             borderRadius: BorderRadius.circular(UiBorda.circulo),
             child: Icon(
               widget._icone,
-              color: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+              color: isEscuro ? UiCor.iconEscuro : UiCor.icon,
             ),
             onTap: () => widget._callback(),
           ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senha_app/button/layout_button.dart';
 import 'package:senha_app/config/constante_config.dart';
-import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_borda.dart';
-import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/widget/avatar_widget.dart';
 import 'package:senha_app/widget/padrao_input.dart';
 
@@ -20,42 +18,32 @@ class InicioAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: currentTema,
-      builder: (BuildContext context, Brightness tema, _) {
-        bool isEscuro = tema == Brightness.dark;
-        return Container(
-          decoration: BoxDecoration(
-            color: isEscuro ? UiCor.inputEscuro : UiCor.input,
-            borderRadius: BorderRadius.circular(UiBorda.circulo),
-            border: Border.all(
-              color: isEscuro ? UiCor.bordaEscura : UiCor.borda,
-              width: 2,
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).inputDecorationTheme.fillColor,
+        borderRadius: BorderRadius.circular(UiBorda.circulo),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: PadraoInput(
+              callback: (value) => _pesquisar(value),
+              hintText: PESQUISAR,
+              pesquisarIcone: true,
+              inputCircular: true,
             ),
           ),
-          child: Row(
-            children: [
-              Expanded(
-                child: PadraoInput(
-                  callback: (value) => _pesquisar(value),
-                  hintText: PESQUISAR,
-                  pesquisarIcone: true,
-                  inputCircular: true,
-                ),
-              ),
-              const LayoutButton(),
-              const SizedBox(width: 8),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                child: GestureDetector(
-                  onTap: () => _avatar(),
-                  child: const AvatarWidget(),
-                ),
-              ),
-            ],
+          const LayoutButton(),
+          const SizedBox(width: 8),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+            child: GestureDetector(
+              onTap: () => _avatar(),
+              child: const AvatarWidget(),
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

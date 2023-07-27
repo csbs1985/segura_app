@@ -18,7 +18,8 @@ class LoadingWidget extends StatelessWidget {
             height: 80,
             child: CircularProgressIndicator(
               color: UiCor.segunda,
-              backgroundColor: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+              backgroundColor:
+                  isEscuro ? UiCor.backgroundEscuro : UiCor.background,
             ),
           ),
         );

@@ -51,7 +51,7 @@ class _LocalAuthPageState extends State<LocalAuthPage> {
 
               return Container(
                 width: MediaQuery.sizeOf(context).width,
-                color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+                color: isEscuro ? UiCor.backgroundEscuro : UiCor.background,
                 child: ValueListenableBuilder<bool>(
                   valueListenable: currentIsLocalAuthFailed,
                   builder: (BuildContext context, bool isLocalAuthFailed, _) {

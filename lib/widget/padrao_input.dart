@@ -4,7 +4,6 @@ import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_espaco.dart';
 import 'package:senha_app/theme/ui_texto.dart';
-import 'package:unicons/unicons.dart';
 
 class PadraoInput extends StatelessWidget {
   final bool? autoFocus;
@@ -62,13 +61,9 @@ class PadraoInput extends StatelessWidget {
           textAlignVertical: TextAlignVertical.center,
           validator: validator,
           decoration: InputDecoration(
-            prefixIcon: pesquisarIcone!
-                ? const Icon(
-                    UniconsLine.search_alt,
-                    color: UiCor.iconeDestaque,
-                  )
-                : null,
-            prefixIconColor: isEscuro ? UiCor.iconeEscuro : UiCor.icone,
+            prefixIcon:
+                pesquisarIcone! ? const Icon(Icons.search_outlined) : null,
+            prefixIconColor: isEscuro ? UiCor.iconEscuro : UiCor.icon,
             counterStyle: Theme.of(context).textTheme.headlineSmall,
             hintText: hintText,
             filled: true,

@@ -15,35 +15,35 @@ class UiTexto {
   static const TextStyle tagAtiva = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: UiCor.textoEscuro,
+    color: UiCor.textEscuro,
   );
   static const TextStyle tagEscuro = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: UiCor.textoEscuro,
+    color: UiCor.textEscuro,
   );
 }
 
-class UiTextoClaro {
+class UiTextClaro {
   static const TextStyle headline1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: UiCor.texto,
+    color: UiCor.text,
   );
   static const TextStyle headline2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
-    color: UiCor.texto,
+    color: UiCor.text,
   );
   static const TextStyle headline3 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    color: UiCor.texto,
+    color: UiCor.text,
   );
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    color: UiCor.texto,
+    color: UiCor.text,
     letterSpacing: 0,
   );
   static const TextStyle botao = TextStyle(
@@ -54,30 +54,30 @@ class UiTextoClaro {
   static const TextStyle hintInput = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    color: UiCor.hintTexto,
+    color: UiCor.hintText,
   );
 }
 
-class UiTextoEscuro {
+class UiTextEscuro {
   static const TextStyle headline1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: UiCor.textoEscuro,
+    color: UiCor.textEscuro,
   );
   static const TextStyle headline2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
-    color: UiCor.textoEscuro,
+    color: UiCor.textEscuro,
   );
   static const TextStyle headline3 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    color: UiCor.textoEscuro,
+    color: UiCor.textEscuro,
   );
   static const TextStyle headline4 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    color: UiCor.textoEscuro,
+    color: UiCor.textEscuro,
     letterSpacing: 0,
   );
   static const TextStyle botao = TextStyle(
@@ -88,6 +88,6 @@ class UiTextoEscuro {
   static const TextStyle hintInput = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    color: UiCor.hintTextoEscuro,
+    color: UiCor.hintTextEscuro,
   );
 }

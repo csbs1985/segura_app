@@ -50,8 +50,8 @@ class _SegundoButtonState extends State<SegundoButton> {
                       color: widget._estilo == CategoriaButtonEnum.PRIMARIO
                           ? UiCor.iconeDestaque
                           : isEscuro
-                              ? UiCor.bordaEscura
-                              : UiCor.borda,
+                              ? UiCor.borderEscura
+                              : UiCor.border,
                       borderRadius: BorderRadius.circular(UiBorda.arredondada),
                     ),
                   ),
@@ -64,14 +64,15 @@ class _SegundoButtonState extends State<SegundoButton> {
                     width: _width,
                     height: _height,
                     decoration: BoxDecoration(
-                      color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+                      color:
+                          isEscuro ? UiCor.backgroundEscuro : UiCor.background,
                       borderRadius: BorderRadius.circular(UiBorda.arredondada),
                       border: Border.all(
                         color: widget._estilo == CategoriaButtonEnum.PRIMARIO
                             ? UiCor.iconeDestaque
                             : isEscuro
-                                ? UiCor.bordaEscura
-                                : UiCor.borda,
+                                ? UiCor.borderEscura
+                                : UiCor.border,
                         width: 2,
                       ),
                     ),
@@ -80,8 +81,8 @@ class _SegundoButtonState extends State<SegundoButton> {
                       color: widget._estilo == CategoriaButtonEnum.PRIMARIO
                           ? UiCor.iconeDestaque
                           : isEscuro
-                              ? UiCor.bordaEscura
-                              : UiCor.borda,
+                              ? UiCor.borderEscura
+                              : UiCor.border,
                     ),
                   ),
                 ),

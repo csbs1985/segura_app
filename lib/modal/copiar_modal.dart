@@ -35,7 +35,7 @@ class _CopiarModalState extends State<CopiarModal> {
 
         return SingleChildScrollView(
           child: Container(
-            color: isEscuro ? UiCor.fundoEscuro : UiCor.fundo,
+            color: isEscuro ? UiCor.backgroundEscuro : UiCor.background,
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
