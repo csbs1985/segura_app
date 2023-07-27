@@ -50,13 +50,6 @@ flutter_launcher_icons: # flutter pub run flutter_launcher_icons
   color: "#FFFFFF"
   image_path: "assets/app/ic_launcher.png"
 
-flutter_native_splash: # flutter pub run flutter_native_splash:create
-  color: "#FFFFFF"
-  color_dark: "#181A21"
-  image: "assets/app/ic_splash.png"
-  android: true
-  ios: true
-
 flutter:
   uses-material-design: true
 
