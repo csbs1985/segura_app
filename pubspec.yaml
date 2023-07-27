@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   algolia: ^1.1.2
+  cached_network_image: ^3.2.3
   cloud_firestore: ^4.8.0
   cupertino_icons: ^1.0.2
   encrypt: ^5.0.1

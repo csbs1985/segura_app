@@ -34,7 +34,7 @@ class _DrawerPageState extends State<DrawerPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AvatarWidget(size: 48),
+                  const AvatarButton(size: 48),
                   const SizedBox(height: 24),
                   SubtituloText(texto: currentUsuario.value.nomeUsuario),
                   const SizedBox(height: UiTamanho.espacoLista),

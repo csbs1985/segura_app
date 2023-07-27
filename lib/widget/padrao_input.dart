@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:senha_app/config/value_notifier_config.dart';
 import 'package:senha_app/theme/ui_borda.dart';
 import 'package:senha_app/theme/ui_cor.dart';
 import 'package:senha_app/theme/ui_espaco.dart';
@@ -41,60 +40,54 @@ class PadraoInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: currentTema,
-      builder: (BuildContext context, Brightness tema, _) {
-        bool isEscuro = tema == Brightness.dark;
-
-        return TextFormField(
-          autofocus: autoFocus!,
-          controller: controller,
-          expands: expands!,
-          focusNode: focusNode,
-          keyboardType: keyboardType,
-          onChanged: (value) => callback!(value),
-          onSaved: onSaved,
-          maxLength: maxLength,
-          minLines: minLines,
-          maxLines: maxLines,
-          style: Theme.of(context).textTheme.displaySmall,
-          textAlignVertical: TextAlignVertical.center,
-          validator: validator,
-          decoration: InputDecoration(
-            prefixIcon:
-                pesquisarIcone! ? const Icon(Icons.search_outlined) : null,
-            prefixIconColor: isEscuro ? UiCor.iconEscuro : UiCor.icon,
-            counterStyle: Theme.of(context).textTheme.headlineSmall,
-            hintText: hintText,
-            filled: true,
-            fillColor: isEscuro ? UiCor.inputEscuro : UiCor.input,
-            hintStyle: Theme.of(context).textTheme.bodySmall,
-            errorStyle: UiTexto.erro,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: UiEspaco.grande,
-              vertical: UiEspaco.medio,
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(
-                inputCircular ? UiBorda.circulo : UiBorda.arredondada,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(
-                inputCircular ? UiBorda.circulo : UiBorda.arredondada,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(
-                inputCircular ? UiBorda.circulo : UiBorda.arredondada,
-              ),
-            ),
+    return TextFormField(
+      autofocus: autoFocus!,
+      controller: controller,
+      expands: expands!,
+      focusNode: focusNode,
+      keyboardType: keyboardType,
+      onChanged: (value) => callback!(value),
+      onSaved: onSaved,
+      maxLength: maxLength,
+      minLines: minLines,
+      maxLines: maxLines,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        color: UiCor.textEscuro,
+      ),
+      textAlignVertical: TextAlignVertical.center,
+      validator: validator,
+      decoration: InputDecoration(
+        prefixIcon: pesquisarIcone! ? const Icon(Icons.search_outlined) : null,
+        counterStyle: Theme.of(context).textTheme.headlineSmall,
+        hintText: hintText,
+        filled: true,
+        hintStyle: Theme.of(context).textTheme.bodySmall,
+        errorStyle: UiTexto.erro,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: UiEspaco.grande,
+          vertical: UiEspaco.medio,
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(
+            inputCircular ? UiBorda.circulo : UiBorda.arredondada,
           ),
-        );
-      },
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(
+            inputCircular ? UiBorda.circulo : UiBorda.arredondada,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(
+            inputCircular ? UiBorda.circulo : UiBorda.arredondada,
+          ),
+        ),
+      ),
     );
   }
 }

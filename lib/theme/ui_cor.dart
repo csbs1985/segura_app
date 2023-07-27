@@ -7,8 +7,8 @@ class UiCor {
   static const Color background = Color(0xFFFFFFFF);
   static const Color backgroundEscuro = Color(0xFF181C1F);
 
-  static const Color border = Color(0xFF40474C);
-  static const Color borderEscura = Color(0xFFC1C7CC);
+  static const Color border = Color(0xFFC0C7CD);
+  static const Color borderEscura = Color(0xFF40474D);
 
   static const Color icon = Color(0xFF3F464C);
   static const Color iconEscuro = Color(0xFFC0C7CD);

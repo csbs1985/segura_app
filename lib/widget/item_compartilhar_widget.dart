@@ -29,7 +29,7 @@ class _ItemCompartilharWidgetState extends State<ItemCompartilharWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        AvatarWidget(avatar: widget._usuario['avatarUsuario']),
+        const AvatarButton(),
         const SizedBox(width: 16),
         Expanded(
           child: Column(

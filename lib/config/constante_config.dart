@@ -84,7 +84,7 @@ const String NOME = "Nome";
 const String NOME_LINK =
     'para a identificação, é necessário o "nome" ou o "link"';
 
-const String PESQUISAR = "Pesquisar...";
+const String PESQUISAR = "Pesquisar notas";
 const String PESQUISAR_VAZIO = "Não encontramos itens para sua pesquisa";
 const String PESQUISAR_EMAIL = "Resultado da pesquisa";
 

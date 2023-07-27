@@ -39,7 +39,7 @@ class InicioAppbar extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
             child: GestureDetector(
               onTap: () => _avatar(),
-              child: const AvatarWidget(),
+              child: const AvatarButton(),
             ),
           ),
         ],

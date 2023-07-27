@@ -34,9 +34,13 @@ class UiTema {
       backgroundColor: UiCor.appBar,
       elevation: 0,
     ),
+    colorScheme: const ColorScheme.light(
+      tertiary: UiCor.border,
+    ),
     iconTheme: const IconThemeData(color: UiCor.icon),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: UiCor.input,
+      prefixIconColor: UiCor.icon,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: UiCor.segunda,
@@ -58,9 +62,13 @@ class UiTema {
       backgroundColor: UiCor.backgroundEscuro,
       elevation: 0,
     ),
+    colorScheme: const ColorScheme.light(
+      tertiary: UiCor.borderEscura,
+    ),
     iconTheme: const IconThemeData(color: UiCor.iconEscuro),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: UiCor.inputEscuro,
+      prefixIconColor: UiCor.iconEscuro,
     ),
     scaffoldBackgroundColor: UiCor.backgroundEscuro,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
