@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:segura_app/firestore/user_firestore.dart';
 import 'package:segura_app/hive/user_hive.dart';
 import 'package:segura_app/service/auth_service.dart';
 import 'package:segura_app/service/local_auth_service.dart';
+import 'package:segura_app/service/routes_service.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -25,44 +27,54 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> checkUserExistence() async {
     final userExists = await _userHive.doesUserExist();
+
     if (userExists) {
-      final user = await _userHive.getUser();
-      if (user != null) {
-        final isAuthenticated = await _localAuthService.authenticate();
-        if (!isAuthenticated) {
-          // Implemente aqui a lógica para lidar com a falta de autenticação local
-          // por exemplo, redirecionar o usuário para a página de login.
-        }
-      }
+      final Map<dynamic, dynamic>? user = await _userHive.getUser();
+
+      if (user != null) initAuthenticate();
     } else {
       final user = await _authService.signInWithGoogle();
-      if (user == null) {
-        // Implemente aqui a lógica para lidar com a falta de autenticação com o Google
-      } else {
-        Map<String, dynamic> userMap = user.toMap();
-        await _userFirestore.saveUser(userMap);
-        await _userHive.saveUser(userMap);
-        final isLocalAuthRequired =
-            await _localAuthService.isFirstTimeOpening();
-        if (isLocalAuthRequired) {
-          final isAuthenticated = await _localAuthService.authenticate();
-          if (!isAuthenticated) {
-            // Implemente aqui a lógica para lidar com a falta de autenticação local
-            // por exemplo, redirecionar o usuário para a página de login.
-          }
-        }
-      }
+      Map<String, dynamic> userMap = user!.toMap();
+
+      await _userFirestore.saveUser(userMap);
+      await _userHive.saveUser(userMap);
+
+      final isLocalAuthRequired = await _localAuthService.isFirstTimeOpening();
+
+      if (isLocalAuthRequired) initAuthenticate();
     }
+  }
+
+  initAuthenticate() async {
+    final isAuthenticated = await _localAuthService.authenticate();
+
+    if (isAuthenticated) context.push(RouteEnum.HOME.value);
+  }
+
+  _logout() async {
+    await _authService.signOut();
+    context.push(RouteEnum.LOGIN.value);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Minha App Flutter'),
-      ),
-      body: const Center(
-        child: Text('Página inicial'),
+      body: Column(
+        children: [
+          const Expanded(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+          TextButton(
+            onPressed: () => initAuthenticate(),
+            child: const Text('Usar senha do celular'),
+          ),
+          TextButton(
+            onPressed: () => _logout(),
+            child: const Text('Entrar com outra conta'),
+          ),
+        ],
       ),
     );
   }

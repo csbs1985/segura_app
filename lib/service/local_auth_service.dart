@@ -1,4 +1,6 @@
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_android/local_auth_android.dart';
+import 'package:local_auth_ios/local_auth_ios.dart';
 
 class LocalAuthService {
   final LocalAuthentication _localAuth = LocalAuthentication();
@@ -15,7 +17,19 @@ class LocalAuthService {
     if (!isBiometricAvailable) return false;
 
     final isBiometricAuthorized = await _localAuth.authenticate(
-      localizedReason: 'Por favor, autentique-se para acessar.',
+      localizedReason: 'Desbloqueie seu celular',
+      options: const AuthenticationOptions(
+        stickyAuth: true,
+      ),
+      authMessages: <AuthMessages>[
+        const AndroidAuthMessages(
+          signInTitle: 'Segura',
+          cancelButton: 'Não, obrigado',
+        ),
+        const IOSAuthMessages(
+          cancelButton: 'Não, obrigado',
+        ),
+      ],
     );
 
     return isBiometricAuthorized;

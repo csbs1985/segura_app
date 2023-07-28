@@ -3,3 +3,5 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     constant_identifier_names: false
+    depend_on_referenced_packages: false
+    use_build_context_synchronously: false

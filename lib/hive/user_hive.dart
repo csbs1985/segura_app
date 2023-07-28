@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:segura_app/model/user_model.dart';
 
 class UserHive {
   final _userBox = Hive.box('user');
@@ -13,8 +12,8 @@ class UserHive {
     await _userBox.clear();
   }
 
-  Future<UserModel?> getUser() async {
-    return _userBox.get('user');
+  Future<Map<dynamic, dynamic>?> getUser() async {
+    return _userBox.values.first;
   }
 
   Future<bool> doesUserExist() async {
