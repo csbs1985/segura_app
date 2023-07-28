@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:segura_app/service/hive_service.dart';
 import 'package:segura_app/service/routes_service.dart';
+import 'package:segura_app/theme/ui_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +14,31 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    UiTheme.definirTema();
+    super.initState();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    UiTheme.definirTema();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +47,8 @@ class MyApp extends StatelessWidget {
       routerDelegate: goRoute.routerDelegate,
       routeInformationParser: goRoute.routeInformationParser,
       routeInformationProvider: goRoute.routeInformationProvider,
-      // darkTheme: UiTema.temaEscuro,
-      // theme: UiTema.tema,
+      theme: UiTheme.theme,
+      darkTheme: UiTheme.themeDark,
     );
   }
 }
