@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:segura_app/button/primary_button.dart';
+import 'package:segura_app/button/second_button.dart';
 import 'package:segura_app/firestore/user_firestore.dart';
 import 'package:segura_app/hive/user_hive.dart';
 import 'package:segura_app/service/auth_service.dart';
 import 'package:segura_app/service/local_auth_service.dart';
 import 'package:segura_app/service/routes_service.dart';
+import 'package:segura_app/service/text_service.dart';
+import 'package:segura_app/theme/ui_color.dart';
+import 'package:segura_app/theme/ui_icon.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -65,20 +71,38 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(toolbarHeight: 0),
       body: Column(
         children: [
-          const Expanded(
-            child: Center(
-              child: CircularProgressIndicator(),
+          Expanded(
+            child: SvgPicture.asset(
+              UiIcon.logo,
+              height: MediaQuery.sizeOf(context).width / 3,
             ),
           ),
-          TextButton(
-            onPressed: () => initAuthenticate(),
-            child: const Text('Usar senha do celular'),
+          const SizedBox(height: 48),
+          const Center(
+            child: CircularProgressIndicator(
+              color: UiColor.circular,
+            ),
           ),
-          TextButton(
-            onPressed: () => _logout(),
-            child: const Text('Entrar com outra conta'),
+          const SizedBox(height: 48),
+          Container(
+            width: MediaQuery.sizeOf(context).width / 1.5,
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+            child: Column(
+              children: [
+                PrimaryButton(
+                  callback: () => initAuthenticate(),
+                  text: USAR_CELULAR,
+                ),
+                const SizedBox(height: 8),
+                SecondButton(
+                  callback: () => _logout(),
+                  text: ENTRAR_OUTRA,
+                ),
+              ],
+            ),
           ),
         ],
       ),

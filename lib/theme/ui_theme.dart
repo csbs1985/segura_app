@@ -30,20 +30,26 @@ class UiTheme {
   }
 
   static ThemeData theme = ThemeData(
-    brightness: Brightness.light,
+    appBarTheme: const AppBarTheme(elevation: 0),
+    primaryColor: UiColor.primary,
     scaffoldBackgroundColor: UiColor.back,
     textTheme: const TextTheme(
       bodyLarge: UiText.bodyLarge,
       bodyMedium: UiText.bodyMedium,
+      bodySmall: UiText.bodySmall,
+      displaySmall: UiText.displaySmall,
     ),
   );
 
   static ThemeData themeDark = ThemeData(
-    brightness: Brightness.dark,
+    appBarTheme: const AppBarTheme(elevation: 0),
+    primaryColor: UiColor.primary,
     scaffoldBackgroundColor: UiColor.backDark,
     textTheme: const TextTheme(
       bodyLarge: UiTextDark.bodyLarge,
       bodyMedium: UiTextDark.bodyMedium,
+      bodySmall: UiTextDark.bodySmall,
+      displaySmall: UiText.displaySmall,
     ),
   );
 }
