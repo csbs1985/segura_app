@@ -22,12 +22,18 @@ dependencies:
   local_auth: ^2.1.6
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
+
+flutter_launcher_icons: # dart run flutter_launcher_icons
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  color: "#FFFFFF"
+  image_path: "assets/app/ic_launcher.png"
 
 flutter:
   uses-material-design: true
   assets:
-    # - assets/app
+    - assets/app/
     - assets/icon/

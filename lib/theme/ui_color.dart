@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class UiColor {
-  static const Color primary = Color(0xFF194AB1);
-
   static const Color back = Color(0xFFFCFCFE);
   static const Color backDark = Color(0xFF181C1F);
 
@@ -20,6 +18,7 @@ class UiColor {
   static const Color navigationBar = Color(0xFFFCFCFE);
   static const Color navigationBarDark = Color(0xFF181C1F);
 
+  static const Color primary = Color(0xFF194AB1);
   static const Color primaryButton = Color(0xFF194AB1);
 
   static const Color secondButton = Colors.transparent;
