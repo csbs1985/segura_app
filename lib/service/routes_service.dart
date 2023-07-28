@@ -5,6 +5,7 @@ import 'package:segura_app/page/login_page.dart';
 import 'package:segura_app/page/splash_page.dart';
 
 final GoRouter goRoute = GoRouter(
+  debugLogDiagnostics: true,
   initialLocation: RouteEnum.SPLASH.value,
   routes: <RouteBase>[
     GoRoute(

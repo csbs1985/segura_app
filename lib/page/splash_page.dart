@@ -46,9 +46,15 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   initAuthenticate() async {
-    final isAuthenticated = await _localAuthService.authenticate();
+    final isAuthenticated = await _localAuthService.authenticate(context);
+    final String currentRoute = ModalRoute.of(context)!.settings.name!;
 
-    if (isAuthenticated) context.push(RouteEnum.HOME.value);
+    if (isAuthenticated != null) {
+      (currentRoute == RouteEnum.SPLASH.value ||
+              currentRoute == RouteEnum.LOGIN.value)
+          ? context.push(RouteEnum.HOME.value)
+          : context.pushReplacementNamed(currentRoute);
+    }
   }
 
   _logout() async {

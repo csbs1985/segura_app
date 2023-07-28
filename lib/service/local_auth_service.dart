@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
@@ -12,9 +13,9 @@ class LocalAuthService {
         await _localAuth.isDeviceSupported();
   }
 
-  Future<bool> authenticate() async {
+  Future<String?> authenticate(BuildContext context) async {
     final isBiometricAvailable = await _localAuth.canCheckBiometrics;
-    if (!isBiometricAvailable) return false;
+    if (!isBiometricAvailable) return null;
 
     final isBiometricAuthorized = await _localAuth.authenticate(
       localizedReason: 'Desbloqueie seu celular',
@@ -32,6 +33,10 @@ class LocalAuthService {
       ],
     );
 
-    return isBiometricAuthorized;
+    if (isBiometricAuthorized) {
+      return ModalRoute.of(context)?.settings.name;
+    } else {
+      return null;
+    }
   }
 }
