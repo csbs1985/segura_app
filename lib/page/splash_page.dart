@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:segura_app/firestore/user_firestore.dart';
 import 'package:segura_app/hive/user_hive.dart';
 import 'package:segura_app/service/auth_service.dart';
 import 'package:segura_app/service/local_auth_service.dart';
@@ -12,8 +13,9 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final AuthService _authService = AuthService();
-  final UserHive _userHive = UserHive();
   final LocalAuthService _localAuthService = LocalAuthService();
+  final UserFirestore _userFirestore = UserFirestore();
+  final UserHive _userHive = UserHive();
 
   @override
   void initState() {
@@ -38,6 +40,7 @@ class _SplashPageState extends State<SplashPage> {
         // Implemente aqui a lógica para lidar com a falta de autenticação com o Google
       } else {
         Map<String, dynamic> userMap = user.toMap();
+        await _userFirestore.saveUser(userMap);
         await _userHive.saveUser(userMap);
         final isLocalAuthRequired =
             await _localAuthService.isFirstTimeOpening();

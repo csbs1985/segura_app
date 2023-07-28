@@ -30,7 +30,7 @@ class AuthService {
               id: user.uid,
               name: user.displayName!,
               email: user.email!,
-              avatar: '')
+              avatar: user.photoURL!)
           : null;
     } catch (e) {
       return null;
@@ -50,7 +50,7 @@ class AuthService {
               id: user.uid,
               name: user.displayName!,
               email: user.email!,
-              avatar: '')
+              avatar: user.photoURL!)
           : null;
     } catch (e) {
       return null;
