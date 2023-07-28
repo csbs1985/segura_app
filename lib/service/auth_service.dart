@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:segura_app/hive/user_hive.dart';
@@ -32,6 +33,15 @@ class AuthService {
               email: user.email!,
               avatar: user.photoURL!)
           : null;
+    } on PlatformException catch (e) {
+      if (e.code == 'sign_in_canceled') {
+        return null;
+      }
+      if (e.code == 'sign_in_failed') {
+        print('O usuário cancelou a operação de login com o Google.');
+        return null;
+      }
+      return null;
     } catch (e) {
       return null;
     }

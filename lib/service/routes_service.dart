@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:segura_app/hive/user_hive.dart';
 import 'package:segura_app/page/home_page.dart';
 import 'package:segura_app/page/login_page.dart';
-import 'package:segura_app/page/splash_page.dart';
+import 'package:segura_app/page/auth_page.dart';
+
+final UserHive _userHive = UserHive();
 
 final GoRouter goRoute = GoRouter(
   debugLogDiagnostics: true,
-  initialLocation: RouteEnum.SPLASH.value,
+  initialLocation: RouteEnum.AUTH.value,
+  redirect: (context, state) async {
+    final bool userExists = await _userHive.doesUserExist();
+
+    if (state.uri.toString() == '/') {
+      return userExists ? RouteEnum.HOME.value : RouteEnum.LOGIN.value;
+    }
+    return state.uri.toString();
+  },
   routes: <RouteBase>[
     GoRoute(
       path: RouteEnum.HOME.value,
@@ -21,9 +32,9 @@ final GoRouter goRoute = GoRouter(
       },
     ),
     GoRoute(
-      path: RouteEnum.SPLASH.value,
+      path: RouteEnum.AUTH.value,
       builder: (BuildContext context, GoRouterState state) {
-        return const SplashPage();
+        return const AuthPage();
       },
     ),
   ],
@@ -32,7 +43,7 @@ final GoRouter goRoute = GoRouter(
 enum RouteEnum {
   HOME('/home'),
   LOGIN('/login'),
-  SPLASH('/splash');
+  AUTH('/auth');
 
   final String value;
   const RouteEnum(this.value);

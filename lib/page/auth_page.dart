@@ -6,14 +6,14 @@ import 'package:segura_app/service/auth_service.dart';
 import 'package:segura_app/service/local_auth_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+class AuthPage extends StatefulWidget {
+  const AuthPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  State<AuthPage> createState() => _AuthPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _AuthPageState extends State<AuthPage> {
   final AuthService _authService = AuthService();
   final LocalAuthService _localAuthService = LocalAuthService();
   final UserFirestore _userFirestore = UserFirestore();
@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
     final String currentRoute = ModalRoute.of(context)!.settings.name!;
 
     if (isAuthenticated != null) {
-      (currentRoute == RouteEnum.SPLASH.value ||
+      (currentRoute == RouteEnum.AUTH.value ||
               currentRoute == RouteEnum.LOGIN.value)
           ? context.push(RouteEnum.HOME.value)
           : context.pushReplacementNamed(currentRoute);
