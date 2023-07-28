@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "692859001690",
+    "project_id": "segura-app-65445",
+    "storage_bucket": "segura-app-65445.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692859001690:android:22b6b4750f320f61abb163",
+        "android_client_info": {
+          "package_name": "com.charles.sbs.segura_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692859001690-9u8lsb3e9vuqrb8i9aej9vrdb8sf86nv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.charles.sbs.segura_app",
+            "certificate_hash": "72393af4224662f0a1bbfa4af62ee7fe19e28392"
+          }
+        },
+        {
+          "client_id": "692859001690-21b2m5itn0b8cffvht42vih5k5vqoc66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABucGRjaAnTxTsqmGQ0YpEhbnxBnLMDy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692859001690-21b2m5itn0b8cffvht42vih5k5vqoc66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
