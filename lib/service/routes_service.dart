@@ -41,9 +41,10 @@ final GoRouter goRoute = GoRouter(
 );
 
 enum RouteEnum {
+  AUTH('/auth'),
   HOME('/home'),
   LOGIN('/login'),
-  AUTH('/auth');
+  NOTE('/note');
 
   final String value;
   const RouteEnum(this.value);

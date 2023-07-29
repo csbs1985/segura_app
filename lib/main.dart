@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:segura_app/service/hive_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/theme/ui_theme.dart';
@@ -10,6 +11,10 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   await HiveService.start();
+
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  );
 
   runApp(const MyApp());
 }
@@ -25,13 +30,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    UiTheme.definirTema();
+    UiTheme.setTheme();
     super.initState();
   }
 
   @override
   void didChangePlatformBrightness() {
-    UiTheme.definirTema();
+    UiTheme.setTheme();
   }
 
   @override

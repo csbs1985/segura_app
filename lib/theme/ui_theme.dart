@@ -5,13 +5,13 @@ import 'package:segura_app/theme/ui_color.dart';
 import 'package:segura_app/theme/ui_text.dart';
 
 class UiTheme {
-  static definirTema() {
+  static setTheme() {
     currentTheme.value =
         WidgetsBinding.instance.platformDispatcher.platformBrightness;
-    trocarTema();
+    changeTheme();
   }
 
-  static trocarTema() {
+  static changeTheme() {
     bool isDark = currentTheme.value == Brightness.dark;
 
     SystemChrome.setSystemUIOverlayStyle(
@@ -25,30 +25,48 @@ class UiTheme {
             isDark ? UiColor.navigationBarDark : UiColor.navigationBar,
       ),
     );
-
-    ThemeData();
   }
 
   static ThemeData theme = ThemeData(
     appBarTheme: const AppBarTheme(elevation: 0),
+    brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(
+      onBackground: UiColor.skeleton,
+      outline: UiColor.border,
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      fillColor: UiColor.input,
+      prefixIconColor: UiColor.icon,
+    ),
     primaryColor: UiColor.primary,
     scaffoldBackgroundColor: UiColor.back,
     textTheme: const TextTheme(
       bodyLarge: UiText.bodyLarge,
       bodyMedium: UiText.bodyMedium,
       bodySmall: UiText.bodySmall,
+      displayMedium: UiText.displayMedium,
       displaySmall: UiText.displaySmall,
     ),
   );
 
   static ThemeData themeDark = ThemeData(
     appBarTheme: const AppBarTheme(elevation: 0),
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme.dark(
+      onBackground: UiColor.skeletonDark,
+      outline: UiColor.borderDark,
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      fillColor: UiColor.inputDark,
+      prefixIconColor: UiColor.iconDark,
+    ),
     primaryColor: UiColor.primary,
     scaffoldBackgroundColor: UiColor.backDark,
     textTheme: const TextTheme(
       bodyLarge: UiTextDark.bodyLarge,
       bodyMedium: UiTextDark.bodyMedium,
       bodySmall: UiTextDark.bodySmall,
+      displayMedium: UiText.displayMedium,
       displaySmall: UiText.displaySmall,
     ),
   );

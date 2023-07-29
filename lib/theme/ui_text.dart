@@ -20,6 +20,12 @@ class UiText {
     color: UiColor.text,
   );
 
+  static const TextStyle displayMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: Colors.white,
+  );
+
   static const TextStyle displaySmall = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,

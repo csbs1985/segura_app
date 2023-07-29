@@ -5,11 +5,12 @@ import 'package:segura_app/button/primary_button.dart';
 import 'package:segura_app/button/second_button.dart';
 import 'package:segura_app/firestore/user_firestore.dart';
 import 'package:segura_app/hive/user_hive.dart';
+import 'package:segura_app/model/user_model.dart';
 import 'package:segura_app/service/auth_service.dart';
 import 'package:segura_app/service/local_auth_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
-import 'package:segura_app/theme/ui_color.dart';
+import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_icon.dart';
 
 class AuthPage extends StatefulWidget {
@@ -37,18 +38,33 @@ class _AuthPageState extends State<AuthPage> {
     if (userExists) {
       final Map<dynamic, dynamic>? user = await _userHive.getUser();
 
-      if (user != null) initAuthenticate();
+      if (user != null) {
+        initAuthenticate();
+        _saveUser(user);
+      }
     } else {
       final user = await _authService.signInWithGoogle();
-      Map<String, dynamic> userMap = user!.toMap();
+      Map<String, dynamic>? userMap = user?.toMap();
 
-      await _userFirestore.saveUser(userMap);
+      await _userFirestore.saveUser(userMap!);
       await _userHive.saveUser(userMap);
 
       final isLocalAuthRequired = await _localAuthService.isFirstTimeOpening();
 
-      if (isLocalAuthRequired) initAuthenticate();
+      if (isLocalAuthRequired) {
+        initAuthenticate();
+        _saveUser(userMap);
+      }
     }
+  }
+
+  void _saveUser(Map<dynamic, dynamic> user) {
+    currentUser.value = UserModel(
+      userAvatar: user['userAvatar'],
+      userId: user['userId'],
+      userName: user['userName'],
+      userEmail: user['userEmail'],
+    );
   }
 
   initAuthenticate() async {
@@ -80,28 +96,23 @@ class _AuthPageState extends State<AuthPage> {
               height: MediaQuery.sizeOf(context).width / 3,
             ),
           ),
-          const SizedBox(height: 48),
-          const Center(
-            child: CircularProgressIndicator(
-              color: UiColor.circular,
-            ),
-          ),
-          const SizedBox(height: 48),
-          Container(
-            width: MediaQuery.sizeOf(context).width / 1.5,
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-            child: Column(
-              children: [
-                PrimaryButton(
-                  callback: () => initAuthenticate(),
-                  text: USAR_CELULAR,
-                ),
-                const SizedBox(height: 8),
-                SecondButton(
-                  callback: () => _logout(),
-                  text: ENTRAR_OUTRA,
-                ),
-              ],
+          Center(
+            child: Container(
+              width: MediaQuery.sizeOf(context).width / 1.5,
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+              child: Column(
+                children: [
+                  PrimaryButton(
+                    callback: () => initAuthenticate(),
+                    text: USAR_CELULAR,
+                  ),
+                  const SizedBox(height: 8),
+                  SecondButton(
+                    callback: () => _logout(),
+                    text: ENTRAR_OUTRA,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

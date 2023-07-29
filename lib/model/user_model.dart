@@ -1,22 +1,22 @@
 class UserModel {
-  final String avatar;
-  final String id;
-  final String name;
-  final String email;
+  final String userAvatar;
+  final String userId;
+  final String userName;
+  final String userEmail;
 
   UserModel({
-    required this.avatar,
-    required this.id,
-    required this.name,
-    required this.email,
+    required this.userAvatar,
+    required this.userId,
+    required this.userName,
+    required this.userEmail,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'avatar': avatar,
-      'id': id,
-      'name': name,
-      'email': email,
+      'userAvatar': userAvatar,
+      'userId': userId,
+      'userName': userName,
+      'userEmail': userEmail,
     };
   }
 }

@@ -35,12 +35,12 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           color: isPressed
               ? UiColor.primaryButton.withOpacity(0.8)
               : UiColor.primaryButton,
-          borderRadius: BorderRadius.circular(UiBorder.rounded),
+          borderRadius: BorderRadius.circular(UiBorder.circle),
         ),
         child: Center(
           child: Text(
             widget._text,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
       ),

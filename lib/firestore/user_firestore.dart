@@ -4,6 +4,6 @@ class UserFirestore {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   Future<void> saveUser(Map<String, dynamic> user) async {
-    return await users.doc(user['id']).set(user);
+    return await users.doc(user['userId']).set(user);
   }
 }
