@@ -17,7 +17,7 @@ class ToastClass {
       duration: UiDuration.toast,
       iconColor: Theme.of(context).iconTheme.color,
       message: texto,
-      textColor: Theme.of(context).iconTheme.color,
+      textColor: UiColor.textDark,
       width: double.infinity,
     );
   }
@@ -33,7 +33,7 @@ class ToastClass {
       duration: UiDuration.toast,
       iconColor: Theme.of(context).iconTheme.color,
       message: texto,
-      textColor: Theme.of(context).iconTheme.color,
+      textColor: UiColor.textDark,
       width: double.infinity,
     );
   }

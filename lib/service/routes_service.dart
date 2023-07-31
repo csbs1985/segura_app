@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/hive/user_hive.dart';
+import 'package:segura_app/page/donate_page.dart';
 import 'package:segura_app/page/home_page.dart';
 import 'package:segura_app/page/login_page.dart';
 import 'package:segura_app/page/auth_page.dart';
@@ -25,6 +26,12 @@ final GoRouter goRoute = GoRouter(
       path: RouteEnum.AUTH.value,
       builder: (BuildContext context, GoRouterState state) {
         return const AuthPage();
+      },
+    ),
+    GoRoute(
+      path: RouteEnum.DONATE.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const DoarPage();
       },
     ),
     GoRoute(
