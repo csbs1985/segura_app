@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:segura_app/theme/ui_border.dart';
-import 'package:skeleton_animation/skeleton_animation.dart';
 
 class NoteSkeleton extends StatelessWidget {
   const NoteSkeleton({Key? key}) : super(key: key);
@@ -12,25 +11,40 @@ class NoteSkeleton extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Skeleton(
+          Container(
             width: double.infinity,
             height: 80,
-            textColor: Theme.of(context).colorScheme.onBackground,
-            borderRadius: BorderRadius.circular(UiBorder.rounded),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(UiBorder.rounded),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.onBackground,
+                width: 1.0,
+              ),
+            ),
           ),
           const SizedBox(height: 8),
-          Skeleton(
+          Container(
             width: double.infinity,
             height: 80,
-            textColor: Theme.of(context).colorScheme.onBackground,
-            borderRadius: BorderRadius.circular(UiBorder.rounded),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(UiBorder.rounded),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.onBackground,
+                width: 1.0,
+              ),
+            ),
           ),
           const SizedBox(height: 8),
-          Skeleton(
+          Container(
             width: double.infinity,
             height: 80,
-            textColor: Theme.of(context).colorScheme.onBackground,
-            borderRadius: BorderRadius.circular(UiBorder.rounded),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(UiBorder.rounded),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.onBackground,
+                width: 1.0,
+              ),
+            ),
           ),
         ],
       ),

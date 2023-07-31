@@ -23,6 +23,9 @@ class UiColor {
   static const Color input = Color(0xffE9F0F6);
   static const Color inputDark = Color(0xff1F282D);
 
+  static const Color hint = Color(0xffA6A7A9);
+  static const Color hintDark = Color(0xff929395);
+
   static const Color navigationBar = Color(0xFFFCFCFE);
   static const Color navigationBarDark = Color(0xFF181C1F);
 

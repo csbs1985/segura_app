@@ -75,7 +75,7 @@ class _DrawerPageState extends State<DrawerPage> {
             ListButton(
               text: PASSWORD_GENERATE,
               icon: UniconsLine.asterisk,
-              callback: () => context.push(RouteEnum.PASSWORD_GENERATE.value),
+              callback: () => context.push(RouteEnum.PASSWORD.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(

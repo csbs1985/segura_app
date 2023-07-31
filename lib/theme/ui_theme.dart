@@ -39,6 +39,7 @@ class UiTheme {
     colorScheme: const ColorScheme.light(
       onBackground: UiColor.skeleton,
       outline: UiColor.border,
+      onSecondary: UiColor.hint,
     ),
     iconTheme: const IconThemeData(color: UiColor.icon),
     inputDecorationTheme: const InputDecorationTheme(
@@ -54,6 +55,7 @@ class UiTheme {
       displayLarge: UiText.displayLarge,
       displayMedium: UiText.displayMedium,
       displaySmall: UiText.displaySmall,
+      headlineMedium: UiText.headlineMedium,
     ),
   );
 
@@ -69,6 +71,7 @@ class UiTheme {
     colorScheme: const ColorScheme.dark(
       onBackground: UiColor.skeletonDark,
       outline: UiColor.borderDark,
+      onSecondary: UiColor.hint,
     ),
     iconTheme: const IconThemeData(color: UiColor.iconDark),
     inputDecorationTheme: const InputDecorationTheme(
@@ -84,6 +87,7 @@ class UiTheme {
       displayLarge: UiTextDark.displayLarge,
       displayMedium: UiText.displayMedium,
       displaySmall: UiText.displaySmall,
+      headlineMedium: UiTextDark.headlineMedium,
     ),
   );
 }

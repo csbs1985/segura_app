@@ -56,7 +56,7 @@ class DefaultInput extends StatelessWidget {
         prefixIcon: prefixIcon != null ? Icon(prefixIcon!) : null,
         hintText: hintText,
         filled: true,
-        hintStyle: Theme.of(context).textTheme.bodyMedium,
+        hintStyle: Theme.of(context).textTheme.headlineMedium,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,

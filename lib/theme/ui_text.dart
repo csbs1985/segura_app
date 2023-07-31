@@ -37,6 +37,12 @@ class UiText {
     fontWeight: FontWeight.normal,
     color: UiColor.primary,
   );
+
+  static const TextStyle headlineMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: UiColor.hint,
+  );
 }
 
 class UiTextDark {
@@ -62,5 +68,11 @@ class UiTextDark {
     fontSize: 20,
     fontWeight: FontWeight.normal,
     color: UiColor.textDark,
+  );
+
+  static const TextStyle headlineMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: UiColor.hintDark,
   );
 }

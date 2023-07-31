@@ -153,7 +153,7 @@ class _NotePageState extends State<NotePage> {
           callback: () => saveNote(context),
         ),
       ),
-      bottomNavigationBar: NoteBottomSheet(
+      bottomSheet: NoteBottomSheet(
         callback: (value) => setState(() => {}),
         note: _noteForm,
       ),
@@ -166,7 +166,6 @@ class _NotePageState extends State<NotePage> {
                 controller: _controllerTitle,
                 callback: (value) => setState(() => _noteForm['title'] = value),
                 hintText: TITLE,
-                style: Theme.of(context).textTheme.displayLarge,
               ),
               FormInput(
                 controller: _controllerNote,

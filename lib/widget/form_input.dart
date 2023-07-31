@@ -14,7 +14,6 @@ class FormInput extends StatelessWidget {
   final int? minLines;
   final int? maxLines;
   final bool? pesquisar;
-  final TextStyle? style;
 
   const FormInput({
     Key? key,
@@ -30,7 +29,6 @@ class FormInput extends StatelessWidget {
     this.minLines = 1,
     this.maxLines = 1,
     this.pesquisar = false,
-    this.style,
   }) : super(key: key);
 
   @override
@@ -47,12 +45,12 @@ class FormInput extends StatelessWidget {
         maxLength: maxLength,
         minLines: minLines,
         maxLines: maxLines,
-        style: style ?? Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyMedium,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: hintText,
           isDense: true,
-          hintStyle: style ?? Theme.of(context).textTheme.bodyMedium,
+          hintStyle: Theme.of(context).textTheme.headlineMedium,
           border: UiBorder.borderSquared,
           enabledBorder: UiBorder.borderSquared,
           focusedBorder: UiBorder.borderSquared,

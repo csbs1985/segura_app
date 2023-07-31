@@ -2,6 +2,9 @@ const String BY = "@dev.solitario · v";
 
 const String CATEGORIES = "Categorias";
 
+const String COPY_NOTE = "Nota copiada";
+const String COPY_ERROR = "Não foi possível copiar texto.";
+
 const String DONATE = "Doar";
 const String DONATE_BUTTON = 'Copiar chave pix';
 const String DONATE_DESCRIPTION =
@@ -23,10 +26,16 @@ const String ENTER_OTHER = "Entrar com outra conta";
 const String EXIT = "Sair";
 
 const String NOTE = "Nota";
+const String NOTE_COPY = "Copiar nota";
 const String NOTE_CREATE = "Criar nota";
 const String NOTE_SAVE_ERROR = "Não foi possível salvar a nota";
 
-const String PASSWORD_GENERATE = "Gerar senha";
+const String PASSWORD_CHARACTERS = "Utilizar caracteres";
+const String PASSWORD_GENERATE = "Gerador de senha";
+const String PASSWORD_SIZE = "Tamanho da senha";
+const String PASSWORD_CREATED = "senha gerada";
+const String PASSWORD_DESCRIPTION =
+    'O gerador de senhas permite criar uma senha aleatória com diversas opções. Selecione as opções, clique em "Gerar Senha", confira a senha gerada e clique no botão principal para utilizar a senha gerada.';
 
 const String PIX_COPY = "Chave Pix copiada";
 const String PIX_CODE = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";
@@ -38,7 +47,7 @@ const String REPORT_PROBLEM_ERROR =
     "Não foi possível relatar o problema, tente novamente mais tarde";
 const String REPORT_PROBLEM_SUCCESS = "Obrigado por sua colaboração";
 
-const String SEARCH = "Pesquisar sua notas";
+const String SEARCH = "Pesquisar nota";
 
 const String TITLE = "Título";
 
