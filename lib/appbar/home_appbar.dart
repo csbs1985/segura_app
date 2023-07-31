@@ -29,21 +29,19 @@ class _HomeAppBarState extends State<HomeAppBar> {
       ),
       child: Row(
         children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
+            child: GestureDetector(
+              onTap: () => widget._avatar(),
+              child: AvatarButton(callback: () => widget._avatar()),
+            ),
+          ),
           Expanded(
             child: DefaultInput(
               callback: (value) => widget._search(value),
               hintText: PESQUISAR,
-              pesquisarIcone: true,
-              inputCircular: true,
-            ),
-          ),
-          // const LayoutButton(),
-          const SizedBox(width: 8),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
-            child: GestureDetector(
-              onTap: () => widget._avatar(),
-              child: const AvatarButton(),
+              prefixIcon: Icons.search_outlined,
+              inputCircle: true,
             ),
           ),
         ],

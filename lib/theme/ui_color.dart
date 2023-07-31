@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 class UiColor {
+  static const Color appBar = Color(0xFFFCFCFE);
+  static const Color appBarDark = Color(0xFF181C1F);
+
   static const Color back = Color(0xFFFCFCFE);
   static const Color backDark = Color(0xFF181C1F);
 
   static const Color border = Color(0xFFC0C7CD);
   static const Color borderDark = Color(0xFF40474D);
+
+  static const Color bottomSheet = Color(0xFFFCFCFE);
+  static const Color bottomSheetDark = Color(0xFF181C1F);
 
   static const Color circular = Color(0xFF194AB1);
 

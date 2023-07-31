@@ -28,7 +28,13 @@ class UiTheme {
   }
 
   static ThemeData theme = ThemeData(
-    appBarTheme: const AppBarTheme(elevation: 0),
+    appBarTheme: const AppBarTheme(
+      color: UiColor.appBar,
+      elevation: 0,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: UiColor.bottomSheet,
+    ),
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
       onBackground: UiColor.skeleton,
@@ -44,13 +50,20 @@ class UiTheme {
       bodyLarge: UiText.bodyLarge,
       bodyMedium: UiText.bodyMedium,
       bodySmall: UiText.bodySmall,
+      displayLarge: UiText.displayLarge,
       displayMedium: UiText.displayMedium,
       displaySmall: UiText.displaySmall,
     ),
   );
 
   static ThemeData themeDark = ThemeData(
-    appBarTheme: const AppBarTheme(elevation: 0),
+    appBarTheme: const AppBarTheme(
+      color: UiColor.appBarDark,
+      elevation: 0,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: UiColor.bottomSheetDark,
+    ),
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       onBackground: UiColor.skeletonDark,
@@ -66,6 +79,7 @@ class UiTheme {
       bodyLarge: UiTextDark.bodyLarge,
       bodyMedium: UiTextDark.bodyMedium,
       bodySmall: UiTextDark.bodySmall,
+      displayLarge: UiTextDark.displayLarge,
       displayMedium: UiText.displayMedium,
       displaySmall: UiText.displaySmall,
     ),

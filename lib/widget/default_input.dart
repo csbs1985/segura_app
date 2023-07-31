@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:segura_app/theme/ui_border.dart';
-import 'package:segura_app/theme/ui_color.dart';
 
 class DefaultInput extends StatelessWidget {
   final bool? autoFocus;
@@ -9,13 +8,13 @@ class DefaultInput extends StatelessWidget {
   final bool? expands;
   final FocusNode? focusNode;
   final String? hintText;
-  final bool inputCircular;
+  final bool inputCircle;
   final TextInputType? keyboardType;
   final Function(String?)? onSaved;
   final int? maxLength;
   final int? minLines;
   final int? maxLines;
-  final bool? pesquisarIcone;
+  final IconData? prefixIcon;
   final String? Function(String?)? validator;
 
   const DefaultInput({
@@ -26,13 +25,13 @@ class DefaultInput extends StatelessWidget {
     this.expands = false,
     this.focusNode,
     this.hintText,
-    this.inputCircular = false,
+    this.inputCircle = false,
     this.keyboardType = TextInputType.text,
     this.onSaved,
     this.maxLength,
     this.minLines = 1,
     this.maxLines = 1,
-    this.pesquisarIcone = false,
+    this.prefixIcon,
     this.validator,
   }) : super(key: key);
 
@@ -49,42 +48,22 @@ class DefaultInput extends StatelessWidget {
       maxLength: maxLength,
       minLines: minLines,
       maxLines: maxLines,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.normal,
-        color: UiColor.textDark,
-      ),
+      style: Theme.of(context).textTheme.bodyMedium,
       textAlignVertical: TextAlignVertical.center,
       validator: validator,
+      cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
-        prefixIcon: pesquisarIcone! ? const Icon(Icons.search_outlined) : null,
-        counterStyle: Theme.of(context).textTheme.headlineSmall,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon!) : null,
         hintText: hintText,
         filled: true,
-        hintStyle: Theme.of(context).textTheme.bodySmall,
-        // errorStyle: UiTexto.erro,
+        hintStyle: Theme.of(context).textTheme.bodyMedium,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 24,
           vertical: 16,
         ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(
-            inputCircular ? UiBorder.circle : UiBorder.rounded,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(
-            inputCircular ? UiBorder.circle : UiBorder.rounded,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(
-            inputCircular ? UiBorder.circle : UiBorder.rounded,
-          ),
-        ),
+        border: UiBorder.borderCircle,
+        enabledBorder: UiBorder.borderCircle,
+        focusedBorder: UiBorder.borderCircle,
       ),
     );
   }

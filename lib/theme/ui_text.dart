@@ -20,6 +20,12 @@ class UiText {
     color: UiColor.text,
   );
 
+  static const TextStyle displayLarge = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+    color: UiColor.text,
+  );
+
   static const TextStyle displayMedium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
@@ -48,6 +54,12 @@ class UiTextDark {
 
   static const TextStyle bodySmall = TextStyle(
     fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: UiColor.textDark,
+  );
+
+  static const TextStyle displayLarge = TextStyle(
+    fontSize: 20,
     fontWeight: FontWeight.normal,
     color: UiColor.textDark,
   );

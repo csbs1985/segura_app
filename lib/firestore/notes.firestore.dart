@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserFirestore {
+class NoteFirestore {
   CollectionReference notes = FirebaseFirestore.instance.collection('notes');
 
-  getAllNotes(String idUsuario) {
+  getAllNotes(String userId) {
     return notes
+        .orderBy('title')
         .orderBy('note')
-        .where('idUser', isEqualTo: idUsuario)
+        .where('userId', isEqualTo: userId)
         .where('excluded', isEqualTo: false);
+  }
+
+  getNoteId(String noteId) async {
+    return await notes.doc(noteId).get();
   }
 }

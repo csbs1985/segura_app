@@ -17,7 +17,7 @@ class NoteItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(minHeight: UiSize.itemList),
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       child: InkWell(
         borderRadius: BorderRadius.circular(UiBorder.rounded),
         onTap: () => _onTap(),
@@ -32,14 +32,17 @@ class NoteItemWidget extends StatelessWidget {
           ),
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
           duration: const Duration(milliseconds: 500),
-          child: Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  _item["note"],
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+              Text(
+                _item["title"],
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                _item["note"],
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),

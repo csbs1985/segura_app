@@ -4,6 +4,7 @@ import 'package:segura_app/hive/user_hive.dart';
 import 'package:segura_app/page/home_page.dart';
 import 'package:segura_app/page/login_page.dart';
 import 'package:segura_app/page/auth_page.dart';
+import 'package:segura_app/page/note_page.dart';
 
 final UserHive _userHive = UserHive();
 
@@ -20,6 +21,12 @@ final GoRouter goRoute = GoRouter(
   },
   routes: <RouteBase>[
     GoRoute(
+      path: RouteEnum.AUTH.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const AuthPage();
+      },
+    ),
+    GoRoute(
       path: RouteEnum.HOME.value,
       builder: (BuildContext context, GoRouterState state) {
         return const HomePage();
@@ -32,9 +39,10 @@ final GoRouter goRoute = GoRouter(
       },
     ),
     GoRoute(
-      path: RouteEnum.AUTH.value,
+      name: RouteEnum.NOTE.value,
+      path: "/note/:noteId",
       builder: (BuildContext context, GoRouterState state) {
-        return const AuthPage();
+        return NotePage(noteId: state.pathParameters["noteId"]!);
       },
     ),
   ],
