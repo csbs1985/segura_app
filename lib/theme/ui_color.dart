@@ -13,12 +13,12 @@ class UiColor {
   static const Color bottomSheet = Color(0xFFFCFCFE);
   static const Color bottomSheetDark = Color(0xFF181C1F);
 
-  static const Color circular = Color(0xFF194AB1);
+  static const Color circular = Color(0xFF246BFD);
 
   static const Color error = Color(0xFFff4b4b);
 
   static const Color icon = Color(0xff3f464c);
-  static const Color iconDark = Color(0xffc0c7cd);
+  static const Color iconDark = Color(0xffFFFFFF);
 
   static const Color input = Color(0xffE9F0F6);
   static const Color inputDark = Color(0xff1F282D);
@@ -26,8 +26,8 @@ class UiColor {
   static const Color navigationBar = Color(0xFFFCFCFE);
   static const Color navigationBarDark = Color(0xFF181C1F);
 
-  static const Color primary = Color(0xFF194AB1);
-  static const Color primaryButton = Color(0xFF194AB1);
+  static const Color primary = Color(0xFF246BFD);
+  static const Color primaryButton = Color(0xFF246BFD);
 
   static const Color secondButton = Colors.transparent;
 

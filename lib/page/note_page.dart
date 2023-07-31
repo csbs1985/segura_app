@@ -1,11 +1,14 @@
-import 'package:segura_app/appbar/note_appbar.dart';
+import 'package:go_router/go_router.dart';
+import 'package:segura_app/button/svg_button.dart';
+import 'package:segura_app/class/note_class.dart';
+import 'package:segura_app/widget/form_input.dart';
 import 'package:segura_app/widget/note_bottom_sheet.dart';
+import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:segura_app/firestore/notes.firestore.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
-import 'package:segura_app/widget/form_input.dart';
 
 class NotePage extends StatefulWidget {
   const NotePage({
@@ -21,6 +24,7 @@ class NotePage extends StatefulWidget {
 
 class _NotePageState extends State<NotePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final NoteClass _noteClass = NoteClass();
   final NoteFirestore _noteFirestore = NoteFirestore();
   final Uuid uuid = const Uuid();
 
@@ -33,6 +37,9 @@ class _NotePageState extends State<NotePage> {
 
   Map<String, dynamic> _noteForm = {};
 
+  String noteCurrent = "";
+  String titleCurrent = "";
+
   @override
   void initState() {
     initNote();
@@ -41,17 +48,21 @@ class _NotePageState extends State<NotePage> {
 
   initNote() async {
     if (widget._noteId != EMPTY) {
-      Map<String, dynamic> noteCurrent = {};
+      Map<String, dynamic> itemCurrent = {};
       await _noteFirestore.getNoteId(widget._noteId).then((document) => {
-            noteCurrent = document.data() as Map<String, dynamic>,
+            itemCurrent = document.data() as Map<String, dynamic>,
             _noteForm = {
-              "category": noteCurrent['category'],
-              "note": noteCurrent['note'],
-              "shared": noteCurrent['shared'],
-              "title": noteCurrent['title'],
+              "category": itemCurrent['category'],
+              "dateRegistration": itemCurrent['dateRegistration'],
+              "excluded": itemCurrent['excluded'],
+              "noteId": widget._noteId,
+              "note": itemCurrent['note'],
+              "shared": itemCurrent['shared'],
+              "title": itemCurrent['title'],
+              "userId": itemCurrent['userId'],
             },
             _setControllers(),
-            _setCategories(noteCurrent['category']),
+            _setCategories(itemCurrent['category']),
           });
     }
   }
@@ -84,8 +95,15 @@ class _NotePageState extends State<NotePage> {
 //     // );
 //   }
 
-  floatingActionButton(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
+  saveNote(BuildContext context) async {
+    if ((_noteForm['note'] == "" ||
+            _noteForm['note'] == null ||
+            noteCurrent == _noteForm['note']) &&
+        (_noteForm['title'] == "" ||
+            _noteForm['title'] == null ||
+            titleCurrent == _noteForm['title'])) {
+      context.pop();
+    } else {
       setState(() {
         if (widget._noteId != EMPTY) {
           // editar
@@ -94,10 +112,10 @@ class _NotePageState extends State<NotePage> {
             "dateRegistration": DateTime.now().toString(),
             "excluded": _noteForm['excluded'],
             "noteId": _noteForm['noteId'],
-            "userId": currentUser.value.userId,
             "note": _controllerNote.text,
             "shared": _shared,
-            "title": _controllerTitle.text
+            "title": _controllerTitle.text,
+            "userId": currentUser.value.userId,
           };
         } else {
           // criar
@@ -106,15 +124,15 @@ class _NotePageState extends State<NotePage> {
             "dateRegistration": DateTime.now().toString(),
             "excluded": false,
             "noteId": uuid.v4(),
-            "userId": currentUser.value.userId,
             "note": _controllerNote.text,
             "shared": _shared,
-            "title": _controllerTitle.text
+            "title": _controllerTitle.text,
+            "userId": currentUser.value.userId,
           };
         }
       });
 
-      // _senhaClass.salvarSenha(context, _noteForm);
+      _noteClass.saveNote(context, _noteForm);
     }
   }
 
@@ -128,29 +146,28 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NoteAppBar(
-        callback: (value) => setState(() => {}),
-        note: _noteForm,
+      appBar: AppBar(
+        elevation: 0,
+        leading: SvgButton(
+          icon: UniconsLine.arrow_left,
+          callback: () => saveNote(context),
+        ),
       ),
       bottomNavigationBar: NoteBottomSheet(
         callback: (value) => setState(() => {}),
         note: _noteForm,
       ),
       body: WillPopScope(
-        onWillPop: () {
-          return floatingActionButton(context);
-        },
+        onWillPop: () => saveNote(context),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 16),
               FormInput(
                 controller: _controllerTitle,
                 callback: (value) => setState(() => _noteForm['title'] = value),
                 hintText: TITLE,
                 style: Theme.of(context).textTheme.displayLarge,
               ),
-              const SizedBox(height: 16),
               FormInput(
                 controller: _controllerNote,
                 callback: (value) => setState(() => _noteForm['note'] = value),

@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final NoteFirestore _noteFirestore = NoteFirestore();
+  final NoteFirestore _userFirestore = NoteFirestore();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _keyUp(String value) async {}
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               padding: const EdgeInsets.only(top: UiSize.homeAppbar),
               child: FirestoreListView(
-                query: _noteFirestore.getAllNotes(currentUser.value.userId),
+                query: _userFirestore.getAllNotes(currentUser.value.userId),
                 pageSize: 30,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

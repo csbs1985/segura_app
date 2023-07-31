@@ -68,8 +68,8 @@ class _DrawerPageState extends State<DrawerPage> {
             ListButton(
               text: NOTE_CREATE,
               icon: UniconsLine.notes,
-              callback: () => context.pushNamed(RouteEnum.PASSWORD.value,
-                  pathParameters: {'idSenha': EMPTY}),
+              callback: () => context.pushNamed(RouteEnum.NOTE.value,
+                  pathParameters: {'note': EMPTY}),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
@@ -88,12 +88,6 @@ class _DrawerPageState extends State<DrawerPage> {
               text: TRASH,
               icon: UniconsLine.trash_alt,
               callback: () => context.push(RouteEnum.TRASH.value),
-            ),
-            const SizedBox(height: UiSize.spaceList),
-            ListButton(
-              text: SETTINGS,
-              icon: UniconsLine.setting,
-              callback: () => context.push(RouteEnum.SETTINGS.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(

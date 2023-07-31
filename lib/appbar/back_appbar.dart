@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:unicons/unicons.dart';
 
@@ -13,7 +14,7 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: SvgButton(
         icon: UniconsLine.arrow_left,
-        callback: () => Navigator.of(context).pop(),
+        callback: () => context.pop(),
       ),
     );
   }

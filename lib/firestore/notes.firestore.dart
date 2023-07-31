@@ -14,4 +14,8 @@ class NoteFirestore {
   getNoteId(String noteId) async {
     return await notes.doc(noteId).get();
   }
+
+  setNote(Map<String, dynamic> note) async {
+    return await notes.doc(note['noteId']).set(note);
+  }
 }

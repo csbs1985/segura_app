@@ -8,7 +8,7 @@ class ToastClass {
 
   void erro({
     required BuildContext context,
-    required String texto,
+    required String text,
   }) {
     toast.errorToast(
       alignment: Alignment.topCenter,
@@ -16,7 +16,7 @@ class ToastClass {
       context,
       duration: UiDuration.toast,
       iconColor: Theme.of(context).iconTheme.color,
-      message: texto,
+      message: text,
       textColor: UiColor.textDark,
       width: double.infinity,
     );
@@ -24,7 +24,7 @@ class ToastClass {
 
   void sucesso({
     required BuildContext context,
-    required String texto,
+    required String text,
   }) {
     toast.successToast(
       alignment: Alignment.topCenter,
@@ -32,7 +32,7 @@ class ToastClass {
       context,
       duration: UiDuration.toast,
       iconColor: Theme.of(context).iconTheme.color,
-      message: texto,
+      message: text,
       textColor: UiColor.textDark,
       width: double.infinity,
     );

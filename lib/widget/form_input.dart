@@ -52,8 +52,7 @@ class FormInput extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           isDense: true,
-          hintStyle: Theme.of(context).textTheme.bodyMedium,
-          contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          hintStyle: style ?? Theme.of(context).textTheme.bodyMedium,
           border: UiBorder.borderSquared,
           enabledBorder: UiBorder.borderSquared,
           focusedBorder: UiBorder.borderSquared,

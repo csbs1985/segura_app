@@ -48,9 +48,9 @@ final GoRouter goRoute = GoRouter(
     ),
     GoRoute(
       name: RouteEnum.NOTE.value,
-      path: "/note/:noteId",
+      path: "/note/:note",
       builder: (BuildContext context, GoRouterState state) {
-        return NotePage(noteId: state.pathParameters["noteId"]!);
+        return NotePage(noteId: state.pathParameters["note"]!);
       },
     ),
     GoRoute(
@@ -72,7 +72,6 @@ enum RouteEnum {
   PASSWORD('/password'),
   PASSWORD_GENERATE('/password_generate'),
   REPORT_PROBLEM('/perport'),
-  SETTINGS('/settings'),
   TRASH('/trash');
 
   final String value;

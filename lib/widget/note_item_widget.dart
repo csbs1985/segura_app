@@ -35,15 +35,18 @@ class NoteItemWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                _item["title"],
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                _item["note"],
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              if (_item["title"] != "")
+                Text(
+                  _item["title"],
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              if (_item["note"] != "" && _item["title"] != "")
+                const SizedBox(height: 8),
+              if (_item["note"] != "")
+                Text(
+                  _item["note"],
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
             ],
           ),
         ),

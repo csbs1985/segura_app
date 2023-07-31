@@ -35,13 +35,13 @@ class _ReportPageState extends State<ReportPage> {
         await _reportFirestore.salvarProblema(problema);
         _toastClass.sucesso(
           context: context,
-          texto: REPORT_PROBLEM_SUCCESS,
+          text: REPORT_PROBLEM_SUCCESS,
         );
         _controleProblema.clear();
       } catch (e) {
         _toastClass.erro(
           context: context,
-          texto: REPORT_PROBLEM_ERROR,
+          text: REPORT_PROBLEM_ERROR,
         );
       }
     }

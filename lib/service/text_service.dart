@@ -24,6 +24,7 @@ const String EXIT = "Sair";
 
 const String NOTE = "Nota";
 const String NOTE_CREATE = "Criar nota";
+const String NOTE_SAVE_ERROR = "Não foi possível salvar a nota";
 
 const String PASSWORD_GENERATE = "Gerar senha";
 
@@ -42,8 +43,6 @@ const String SEARCH = "Pesquisar sua notas";
 const String TITLE = "Título";
 
 const String TRASH = "Lixeira";
-
-const String SETTINGS = "Configurações";
 
 const String USE_PHONE = "Usar senha do celular";
 
