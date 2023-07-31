@@ -15,6 +15,8 @@ class UiColor {
 
   static const Color circular = Color(0xFF194AB1);
 
+  static const Color error = Color(0xFFff4b4b);
+
   static const Color icon = Color(0xff3f464c);
   static const Color iconDark = Color(0xffc0c7cd);
 
@@ -34,6 +36,8 @@ class UiColor {
 
   static const Color statusBar = Color(0xFFFCFCFE);
   static const Color statusBarDark = Color(0xFF181C1F);
+
+  static const Color success = Color(0xFF43c000);
 
   static const Color text = Color(0xFF181C1F);
   static const Color textDark = Color(0xFFDCDCDE);

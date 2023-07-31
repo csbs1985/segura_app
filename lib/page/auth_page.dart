@@ -104,12 +104,12 @@ class _AuthPageState extends State<AuthPage> {
                 children: [
                   PrimaryButton(
                     callback: () => initAuthenticate(),
-                    text: USAR_CELULAR,
+                    text: USE_PHONE,
                   ),
                   const SizedBox(height: 8),
                   SecondButton(
                     callback: () => _logout(),
-                    text: ENTRAR_OUTRA,
+                    text: ENTER_OTHER,
                   ),
                 ],
               ),

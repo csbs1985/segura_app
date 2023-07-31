@@ -39,9 +39,9 @@ class _HomeAppBarState extends State<HomeAppBar> {
           Expanded(
             child: DefaultInput(
               callback: (value) => widget._search(value),
-              hintText: PESQUISAR,
-              prefixIcon: Icons.search_outlined,
+              hintText: SEARCH,
               inputCircle: true,
+              prefixIcon: Icons.search_outlined,
             ),
           ),
         ],

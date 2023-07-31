@@ -154,7 +154,7 @@ class _NotePageState extends State<NotePage> {
               FormInput(
                 controller: _controllerNote,
                 callback: (value) => setState(() => _noteForm['note'] = value),
-                hintText: NOTA,
+                hintText: NOTE,
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
                 maxLines: null,

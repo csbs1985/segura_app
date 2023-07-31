@@ -5,6 +5,7 @@ import 'package:segura_app/page/home_page.dart';
 import 'package:segura_app/page/login_page.dart';
 import 'package:segura_app/page/auth_page.dart';
 import 'package:segura_app/page/note_page.dart';
+import 'package:segura_app/page/report_page.dart';
 
 final UserHive _userHive = UserHive();
 
@@ -45,14 +46,27 @@ final GoRouter goRoute = GoRouter(
         return NotePage(noteId: state.pathParameters["noteId"]!);
       },
     ),
+    GoRoute(
+      path: RouteEnum.REPORT_PROBLEM.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const ReportPage();
+      },
+    ),
   ],
 );
 
 enum RouteEnum {
   AUTH('/auth'),
+  CATEGORIES('/categories'),
+  DONATE('/donate'),
   HOME('/home'),
   LOGIN('/login'),
-  NOTE('/note');
+  NOTE('/note'),
+  PASSWORD('/password'),
+  PASSWORD_GENERATE('/password_generate'),
+  REPORT_PROBLEM('/perport'),
+  SETTINGS('/settings'),
+  TRASH('/trash');
 
   final String value;
   const RouteEnum(this.value);

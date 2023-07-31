@@ -40,6 +40,7 @@ class UiTheme {
       onBackground: UiColor.skeleton,
       outline: UiColor.border,
     ),
+    iconTheme: const IconThemeData(color: UiColor.icon),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: UiColor.input,
       prefixIconColor: UiColor.icon,
@@ -69,6 +70,7 @@ class UiTheme {
       onBackground: UiColor.skeletonDark,
       outline: UiColor.borderDark,
     ),
+    iconTheme: const IconThemeData(color: UiColor.iconDark),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: UiColor.inputDark,
       prefixIconColor: UiColor.iconDark,

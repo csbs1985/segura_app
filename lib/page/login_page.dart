@@ -38,13 +38,13 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Center(
               child: Text(
-                ENTRAR_BEM_VINDO,
+                WELCOME,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
             Center(
               child: Text(
-                ENTRAR_GOOGLE,
+                ENTER_GOOGLE,
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),

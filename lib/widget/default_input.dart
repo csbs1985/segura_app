@@ -58,12 +58,14 @@ class DefaultInput extends StatelessWidget {
         filled: true,
         hintStyle: Theme.of(context).textTheme.bodyMedium,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 24,
+          horizontal: 16,
           vertical: 16,
         ),
-        border: UiBorder.borderCircle,
-        enabledBorder: UiBorder.borderCircle,
-        focusedBorder: UiBorder.borderCircle,
+        border: inputCircle ? UiBorder.borderCircle : UiBorder.borderSquared,
+        enabledBorder:
+            inputCircle ? UiBorder.borderCircle : UiBorder.borderSquared,
+        focusedBorder:
+            inputCircle ? UiBorder.borderCircle : UiBorder.borderSquared,
       ),
     );
   }
