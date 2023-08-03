@@ -18,4 +18,8 @@ class NoteFirestore {
   setNote(Map<String, dynamic> note) async {
     return await notes.doc(note['noteId']).set(note);
   }
+
+  noteExcludedTrue(String noteId) {
+    return notes.doc(noteId).update({'excluded': true});
+  }
 }

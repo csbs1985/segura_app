@@ -1,16 +1,20 @@
+import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/home_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
+import 'package:segura_app/class/search_class.dart';
 import 'package:segura_app/firestore/notes.firestore.dart';
 import 'package:segura_app/page/drawer_page.dart';
+import 'package:segura_app/service/algolia_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/skeleton/note_skeleton.dart';
 import 'package:segura_app/theme/ui_size.dart';
+import 'package:segura_app/widget/not_result_widget.dart';
 import 'package:segura_app/widget/note_item_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,11 +27,49 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final NoteFirestore _userFirestore = NoteFirestore();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final SearchClass _searchClass = SearchClass();
 
-  void _keyUp(String value) async {}
+  Algolia? algoliaSegura;
+
+  List<Map<String, dynamic>> lisNote = [];
+
+  bool isPesquisar = false;
+
+  @override
+  void initState() {
+    algoliaSegura = AlgoliaService.algoliaSegura;
+    super.initState();
+  }
+
+  void _keyUp(String value) async {
+    lisNote = [];
+    setState(() => isPesquisar = true);
+
+    if (value.length > 2) {
+      if (algoliaSegura != null) {
+        AlgoliaQuery query =
+            algoliaSegura!.instance.index('segura_notes').query(value);
+
+        query = query.setOptionalFilter('userId:${currentUser.value.userId}');
+
+        AlgoliaQuerySnapshot snap = await query.getObjects();
+
+        setState(() {
+          if (snap.hits.isNotEmpty) {
+            lisNote = _searchClass.convertListToMaps(snap.hits);
+          }
+          if (value.isEmpty) lisNote = [];
+        });
+      }
+    } else {
+      setState(() => isPesquisar = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    double altura = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
+
     return Scaffold(
       key: scaffoldKey,
       drawer: const DrawerPage(),
@@ -35,31 +77,55 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.only(top: UiSize.homeAppbar),
-              child: FirestoreListView(
-                query: _userFirestore.getAllNotes(currentUser.value.userId),
-                pageSize: 30,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                loadingBuilder: (context) => const NoteSkeleton(),
-                errorBuilder: (context, error, _) => const NoteSkeleton(),
-                emptyBuilder: (context) => const NoteSkeleton(),
-                itemBuilder: (
-                  BuildContext context,
-                  QueryDocumentSnapshot<dynamic> snapshot,
-                ) {
-                  Map<String, dynamic> note = snapshot.data();
-                  return NoteItemWidget(
-                    item: note,
-                    onTap: () => context.pushNamed(
-                      RouteEnum.NOTE.value,
-                      pathParameters: {'noteId': note['noteId']},
+            child: isPesquisar
+                ? Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(top: UiSize.homeAppbar),
+                    child: lisNote.isEmpty
+                        ? NotResultWidget(altura: altura)
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: lisNote.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return NoteItemWidget(
+                                item: lisNote[index],
+                                onTap: () => context.pushNamed(
+                                  RouteEnum.NOTE.value,
+                                  pathParameters: {
+                                    'noteId': lisNote[index]['objectID']
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                  )
+                : Container(
+                    padding: const EdgeInsets.only(top: UiSize.homeAppbar),
+                    child: FirestoreListView(
+                      query:
+                          _userFirestore.getAllNotes(currentUser.value.userId),
+                      pageSize: 30,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      loadingBuilder: (context) => const NoteSkeleton(),
+                      errorBuilder: (context, error, _) => const NoteSkeleton(),
+                      emptyBuilder: (context) => const NoteSkeleton(),
+                      itemBuilder: (
+                        BuildContext context,
+                        QueryDocumentSnapshot<dynamic> snapshot,
+                      ) {
+                        Map<String, dynamic> note = snapshot.data();
+                        return NoteItemWidget(
+                          item: note,
+                          onTap: () => context.pushNamed(
+                            RouteEnum.NOTE.value,
+                            pathParameters: {'noteId': note['noteId']},
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
           ),
           Positioned(
             top: 8,

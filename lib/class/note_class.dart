@@ -19,4 +19,16 @@ class NoteClass {
       );
     }
   }
+
+  noteExcludedTrue(BuildContext context, String noteId) async {
+    try {
+      await _noteFirestore.noteExcludedTrue(noteId);
+      context.pop();
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        text: PASSWORD_DELETAR_ERROR,
+      );
+    }
+  }
 }

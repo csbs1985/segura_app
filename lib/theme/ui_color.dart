@@ -17,8 +17,8 @@ class UiColor {
 
   static const Color error = Color(0xFFff4b4b);
 
-  static const Color icon = Color(0xff3f464c);
-  static const Color iconDark = Color(0xffFFFFFF);
+  static const Color icon = Color(0xff3F464C);
+  static const Color iconDark = Color(0xffC0C7CD);
 
   static const Color input = Color(0xffE9F0F6);
   static const Color inputDark = Color(0xff1F282D);

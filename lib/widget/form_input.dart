@@ -42,6 +42,7 @@ class FormInput extends StatelessWidget {
         keyboardType: keyboardType,
         onChanged: (value) => callback!(value),
         onSaved: onSaved,
+        cursorColor: Theme.of(context).primaryColor,
         maxLength: maxLength,
         minLines: minLines,
         maxLines: maxLines,
@@ -49,6 +50,7 @@ class FormInput extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: hintText,
+          contentPadding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
           isDense: true,
           hintStyle: Theme.of(context).textTheme.headlineMedium,
           border: UiBorder.borderSquared,

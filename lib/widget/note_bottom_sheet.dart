@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:segura_app/button/svg_button.dart';
+import 'package:segura_app/class/note_class.dart';
 import 'package:unicons/unicons.dart';
 
 class NoteBottomSheet extends StatefulWidget {
@@ -18,6 +19,8 @@ class NoteBottomSheet extends StatefulWidget {
 }
 
 class _NoteBottomSheetState extends State<NoteBottomSheet> {
+  final NoteClass _noteClass = NoteClass();
+
   _isCopy() {
     return true;
   }
@@ -40,7 +43,8 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
           const SizedBox(width: 8),
           SvgButton(
             icon: UniconsLine.trash_alt,
-            callback: () => {},
+            callback: () =>
+                _noteClass.noteExcludedTrue(context, widget._note['noteId']),
           ),
           if (_isCopy())
             SvgButton(

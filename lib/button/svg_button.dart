@@ -25,7 +25,10 @@ class _SvgButtonState extends State<SvgButton> {
       height: UiSize.icon,
       child: InkWell(
         borderRadius: BorderRadius.circular(UiBorder.circle),
-        child: Icon(widget._icone),
+        child: Icon(
+          widget._icone,
+          color: Theme.of(context).iconTheme.color,
+        ),
         onTap: () => widget._callback(),
       ),
     );
