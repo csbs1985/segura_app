@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/home_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
+import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
 import 'package:segura_app/firestore/notes.firestore.dart';
 import 'package:segura_app/page/drawer_page.dart';
@@ -25,8 +26,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final NoteFirestore _userFirestore = NoteFirestore();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final NoteClass _noteClass = NoteClass();
+  final NoteFirestore _userFirestore = NoteFirestore();
   final SearchClass _searchClass = SearchClass();
 
   Algolia? algoliaSegura;
@@ -66,6 +68,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> _selectNote(Map<String, dynamic> note) async {
+    await _noteClass.selectNote(note);
+    context.pushNamed(
+      RouteEnum.NOTE.value,
+      pathParameters: {'noteId': note['noteId'] ?? note['objectID']},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double altura = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
@@ -90,12 +100,7 @@ class _HomePageState extends State<HomePage> {
                             itemBuilder: (BuildContext context, int index) {
                               return NoteItemWidget(
                                 item: lisNote[index],
-                                onTap: () => context.pushNamed(
-                                  RouteEnum.NOTE.value,
-                                  pathParameters: {
-                                    'noteId': lisNote[index]['objectID']
-                                  },
-                                ),
+                                onTap: () => _selectNote(lisNote[index]),
                               );
                             },
                           ),
@@ -118,10 +123,7 @@ class _HomePageState extends State<HomePage> {
                         Map<String, dynamic> note = snapshot.data();
                         return NoteItemWidget(
                           item: note,
-                          onTap: () => context.pushNamed(
-                            RouteEnum.NOTE.value,
-                            pathParameters: {'noteId': note['noteId']},
-                          ),
+                          onTap: () => _selectNote(note),
                         );
                       },
                     ),

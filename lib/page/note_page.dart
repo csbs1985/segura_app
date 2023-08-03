@@ -133,6 +133,7 @@ class _NotePageState extends State<NotePage> {
       });
 
       _noteClass.saveNote(context, _noteForm);
+      _noteClass.deleteNote();
     }
   }
 

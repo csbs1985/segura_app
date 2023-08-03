@@ -33,7 +33,10 @@ class _FloatingButtonState extends State<FloatingButton> {
             color: UiColor.primary,
             borderRadius: BorderRadius.circular(UiBorder.rounded),
           ),
-          child: Icon(widget._icon),
+          child: Icon(
+            widget._icon,
+            color: Colors.white,
+          ),
         ),
       ),
     );

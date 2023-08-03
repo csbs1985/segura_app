@@ -2,11 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/class/toast_class.dart';
 import 'package:segura_app/firestore/notes.firestore.dart';
+import 'package:segura_app/model/note_modal.dart';
 import 'package:segura_app/service/text_service.dart';
+import 'package:segura_app/service/value_notifier_service.dart';
 
 class NoteClass {
   final NoteFirestore _noteFirestore = NoteFirestore();
   final ToastClass _toastClass = ToastClass();
+
+  selectNote(Map<String, dynamic> note) {
+    currentNote.value = NoteModal(
+      category: note['category'].cast<String>(),
+      dateRegistration: note['dateRegistration'],
+      excluded: note['excluded'],
+      note: note['note'],
+      noteId: note['noteId'] ?? note['objectID'],
+      shared: note['shared'].cast<String>(),
+      title: note['title'],
+      userId: note['userId'],
+    );
+  }
+
+  deleteNote() {
+    currentNote.value = NoteModal(
+      category: [],
+      dateRegistration: "",
+      excluded: false,
+      noteId: "",
+      userId: "",
+      note: "",
+      shared: [],
+      title: "",
+    );
+  }
 
   saveNote(BuildContext context, Map<String, dynamic> note) async {
     try {

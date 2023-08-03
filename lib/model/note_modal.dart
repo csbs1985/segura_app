@@ -1,7 +1,7 @@
 class NoteModal {
   final List<String> category;
   final String dateRegistration;
-  final String excluded;
+  final bool excluded;
   final String noteId;
   final String userId;
   final String note;
