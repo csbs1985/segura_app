@@ -30,6 +30,8 @@ const String NOT_RESULT = "Nenhum resultado correspondente";
 const String NOTE = "Nota";
 const String NOTE_COPY = "Copiar nota";
 const String NOTE_CREATE = "Criar nota";
+const String NOTE_EMPTY = "As notas adicionadas são exibidas aqui";
+const String NOTE_DISCARDED = "Nota descartada";
 const String NOTE_SAVE_ERROR = "Não foi possível salvar a nota";
 
 const String PASSWORD_CHARACTERS = "Utilizar caracteres";

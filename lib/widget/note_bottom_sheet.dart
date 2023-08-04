@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:segura_app/button/svg_button.dart';
+import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:unicons/unicons.dart';
@@ -20,13 +21,16 @@ class NoteBottomSheet extends StatefulWidget {
 }
 
 class _NoteBottomSheetState extends State<NoteBottomSheet> {
+  final CopyClass _copyClass = CopyClass();
   final NoteClass _noteClass = NoteClass();
 
-  _isCopy() {
-    return true;
+  bool _isNote() {
+    return widget._note['node'] == "" ? false : true;
   }
 
-  _openCopyModal(BuildContext context) {}
+  _deleteNote(BuildContext context) {
+    _noteClass.noteExcludedTrue(context, currentNote.value.noteId);
+  }
 
   _openGeneratorModal(BuildContext context) {}
 
@@ -41,17 +45,6 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
       child: Wrap(
         spacing: 8,
         children: [
-          const SizedBox(width: 8),
-          SvgButton(
-            icon: UniconsLine.trash_alt,
-            callback: () =>
-                _noteClass.noteExcludedTrue(context, currentNote.value.noteId),
-          ),
-          if (_isCopy())
-            SvgButton(
-              icon: UniconsLine.copy,
-              callback: () => _openCopyModal(context),
-            ),
           SvgButton(
             icon: UniconsLine.asterisk,
             callback: () => _openGeneratorModal(context),
@@ -64,6 +57,19 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
             icon: UniconsLine.user_plus,
             callback: () => _openSharedModal(context),
           ),
+          if (_isNote())
+            SvgButton(
+              icon: UniconsLine.trash_alt,
+              callback: () => _deleteNote(context),
+            ),
+          if (_isNote())
+            SvgButton(
+              icon: UniconsLine.copy,
+              callback: () => _copyClass.copy(
+                context: context,
+                text: widget._note['node'],
+              ),
+            ),
         ],
       ),
     );

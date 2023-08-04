@@ -3,8 +3,6 @@ import 'package:segura_app/theme/ui_border.dart';
 
 class FormInput extends StatelessWidget {
   final bool? autoFocus;
-  final TextEditingController? controller;
-  final Function? callback;
   final bool? expands;
   final FocusNode? focusNode;
   final String? hintText;
@@ -14,12 +12,11 @@ class FormInput extends StatelessWidget {
   final int? minLines;
   final int? maxLines;
   final bool? pesquisar;
+  final String initialValue;
 
   const FormInput({
     Key? key,
     this.autoFocus = false,
-    this.controller,
-    this.callback,
     this.expands = false,
     this.focusNode,
     this.hintText,
@@ -29,6 +26,7 @@ class FormInput extends StatelessWidget {
     this.minLines = 1,
     this.maxLines = 1,
     this.pesquisar = false,
+    required this.initialValue,
   }) : super(key: key);
 
   @override
@@ -36,11 +34,11 @@ class FormInput extends StatelessWidget {
     return SizedBox(
       child: TextFormField(
         autofocus: autoFocus!,
-        controller: controller,
         expands: expands!,
         focusNode: focusNode,
+        initialValue: initialValue,
         keyboardType: keyboardType,
-        onChanged: (value) => callback!(value),
+        onChanged: onSaved,
         onSaved: onSaved,
         cursorColor: Theme.of(context).primaryColor,
         maxLength: maxLength,
@@ -50,7 +48,7 @@ class FormInput extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+          contentPadding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
           isDense: true,
           hintStyle: Theme.of(context).textTheme.headlineMedium,
           border: UiBorder.borderSquared,

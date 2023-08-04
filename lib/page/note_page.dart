@@ -1,184 +1,145 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/note_class.dart';
+import 'package:segura_app/class/toast_class.dart';
+import 'package:segura_app/class/validate_class.dart';
+import 'package:segura_app/firestore/notes.firestore.dart';
+import 'package:segura_app/service/text_service.dart';
+import 'package:segura_app/service/value_notifier_service.dart';
+import 'package:segura_app/theme/ui_size.dart';
 import 'package:segura_app/widget/form_input.dart';
 import 'package:segura_app/widget/note_bottom_sheet.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter/material.dart';
-import 'package:segura_app/firestore/notes.firestore.dart';
-import 'package:segura_app/service/text_service.dart';
-import 'package:segura_app/service/value_notifier_service.dart';
 
 class NotePage extends StatefulWidget {
-  const NotePage({
-    super.key,
-    required String noteId,
-  }) : _noteId = noteId;
-
-  final String _noteId;
+  const NotePage({super.key});
 
   @override
   State<NotePage> createState() => _NotePageState();
 }
 
 class _NotePageState extends State<NotePage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final NoteClass _noteClass = NoteClass();
+  final GlobalKey _formKey = GlobalKey<FormState>();
   final NoteFirestore _noteFirestore = NoteFirestore();
-  final Uuid uuid = const Uuid();
-
-  final TextEditingController _controllerTitle = TextEditingController();
-  final TextEditingController _controllerNote = TextEditingController();
-
-  final List<dynamic> _category = [];
-  final List<dynamic> _shared = [];
-//   final List<Map<String, dynamic>> _listaCategorias = [];
+  final NoteClass _noteClass = NoteClass();
+  final ToastClass _toastClass = ToastClass();
+  final Uuid _uuid = const Uuid();
+  final ValidateClass _validateClass = ValidateClass();
 
   Map<String, dynamic> _noteForm = {};
 
-  String noteCurrent = "";
-  String titleCurrent = "";
+  String _noteId = "";
 
   @override
   void initState() {
-    initNote();
     super.initState();
+    _fetchNoteData();
   }
 
-  initNote() async {
-    if (widget._noteId != EMPTY) {
-      Map<String, dynamic> itemCurrent = {};
-      await _noteFirestore.getNoteId(widget._noteId).then((document) => {
-            itemCurrent = document.data() as Map<String, dynamic>,
-            _noteForm = {
-              "category": itemCurrent['category'],
-              "dateRegistration": itemCurrent['dateRegistration'],
-              "excluded": itemCurrent['excluded'],
-              "noteId": widget._noteId,
-              "note": itemCurrent['note'],
-              "shared": itemCurrent['shared'],
-              "title": itemCurrent['title'],
-              "userId": itemCurrent['userId'],
-            },
-            _setControllers(),
-            _setCategories(itemCurrent['category']),
-          });
+  Future<void> _fetchNoteData() async {
+    if (currentNoteId.value.isNotEmpty) {
+      setState(() => _noteId = currentNoteId.value);
+      DocumentSnapshot snapshot = await _noteFirestore.getNoteId(_noteId);
+
+      if (snapshot.exists) {
+        setState(() => _noteForm = snapshot.data() as Map<String, dynamic>);
+      }
+    } else {
+      _noteForm = {
+        "category": [],
+        "dateRegistration": "",
+        "excluded": false,
+        "noteId": "",
+        "note": "",
+        "shared": [],
+        "title": "",
+        "userId": "",
+      };
     }
   }
 
-  _setControllers() {
-    _controllerNote.text = _noteForm['note'];
-    _controllerTitle.text = _noteForm['title'];
-  }
-
-  _setCategories(List<dynamic> categorias) {
-    // Map<String, dynamic>? categoria;
-
-    // for (var item in categorias) {
-    //   _categoriaFirestore.receberCategoriaId(item).then((result) => {
-    //         categoria = result.data() as Map<String, dynamic>,
-    //         setState(() => _listaCategorias.add(categoria!)),
-    //       });
-    // }
-
-    // currentCategorias.value = _listaCategorias;
-  }
-
-//   void _abrirCategoriaModal() {
-//     // showCupertinoModalBottomSheet(
-//     //   expand: true,
-//     //   context: context,
-//     //   barrierColor: UiCor.overlay,
-//     //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-//     //   builder: (context) => const CategoriaModal(),
-//     // );
-//   }
-
-  saveNote(BuildContext context) async {
-    if ((_noteForm['note'] == "" ||
-            _noteForm['note'] == null ||
-            noteCurrent == _noteForm['note']) &&
-        (_noteForm['title'] == "" ||
-            _noteForm['title'] == null ||
-            titleCurrent == _noteForm['title'])) {
-      context.pop();
-    } else {
+  _saveNote(BuildContext context) {
+    if (_validateClass.isValid(_noteForm['note'])) {
       setState(() {
-        if (widget._noteId != EMPTY) {
+        if (_noteId.isNotEmpty) {
           // editar
           _noteForm = {
-            "category": _category,
+            "category": _noteForm['category'],
             "dateRegistration": DateTime.now().toString(),
             "excluded": _noteForm['excluded'],
             "noteId": _noteForm['noteId'],
-            "note": _controllerNote.text,
-            "shared": _shared,
-            "title": _controllerTitle.text,
+            "note": _noteForm['note'],
+            "shared": _noteForm['shared'],
+            "title": _noteForm['title'],
             "userId": currentUser.value.userId,
           };
         } else {
           // criar
           _noteForm = {
-            "category": _category,
+            "category": _noteForm['category'],
             "dateRegistration": DateTime.now().toString(),
             "excluded": false,
-            "noteId": uuid.v4(),
-            "note": _controllerNote.text,
-            "shared": _shared,
-            "title": _controllerTitle.text,
+            "noteId": _uuid.v4(),
+            "note": _noteForm['note'],
+            "shared": _noteForm['shared'],
+            "title": _noteForm['title'],
             "userId": currentUser.value.userId,
           };
         }
       });
 
       _noteClass.saveNote(context, _noteForm);
-      _noteClass.deleteNote();
+      currentNoteId.value = "";
     }
-  }
-
-  @override
-  void dispose() {
-    _controllerNote.dispose();
-    _controllerTitle.dispose();
-    super.dispose();
+    context.pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height - UiSize.appbar * 3;
+    final minLines = screenHeight ~/ UiSize.lineHeight;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         leading: SvgButton(
           icon: UniconsLine.arrow_left,
-          callback: () => saveNote(context),
+          callback: () => _saveNote(context),
+        ),
+      ),
+      body: WillPopScope(
+        onWillPop: () => _saveNote(context),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                if (_noteForm.isNotEmpty)
+                  FormInput(
+                    initialValue: _noteForm['title'],
+                    hintText: TITLE,
+                    onSaved: (value) => _noteForm['title'] = value,
+                  ),
+                if (_noteForm.isNotEmpty)
+                  FormInput(
+                    initialValue: _noteForm['note'],
+                    hintText: NOTE,
+                    keyboardType: TextInputType.multiline,
+                    minLines: minLines,
+                    maxLines: null,
+                    onSaved: (value) => _noteForm['note'] = value,
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
       bottomSheet: NoteBottomSheet(
         callback: (value) => setState(() => {}),
         note: _noteForm,
-      ),
-      body: WillPopScope(
-        onWillPop: () => saveNote(context),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              FormInput(
-                controller: _controllerTitle,
-                callback: (value) => setState(() => _noteForm['title'] = value),
-                hintText: TITLE,
-              ),
-              FormInput(
-                controller: _controllerNote,
-                callback: (value) => setState(() => _noteForm['note'] = value),
-                hintText: NOTE,
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLines: null,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

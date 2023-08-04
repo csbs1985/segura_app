@@ -15,9 +15,9 @@ class ToastClass {
       backgroundColor: UiColor.error,
       context,
       duration: UiDuration.toast,
-      iconColor: Theme.of(context).iconTheme.color,
+      iconColor: Colors.white,
       message: text,
-      textColor: UiColor.textDark,
+      textColor: Colors.white,
       width: double.infinity,
     );
   }
@@ -31,9 +31,9 @@ class ToastClass {
       backgroundColor: UiColor.success,
       context,
       duration: UiDuration.toast,
-      iconColor: Theme.of(context).iconTheme.color,
+      iconColor: Colors.white,
       message: text,
-      textColor: UiColor.textDark,
+      textColor: Colors.white,
       width: double.infinity,
     );
   }

@@ -8,7 +8,6 @@ import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_size.dart';
-import 'package:unicons/unicons.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
@@ -67,44 +66,43 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             ListButton(
               text: NOTE_CREATE,
-              icon: UniconsLine.notes,
-              callback: () => context.pushNamed(RouteEnum.NOTE.value,
-                  pathParameters: {'note': EMPTY}),
+              icon: Icons.content_paste_outlined,
+              callback: () => context.push(RouteEnum.NOTE.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
               text: PASSWORD_GENERATE,
-              icon: UniconsLine.asterisk,
+              icon: Icons.password_outlined,
               callback: () => context.push(RouteEnum.PASSWORD.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
               text: CATEGORIES,
-              icon: UniconsLine.label,
+              icon: Icons.label_outlined,
               callback: () => context.push(RouteEnum.CATEGORIES.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
               text: TRASH,
-              icon: UniconsLine.trash_alt,
+              icon: Icons.delete_outlined,
               callback: () => context.push(RouteEnum.TRASH.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
               text: DONATE,
-              icon: UniconsLine.heart,
+              icon: Icons.favorite_border_outlined,
               callback: () => context.push(RouteEnum.DONATE.value),
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
               text: REPORT_PROBLEM,
-              icon: UniconsLine.exclamation_triangle,
+              icon: Icons.report_problem_outlined,
               callback: () => context.push(RouteEnum.REPORT_PROBLEM.value),
             ),
             const SizedBox(height: 24),
             ListButton(
               text: EXIT,
-              icon: UniconsLine.sign_in_alt,
+              icon: Icons.door_back_door_outlined,
               callback: () => _authService.signOut(),
             ),
           ],

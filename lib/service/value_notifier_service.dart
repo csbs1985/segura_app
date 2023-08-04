@@ -13,6 +13,8 @@ ValueNotifier<NoteModal> currentNote = ValueNotifier(NoteModal(
   title: "",
 ));
 
+ValueNotifier<String> currentNoteId = ValueNotifier("");
+
 ValueNotifier<Brightness> currentTheme = ValueNotifier(Brightness.light);
 
 ValueNotifier<UserModel> currentUser = ValueNotifier(UserModel(

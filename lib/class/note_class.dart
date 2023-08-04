@@ -39,7 +39,6 @@ class NoteClass {
   saveNote(BuildContext context, Map<String, dynamic> note) async {
     try {
       await _noteFirestore.setNote(note);
-      context.pop();
     } catch (e) {
       _toastClass.erro(
         context: context,

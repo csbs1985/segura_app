@@ -8,4 +8,5 @@ class UiSize {
   static const double primaryButton = 48;
   static const double secondButton = 40;
   static const double spaceList = 4;
+  static const double lineHeight = 20;
 }

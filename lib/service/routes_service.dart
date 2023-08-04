@@ -48,10 +48,9 @@ final GoRouter goRoute = GoRouter(
       },
     ),
     GoRoute(
-      name: RouteEnum.NOTE.value,
-      path: "/note/:noteId",
+      path: RouteEnum.NOTE.value,
       builder: (BuildContext context, GoRouterState state) {
-        return NotePage(noteId: state.pathParameters["noteId"]!);
+        return const NotePage();
       },
     ),
     GoRoute(
