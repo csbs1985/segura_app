@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/note_class.dart';
-import 'package:segura_app/class/toast_class.dart';
 import 'package:segura_app/class/validate_class.dart';
-import 'package:segura_app/firestore/notes.firestore.dart';
+import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_size.dart';
@@ -25,7 +24,6 @@ class _NotePageState extends State<NotePage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   final NoteFirestore _noteFirestore = NoteFirestore();
   final NoteClass _noteClass = NoteClass();
-  final ToastClass _toastClass = ToastClass();
   final Uuid _uuid = const Uuid();
   final ValidateClass _validateClass = ValidateClass();
 
@@ -54,6 +52,7 @@ class _NotePageState extends State<NotePage> {
         "excluded": false,
         "noteId": "",
         "note": "",
+        "position": null,
         "shared": [],
         "title": "",
         "userId": "",
@@ -70,6 +69,7 @@ class _NotePageState extends State<NotePage> {
             "category": _noteForm['category'],
             "dateRegistration": DateTime.now().toString(),
             "excluded": _noteForm['excluded'],
+            "position": _noteForm['excluded'],
             "noteId": _noteForm['noteId'],
             "note": _noteForm['note'],
             "shared": _noteForm['shared'],
@@ -84,6 +84,7 @@ class _NotePageState extends State<NotePage> {
             "excluded": false,
             "noteId": _uuid.v4(),
             "note": _noteForm['note'],
+            "position": _noteForm['excluded'],
             "shared": _noteForm['shared'],
             "title": _noteForm['title'],
             "userId": currentUser.value.userId,
@@ -130,7 +131,8 @@ class _NotePageState extends State<NotePage> {
                     keyboardType: TextInputType.multiline,
                     minLines: minLines,
                     maxLines: null,
-                    onSaved: (value) => _noteForm['note'] = value,
+                    onSaved: (value) =>
+                        setState(() => _noteForm['note'] = value),
                   ),
               ],
             ),

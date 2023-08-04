@@ -6,11 +6,12 @@ ValueNotifier<NoteModal> currentNote = ValueNotifier(NoteModal(
   category: [],
   dateRegistration: "",
   excluded: false,
-  noteId: "",
-  userId: "",
   note: "",
+  noteId: "",
+  position: 0,
   shared: [],
   title: "",
+  userId: "",
 ));
 
 ValueNotifier<String> currentNoteId = ValueNotifier("");

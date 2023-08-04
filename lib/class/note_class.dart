@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/class/toast_class.dart';
-import 'package:segura_app/firestore/notes.firestore.dart';
+import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/model/note_modal.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
@@ -17,6 +17,7 @@ class NoteClass {
       excluded: note['excluded'],
       note: note['note'],
       noteId: note['noteId'] ?? note['objectID'],
+      position: 0,
       shared: note['shared'].cast<String>(),
       title: note['title'],
       userId: note['userId'],
@@ -28,11 +29,12 @@ class NoteClass {
       category: [],
       dateRegistration: "",
       excluded: false,
-      noteId: "",
-      userId: "",
       note: "",
+      noteId: "",
+      position: 0,
       shared: [],
       title: "",
+      userId: "",
     );
   }
 

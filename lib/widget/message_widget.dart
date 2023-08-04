@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:segura_app/service/text_service.dart';
 
-class NoteEmptyWidget extends StatelessWidget {
-  const NoteEmptyWidget({
+class MessageWidget extends StatelessWidget {
+  const MessageWidget({
     super.key,
     required double altura,
-  }) : _altura = altura;
+    required String text,
+  })  : _altura = altura,
+        _text = text;
 
   final double _altura;
+  final String _text;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class NoteEmptyWidget extends StatelessWidget {
       height: _altura,
       child: Center(
         child: Text(
-          NOTE_EMPTY,
+          _text,
           style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.center,
         ),

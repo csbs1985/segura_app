@@ -59,6 +59,8 @@ const String SEARCH = "Pesquisar nota";
 const String TITLE = "Título";
 
 const String TRASH = "Lixeira";
+const String TRASH_EMPTY =
+    "Lixeira vazia, \n essa situação pode trazer benefícios.";
 
 const String USE_PHONE = "Usar senha do celular";
 

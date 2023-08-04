@@ -7,17 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/home_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
-import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
-import 'package:segura_app/firestore/notes.firestore.dart';
+import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/page/drawer_page.dart';
 import 'package:segura_app/service/algolia_service.dart';
 import 'package:segura_app/service/routes_service.dart';
+import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/skeleton/note_skeleton.dart';
 import 'package:segura_app/theme/ui_size.dart';
-import 'package:segura_app/widget/not_result_widget.dart';
-import 'package:segura_app/widget/note_empty_widget.dart';
+import 'package:segura_app/widget/message_widget.dart';
 import 'package:segura_app/widget/note_item_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,8 +28,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final NoteClass _noteClass = NoteClass();
-  final NoteFirestore _userFirestore = NoteFirestore();
+  final NoteFirestore _noteFirestore = NoteFirestore();
   final SearchClass _searchClass = SearchClass();
 
   Algolia? algoliaSegura;
@@ -93,7 +91,10 @@ class _HomePageState extends State<HomePage> {
                       width: double.infinity,
                       padding: const EdgeInsets.only(top: UiSize.homeAppbar),
                       child: lisNote.isEmpty
-                          ? NotResultWidget(altura: altura)
+                          ? MessageWidget(
+                              altura: altura,
+                              text: NOT_RESULT,
+                            )
                           : ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                   : Container(
                       padding: const EdgeInsets.only(top: UiSize.homeAppbar),
                       child: FirestoreListView(
-                        query: _userFirestore
+                        query: _noteFirestore
                             .getAllNotes(currentUser.value.userId),
                         pageSize: 30,
                         shrinkWrap: true,
@@ -117,8 +118,10 @@ class _HomePageState extends State<HomePage> {
                         loadingBuilder: (context) => const NoteSkeleton(),
                         errorBuilder: (context, error, _) =>
                             const NoteSkeleton(),
-                        emptyBuilder: (context) =>
-                            NoteEmptyWidget(altura: altura),
+                        emptyBuilder: (context) => MessageWidget(
+                          altura: altura,
+                          text: NOTE_EMPTY,
+                        ),
                         itemBuilder: (
                           BuildContext context,
                           QueryDocumentSnapshot<dynamic> snapshot,

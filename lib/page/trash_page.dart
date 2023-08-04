@@ -1,0 +1,79 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:segura_app/appbar/back_appbar.dart';
+import 'package:segura_app/firestore/note.firestore.dart';
+import 'package:segura_app/service/routes_service.dart';
+import 'package:segura_app/service/text_service.dart';
+import 'package:segura_app/service/value_notifier_service.dart';
+import 'package:segura_app/skeleton/note_skeleton.dart';
+import 'package:segura_app/theme/ui_size.dart';
+import 'package:segura_app/widget/message_widget.dart';
+import 'package:segura_app/widget/note_item_widget.dart';
+
+class TrashPage extends StatefulWidget {
+  const TrashPage({super.key});
+
+  @override
+  State<TrashPage> createState() => _TrashPageState();
+}
+
+class _TrashPageState extends State<TrashPage> {
+  final NoteFirestore _noteFirestore = NoteFirestore();
+
+  Future<void> _selectNote(Map<String, dynamic> note) async {
+    currentNoteId.value = note['noteId'] ?? note['objectID'];
+    context.push(RouteEnum.NOTE.value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double altura = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
+
+    return Scaffold(
+      appBar: const BackAppBar(),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Text(
+                    TRASH,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
+                FirestoreListView(
+                  query: _noteFirestore.getAllTrashes(currentUser.value.userId),
+                  pageSize: 30,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  loadingBuilder: (context) => const NoteSkeleton(),
+                  errorBuilder: (context, error, _) => const NoteSkeleton(),
+                  emptyBuilder: (context) => MessageWidget(
+                    altura: altura,
+                    text: TRASH_EMPTY,
+                  ),
+                  itemBuilder: (
+                    BuildContext context,
+                    QueryDocumentSnapshot<dynamic> snapshot,
+                  ) {
+                    Map<String, dynamic> note = snapshot.data();
+                    return NoteItemWidget(
+                      item: note,
+                      onTap: () => _selectNote(note),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

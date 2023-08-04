@@ -8,6 +8,7 @@ import 'package:segura_app/page/auth_page.dart';
 import 'package:segura_app/page/note_page.dart';
 import 'package:segura_app/page/password_page.dart';
 import 'package:segura_app/page/report_page.dart';
+import 'package:segura_app/page/trash_page.dart';
 
 final UserHive _userHive = UserHive();
 
@@ -63,6 +64,12 @@ final GoRouter goRoute = GoRouter(
       path: RouteEnum.REPORT_PROBLEM.value,
       builder: (BuildContext context, GoRouterState state) {
         return const ReportPage();
+      },
+    ),
+    GoRoute(
+      path: RouteEnum.TRASH.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const TrashPage();
       },
     ),
   ],

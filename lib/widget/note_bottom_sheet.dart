@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
+import 'package:segura_app/class/validate_class.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:unicons/unicons.dart';
 
@@ -23,9 +24,14 @@ class NoteBottomSheet extends StatefulWidget {
 class _NoteBottomSheetState extends State<NoteBottomSheet> {
   final CopyClass _copyClass = CopyClass();
   final NoteClass _noteClass = NoteClass();
+  final ValidateClass _validateClass = ValidateClass();
 
   bool _isNote() {
-    return widget._note['node'] == "" ? false : true;
+    // return _validateClass.isValid(widget._note['node']);
+
+    return (widget._note['node'] != null || widget._note['node'] != '')
+        ? true
+        : false;
   }
 
   _deleteNote(BuildContext context) {
