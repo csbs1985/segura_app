@@ -35,13 +35,13 @@ class _ReportPageState extends State<ReportPage> {
         await _reportFirestore.salvarProblema(problema);
         _toastClass.sucesso(
           context: context,
-          text: REPORT_PROBLEM_SUCCESS,
+          text: REPORT_SUCCESS,
         );
         _controleProblema.clear();
       } catch (e) {
         _toastClass.erro(
           context: context,
-          text: REPORT_PROBLEM_ERROR,
+          text: REPORT_ERROR,
         );
       }
     }
@@ -64,18 +64,18 @@ class _ReportPageState extends State<ReportPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                REPORT_PROBLEM,
+                REPORT,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 16),
               Text(
-                REPORT_PROBLEM_DESCRIPTION,
+                REPORT_DESCRIPTION,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               DefaultInput(
                 controller: _controleProblema,
-                hintText: REPORT_PROBLEM,
+                hintText: REPORT,
                 maxLines: null,
                 minLines: 1,
                 callback: (value) => setState(() => report = value),
@@ -88,7 +88,7 @@ class _ReportPageState extends State<ReportPage> {
         padding: const EdgeInsets.all(16),
         child: PrimaryButton(
           callback: () => _setProblem(context),
-          text: REPORT_PROBLEM,
+          text: REPORT,
         ),
       ),
     );

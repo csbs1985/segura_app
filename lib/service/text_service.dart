@@ -48,20 +48,19 @@ const String PASSWORD_COPIED = "Senha copiada para a área de transferência.";
 const String PIX_COPY = "Chave Pix copiada";
 const String PIX_CODE = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";
 
-const String REPORT_PROBLEM = "Relatar problema";
-const String REPORT_PROBLEM_DESCRIPTION =
+const String REPORT = "Relatar problema";
+const String REPORT_DESCRIPTION =
     "Olá! Estamos aqui para ajudar. Se você encontrou algum problema em nosso aplicativo, gostaríamos de ouvir sua experiência. Por favor, compartilhe os detalhes no campo abaixo e clique no botão para nos enviar. Agradecemos seu feedback e faremos o possível para resolver qualquer questão que você esteja enfrentando.";
-const String REPORT_PROBLEM_ERROR =
+const String REPORT_ERROR =
     "Não foi possível relatar o problema, tente novamente mais tarde";
-const String REPORT_PROBLEM_SUCCESS = "Obrigado por sua colaboração";
+const String REPORT_SUCCESS = "Obrigado por sua colaboração";
 
 const String SEARCH = "Pesquisar nota";
 
 const String TITLE = "Título";
 
 const String TRASH = "Lixeira";
-const String TRASH_EMPTY =
-    "Lixeira vazia, \n essa situação pode trazer benefícios.";
+const String TRASH_EMPTY = "Nenhuma nota na lixeira";
 
 const String USE_PHONE = "Usar senha do celular";
 

@@ -11,7 +11,6 @@ import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
 import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/model/note_modal.dart';
-import 'package:segura_app/page/drawer_page.dart';
 import 'package:segura_app/service/algolia_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
@@ -29,7 +28,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final NoteClass _noteClass = NoteClass();
   final NoteFirestore _noteFirestore = NoteFirestore();
   final SearchClass _searchClass = SearchClass();
@@ -83,8 +81,6 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: () => exit(0),
       child: Scaffold(
-        key: scaffoldKey,
-        drawer: const DrawerPage(),
         appBar: AppBar(toolbarHeight: 0),
         body: Stack(
           children: [
@@ -143,7 +139,7 @@ class _HomePageState extends State<HomePage> {
               left: 16,
               right: 16,
               child: HomeAppBar(
-                avatar: () => scaffoldKey.currentState!.openDrawer(),
+                avatar: () => context.push(RouteEnum.MENU.value),
                 search: (value) => _keyUp(value),
               ),
             ),

@@ -10,14 +10,14 @@ import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_size.dart';
 
-class DrawerPage extends StatefulWidget {
-  const DrawerPage({super.key});
+class MenuPage extends StatefulWidget {
+  const MenuPage({super.key});
 
   @override
-  State<DrawerPage> createState() => _DrawerPageState();
+  State<MenuPage> createState() => _DrawerPageState();
 }
 
-class _DrawerPageState extends State<DrawerPage> {
+class _DrawerPageState extends State<MenuPage> {
   final AuthService _authService = AuthService();
   final NoteClass _noteClass = NoteClass();
 
@@ -100,9 +100,9 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
-              text: REPORT_PROBLEM,
+              text: REPORT,
               icon: Icons.report_problem_outlined,
-              callback: () => context.push(RouteEnum.REPORT_PROBLEM.value),
+              callback: () => context.push(RouteEnum.REPORT.value),
             ),
             const SizedBox(height: 24),
             ListButton(
