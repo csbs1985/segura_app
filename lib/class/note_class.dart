@@ -11,13 +11,12 @@ class NoteClass {
   final ToastClass _toastClass = ToastClass();
 
   selectNote(Map<String, dynamic> note) {
-    currentNote.value = NoteModal(
+    currentNote.value = NoteModel(
       category: note['category'].cast<String>(),
       dateRegistration: note['dateRegistration'],
       excluded: note['excluded'],
       note: note['note'],
       noteId: note['noteId'] ?? note['objectID'],
-      position: 0,
       shared: note['shared'].cast<String>(),
       title: note['title'],
       userId: note['userId'],
@@ -25,13 +24,12 @@ class NoteClass {
   }
 
   deleteNote() {
-    currentNote.value = NoteModal(
+    currentNote.value = NoteModel(
       category: [],
       dateRegistration: "",
       excluded: false,
       note: "",
       noteId: "",
-      position: 0,
       shared: [],
       title: "",
       userId: "",

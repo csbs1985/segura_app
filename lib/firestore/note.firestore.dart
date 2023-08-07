@@ -5,14 +5,12 @@ class NoteFirestore {
 
   getAllNotes(String userId) {
     return notes
-        .orderBy('position', descending: true)
         .where('userId', isEqualTo: userId)
         .where('excluded', isEqualTo: false);
   }
 
   getAllTrashes(String userId) {
     return notes
-        .orderBy('position', descending: true)
         .where('userId', isEqualTo: userId)
         .where('excluded', isEqualTo: true);
   }

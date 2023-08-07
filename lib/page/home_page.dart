@@ -9,6 +9,7 @@ import 'package:segura_app/appbar/home_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
 import 'package:segura_app/class/search_class.dart';
 import 'package:segura_app/firestore/note.firestore.dart';
+import 'package:segura_app/model/note_modal.dart';
 import 'package:segura_app/page/drawer_page.dart';
 import 'package:segura_app/service/algolia_service.dart';
 import 'package:segura_app/service/routes_service.dart';
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _selectNote(Map<String, dynamic> note) async {
-    currentNoteId.value = note['noteId'] ?? note['objectID'];
+    currentNote.value = NoteModel.fromMap(note);
     context.push(RouteEnum.NOTE.value);
   }
 
