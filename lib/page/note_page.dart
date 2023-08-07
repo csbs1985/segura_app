@@ -11,7 +11,12 @@ import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
 class NotePage extends StatefulWidget {
-  const NotePage({super.key});
+  const NotePage({
+    super.key,
+    required String type,
+  }) : _type = type;
+
+  final String _type;
 
   @override
   State<NotePage> createState() => _NotePageState();

@@ -48,12 +48,12 @@ class _DrawerPageState extends State<MenuPage> {
     return Scaffold(
       appBar: const BackAppBar(),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const AvatarButton(size: 48),
@@ -67,56 +67,57 @@ class _DrawerPageState extends State<MenuPage> {
                   const SizedBox(height: 24),
                 ],
               ),
-              ListButton(
-                text: NOTE_CREATE,
-                icon: UniconsLine.shield_check,
-                callback: () => {
-                  _noteClass.deleteNote(),
-                  context.push(RouteEnum.NOTE.value),
-                },
-              ),
-              const SizedBox(height: UiSize.spaceList),
-              ListButton(
-                text: PASSWORD_GENERATE,
-                icon: UniconsLine.asterisk,
-                callback: () => context.push(RouteEnum.PASSWORD.value),
-              ),
-              const SizedBox(height: UiSize.spaceList),
-              ListButton(
-                text: CATEGORIES,
-                icon: UniconsLine.label,
-                callback: () => context.push(RouteEnum.CATEGORIES.value),
-              ),
-              const SizedBox(height: UiSize.spaceList),
-              ListButton(
-                text: TRASH,
-                icon: UniconsLine.trash_alt,
-                callback: () => context.push(RouteEnum.TRASH.value),
-              ),
-              const SizedBox(height: UiSize.spaceList),
-              ListButton(
-                text: DONATE,
-                icon: UniconsLine.heart,
-                callback: () => context.push(RouteEnum.DONATE.value),
-              ),
-              const SizedBox(height: UiSize.spaceList),
-              ListButton(
-                text: REPORT,
-                icon: UniconsLine.exclamation_triangle,
-                callback: () => context.push(RouteEnum.REPORT.value),
-              ),
-              const SizedBox(height: 24),
-              ListButton(
-                text: EXIT,
-                icon: UniconsLine.sign_in_alt,
-                callback: () => _authService.signOut(),
-              ),
-            ],
-          ),
+            ),
+            ListButton(
+              text: NOTE_CREATE,
+              icon: UniconsLine.clipboard,
+              callback: () => {
+                _noteClass.deleteNote(),
+                context.pushNamed(RouteEnum.NOTE.value,
+                    pathParameters: {'type': NoteTypeEnum.TRASH.name}),
+              },
+            ),
+            const SizedBox(height: UiSize.spaceList),
+            ListButton(
+              text: PASSWORD_GENERATE,
+              icon: UniconsLine.asterisk,
+              callback: () => context.push(RouteEnum.PASSWORD.value),
+            ),
+            const SizedBox(height: UiSize.spaceList),
+            ListButton(
+              text: CATEGORIES,
+              icon: UniconsLine.label,
+              callback: () => context.push(RouteEnum.CATEGORY.value),
+            ),
+            const SizedBox(height: UiSize.spaceList),
+            ListButton(
+              text: TRASH,
+              icon: UniconsLine.trash_alt,
+              callback: () => context.push(RouteEnum.TRASH.value),
+            ),
+            const SizedBox(height: UiSize.spaceList),
+            ListButton(
+              text: DONATE,
+              icon: UniconsLine.heart,
+              callback: () => context.push(RouteEnum.DONATE.value),
+            ),
+            const SizedBox(height: UiSize.spaceList),
+            ListButton(
+              text: REPORT,
+              icon: UniconsLine.exclamation_triangle,
+              callback: () => context.push(RouteEnum.REPORT.value),
+            ),
+            const SizedBox(height: 24),
+            ListButton(
+              text: EXIT,
+              icon: UniconsLine.sign_in_alt,
+              callback: () => _authService.signOut(context),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 16, 16, 16),
+        padding: const EdgeInsets.all(16),
         child: Text(
           '$BY${_packageInfo.version}',
           style: Theme.of(context).textTheme.bodySmall,

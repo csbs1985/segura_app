@@ -68,3 +68,12 @@ class NoteClass {
     }
   }
 }
+
+enum NoteTypeEnum {
+  NEW('new'),
+  TRASH('trash'),
+  NOTE('note');
+
+  final String value;
+  const NoteTypeEnum(this.value);
+}

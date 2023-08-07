@@ -14,7 +14,7 @@ const String DONATE_DESCRIPTION =
     'Agora, vamos combinar, ser o apoiador número um deste desenvolvedor solitário não é só sobre agradecer por todo o esforço e talento investidos, mas também sobre ter o orgulho de fazer parte de algo incrível. Você estará alimentando o sonho de um programador que luta contra as forças do cansaço e da pizza fria para tornar sua experiência no app épica. \n\n'
     'Então, caros usuários fantásticos, vamos unir nossos poderes e mostrar ao mundo o que podemos fazer juntos! Façam suas doações e sejam parte dessa jornada divertida, cheia de risadas e surpresas. \n\n'
     'Agradeço a todos vocês pelo apoio, pela risada compartilhada e por ajudar a manter meu estoque de café sempre abastecido! \n\n'
-    'Com gratidão e um sorriso, \n\n'
+    'Atenciosamente, \n\n'
     '@dev.solitario';
 
 const String EMPTY = "empty";

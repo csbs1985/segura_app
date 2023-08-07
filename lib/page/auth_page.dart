@@ -79,8 +79,8 @@ class _AuthPageState extends State<AuthPage> {
     }
   }
 
-  _logout() async {
-    await _authService.signOut();
+  _logout(BuildContext context) async {
+    await _authService.signOut(context);
     context.push(RouteEnum.LOGIN.value);
   }
 
@@ -108,7 +108,7 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   const SizedBox(height: 8),
                   SecondButton(
-                    callback: () => _logout(),
+                    callback: () => _logout(context),
                     text: ENTER_OTHER,
                   ),
                 ],

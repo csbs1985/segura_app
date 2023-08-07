@@ -28,15 +28,18 @@ class _ListButtonState extends State<ListButton> {
         width: double.infinity,
         height: UiSize.appbar,
         alignment: Alignment.centerLeft,
-        child: Row(
-          children: [
-            Icon(widget._icon),
-            const SizedBox(width: 16),
-            Text(
-              widget._text,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Row(
+            children: [
+              Icon(widget._icon),
+              const SizedBox(width: 16),
+              Text(
+                widget._text,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
         ),
       ),
     );

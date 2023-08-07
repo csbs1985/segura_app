@@ -19,6 +19,7 @@ import 'package:segura_app/skeleton/note_skeleton.dart';
 import 'package:segura_app/theme/ui_size.dart';
 import 'package:segura_app/widget/message_widget.dart';
 import 'package:segura_app/widget/note_item_widget.dart';
+import 'package:unicons/unicons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -71,7 +72,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _selectNote(Map<String, dynamic> note) async {
     currentNote.value = NoteModel.fromMap(note);
-    context.push(RouteEnum.NOTE.value);
+
+    context.pushNamed(RouteEnum.NOTE.value,
+        pathParameters: {'type': NoteTypeEnum.NOTE.name});
   }
 
   @override
@@ -148,9 +151,10 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingButton(
           callback: () => {
             _noteClass.deleteNote(),
-            context.push(RouteEnum.NOTE.value),
+            context.pushNamed(RouteEnum.NOTE.value,
+                pathParameters: {'type': NoteTypeEnum.NEW.name}),
           },
-          icon: Icons.add,
+          icon: UniconsLine.plus,
         ),
       ),
     );

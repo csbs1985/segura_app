@@ -1,13 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:segura_app/class/user_class.dart';
 import 'package:segura_app/hive/user_hive.dart';
 import 'package:segura_app/model/user_model.dart';
+import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 
 class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final UserClass _userClass = UserClass();
   final UserHive _userHive = UserHive();
 
   Future<UserModel?> signInWithGoogle() async {
@@ -72,8 +77,11 @@ class AuthService {
     );
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await _userHive.deleteUser();
+    await _userClass.deleteUser();
     await _googleSignIn.signOut();
+
+    context.push(RouteEnum.LOGIN.value);
   }
 }

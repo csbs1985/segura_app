@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/hive/user_hive.dart';
+import 'package:segura_app/page/category_page.dart';
 import 'package:segura_app/page/donate_page.dart';
 import 'package:segura_app/page/home_page.dart';
 import 'package:segura_app/page/login_page.dart';
@@ -32,6 +33,12 @@ final GoRouter goRoute = GoRouter(
       },
     ),
     GoRoute(
+      path: RouteEnum.CATEGORY.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const CategoryPage();
+      },
+    ),
+    GoRoute(
       path: RouteEnum.DONATE.value,
       builder: (BuildContext context, GoRouterState state) {
         return const DoarPage();
@@ -58,9 +65,10 @@ final GoRouter goRoute = GoRouter(
       ),
     ),
     GoRoute(
-      path: RouteEnum.NOTE.value,
+      name: RouteEnum.NOTE.value,
+      path: "/note/:type",
       builder: (BuildContext context, GoRouterState state) {
-        return const NotePage();
+        return NotePage(type: state.pathParameters["type"]!);
       },
     ),
     GoRoute(
@@ -86,11 +94,11 @@ final GoRouter goRoute = GoRouter(
 
 enum RouteEnum {
   AUTH('/auth'),
-  CATEGORIES('/categories'),
+  CATEGORY('/category'),
   DONATE('/donate'),
   HOME('/home'),
   LOGIN('/login'),
-  NOTE('/note'),
+  NOTE('note'),
   MENU('/menu'),
   PASSWORD('/password'),
   REPORT('/perport'),
