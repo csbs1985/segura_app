@@ -25,6 +25,8 @@ const String ENTER_OTHER = "Entrar com outra conta";
 
 const String EXIT = "Sair";
 
+const String MENU = "Menu";
+
 const String NOT_RESULT = "Nenhum resultado correspondente";
 
 const String NOTE = "Nota";

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:segura_app/appbar/back_appbar.dart';
 import 'package:segura_app/button/avatar_button.dart';
 import 'package:segura_app/button/list_button.dart';
 import 'package:segura_app/class/note_class.dart';
@@ -9,6 +10,7 @@ import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_size.dart';
+import 'package:unicons/unicons.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -44,14 +46,14 @@ class _DrawerPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
+      appBar: const BackAppBar(),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 40, 0, 0),
-              child: Column(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const AvatarButton(size: 48),
@@ -65,52 +67,52 @@ class _DrawerPageState extends State<MenuPage> {
                   const SizedBox(height: 24),
                 ],
               ),
-            ),
-            ListButton(
-              text: NOTE_CREATE,
-              icon: Icons.content_paste_outlined,
-              callback: () => {
-                _noteClass.deleteNote(),
-                context.push(RouteEnum.NOTE.value),
-              },
-            ),
-            const SizedBox(height: UiSize.spaceList),
-            ListButton(
-              text: PASSWORD_GENERATE,
-              icon: Icons.password_outlined,
-              callback: () => context.push(RouteEnum.PASSWORD.value),
-            ),
-            const SizedBox(height: UiSize.spaceList),
-            ListButton(
-              text: CATEGORIES,
-              icon: Icons.label_outlined,
-              callback: () => context.push(RouteEnum.CATEGORIES.value),
-            ),
-            const SizedBox(height: UiSize.spaceList),
-            ListButton(
-              text: TRASH,
-              icon: Icons.delete_outlined,
-              callback: () => context.push(RouteEnum.TRASH.value),
-            ),
-            const SizedBox(height: UiSize.spaceList),
-            ListButton(
-              text: DONATE,
-              icon: Icons.favorite_border_outlined,
-              callback: () => context.push(RouteEnum.DONATE.value),
-            ),
-            const SizedBox(height: UiSize.spaceList),
-            ListButton(
-              text: REPORT,
-              icon: Icons.report_problem_outlined,
-              callback: () => context.push(RouteEnum.REPORT.value),
-            ),
-            const SizedBox(height: 24),
-            ListButton(
-              text: EXIT,
-              icon: Icons.door_back_door_outlined,
-              callback: () => _authService.signOut(),
-            ),
-          ],
+              ListButton(
+                text: NOTE_CREATE,
+                icon: UniconsLine.shield_check,
+                callback: () => {
+                  _noteClass.deleteNote(),
+                  context.push(RouteEnum.NOTE.value),
+                },
+              ),
+              const SizedBox(height: UiSize.spaceList),
+              ListButton(
+                text: PASSWORD_GENERATE,
+                icon: UniconsLine.asterisk,
+                callback: () => context.push(RouteEnum.PASSWORD.value),
+              ),
+              const SizedBox(height: UiSize.spaceList),
+              ListButton(
+                text: CATEGORIES,
+                icon: UniconsLine.label,
+                callback: () => context.push(RouteEnum.CATEGORIES.value),
+              ),
+              const SizedBox(height: UiSize.spaceList),
+              ListButton(
+                text: TRASH,
+                icon: UniconsLine.trash_alt,
+                callback: () => context.push(RouteEnum.TRASH.value),
+              ),
+              const SizedBox(height: UiSize.spaceList),
+              ListButton(
+                text: DONATE,
+                icon: UniconsLine.heart,
+                callback: () => context.push(RouteEnum.DONATE.value),
+              ),
+              const SizedBox(height: UiSize.spaceList),
+              ListButton(
+                text: REPORT,
+                icon: UniconsLine.exclamation_triangle,
+                callback: () => context.push(RouteEnum.REPORT.value),
+              ),
+              const SizedBox(height: 24),
+              ListButton(
+                text: EXIT,
+                icon: UniconsLine.sign_in_alt,
+                callback: () => _authService.signOut(),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(

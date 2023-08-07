@@ -28,7 +28,6 @@ class _ListButtonState extends State<ListButton> {
         width: double.infinity,
         height: UiSize.appbar,
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.only(left: 24),
         child: Row(
           children: [
             Icon(widget._icon),
