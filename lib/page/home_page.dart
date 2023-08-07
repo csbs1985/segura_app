@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/home_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
+import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
 import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/model/note_modal.dart';
@@ -29,6 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final NoteClass _noteClass = NoteClass();
   final NoteFirestore _noteFirestore = NoteFirestore();
   final SearchClass _searchClass = SearchClass();
 
@@ -148,7 +150,10 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         floatingActionButton: FloatingButton(
-          callback: () => context.push(RouteEnum.NOTE.value),
+          callback: () => {
+            _noteClass.deleteNote(),
+            context.push(RouteEnum.NOTE.value),
+          },
           icon: Icons.add,
         ),
       ),

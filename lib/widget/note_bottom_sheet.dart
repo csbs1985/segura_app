@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
-import 'package:segura_app/class/validate_class.dart';
+import 'package:segura_app/model/note_modal.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:unicons/unicons.dart';
 
@@ -24,14 +24,20 @@ class NoteBottomSheet extends StatefulWidget {
 class _NoteBottomSheetState extends State<NoteBottomSheet> {
   final CopyClass _copyClass = CopyClass();
   final NoteClass _noteClass = NoteClass();
-  final ValidateClass _validateClass = ValidateClass();
 
-  bool _isNote() {
-    // return _validateClass.isValid(widget._note['node']);
+  bool _isNote(NoteModel note) {
+    return (note.note.isNotEmpty) ? true : false;
+  }
 
-    return (widget._note['node'] != null || widget._note['node'] != '')
-        ? true
-        : false;
+  _isCopy() {
+    return (widget._note['note'].isNotEmpty) ? true : false;
+  }
+
+  _copyNote() {
+    _copyClass.copy(
+      context: context,
+      text: widget._note['note'],
+    );
   }
 
   _deleteNote(BuildContext context) {
@@ -48,35 +54,38 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Wrap(
-        spacing: 8,
-        children: [
-          SvgButton(
-            icon: UniconsLine.asterisk,
-            callback: () => _openGeneratorModal(context),
-          ),
-          SvgButton(
-            icon: UniconsLine.label,
-            callback: () => _openCategoryModal(context),
-          ),
-          SvgButton(
-            icon: UniconsLine.user_plus,
-            callback: () => _openSharedModal(context),
-          ),
-          if (_isNote())
-            SvgButton(
-              icon: UniconsLine.trash_alt,
-              callback: () => _deleteNote(context),
-            ),
-          if (_isNote())
-            SvgButton(
-              icon: UniconsLine.copy,
-              callback: () => _copyClass.copy(
-                context: context,
-                text: widget._note['node'],
+      child: ValueListenableBuilder(
+        valueListenable: currentNote,
+        builder: (BuildContext context, NoteModel note, _) {
+          return Wrap(
+            spacing: 8,
+            children: [
+              // Text(widget._note['note']),
+              SvgButton(
+                icon: UniconsLine.asterisk,
+                callback: () => _openGeneratorModal(context),
               ),
-            ),
-        ],
+              SvgButton(
+                icon: UniconsLine.label,
+                callback: () => _openCategoryModal(context),
+              ),
+              SvgButton(
+                icon: UniconsLine.user_plus,
+                callback: () => _openSharedModal(context),
+              ),
+              if (_isNote(note))
+                SvgButton(
+                  icon: UniconsLine.trash_alt,
+                  callback: () => _deleteNote(context),
+                ),
+              if (_isCopy())
+                SvgButton(
+                  icon: UniconsLine.copy,
+                  callback: () => _copyNote(),
+                ),
+            ],
+          );
+        },
       ),
     );
   }

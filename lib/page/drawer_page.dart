@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:segura_app/button/avatar_button.dart';
 import 'package:segura_app/button/list_button.dart';
+import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/service/auth_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
@@ -18,6 +19,7 @@ class DrawerPage extends StatefulWidget {
 
 class _DrawerPageState extends State<DrawerPage> {
   final AuthService _authService = AuthService();
+  final NoteClass _noteClass = NoteClass();
 
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
@@ -67,7 +69,10 @@ class _DrawerPageState extends State<DrawerPage> {
             ListButton(
               text: NOTE_CREATE,
               icon: Icons.content_paste_outlined,
-              callback: () => context.push(RouteEnum.NOTE.value),
+              callback: () => {
+                _noteClass.deleteNote(),
+                context.push(RouteEnum.NOTE.value),
+              },
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
