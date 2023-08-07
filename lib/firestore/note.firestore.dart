@@ -3,6 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NoteFirestore {
   CollectionReference notes = FirebaseFirestore.instance.collection('notes');
 
+  deleteNote(String noteId) async {
+    return await notes.doc(noteId).delete();
+  }
+
   getAllNotes(String userId) {
     return notes
         .where('userId', isEqualTo: userId)

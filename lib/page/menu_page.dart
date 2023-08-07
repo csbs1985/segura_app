@@ -79,7 +79,7 @@ class _DrawerPageState extends State<MenuPage> {
             ),
             const SizedBox(height: UiSize.spaceList),
             ListButton(
-              text: PASSWORD_GENERATE,
+              text: NOTE_GENERATE,
               icon: UniconsLine.asterisk,
               callback: () => context.push(RouteEnum.PASSWORD.value),
             ),

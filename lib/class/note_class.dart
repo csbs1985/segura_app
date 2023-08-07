@@ -54,7 +54,7 @@ class NoteClass {
 
       _toastClass.sucesso(
         context: context,
-        text: PASSWORD_DELETAR_SUCCESS,
+        text: NOTE_DELETAR_SUCCESS,
       );
 
       Future.delayed(const Duration(milliseconds: UiDuration.toast), () {
@@ -63,7 +63,7 @@ class NoteClass {
     } catch (e) {
       _toastClass.erro(
         context: context,
-        text: PASSWORD_DELETAR_ERROR,
+        text: NOTE_DELETAR_ERROR,
       );
     }
   }
@@ -76,6 +76,18 @@ class NoteClass {
       _toastClass.erro(
         context: context,
         text: RESTORE_ERROR,
+      );
+    }
+  }
+
+  void deleteNoteCloud(BuildContext context, String noteId) async {
+    try {
+      await _noteFirestore.deleteNote(noteId);
+      context.pop();
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        text: NOTE_DELETAR_ERROR,
       );
     }
   }

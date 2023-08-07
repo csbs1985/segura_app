@@ -70,17 +70,17 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  PASSWORD_GENERATE,
+                  NOTE_GENERATE,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: _height),
                 Text(
-                  PASSWORD_DESCRIPTION,
+                  NOTE_DESCRIPTION,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),
                 Text(
-                  PASSWORD_CHARACTERS,
+                  NOTE_CHARACTERS,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),
@@ -90,7 +90,7 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
                 // if (!isSelecionado) ErroText(SENHA_CARACTERES_ERRO),
                 SizedBox(height: _height),
                 Text(
-                  PASSWORD_SIZE,
+                  NOTE_SIZE,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),
@@ -103,7 +103,7 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
                 SizedBox(height: _height),
                 PrimaryButton(
                   callback: (value) => _gerarSenha(),
-                  text: PASSWORD_CREATED,
+                  text: NOTE_CREATED,
                 ),
                 if (_senhaGerada.isNotEmpty)
                   SizedBox(
@@ -113,7 +113,7 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
                       children: [
                         const SizedBox(height: 40),
                         Text(_senhaGerada),
-                        const Text(PASSWORD_CREATED),
+                        const Text(NOTE_CREATED),
                         const SizedBox(height: 16),
                       ],
                     ),
