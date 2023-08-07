@@ -8,6 +8,7 @@ import 'package:segura_app/page/login_page.dart';
 import 'package:segura_app/page/auth_page.dart';
 import 'package:segura_app/page/menu_page.dart';
 import 'package:segura_app/page/note_page.dart';
+import 'package:segura_app/page/note_trash_page.dart';
 import 'package:segura_app/page/password_page.dart';
 import 'package:segura_app/page/report_page.dart';
 import 'package:segura_app/page/trash_page.dart';
@@ -72,6 +73,12 @@ final GoRouter goRoute = GoRouter(
       },
     ),
     GoRoute(
+      path: RouteEnum.NOTE_TRASH.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const NoteTrashPage();
+      },
+    ),
+    GoRoute(
       path: RouteEnum.PASSWORD.value,
       builder: (BuildContext context, GoRouterState state) {
         return const PasswordPage();
@@ -99,6 +106,7 @@ enum RouteEnum {
   HOME('/home'),
   LOGIN('/login'),
   NOTE('note'),
+  NOTE_TRASH('/note_trash'),
   MENU('/menu'),
   PASSWORD('/password'),
   REPORT('/perport'),

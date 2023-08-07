@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/class/toast_class.dart';
 import 'package:segura_app/firestore/note.firestore.dart';
-import 'package:segura_app/model/note_modal.dart';
+import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_duration.dart';
@@ -64,6 +64,18 @@ class NoteClass {
       _toastClass.erro(
         context: context,
         text: PASSWORD_DELETAR_ERROR,
+      );
+    }
+  }
+
+  void noteExcludedFalse(BuildContext context, String noteId) async {
+    try {
+      await _noteFirestore.noteExcludedFalse(noteId);
+      context.pop();
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        text: RESTORE_ERROR,
       );
     }
   }

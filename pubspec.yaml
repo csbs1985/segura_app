@@ -24,6 +24,7 @@ dependencies:
   hive_flutter: ^1.1.0
   local_auth: ^2.1.6
   m_toast: ^0.2.2
+  modal_bottom_sheet: ^3.0.0-pre
   package_info_plus: ^4.0.2
   skeleton_animation: ^0.1.4
   unicons: ^2.1.1

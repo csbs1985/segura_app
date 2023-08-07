@@ -13,4 +13,12 @@ class UiBorder {
     borderSide: BorderSide.none,
     borderRadius: BorderRadius.circular(rounded),
   );
+
+  static OutlineInputBorder borderModal = const OutlineInputBorder(
+    borderSide: BorderSide.none,
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(rounded),
+      topRight: Radius.circular(rounded),
+    ),
+  );
 }

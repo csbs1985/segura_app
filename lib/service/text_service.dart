@@ -5,6 +5,8 @@ const String CATEGORIES = "Categorias";
 const String COPY_NOTE = "Nota copiada";
 const String COPY_ERROR = "Não foi possível copiar texto.";
 
+const String DELETE_EVER = "Excluir definitivamente";
+
 const String DONATE = "Doar";
 const String DONATE_BUTTON = 'Copiar chave pix';
 const String DONATE_DESCRIPTION =
@@ -57,12 +59,17 @@ const String REPORT_ERROR =
     "Não foi possível relatar o problema, tente novamente mais tarde";
 const String REPORT_SUCCESS = "Obrigado por sua colaboração";
 
+const String RESTORE = "Restaurar";
+const String RESTORE_ERROR = "Não é possível restaurar nota no momento";
+const String RESTORE_SUCCESS = "Restaurando nota. Aguarde...";
+
 const String SEARCH = "Pesquisar nota";
 
 const String TITLE = "Título";
 
 const String TRASH = "Lixeira";
 const String TRASH_EMPTY = "Nenhuma nota na lixeira";
+const String TRASH_NOT = "Não é possível editar na lixeira";
 
 const String USE_PHONE = "Usar senha do celular";
 

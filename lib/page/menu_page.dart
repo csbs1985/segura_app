@@ -74,7 +74,7 @@ class _DrawerPageState extends State<MenuPage> {
               callback: () => {
                 _noteClass.deleteNote(),
                 context.pushNamed(RouteEnum.NOTE.value,
-                    pathParameters: {'type': NoteTypeEnum.TRASH.name}),
+                    pathParameters: {'type': NoteTypeEnum.NEW.name}),
               },
             ),
             const SizedBox(height: UiSize.spaceList),

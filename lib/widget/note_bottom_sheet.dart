@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
-import 'package:segura_app/model/note_modal.dart';
+import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:unicons/unicons.dart';
 

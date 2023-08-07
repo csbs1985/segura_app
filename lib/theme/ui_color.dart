@@ -29,6 +29,8 @@ class UiColor {
   static const Color navigationBar = Color(0xFFFCFCFE);
   static const Color navigationBarDark = Color(0xFF181C1F);
 
+  static const Color overlay = Color(0x90000000);
+
   static const Color primary = Color(0xFF1CB0F6);
   static const Color primaryButton = Color(0xFF1CB0F6);
 

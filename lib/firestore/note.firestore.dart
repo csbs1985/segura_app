@@ -23,6 +23,10 @@ class NoteFirestore {
     return await notes.doc(note['noteId']).set(note);
   }
 
+  noteExcludedFalse(String noteId) {
+    return notes.doc(noteId).update({'excluded': false});
+  }
+
   noteExcludedTrue(String noteId) {
     return notes.doc(noteId).update({'excluded': true});
   }

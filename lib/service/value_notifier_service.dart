@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:segura_app/model/note_modal.dart';
+import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/model/user_model.dart';
 
 ValueNotifier<NoteModel> currentNote = ValueNotifier(NoteModel(

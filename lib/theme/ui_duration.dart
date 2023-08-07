@@ -1,3 +1,3 @@
 class UiDuration {
-  static const int toast = 3000;
+  static const int toast = 1500;
 }
