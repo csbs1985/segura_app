@@ -5,6 +5,7 @@ import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/model/note_modal.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
+import 'package:segura_app/theme/ui_duration.dart';
 
 class NoteClass {
   final NoteFirestore _noteFirestore = NoteFirestore();
@@ -47,10 +48,18 @@ class NoteClass {
     }
   }
 
-  noteExcludedTrue(BuildContext context, String noteId) async {
+  void noteExcludedTrue(BuildContext context, String noteId) async {
     try {
       await _noteFirestore.noteExcludedTrue(noteId);
-      context.pop();
+
+      _toastClass.sucesso(
+        context: context,
+        text: PASSWORD_DELETAR_SUCCESS,
+      );
+
+      Future.delayed(const Duration(milliseconds: UiDuration.toast), () {
+        context.pop();
+      });
     } catch (e) {
       _toastClass.erro(
         context: context,

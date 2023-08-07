@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
@@ -25,11 +26,7 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
   final CopyClass _copyClass = CopyClass();
   final NoteClass _noteClass = NoteClass();
 
-  bool _isNote(NoteModel note) {
-    return (note.note.isNotEmpty) ? true : false;
-  }
-
-  _isCopy() {
+  bool _isCopy() {
     return (widget._note['note'].isNotEmpty) ? true : false;
   }
 
@@ -41,7 +38,9 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
   }
 
   _deleteNote(BuildContext context) {
-    _noteClass.noteExcludedTrue(context, currentNote.value.noteId);
+    widget._note['noteId'] != ""
+        ? _noteClass.noteExcludedTrue(context, currentNote.value.noteId)
+        : context.pop();
   }
 
   _openGeneratorModal(BuildContext context) {}
@@ -73,11 +72,10 @@ class _NoteBottomSheetState extends State<NoteBottomSheet> {
                 icon: UniconsLine.user_plus,
                 callback: () => _openSharedModal(context),
               ),
-              if (_isNote(note))
-                SvgButton(
-                  icon: UniconsLine.trash_alt,
-                  callback: () => _deleteNote(context),
-                ),
+              SvgButton(
+                icon: UniconsLine.trash_alt,
+                callback: () => _deleteNote(context),
+              ),
               if (_isCopy())
                 SvgButton(
                   icon: UniconsLine.copy,
