@@ -6,7 +6,7 @@ import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_size.dart';
 import 'package:segura_app/widget/form_input.dart';
-import 'package:segura_app/widget/note_bottom_sheet.dart';
+import 'package:segura_app/bottom/note_bottom.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -148,7 +148,7 @@ class _NotePageState extends State<NotePage> {
           ),
         ),
       ),
-      bottomSheet: NoteBottomSheet(
+      bottomSheet: NoteBottom(
         callback: (value) => setState(() => {}),
         note: _noteForm,
       ),

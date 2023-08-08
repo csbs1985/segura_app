@@ -3,6 +3,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/back_appbar.dart';
+import 'package:segura_app/bottom/trash_bottom.dart';
 import 'package:segura_app/firestore/note.firestore.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/routes_service.dart';
@@ -22,6 +23,12 @@ class TrashPage extends StatefulWidget {
 
 class _TrashPageState extends State<TrashPage> {
   final NoteFirestore _noteFirestore = NoteFirestore();
+
+  Map<String, dynamic> _note = {};
+
+  bool _isBottom() {
+    return _note.isNotEmpty ? true : false;
+  }
 
   Future<void> _selectNote(Map<String, dynamic> note) async {
     currentNote.value = NoteModel.fromMap(note);
@@ -63,10 +70,10 @@ class _TrashPageState extends State<TrashPage> {
                     BuildContext context,
                     QueryDocumentSnapshot<dynamic> snapshot,
                   ) {
-                    Map<String, dynamic> note = snapshot.data();
+                    _note = snapshot.data();
                     return NoteItemWidget(
-                      item: note,
-                      onTap: () => _selectNote(note),
+                      item: _note,
+                      onTap: () => _selectNote(_note),
                     );
                   },
                 ),
@@ -75,6 +82,7 @@ class _TrashPageState extends State<TrashPage> {
           ),
         ],
       ),
+      bottomSheet: _isBottom() ? TrashBottom(note: _note) : null,
     );
   }
 }

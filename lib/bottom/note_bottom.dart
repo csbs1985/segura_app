@@ -7,8 +7,8 @@ import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:unicons/unicons.dart';
 
-class NoteBottomSheet extends StatefulWidget {
-  const NoteBottomSheet({
+class NoteBottom extends StatefulWidget {
+  const NoteBottom({
     super.key,
     required Function callback,
     required Map<String, dynamic> note,
@@ -19,10 +19,10 @@ class NoteBottomSheet extends StatefulWidget {
   final Map<String, dynamic> _note;
 
   @override
-  State<NoteBottomSheet> createState() => _NoteBottomSheetState();
+  State<NoteBottom> createState() => _NoteBottomState();
 }
 
-class _NoteBottomSheetState extends State<NoteBottomSheet> {
+class _NoteBottomState extends State<NoteBottom> {
   final CopyClass _copyClass = CopyClass();
   final NoteClass _noteClass = NoteClass();
 

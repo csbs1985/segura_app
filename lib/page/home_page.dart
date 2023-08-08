@@ -35,9 +35,9 @@ class _HomePageState extends State<HomePage> {
 
   Algolia? algoliaSegura;
 
-  List<Map<String, dynamic>> lisNote = [];
+  List<Map<String, dynamic>> listNote = [];
 
-  bool isPesquisar = false;
+  bool isSearch = false;
 
   @override
   void initState() {
@@ -46,8 +46,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _keyUp(String value) async {
-    lisNote = [];
-    setState(() => isPesquisar = true);
+    listNote = [];
+
+    value != ""
+        ? setState(() => isSearch = true)
+        : setState(() => isSearch = false);
 
     if (value.length > 2) {
       if (algoliaSegura != null) {
@@ -60,13 +63,11 @@ class _HomePageState extends State<HomePage> {
 
         setState(() {
           if (snap.hits.isNotEmpty) {
-            lisNote = _searchClass.convertListToMaps(snap.hits);
+            listNote = _searchClass.convertListToMaps(snap.hits);
           }
-          if (value.isEmpty) lisNote = [];
+          if (value.isEmpty) listNote = [];
         });
       }
-    } else {
-      setState(() => isPesquisar = false);
     }
   }
 
@@ -88,11 +89,11 @@ class _HomePageState extends State<HomePage> {
         body: Stack(
           children: [
             SingleChildScrollView(
-              child: isPesquisar
+              child: isSearch
                   ? Container(
                       width: double.infinity,
                       padding: const EdgeInsets.only(top: UiSize.homeAppbar),
-                      child: lisNote.isEmpty
+                      child: listNote.isEmpty
                           ? MessageWidget(
                               altura: altura,
                               text: NOT_RESULT,
@@ -100,40 +101,44 @@ class _HomePageState extends State<HomePage> {
                           : ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: lisNote.length,
+                              itemCount: listNote.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return NoteItemWidget(
-                                  item: lisNote[index],
-                                  onTap: () => _selectNote(lisNote[index]),
+                                  item: listNote[index],
+                                  onTap: () => _selectNote(listNote[index]),
                                 );
                               },
                             ),
                     )
                   : Container(
                       padding: const EdgeInsets.only(top: UiSize.homeAppbar),
-                      child: FirestoreListView(
-                        query: _noteFirestore
-                            .getAllNotes(currentUser.value.userId),
-                        pageSize: 30,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        loadingBuilder: (context) => const NoteSkeleton(),
-                        errorBuilder: (context, error, _) =>
-                            const NoteSkeleton(),
-                        emptyBuilder: (context) => MessageWidget(
-                          altura: altura,
-                          text: NOTE_EMPTY,
-                        ),
-                        itemBuilder: (
-                          BuildContext context,
-                          QueryDocumentSnapshot<dynamic> snapshot,
-                        ) {
-                          Map<String, dynamic> note = snapshot.data();
-                          return NoteItemWidget(
-                            item: note,
-                            onTap: () => _selectNote(note),
-                          );
-                        },
+                      child: Column(
+                        children: [
+                          FirestoreListView(
+                            query: _noteFirestore
+                                .getAllNotes(currentUser.value.userId),
+                            pageSize: 30,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            loadingBuilder: (context) => const NoteSkeleton(),
+                            errorBuilder: (context, error, _) =>
+                                const NoteSkeleton(),
+                            emptyBuilder: (context) => MessageWidget(
+                              altura: altura,
+                              text: NOTE_EMPTY,
+                            ),
+                            itemBuilder: (
+                              BuildContext context,
+                              QueryDocumentSnapshot<dynamic> snapshot,
+                            ) {
+                              Map<String, dynamic> note = snapshot.data();
+                              return NoteItemWidget(
+                                item: note,
+                                onTap: () => _selectNote(note),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
             ),
@@ -148,14 +153,16 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        floatingActionButton: FloatingButton(
-          callback: () => {
-            _noteClass.deleteNote(),
-            context.pushNamed(RouteEnum.NOTE.value,
-                pathParameters: {'type': NoteTypeEnum.NEW.name}),
-          },
-          icon: UniconsLine.plus,
-        ),
+        floatingActionButton: isSearch
+            ? null
+            : FloatingButton(
+                callback: () => {
+                  _noteClass.deleteNote(),
+                  context.pushNamed(RouteEnum.NOTE.value,
+                      pathParameters: {'type': NoteTypeEnum.NEW.name}),
+                },
+                icon: UniconsLine.plus,
+              ),
       ),
     );
   }

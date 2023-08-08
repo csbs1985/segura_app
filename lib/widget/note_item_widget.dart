@@ -43,9 +43,13 @@ class NoteItemWidget extends StatelessWidget {
               if (_item["note"] != "" && _item["title"] != "")
                 const SizedBox(height: 8),
               if (_item["note"] != "")
-                Text(
-                  _item["note"],
-                  style: Theme.of(context).textTheme.bodyMedium,
+                RichText(
+                  text: TextSpan(
+                    text: _item["note"],
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
                 ),
             ],
           ),

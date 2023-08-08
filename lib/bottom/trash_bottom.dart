@@ -2,28 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/modal/trash_item_modal.dart';
 import 'package:segura_app/model/note_model.dart';
-import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_color.dart';
 import 'package:unicons/unicons.dart';
 
-class NoteTrashBottomSheet extends StatefulWidget {
-  const NoteTrashBottomSheet({
+class TrashBottom extends StatefulWidget {
+  const TrashBottom({
     super.key,
-    required Function callback,
     required Map<String, dynamic> note,
-  })  : _callback = callback,
-        _note = note;
+  }) : _note = note;
 
-  final Function _callback;
   final Map<String, dynamic> _note;
 
   @override
-  State<NoteTrashBottomSheet> createState() => _NoteTrashBottomSheetState();
+  State<TrashBottom> createState() => _TrashBottomState();
 }
 
-class _NoteTrashBottomSheetState extends State<NoteTrashBottomSheet> {
+class _TrashBottomState extends State<TrashBottom> {
   _openModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -44,12 +40,8 @@ class _NoteTrashBottomSheetState extends State<NoteTrashBottomSheet> {
           return Container(
             padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  TRASH_NOT,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
                 SvgButton(
                   icon: UniconsLine.ellipsis_v,
                   callback: () => _openModal(context),

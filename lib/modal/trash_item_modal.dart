@@ -34,21 +34,24 @@ class _TrashItemModalState extends State<TrashItemModal> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListButton(
-            text: RESTORE,
-            icon: UniconsLine.history,
-            callback: () => _restoreNote(context),
-          ),
-          const SizedBox(height: UiSize.spaceList),
-          ListButton(
-            text: DELETE_EVER,
-            icon: UniconsLine.trash,
-            callback: () => _deleteNote(context),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListButton(
+              text: RESTORE,
+              icon: UniconsLine.history,
+              callback: () => _restoreNote(context),
+            ),
+            const SizedBox(height: UiSize.spaceList),
+            ListButton(
+              text: DELETE_EVER,
+              icon: UniconsLine.trash,
+              callback: () => _deleteNote(context),
+            ),
+          ],
+        ),
       ),
     );
   }

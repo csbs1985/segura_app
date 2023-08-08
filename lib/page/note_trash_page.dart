@@ -4,7 +4,7 @@ import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
-import 'package:segura_app/widget/note_trash_bottom_sheet.dart';
+import 'package:segura_app/bottom/note_trash_bottom.dart';
 import 'package:unicons/unicons.dart';
 
 class NoteTrashPage extends StatefulWidget {
@@ -73,11 +73,12 @@ class _NoteTrashPageState extends State<NoteTrashPage> {
                       : Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
+              const SizedBox(height: 48),
             ],
           ),
         ),
       ),
-      bottomSheet: NoteTrashBottomSheet(
+      bottomSheet: NoteTrashBottom(
         callback: (value) => setState(() => {}),
         note: _noteForm,
       ),
