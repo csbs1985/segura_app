@@ -40,4 +40,8 @@ class CategoryClass {
       );
     }
   }
+
+  List<String> separateByComma(String inputString) {
+    return inputString.contains(',') ? inputString.split(',') : [inputString];
+  }
 }

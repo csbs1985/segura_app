@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
-import 'package:segura_app/modal/category_form_modal.dart';
+import 'package:segura_app/modal/category_select_modal%20copy.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
+import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_color.dart';
 import 'package:unicons/unicons.dart';
 
@@ -48,11 +50,13 @@ class _NoteBottomState extends State<NoteBottom> {
   _openGeneratorModal(BuildContext context) {}
 
   _openCategoryModal(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
+      expand: true,
       context: context,
       barrierColor: UiColor.overlay,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => const CategoryFormModal(),
+      shape: UiBorder.borderModal,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      builder: (context) => CategorySelectModal(note: widget._note),
     );
   }
 

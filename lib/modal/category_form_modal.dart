@@ -64,25 +64,30 @@ class _CategoryFormModalState extends State<CategoryFormModal> {
         _formCategory['category'] != null &&
         _categoryCurrent != _formCategory['category']) {
       setState(() {
-        if (widget._select!.isNotEmpty) {
-          // editar
-          _formCategory = {
-            'category': _formCategory['category'].trim(),
-            'categoryId': _formCategory['categoryId'],
-            'userId': _formCategory['userId'],
-          };
-        } else {
-          // criar
-          _formCategory = {
-            'categoryId': _uuid.v4(),
-            'userId': currentUser.value.userId,
-            'category': _formCategory['category'].trim(),
-          };
+        List<String> textos =
+            _categoryClass.separateByComma(_formCategory['category']);
+
+        for (var item in textos) {
+          if (widget._select!.isNotEmpty) {
+            // editar
+            _formCategory = {
+              'category': item.trim(),
+              'categoryId': _formCategory['categoryId'],
+              'userId': _formCategory['userId'],
+            };
+          } else {
+            // criar
+            _formCategory = {
+              'categoryId': _uuid.v4(),
+              'userId': currentUser.value.userId,
+              'category': item.trim(),
+            };
+          }
+          _categoryClass.saveCategory(context, _formCategory);
         }
       });
     }
 
-    _categoryClass.saveCategory(context, _formCategory);
     context.pop();
   }
 
