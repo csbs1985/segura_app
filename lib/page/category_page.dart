@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:segura_app/skeleton/category_skeleton.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/widget/message_widget.dart';
@@ -26,7 +27,8 @@ class _CategoryPageState extends State<CategoryPage> {
   final CategoryClass _categoryClass = CategoryClass();
 
   void _openModal(BuildContext context, Map<String, dynamic> category) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
+      expand: true,
       context: context,
       barrierColor: UiColor.overlay,
       shape: UiBorder.borderModal,

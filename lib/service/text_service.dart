@@ -11,6 +11,7 @@ const String CATEGORY_EMPTY = "As categorias adicionadas são exibidas aqui";
 const String CATEGORY_DELETE = "Excluir";
 const String CATEGORY_DELETE_DESCRIPTION =
     "Excluiremos essa categoria e a removeremos de todas as suas senhas. Suas senhas não serão excluídas. Tem certeza que deseja excluir?";
+const String CATEGORY_DELETE_ERROR = "Não foi possível deletar a categoria";
 const String CATEGORY_SAVE_ERROR = "Não foi possível salvar a categoria";
 
 const String COPY_NOTE = "Nota copiada";

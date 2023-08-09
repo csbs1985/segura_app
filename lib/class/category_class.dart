@@ -19,6 +19,17 @@ class CategoryClass {
     return list;
   }
 
+  deleteCategory(BuildContext context, Map<String, dynamic> category) async {
+    try {
+      await _categoryFirestore.deleteCategory(category['categoryId']);
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        text: CATEGORY_DELETE_ERROR,
+      );
+    }
+  }
+
   saveCategory(BuildContext context, Map<String, dynamic> category) async {
     try {
       await _categoryFirestore.saveCategory(category);
