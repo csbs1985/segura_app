@@ -9,7 +9,7 @@ import 'package:segura_app/appbar/home_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
-import 'package:segura_app/firestore/note.firestore.dart';
+import 'package:segura_app/firestore/note_firestore.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/algolia_service.dart';
 import 'package:segura_app/service/routes_service.dart';

@@ -22,20 +22,13 @@ class PasswordWidget extends StatefulWidget {
 class _GerarSenhaModalState extends State<PasswordWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // final SenhaClass _senhaClass = SenhaClass();
-  final TextEditingController _controllerTamanho = TextEditingController();
 
   final String _senhaGerada = "";
-  String tamanho = "8";
+  String _size = "8";
   bool isSelecionado = true;
   List<String> listaSelecionado = [PasswordEnum.MINUSCULA.name];
 
   final double _height = 16;
-
-  @override
-  void initState() {
-    super.initState();
-    _controllerTamanho.text = tamanho;
-  }
 
   void _gerarSenha() {
     // if (_formKey.currentState!.validate()) {
@@ -95,9 +88,8 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
                 ),
                 SizedBox(height: _height),
                 DefaultInput(
-                  controller: _controllerTamanho,
                   keyboardType: TextInputType.number,
-                  callback: (value) => setState(() => tamanho = value),
+                  onSaved: (value) => setState(() => _size = value!),
                   // validator: (value) => isSenhaCaracteresInt(value!),
                 ),
                 SizedBox(height: _height),

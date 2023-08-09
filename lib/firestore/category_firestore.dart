@@ -13,8 +13,8 @@ class CategoryFirestore {
     return categories.doc(category.categoryId).update({'categories': category});
   }
 
-  saveCategory(CategoryModel category) async {
-    return await categories.doc(category.categoryId).set(category);
+  saveCategory(Map<String, dynamic> category) async {
+    return await categories.doc(category['categoryId']).set(category);
   }
 
   snapshotsCategory(String userId) {

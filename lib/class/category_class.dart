@@ -1,4 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:segura_app/class/toast_class.dart';
+import 'package:segura_app/firestore/category_firestore.dart';
+import 'package:segura_app/service/text_service.dart';
+
 class CategoryClass {
+  final CategoryFirestore _categoryFirestore = CategoryFirestore();
+  final ToastClass _toastClass = ToastClass();
+
   List<Map<String, dynamic>> converterQuerySnapshotToList(snapshot) {
     List<Map<String, dynamic>> list = [];
 
@@ -9,5 +17,16 @@ class CategoryClass {
     }
 
     return list;
+  }
+
+  saveCategory(BuildContext context, Map<String, dynamic> category) async {
+    try {
+      await _categoryFirestore.saveCategory(category);
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        text: CATEGORY_SAVE_ERROR,
+      );
+    }
   }
 }

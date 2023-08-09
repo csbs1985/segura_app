@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/back_appbar.dart';
 import 'package:segura_app/bottom/trash_bottom.dart';
-import 'package:segura_app/firestore/note.firestore.dart';
+import 'package:segura_app/firestore/note_firestore.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';

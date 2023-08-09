@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/class/toast_class.dart';
-import 'package:segura_app/firestore/note.firestore.dart';
+import 'package:segura_app/firestore/note_firestore.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';

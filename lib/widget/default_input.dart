@@ -3,12 +3,9 @@ import 'package:segura_app/theme/ui_border.dart';
 
 class DefaultInput extends StatelessWidget {
   final bool? autoFocus;
-  final TextEditingController? controller;
-  final Function? callback;
   final bool? expands;
   final FocusNode? focusNode;
   final String? hintText;
-  final bool inputCircle;
   final TextInputType? keyboardType;
   final Function(String?)? onSaved;
   final int? maxLength;
@@ -16,16 +13,14 @@ class DefaultInput extends StatelessWidget {
   final int? maxLines;
   final IconData? prefixIcon;
   final String? Function(String?)? validator;
+  final String? initialValue;
 
   const DefaultInput({
     Key? key,
     this.autoFocus = false,
-    this.controller,
-    this.callback,
     this.expands = false,
     this.focusNode,
     this.hintText,
-    this.inputCircle = false,
     this.keyboardType = TextInputType.text,
     this.onSaved,
     this.maxLength,
@@ -33,17 +28,18 @@ class DefaultInput extends StatelessWidget {
     this.maxLines = 1,
     this.prefixIcon,
     this.validator,
+    this.initialValue,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       autofocus: autoFocus!,
-      controller: controller,
       expands: expands!,
       focusNode: focusNode,
+      initialValue: initialValue,
       keyboardType: keyboardType,
-      onChanged: (value) => callback!(value),
+      onChanged: onSaved,
       onSaved: onSaved,
       maxLength: maxLength,
       minLines: minLines,
@@ -57,15 +53,10 @@ class DefaultInput extends StatelessWidget {
         hintText: hintText,
         filled: true,
         hintStyle: Theme.of(context).textTheme.headlineMedium,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
-        border: inputCircle ? UiBorder.borderCircle : UiBorder.borderSquared,
-        enabledBorder:
-            inputCircle ? UiBorder.borderCircle : UiBorder.borderSquared,
-        focusedBorder:
-            inputCircle ? UiBorder.borderCircle : UiBorder.borderSquared,
+        contentPadding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+        border: UiBorder.borderRounded,
+        enabledBorder: UiBorder.borderRounded,
+        focusedBorder: UiBorder.borderRounded,
       ),
     );
   }

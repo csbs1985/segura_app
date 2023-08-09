@@ -31,9 +31,8 @@ class _HomeAppBarState extends State<HomeAppBar> {
         children: [
           Expanded(
             child: DefaultInput(
-              callback: (value) => widget._search(value),
+              onSaved: (value) => widget._search(value),
               hintText: SEARCH,
-              inputCircle: true,
               prefixIcon: Icons.search_outlined,
             ),
           ),

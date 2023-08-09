@@ -9,7 +9,7 @@ class UiBorder {
     borderRadius: BorderRadius.circular(circle),
   );
 
-  static OutlineInputBorder borderSquared = OutlineInputBorder(
+  static OutlineInputBorder borderRounded = OutlineInputBorder(
     borderSide: BorderSide.none,
     borderRadius: BorderRadius.circular(rounded),
   );
