@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:segura_app/skeleton/category_skeleton.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/widget/message_widget.dart';
-import 'package:unicons/unicons.dart';
-
 import 'package:segura_app/appbar/back_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
 import 'package:segura_app/class/category_class.dart';
@@ -14,6 +12,7 @@ import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_color.dart';
 import 'package:segura_app/theme/ui_size.dart';
+import 'package:unicons/unicons.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
@@ -26,12 +25,13 @@ class _CategoryPageState extends State<CategoryPage> {
   final CategoryFirestore _categoryFirestore = CategoryFirestore();
   final CategoryClass _categoryClass = CategoryClass();
 
-  void _openModal(BuildContext context) {
+  void _openModal(BuildContext context, Map<String, dynamic> category) {
     showModalBottomSheet(
       context: context,
       barrierColor: UiColor.overlay,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      builder: (context) => const CategoryFormModal(),
+      shape: UiBorder.borderModal,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      builder: (context) => CategoryFormModal(select: category),
     );
   }
 
@@ -76,9 +76,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       spacing: 8,
                       children: listaCategorias.map((item) {
                         return GestureDetector(
-                          onTap: () {
-                            // Handle onTap
-                          },
+                          onTap: () => _openModal(context, item),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                             decoration: BoxDecoration(
@@ -103,7 +101,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
       ),
       floatingActionButton: FloatingButton(
-        callback: () => _openModal(context),
+        callback: () => _openModal(context, {}),
         icon: UniconsLine.plus,
       ),
     );

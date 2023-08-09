@@ -1,7 +1,16 @@
 const String BY = "@dev.solitario · v";
 
 const String CATEGORIES = "Categorias";
+const String CATEGORY_CREATE = "Criar";
+const String CATEGORY_CREATE_DESCRIPTION =
+    "Insira a categoria desejada e, em seguida, pressione o botão ao lado para criar. Se preferir criar múltiplas categorias de uma vez, separe-as por vírgulas.";
+const String CATEGORY_EDIT = "Editar";
+const String CATEGORY_EDIT_DESCRIPTION =
+    "Ao alterar a categoria todas as senhas que tiver associadas tambem serão alteradas.";
 const String CATEGORY_EMPTY = "As categorias adicionadas são exibidas aqui";
+const String CATEGORY_DELETE = "Excluir";
+const String CATEGORY_DELETE_DESCRIPTION =
+    "Excluiremos essa categoria e a removeremos de todas as suas senhas. Suas senhas não serão excluídas. Tem certeza que deseja excluir?";
 
 const String COPY_NOTE = "Nota copiada";
 const String COPY_ERROR = "Não foi possível copiar texto.";

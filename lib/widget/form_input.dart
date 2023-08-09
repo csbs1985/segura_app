@@ -12,7 +12,7 @@ class FormInput extends StatelessWidget {
   final int? minLines;
   final int? maxLines;
   final bool? pesquisar;
-  final String initialValue;
+  final String? initialValue;
 
   const FormInput({
     Key? key,
@@ -26,7 +26,7 @@ class FormInput extends StatelessWidget {
     this.minLines = 1,
     this.maxLines = 1,
     this.pesquisar = false,
-    required this.initialValue,
+    this.initialValue,
   }) : super(key: key);
 
   @override
