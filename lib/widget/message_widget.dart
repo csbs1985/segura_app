@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class MessageWidget extends StatelessWidget {
   const MessageWidget({
     super.key,
-    required double altura,
+    required double height,
     required String text,
-  })  : _altura = altura,
+  })  : _altura = height,
         _text = text;
 
   final double _altura;

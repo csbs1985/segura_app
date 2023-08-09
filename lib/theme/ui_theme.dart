@@ -36,6 +36,10 @@ class UiTheme {
       backgroundColor: UiColor.bottomSheet,
     ),
     brightness: Brightness.light,
+    chipTheme: const ChipThemeData(
+      backgroundColor: UiColor.chip,
+      selectedColor: UiColor.chipAtivo,
+    ),
     colorScheme: const ColorScheme.light(
       onBackground: UiColor.skeleton,
       outline: UiColor.border,
@@ -68,6 +72,10 @@ class UiTheme {
       backgroundColor: UiColor.bottomSheetDark,
     ),
     brightness: Brightness.dark,
+    chipTheme: const ChipThemeData(
+      backgroundColor: UiColor.chipDark,
+      selectedColor: UiColor.chipAtivo,
+    ),
     colorScheme: const ColorScheme.dark(
       onBackground: UiColor.skeletonDark,
       outline: UiColor.borderDark,

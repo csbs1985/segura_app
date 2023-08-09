@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double altura = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
+    double height = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
 
     return WillPopScope(
       onWillPop: () => exit(0),
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(top: UiSize.homeAppbar),
                       child: listNote.isEmpty
                           ? MessageWidget(
-                              altura: altura,
+                              height: height,
                               text: NOT_RESULT,
                             )
                           : ListView.builder(
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                             errorBuilder: (context, error, _) =>
                                 const NoteSkeleton(),
                             emptyBuilder: (context) => MessageWidget(
-                              altura: altura,
+                              height: height,
                               text: NOTE_EMPTY,
                             ),
                             itemBuilder: (

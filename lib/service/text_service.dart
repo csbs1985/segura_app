@@ -1,6 +1,7 @@
 const String BY = "@dev.solitario · v";
 
 const String CATEGORIES = "Categorias";
+const String CATEGORY_EMPTY = "As categorias adicionadas são exibidas aqui";
 
 const String COPY_NOTE = "Nota copiada";
 const String COPY_ERROR = "Não foi possível copiar texto.";

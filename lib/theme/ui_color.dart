@@ -13,7 +13,11 @@ class UiColor {
   static const Color bottomSheet = Color(0xFFFCFCFE);
   static const Color bottomSheetDark = Color(0xFF181C1F);
 
-  static const Color circular = Color(0xff194ab1);
+  static const Color circular = primary;
+
+  static const Color chip = Color(0xffE9F0F6);
+  static const Color chipAtivo = primary;
+  static const Color chipDark = Color(0xff1F282D);
 
   static const Color error = Color(0xFFff4b4b);
 
@@ -32,7 +36,7 @@ class UiColor {
   static const Color overlay = Color(0x90000000);
 
   static const Color primary = Color(0xff194ab1);
-  static const Color primaryButton = Color(0xff194ab1);
+  static const Color primaryButton = primary;
 
   static const Color secondButton = Colors.transparent;
 

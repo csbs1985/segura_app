@@ -37,7 +37,7 @@ class _TrashPageState extends State<TrashPage> {
 
   @override
   Widget build(BuildContext context) {
-    double altura = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
+    double height = MediaQuery.sizeOf(context).height - (UiSize.appbar * 4);
 
     return Scaffold(
       appBar: const BackAppBar(),
@@ -63,7 +63,7 @@ class _TrashPageState extends State<TrashPage> {
                   loadingBuilder: (context) => const NoteSkeleton(),
                   errorBuilder: (context, error, _) => const NoteSkeleton(),
                   emptyBuilder: (context) => MessageWidget(
-                    altura: altura,
+                    height: height,
                     text: TRASH_EMPTY,
                   ),
                   itemBuilder: (
