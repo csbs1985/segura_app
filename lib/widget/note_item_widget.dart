@@ -36,9 +36,13 @@ class NoteItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (_item["title"] != "")
-                Text(
-                  _item["title"],
-                  style: Theme.of(context).textTheme.displayLarge,
+                RichText(
+                  text: TextSpan(
+                    text: _item["title"],
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               if (_item["note"] != "" && _item["title"] != "")
                 const SizedBox(height: 8),

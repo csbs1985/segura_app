@@ -23,6 +23,10 @@ class NoteFirestore {
     return await notes.doc(noteId).get();
   }
 
+  setCategoryNote(String noteId, List<dynamic> categories) async {
+    return await notes.doc(noteId).update({'category': categories});
+  }
+
   setNote(Map<String, dynamic> note) async {
     return await notes.doc(note['noteId']).set(note);
   }

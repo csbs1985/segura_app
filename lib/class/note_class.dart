@@ -37,6 +37,18 @@ class NoteClass {
     );
   }
 
+  saveCategoryNote(
+      BuildContext context, String noteId, List<dynamic> listCategories) async {
+    try {
+      await _noteFirestore.setCategoryNote(noteId, listCategories);
+    } catch (e) {
+      _toastClass.erro(
+        context: context,
+        text: NOTE_SAVE_ERROR,
+      );
+    }
+  }
+
   saveNote(BuildContext context, Map<String, dynamic> note) async {
     try {
       await _noteFirestore.setNote(note);

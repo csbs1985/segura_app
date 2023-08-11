@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/modal_appbar.dart';
+import 'package:segura_app/button/floating_button.dart';
 import 'package:segura_app/class/category_class.dart';
+import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/firestore/category_firestore.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
@@ -9,6 +12,7 @@ import 'package:segura_app/skeleton/category_skeleton.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_size.dart';
 import 'package:segura_app/widget/message_widget.dart';
+import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 
 class CategorySelectModal extends StatefulWidget {
@@ -26,22 +30,43 @@ class CategorySelectModal extends StatefulWidget {
 class _CategorySelectModalState extends State<CategorySelectModal> {
   final CategoryClass _categoryClass = CategoryClass();
   final CategoryFirestore _categoryFirestore = CategoryFirestore();
+  final NoteClass _noteClass = NoteClass();
   final Uuid _uuid = const Uuid();
 
+  List<dynamic> _listCategories = [];
+  List<dynamic> _listCategoriesCurrent = [];
+
   final Map<String, dynamic> _formCategory = {};
+
+  @override
+  void initState() {
+    _listCategories = widget._note['category'];
+    _listCategoriesCurrent = widget._note['category'];
+    super.initState();
+  }
 
   void _selectCategory(BuildContext context, Map<String, dynamic> category) {
     String categoryId = category['categoryId'];
 
     setState(() {
-      if (widget._note['category'].contains(categoryId)) {
-        widget._note['category'].remove(categoryId);
+      if (_listCategories.contains(categoryId)) {
+        _listCategories.remove(categoryId);
       } else {
-        widget._note['category'].add(categoryId);
+        _listCategories.add(categoryId);
       }
     });
+  }
 
-    print(widget._note);
+  bool isCategory(String categoryId) {
+    return _listCategories.contains(categoryId) ? true : false;
+  }
+
+  void _saveCategory() {
+    if (_listCategoriesCurrent != _listCategories) {
+      _noteClass.saveCategoryNote(
+          context, widget._note['noteId'], _listCategories);
+    }
+    context.pop();
   }
 
   @override
@@ -89,8 +114,9 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                             decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).chipTheme.backgroundColor,
+                              color: isCategory(item['categoryId'])
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).chipTheme.backgroundColor,
                               borderRadius:
                                   BorderRadius.circular(UiBorder.rounded),
                             ),
@@ -108,6 +134,10 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingButton(
+        callback: () => _saveCategory(),
+        icon: UniconsLine.check,
       ),
     );
   }
