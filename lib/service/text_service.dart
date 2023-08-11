@@ -1,3 +1,5 @@
+const String COLOR = "Cor";
+
 const String BY = "@dev.solitario · v";
 
 const String CATEGORIES = "Categorias";

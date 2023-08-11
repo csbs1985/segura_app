@@ -14,10 +14,12 @@ class NoteClass {
   selectNote(Map<String, dynamic> note) {
     currentNote.value = NoteModel(
       category: note['category'].cast<String>(),
+      color: note['color'],
       dateRegistration: note['dateRegistration'],
       excluded: note['excluded'],
       note: note['note'],
       noteId: note['noteId'] ?? note['objectID'],
+      position: note['position'],
       shared: note['shared'].cast<String>(),
       title: note['title'],
       userId: note['userId'],
@@ -27,10 +29,12 @@ class NoteClass {
   deleteNote() {
     currentNote.value = NoteModel(
       category: [],
+      color: 0,
       dateRegistration: "",
       excluded: false,
       note: "",
       noteId: "",
+      position: 0,
       shared: [],
       title: "",
       userId: "",

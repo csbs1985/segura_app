@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:segura_app/class/color_class.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_size.dart';
 
@@ -15,6 +16,8 @@ class NoteItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorClass colorClass = ColorClass();
+
     return Container(
       constraints: const BoxConstraints(minHeight: UiSize.itemList),
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
@@ -24,11 +27,16 @@ class NoteItemWidget extends StatelessWidget {
         child: AnimatedContainer(
           curve: Curves.easeInOut,
           decoration: BoxDecoration(
+            color: _item["color"] == 0
+                ? null
+                : colorClass.getBackgroundColor(_item["color"]),
             borderRadius: BorderRadius.circular(UiBorder.rounded),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.outline,
-              width: 0.5,
-            ),
+            border: _item["color"] == 0
+                ? Border.all(
+                    color: Theme.of(context).colorScheme.outline,
+                    width: 0.5,
+                  )
+                : null,
           ),
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
           duration: const Duration(milliseconds: 500),

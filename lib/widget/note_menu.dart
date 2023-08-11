@@ -5,14 +5,16 @@ import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/modal/category_select_modal.dart';
+import 'package:segura_app/modal/palette_modal.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_color.dart';
+import 'package:segura_app/theme/ui_size.dart';
 import 'package:unicons/unicons.dart';
 
-class NoteBottom extends StatefulWidget {
-  const NoteBottom({
+class NoteMenu extends StatefulWidget {
+  const NoteMenu({
     super.key,
     required Function callback,
     required Map<String, dynamic> note,
@@ -23,10 +25,10 @@ class NoteBottom extends StatefulWidget {
   final Map<String, dynamic> _note;
 
   @override
-  State<NoteBottom> createState() => _NoteBottomState();
+  State<NoteMenu> createState() => _NoteBottomState();
 }
 
-class _NoteBottomState extends State<NoteBottom> {
+class _NoteBottomState extends State<NoteMenu> {
   final CopyClass _copyClass = CopyClass();
   final NoteClass _noteClass = NoteClass();
 
@@ -47,6 +49,25 @@ class _NoteBottomState extends State<NoteBottom> {
         : context.pop();
   }
 
+  _openPaletteModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      barrierColor: UiColor.overlay,
+      shape: UiBorder.borderModal,
+      builder: (context) => PaletteModal(
+        callback: (value) => _setColor(value),
+        color: widget._note['color'],
+      ),
+    );
+  }
+
+  _setColor(int value) {
+    Future(() => setState(() {
+          widget._note['color'] = value;
+          widget._callback(widget._note);
+        }));
+  }
+
   _openGeneratorModal(BuildContext context) {}
 
   _openCategoryModal(BuildContext context) {
@@ -65,36 +86,41 @@ class _NoteBottomState extends State<NoteBottom> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: UiSize.icon,
       child: ValueListenableBuilder(
         valueListenable: currentNote,
         builder: (BuildContext context, NoteModel note, _) {
-          return Wrap(
-            spacing: 8,
-            children: [
-              // Text(widget._note['note']),
-              SvgButton(
-                icon: UniconsLine.asterisk,
-                callback: () => _openGeneratorModal(context),
-              ),
-              SvgButton(
-                icon: UniconsLine.label,
-                callback: () => _openCategoryModal(context),
-              ),
-              SvgButton(
-                icon: UniconsLine.user_plus,
-                callback: () => _openSharedModal(context),
-              ),
-              SvgButton(
-                icon: UniconsLine.trash_alt,
-                callback: () => _deleteNote(context),
-              ),
-              if (_isCopy())
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 4),
                 SvgButton(
-                  icon: UniconsLine.copy,
-                  callback: () => _copyNote(),
+                  icon: UniconsLine.palette,
+                  callback: () => _openPaletteModal(context),
                 ),
-            ],
+                SvgButton(
+                  icon: UniconsLine.asterisk,
+                  callback: () => _openGeneratorModal(context),
+                ),
+                SvgButton(
+                  icon: UniconsLine.label,
+                  callback: () => _openCategoryModal(context),
+                ),
+                SvgButton(
+                  icon: UniconsLine.user_plus,
+                  callback: () => _openSharedModal(context),
+                ),
+                SvgButton(
+                  icon: UniconsLine.trash_alt,
+                  callback: () => _deleteNote(context),
+                ),
+                if (_isCopy())
+                  SvgButton(
+                    icon: UniconsLine.copy,
+                    callback: () => _copyNote(),
+                  ),
+              ],
+            ),
           );
         },
       ),

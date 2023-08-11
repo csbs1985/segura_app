@@ -4,10 +4,12 @@ import 'package:segura_app/model/user_model.dart';
 
 ValueNotifier<NoteModel> currentNote = ValueNotifier(NoteModel(
   category: [],
+  color: 0,
   dateRegistration: "",
   excluded: false,
   note: "",
   noteId: "",
+  position: 0,
   shared: [],
   title: "",
   userId: "",

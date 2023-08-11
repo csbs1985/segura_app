@@ -48,7 +48,7 @@ class FormInput extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+          contentPadding: const EdgeInsets.fromLTRB(20, 16, 4, 16),
           isDense: true,
           hintStyle: Theme.of(context).textTheme.headlineMedium,
           border: UiBorder.borderRounded,
