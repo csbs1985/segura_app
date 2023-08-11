@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/color_class.dart';
 import 'package:segura_app/class/note_class.dart';
+import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
@@ -30,10 +31,7 @@ class _NotePageState extends State<NotePage> {
   final NoteClass _noteClass = NoteClass();
   final Uuid _uuid = const Uuid();
 
-  int colorCurrent = 0;
-  String noteCurrent = "";
-  String titleCurrent = "";
-
+  NoteModel? _noteCurrent;
   Map<String, dynamic> _noteForm = {};
 
   @override
@@ -57,9 +55,7 @@ class _NotePageState extends State<NotePage> {
         "userId": currentNote.value.userId,
       };
 
-      colorCurrent = currentNote.value.color;
-      noteCurrent = currentNote.value.note;
-      titleCurrent = currentNote.value.title;
+      _noteCurrent = currentNote.value;
     } else {
       _noteForm = {
         "category": [],
@@ -76,25 +72,10 @@ class _NotePageState extends State<NotePage> {
     }
   }
 
-  _formValidad(BuildContext context) {
-    if (currentNote.value.noteId.isNotEmpty &&
-        colorCurrent != _noteForm['color']) return _editNote(context);
-    if (currentNote.value.noteId.isNotEmpty &&
-        noteCurrent != _noteForm['note']) {
-      return _editNote(context);
-    }
-    if (currentNote.value.noteId.isNotEmpty &&
-        titleCurrent != _noteForm['title']) return _editNote(context);
-  }
-
-  _editNote(BuildContext context) {}
-
   _saveNote(BuildContext context) {
-    if ((_noteForm['note'] != "" &&
-            _noteForm['note'] != null &&
-            noteCurrent != _noteForm['note']) ||
-        titleCurrent != _noteForm['title'] ||
-        colorCurrent != _noteForm['color']) {
+    if (_noteForm['note'] != "" &&
+        _noteForm['note'] != null &&
+        _noteCurrent != _noteForm) {
       setState(() {
         if (currentNote.value.noteId.isNotEmpty) {
           // editar
