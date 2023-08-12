@@ -94,18 +94,14 @@ class _CategoryFormModalState extends State<CategoryFormModal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ModalAppBar(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                CATEGORIES,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 24),
+              const ModalAppBar(text: CATEGORIES),
+              const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(

@@ -74,7 +74,7 @@ class UiColor {
   static const Color color8 = Color(0xFFD3BFDB);
   static const Color color8Dark = Color(0xFF472E5B);
   static const Color color9 = Color(0xFFF6E2DD);
-  static const Color color9Dark = Color(0xFF77172E);
+  static const Color color9Dark = Color(0xFF6C394F);
   static const Color color10 = Color(0xFFE9E3D4);
   static const Color color10Dark = Color(0xFF4B443A);
   static const Color color11 = Color(0xFFEFEFF1);

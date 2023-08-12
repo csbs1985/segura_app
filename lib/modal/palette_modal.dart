@@ -3,7 +3,6 @@ import 'package:segura_app/appbar/modal_appbar.dart';
 import 'package:segura_app/class/color_class.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/theme/ui_size.dart';
-import 'package:unicons/unicons.dart';
 
 class PaletteModal extends StatefulWidget {
   const PaletteModal({
@@ -47,64 +46,51 @@ class _PaletteModalState extends State<PaletteModal> {
     final sizeWidth = width / 6;
 
     return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ModalAppBar(),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    COLOR,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 24),
-                  Wrap(
-                    spacing: UiSize.spaceColor,
-                    runSpacing: UiSize.spaceColor,
-                    alignment: WrapAlignment.start,
-                    children: List.generate(
-                      _colorClass.listColors.length,
-                      (index) {
-                        int value = _colorClass.listColors[index]["value"];
-                        Color color = _colorClass.getColor(value);
+            const ModalAppBar(text: COLOR),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: UiSize.spaceColor,
+              runSpacing: UiSize.spaceColor,
+              alignment: WrapAlignment.start,
+              children: List.generate(
+                _colorClass.listColors.length,
+                (index) {
+                  int value = _colorClass.listColors[index]["value"];
+                  Color color = _colorClass.getColor(value);
 
-                        return GestureDetector(
-                          onTap: () => _selectColor(index, true),
-                          child: Container(
-                            width: sizeWidth,
-                            height: sizeWidth,
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: index == 0
-                                    ? Theme.of(context).iconTheme.color!
-                                    : color,
-                                width: 0.3,
+                  return GestureDetector(
+                    onTap: () => _selectColor(index, true),
+                    child: Container(
+                      width: sizeWidth,
+                      height: sizeWidth,
+                      decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: index == 0
+                              ? Theme.of(context).iconTheme.color!
+                              : color,
+                          width: 0.3,
+                        ),
+                      ),
+                      child: _verifyColor(index)
+                          ? const Center(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.white,
                               ),
-                            ),
-                            child: _verifyColor(index)
-                                ? const Center(
-                                    child: Icon(
-                                      UniconsLine.check,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                : null,
-                          ),
-                        );
-                      },
+                            )
+                          : null,
                     ),
-                  )
-                ],
+                  );
+                },
               ),
-            ),
+            )
           ],
         ),
       ),
