@@ -6,6 +6,7 @@ class DefaultInput extends StatelessWidget {
   final bool? expands;
   final FocusNode? focusNode;
   final String? hintText;
+  final bool? isCircle;
   final TextInputType? keyboardType;
   final Function(String?)? onSaved;
   final int? maxLength;
@@ -21,6 +22,7 @@ class DefaultInput extends StatelessWidget {
     this.expands = false,
     this.focusNode,
     this.hintText,
+    this.isCircle = true,
     this.keyboardType = TextInputType.text,
     this.onSaved,
     this.maxLength,
@@ -49,14 +51,17 @@ class DefaultInput extends StatelessWidget {
       validator: validator,
       cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon!) : null,
+        prefixIcon: prefixIcon == null ? null : Icon(prefixIcon!),
         hintText: hintText,
         filled: true,
         hintStyle: Theme.of(context).textTheme.headlineMedium,
         contentPadding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-        border: UiBorder.borderRounded,
-        enabledBorder: UiBorder.borderRounded,
-        focusedBorder: UiBorder.borderRounded,
+        border:
+            isCircle == true ? UiBorder.borderCircle : UiBorder.borderRounded,
+        enabledBorder:
+            isCircle == true ? UiBorder.borderCircle : UiBorder.borderRounded,
+        focusedBorder:
+            isCircle == true ? UiBorder.borderCircle : UiBorder.borderRounded,
       ),
     );
   }

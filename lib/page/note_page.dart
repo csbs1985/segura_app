@@ -153,6 +153,7 @@ class _NotePageState extends State<NotePage> {
                             autoFocus: false,
                             initialValue: _noteForm['title'],
                             hintText: TITLE,
+                            maxLines: null,
                             onSaved: (value) =>
                                 setState(() => _noteForm['title'] = value),
                           ),
