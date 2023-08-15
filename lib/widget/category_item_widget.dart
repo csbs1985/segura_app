@@ -7,13 +7,16 @@ class CategoryItemWidget extends StatefulWidget {
     super.key,
     Function? callback,
     required Map<String, dynamic> category,
+    bool? isColor = false,
     bool? isSmall = true,
   })  : _callback = callback,
         _category = category,
+        _isColor = isColor,
         _isSmall = isSmall;
 
   final Function? _callback;
   final Map<String, dynamic> _category;
+  final bool? _isColor;
   final bool? _isSmall;
 
   @override
@@ -39,10 +42,15 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                   : const EdgeInsets.fromLTRB(16, 10, 16, 10),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.outline,
+                  color: widget._isColor!
+                      ? Colors.transparent
+                      : Theme.of(context).colorScheme.outline,
                   width: 0.5,
                 ),
                 borderRadius: BorderRadius.circular(UiBorder.rounded),
+                color: widget._isColor!
+                    ? Theme.of(context).chipTheme.backgroundColor
+                    : null,
               ),
               child: Text(
                 widget._category['category'],

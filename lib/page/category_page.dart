@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:segura_app/skeleton/category_skeleton.dart';
 import 'package:segura_app/theme/ui_border.dart';
+import 'package:segura_app/widget/category_item_widget.dart';
 import 'package:segura_app/widget/message_widget.dart';
 import 'package:segura_app/appbar/back_appbar.dart';
 import 'package:segura_app/button/floating_button.dart';
@@ -25,6 +26,8 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage> {
   final CategoryFirestore _categoryFirestore = CategoryFirestore();
   final CategoryClass _categoryClass = CategoryClass();
+
+  List<Map<String, dynamic>> _listCategories = [];
 
   void _openModal(BuildContext context, Map<String, dynamic> category) {
     showCupertinoModalBottomSheet(
@@ -70,28 +73,18 @@ class _CategoryPageState extends State<CategoryPage> {
                       text: CATEGORY_EMPTY,
                     );
                   } else {
-                    List<Map<String, dynamic>> listaCategorias = _categoryClass
+                    _listCategories = _categoryClass
                         .converterQuerySnapshotToList(snapshot.data!.docs);
 
                     return Wrap(
                       runSpacing: 8,
                       spacing: 8,
-                      children: listaCategorias.map((item) {
-                        return GestureDetector(
-                          onTap: () => _openModal(context, item),
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-                            decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).chipTheme.backgroundColor,
-                              borderRadius:
-                                  BorderRadius.circular(UiBorder.rounded),
-                            ),
-                            child: Text(
-                              item['category'],
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ),
+                      children: _listCategories.map((item) {
+                        return CategoryItemWidget(
+                          callback: () => _openModal(context, item),
+                          category: item,
+                          isColor: true,
+                          isSmall: false,
                         );
                       }).toList(),
                     );

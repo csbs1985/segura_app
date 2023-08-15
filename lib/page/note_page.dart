@@ -61,8 +61,6 @@ class _NotePageState extends State<NotePage> {
       };
 
       _noteCurrent = currentNote.value;
-      // _listCategories = _categoryClass.fetchCategory(_noteForm['category'])
-      //     as List<Map<String, dynamic>>;
     } else {
       _noteForm = {
         "category": [],
@@ -202,18 +200,17 @@ class _NotePageState extends State<NotePage> {
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                                child: InkWell(
-                                  child: Wrap(
-                                    runSpacing: 8,
-                                    spacing: 8,
-                                    children: _listCategories.map((item) {
-                                      return CategoryItemWidget(
-                                        category: item,
-                                        isSmall: true,
-                                      );
-                                    }).toList(),
-                                  ),
-                                  onTap: () => _openCategoryModal(context),
+                                child: Wrap(
+                                  runSpacing: 8,
+                                  spacing: 8,
+                                  children: _listCategories.map((item) {
+                                    return CategoryItemWidget(
+                                      callback: () =>
+                                          _openCategoryModal(context),
+                                      category: item,
+                                      isSmall: true,
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                           ],
