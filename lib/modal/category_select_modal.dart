@@ -1,24 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:segura_app/appbar/modal_appbar.dart';
 import 'package:segura_app/class/category_class.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/firestore/category_firestore.dart';
+import 'package:segura_app/modal/category_form_modal.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/skeleton/category_skeleton.dart';
 import 'package:segura_app/theme/ui_border.dart';
+import 'package:segura_app/theme/ui_color.dart';
 import 'package:segura_app/theme/ui_size.dart';
 import 'package:segura_app/widget/message_widget.dart';
-import 'package:uuid/uuid.dart';
 
 class CategorySelectModal extends StatefulWidget {
   const CategorySelectModal({
     super.key,
+    required Function callback,
     required Map<String, dynamic> note,
-  }) : _note = note;
+  })  : _callback = callback,
+        _note = note;
 
+  final Function _callback;
   final Map<String, dynamic> _note;
 
   @override
@@ -29,7 +33,6 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
   final CategoryClass _categoryClass = CategoryClass();
   final CategoryFirestore _categoryFirestore = CategoryFirestore();
   final NoteClass _noteClass = NoteClass();
-  final Uuid _uuid = const Uuid();
 
   List<dynamic> _listCategories = [];
   List<dynamic> _listCategoriesCurrent = [];
@@ -43,6 +46,16 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
     super.initState();
   }
 
+  void _openModal(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      expand: true,
+      context: context,
+      barrierColor: UiColor.overlay,
+      shape: UiBorder.borderModal,
+      builder: (context) => const CategoryFormModal(select: {}),
+    );
+  }
+
   void _selectCategory(BuildContext context, Map<String, dynamic> category) {
     String categoryId = category['categoryId'];
 
@@ -53,18 +66,12 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
         _listCategories.add(categoryId);
       }
     });
+
+    widget._callback(_listCategories);
   }
 
   bool isCategory(String categoryId) {
     return _listCategories.contains(categoryId) ? true : false;
-  }
-
-  void _saveCategory() {
-    if (_listCategoriesCurrent != _listCategories) {
-      _noteClass.saveCategoryNote(
-          context, widget._note['noteId'], _listCategories);
-    }
-    context.pop();
   }
 
   @override
@@ -77,7 +84,11 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ModalAppBar(text: CATEGORIES),
+            ModalAppBar(
+              callback: () => _openModal(context),
+              isAdd: true,
+              text: CATEGORIES,
+            ),
             const SizedBox(height: 16),
             StreamBuilder<QuerySnapshot>(
               stream: _categoryFirestore

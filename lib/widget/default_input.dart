@@ -22,7 +22,7 @@ class DefaultInput extends StatelessWidget {
     this.expands = false,
     this.focusNode,
     this.hintText,
-    this.isCircle = true,
+    this.isCircle = false,
     this.keyboardType = TextInputType.text,
     this.onSaved,
     this.maxLength,

@@ -27,4 +27,8 @@ class CategoryFirestore {
   getAllCategories(String userId) {
     return categories.orderBy('category').where('userId', isEqualTo: userId);
   }
+
+  getCategoryId(String categoryId) async {
+    return await categories.where('categoryId', isEqualTo: categoryId).get();
+  }
 }

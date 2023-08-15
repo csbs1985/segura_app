@@ -3,11 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/color_class.dart';
 import 'package:segura_app/class/note_class.dart';
+import 'package:segura_app/firestore/category_firestore.dart';
+import 'package:segura_app/modal/category_select_modal.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
-import 'package:segura_app/theme/ui_size.dart';
+import 'package:segura_app/theme/ui_color.dart';
+import 'package:segura_app/widget/category_item_widget.dart';
 import 'package:segura_app/widget/form_input.dart';
 import 'package:segura_app/widget/note_menu.dart';
 import 'package:unicons/unicons.dart';
@@ -27,12 +30,14 @@ class NotePage extends StatefulWidget {
 
 class _NotePageState extends State<NotePage> {
   final ColorClass _colorClass = ColorClass();
+  final CategoryFirestore _categoryFirestore = CategoryFirestore();
   final GlobalKey _formKey = GlobalKey<FormState>();
   final NoteClass _noteClass = NoteClass();
   final Uuid _uuid = const Uuid();
 
   NoteModel? _noteCurrent;
   Map<String, dynamic> _noteForm = {};
+  List<Map<String, dynamic>> _listCategories = [];
 
   @override
   void initState() {
@@ -56,6 +61,8 @@ class _NotePageState extends State<NotePage> {
       };
 
       _noteCurrent = currentNote.value;
+      // _listCategories = _categoryClass.fetchCategory(_noteForm['category'])
+      //     as List<Map<String, dynamic>>;
     } else {
       _noteForm = {
         "category": [],
@@ -69,6 +76,17 @@ class _NotePageState extends State<NotePage> {
         "title": "",
         "userId": "",
       };
+    }
+  }
+
+  Future<void> _fetchCategory() async {
+    _listCategories = [];
+
+    for (var category in _noteForm["category"]) {
+      final result = await _categoryFirestore.getCategoryId(category);
+      Map<String, dynamic> item =
+          result.docs.first.data() as Map<String, dynamic>;
+      _listCategories.add(item);
     }
   }
 
@@ -116,71 +134,103 @@ class _NotePageState extends State<NotePage> {
     context.pop();
   }
 
+  _openCategoryModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      barrierColor: UiColor.overlay,
+      shape: UiBorder.borderModal,
+      builder: (context) => CategorySelectModal(
+        callback: (value) => _noteForm['category'] = value,
+        note: _noteForm,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height - UiSize.appbar * 3;
-    final minLines = screenHeight ~/ UiSize.lineHeight;
-
-    return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
-      body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: _colorClass.getBackgroundColor(_noteForm['color']),
-          borderRadius: BorderRadius.circular(UiBorder.rounded),
-        ),
-        child: WillPopScope(
-          onWillPop: () => _saveNote(context),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Row(
+    return FutureBuilder<void>(
+      future: _fetchCategory(),
+      builder: (BuildContext context, _) {
+        return Scaffold(
+          appBar: AppBar(toolbarHeight: 0),
+          body: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: _colorClass.getBackgroundColor(_noteForm['color']),
+              borderRadius: BorderRadius.circular(UiBorder.rounded),
+            ),
+            child: WillPopScope(
+              onWillPop: () => _saveNote(context),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SvgButton(
-                              icon: UniconsLine.arrow_left,
-                              callback: () => _saveNote(context),
+                            Row(
+                              children: [
+                                SvgButton(
+                                  icon: UniconsLine.arrow_left,
+                                  callback: () => _saveNote(context),
+                                ),
+                              ],
                             ),
+                            if (_noteForm.isNotEmpty)
+                              FormInput(
+                                autoFocus: false,
+                                initialValue: _noteForm['title'],
+                                hintText: TITLE,
+                                maxLines: null,
+                                onSaved: (value) =>
+                                    setState(() => _noteForm['title'] = value),
+                              ),
+                            if (_noteForm.isNotEmpty)
+                              FormInput(
+                                autoFocus: false,
+                                initialValue: _noteForm['note'],
+                                hintText: NOTE,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: null,
+                                onSaved: (value) =>
+                                    setState(() => _noteForm['note'] = value),
+                              ),
+                            if (_listCategories.isNotEmpty)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                                child: InkWell(
+                                  child: Wrap(
+                                    runSpacing: 8,
+                                    spacing: 8,
+                                    children: _listCategories.map((item) {
+                                      return CategoryItemWidget(
+                                        category: item,
+                                        isSmall: true,
+                                      );
+                                    }).toList(),
+                                  ),
+                                  onTap: () => _openCategoryModal(context),
+                                ),
+                              ),
                           ],
                         ),
-                        if (_noteForm.isNotEmpty)
-                          FormInput(
-                            autoFocus: false,
-                            initialValue: _noteForm['title'],
-                            hintText: TITLE,
-                            maxLines: null,
-                            onSaved: (value) =>
-                                setState(() => _noteForm['title'] = value),
-                          ),
-                        if (_noteForm.isNotEmpty)
-                          FormInput(
-                            autoFocus: false,
-                            initialValue: _noteForm['note'],
-                            hintText: NOTE,
-                            keyboardType: TextInputType.multiline,
-                            minLines: minLines,
-                            maxLines: null,
-                            onSaved: (value) =>
-                                setState(() => _noteForm['note'] = value),
-                          ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  NoteMenu(
+                    callback: (value) => setState(() => _noteForm = value),
+                    note: _noteForm,
+                  ),
+                ],
               ),
-              NoteMenu(
-                callback: (value) => setState(() => _noteForm = value),
-                note: _noteForm,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

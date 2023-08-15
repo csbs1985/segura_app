@@ -74,8 +74,18 @@ class _NoteBottomState extends State<NoteMenu> {
       context: context,
       barrierColor: UiColor.overlay,
       shape: UiBorder.borderModal,
-      builder: (context) => CategorySelectModal(note: widget._note),
+      builder: (context) => CategorySelectModal(
+        callback: (value) => _setCategory(value),
+        note: widget._note,
+      ),
     );
+  }
+
+  _setCategory(List<String> value) {
+    Future(() => setState(() {
+          widget._note['category'] = value;
+          widget._callback(widget._note);
+        }));
   }
 
   _openSharedModal(BuildContext context) {}
