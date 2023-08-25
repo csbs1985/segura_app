@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:segura_app/appbar/modal_appbar.dart';
 import 'package:segura_app/class/category_class.dart';
-import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/firestore/category_firestore.dart';
 import 'package:segura_app/modal/category_form_modal.dart';
 import 'package:segura_app/service/text_service.dart';
@@ -32,17 +31,13 @@ class CategorySelectModal extends StatefulWidget {
 class _CategorySelectModalState extends State<CategorySelectModal> {
   final CategoryClass _categoryClass = CategoryClass();
   final CategoryFirestore _categoryFirestore = CategoryFirestore();
-  final NoteClass _noteClass = NoteClass();
 
   List<dynamic> _listCategories = [];
-  List<dynamic> _listCategoriesCurrent = [];
-
-  final Map<String, dynamic> _formCategory = {};
 
   @override
   void initState() {
     _listCategories = widget._note['category'];
-    _listCategoriesCurrent = widget._note['category'];
+    currentCategories.value = widget._note['category'];
     super.initState();
   }
 
@@ -59,15 +54,15 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
   void _selectCategory(BuildContext context, Map<String, dynamic> category) {
     String categoryId = category['categoryId'];
 
-    setState(() {
-      if (_listCategories.contains(categoryId)) {
-        _listCategories.remove(categoryId);
-      } else {
-        _listCategories.add(categoryId);
-      }
-    });
+    final List<dynamic> updatedCategories = List.from(currentCategories.value);
+    if (updatedCategories.contains(categoryId)) {
+      updatedCategories.remove(categoryId);
+    } else {
+      updatedCategories.add(categoryId);
+    }
 
-    widget._callback(_listCategories);
+    currentCategories.value = updatedCategories;
+    widget._callback(currentCategories.value);
   }
 
   bool isCategory(String categoryId) {
@@ -78,64 +73,75 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height - (UiSize.appbar * 4);
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ModalAppBar(
-              callback: () => _openModal(context),
-              isAdd: true,
-              text: CATEGORIES,
-            ),
-            const SizedBox(height: 16),
-            StreamBuilder<QuerySnapshot>(
-              stream: _categoryFirestore
-                  .snapshotsCategory(currentUser.value.userId),
-              builder: (
-                BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot,
-              ) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CategorySkeleton();
-                } else if (!snapshot.hasData ||
-                    snapshot.data?.docs.isEmpty == true) {
-                  return MessageWidget(
-                    height: height,
-                    text: CATEGORY_EMPTY,
-                  );
-                } else {
-                  List<Map<String, dynamic>> listaCategorias = _categoryClass
-                      .converterQuerySnapshotToList(snapshot.data!.docs);
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ModalAppBar(
+                callback: () => _openModal(context),
+                isAdd: true,
+                text: CATEGORIES,
+              ),
+              const SizedBox(height: 16),
+              StreamBuilder<QuerySnapshot>(
+                stream: _categoryFirestore
+                    .snapshotsCategory(currentUser.value.userId),
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot,
+                ) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CategorySkeleton();
+                  } else if (!snapshot.hasData ||
+                      snapshot.data?.docs.isEmpty == true) {
+                    return MessageWidget(
+                      height: height,
+                      text: CATEGORY_EMPTY,
+                    );
+                  } else {
+                    List<Map<String, dynamic>> listaCategorias = _categoryClass
+                        .converterQuerySnapshotToList(snapshot.data!.docs);
 
-                  return Wrap(
-                    runSpacing: 8,
-                    spacing: 8,
-                    children: listaCategorias.map((item) {
-                      return GestureDetector(
-                        onTap: () => _selectCategory(context, item),
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-                          decoration: BoxDecoration(
-                            color: isCategory(item['categoryId'])
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).chipTheme.backgroundColor,
-                            borderRadius:
-                                BorderRadius.circular(UiBorder.rounded),
-                          ),
-                          child: Text(
-                            item['category'],
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                }
-              },
-            ),
-          ],
+                    return ValueListenableBuilder<List<dynamic>>(
+                      valueListenable: currentCategories,
+                      builder: (context, selectedCategories, child) {
+                        return Wrap(
+                          runSpacing: 8,
+                          spacing: 8,
+                          children: listaCategorias.map((item) {
+                            return GestureDetector(
+                              onTap: () => _selectCategory(context, item),
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                                decoration: BoxDecoration(
+                                  color: selectedCategories
+                                          .contains(item['categoryId'])
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context)
+                                          .chipTheme
+                                          .backgroundColor,
+                                  borderRadius:
+                                      BorderRadius.circular(UiBorder.rounded),
+                                ),
+                                child: Text(
+                                  item['category'],
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

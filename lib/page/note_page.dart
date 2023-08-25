@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/color_class.dart';
 import 'package:segura_app/class/note_class.dart';
@@ -133,7 +134,7 @@ class _NotePageState extends State<NotePage> {
   }
 
   _openCategoryModal(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       barrierColor: UiColor.overlay,
       shape: UiBorder.borderModal,

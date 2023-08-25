@@ -11,6 +11,7 @@ import 'package:segura_app/page/note_page.dart';
 import 'package:segura_app/page/note_trash_page.dart';
 import 'package:segura_app/page/password_page.dart';
 import 'package:segura_app/page/report_page.dart';
+import 'package:segura_app/page/search_page.dart';
 import 'package:segura_app/page/trash_page.dart';
 
 final UserHive _userHive = UserHive();
@@ -91,6 +92,12 @@ final GoRouter goRoute = GoRouter(
       },
     ),
     GoRoute(
+      path: RouteEnum.SEARCH.value,
+      builder: (BuildContext context, GoRouterState state) {
+        return const SearchPage();
+      },
+    ),
+    GoRoute(
       path: RouteEnum.TRASH.value,
       builder: (BuildContext context, GoRouterState state) {
         return const TrashPage();
@@ -110,6 +117,7 @@ enum RouteEnum {
   MENU('/menu'),
   PASSWORD('/password'),
   REPORT('/perport'),
+  SEARCH('/search'),
   TRASH('/trash');
 
   final String value;
