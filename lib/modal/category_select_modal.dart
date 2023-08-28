@@ -54,7 +54,7 @@ class _CategorySelectModalState extends State<CategorySelectModal> {
   void _selectCategory(BuildContext context, Map<String, dynamic> category) {
     String categoryId = category['categoryId'];
 
-    final List<dynamic> updatedCategories = List.from(currentCategories.value);
+    final List<String> updatedCategories = List.from(currentCategories.value);
     if (updatedCategories.contains(categoryId)) {
       updatedCategories.remove(categoryId);
     } else {

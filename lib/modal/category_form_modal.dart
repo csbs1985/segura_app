@@ -71,16 +71,16 @@ class _CategoryFormModalState extends State<CategoryFormModal> {
           if (widget._select!.isNotEmpty) {
             // editar
             _formCategory = {
-              'category': item.trim(),
+              'category': item.trim().toLowerCase(),
               'categoryId': _formCategory['categoryId'],
               'userId': _formCategory['userId'],
             };
           } else {
             // criar
             _formCategory = {
+              'category': item.trim().toLowerCase(),
               'categoryId': _uuid.v4(),
               'userId': currentUser.value.userId,
-              'category': item.trim(),
             };
           }
           _categoryClass.saveCategory(context, _formCategory);

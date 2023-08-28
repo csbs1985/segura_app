@@ -201,17 +201,22 @@ class _NotePageState extends State<NotePage> {
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                                child: Wrap(
-                                  runSpacing: 8,
-                                  spacing: 8,
-                                  children: _listCategories.map((item) {
-                                    return CategoryItemWidget(
-                                      callback: () =>
-                                          _openCategoryModal(context),
-                                      category: item,
-                                      isSmall: true,
+                                child: ValueListenableBuilder<List<dynamic>>(
+                                  valueListenable: currentCategories,
+                                  builder: (context, selectedCategories, _) {
+                                    return Wrap(
+                                      runSpacing: 8,
+                                      spacing: 8,
+                                      children: _listCategories.map((item) {
+                                        return CategoryItemWidget(
+                                          callback: () =>
+                                              _openCategoryModal(context),
+                                          category: item,
+                                          isSmall: true,
+                                        );
+                                      }).toList(),
                                     );
-                                  }).toList(),
+                                  },
                                 ),
                               ),
                           ],

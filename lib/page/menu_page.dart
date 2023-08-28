@@ -69,6 +69,11 @@ class _DrawerPageState extends State<MenuPage> {
               ),
             ),
             ListButton(
+              text: NOTES,
+              icon: UniconsLine.clipboard_notes,
+              callback: () => context.pop(),
+            ),
+            ListButton(
               text: NOTE_CREATE,
               icon: UniconsLine.clipboard,
               callback: () => {
