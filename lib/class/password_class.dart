@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:segura_app/model/password_model.dart';
 
 class PasswordClass {
-  String gerarSenha(
+  String passwordGenerator(
     List<String> listSelected,
     int size,
   ) {
@@ -28,7 +28,6 @@ class PasswordClass {
       int indice = random.nextInt(allowedCHaracters.length);
       senha += allowedCHaracters[indice];
     }
-
     return senha;
   }
 }

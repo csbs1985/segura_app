@@ -38,6 +38,12 @@ class UiText {
     color: UiColor.primary,
   );
 
+  static const TextStyle error = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: UiColor.error,
+  );
+
   static const TextStyle headlineMedium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,

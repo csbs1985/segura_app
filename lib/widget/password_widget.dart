@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:segura_app/button/primary_button.dart';
+import 'package:segura_app/button/square_button.dart';
 import 'package:segura_app/class/password_class.dart';
+import 'package:segura_app/mixin/validator_mixin.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/widget/default_input.dart';
 import 'package:segura_app/widget/select_item_widget.dart';
+import 'package:unicons/unicons.dart';
 
 class PasswordWidget extends StatefulWidget {
   const PasswordWidget({
@@ -17,39 +20,43 @@ class PasswordWidget extends StatefulWidget {
   final PasswordTypeEnum _type;
 
   @override
-  State<PasswordWidget> createState() => _GerarSenhaModalState();
+  State<PasswordWidget> createState() => _PasswordWidgetState();
 }
 
-class _GerarSenhaModalState extends State<PasswordWidget> {
+class _PasswordWidgetState extends State<PasswordWidget> with ValidatorMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final PasswordClass _passwordClass = PasswordClass();
 
-  String _senhaGerada = "";
+  String _password = "";
   String _size = "8";
-  bool isSelecionado = true;
-  List<String> listaSelecionado = [PasswordEnum.LOWER_CASE.name];
+  bool _isSelected = true;
+  bool _isNew = true;
+  List<String> _listSelected = [PasswordEnum.LOWER_CASE.name];
 
   final double _height = 16;
 
-  void _gerarSenha() {
+  void _generatePassword() {
     if (_formKey.currentState!.validate()) {
-      if (isSelecionado) {
-        setState(() => _senhaGerada =
-            _passwordClass.gerarSenha(listaSelecionado, int.parse(_size)));
+      if (_isSelected) {
+        setState(() => _password =
+            _passwordClass.passwordGenerator(_listSelected, int.parse(_size)));
         FocusScope.of(context).unfocus();
-      } else {
-        setState(() => _senhaGerada = "");
-      }
+      } else
+        setState(() => _password = "");
 
-      widget._callback(_senhaGerada);
+      _isNew = false;
     }
   }
 
-  void _verificaSelecionados(List<String> value) {
+  void _listSelecteds(List<dynamic> value) {
     setState(() {
-      listaSelecionado = value;
-      isSelecionado = listaSelecionado.isEmpty ? false : true;
+      _listSelected = value.map((item) => item.toString()).toList();
+      _isSelected = _listSelected.isEmpty ? false : true;
     });
+  }
+
+  void _usePassword() {
+    widget._callback(_password);
   }
 
   @override
@@ -64,7 +71,7 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  PASSWORD_GENERATE,
+                  PASSWORD_GENERATOR,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: _height),
@@ -72,46 +79,72 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
                   NOTE_DESCRIPTION,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                SizedBox(height: _height),
+                const SizedBox(height: 24),
                 Text(
                   PASSWORD_CHARACTERS,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),
                 SelectItemWidget(
-                  callback: (value) => _verificaSelecionados(value),
-                  initValue: [PasswordEnum.LOWER_CASE.value],
+                  callback: (value) => _listSelecteds(value),
+                  initValue: [PasswordEnum.LOWER_CASE.name],
                   list: listPassword,
                 ),
-                // if (!isSelecionado) ErroText(SENHA_CARACTERES_ERRO),
-                SizedBox(height: _height),
+                const SizedBox(height: 24),
                 Text(
                   PASSWORD_SIZE,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),
-                DefaultInput(
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) => setState(() => _size = value!),
-                  // validator: (value) => isSenhaCaracteresInt(value!),
-                ),
-                SizedBox(height: _height),
-                PrimaryButton(
-                  callback: (value) => _gerarSenha(),
-                  text: NOTE_CREATED,
-                ),
-                if (_senhaGerada.isNotEmpty)
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 40),
-                        Text(_senhaGerada),
-                        const Text(NOTE_CREATED),
-                        const SizedBox(height: 16),
-                      ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: DefaultInput(
+                        initialValue: _size,
+                        keyboardType: TextInputType.number,
+                        onSaved: (value) => setState(() => _size = value!),
+                        validator: (value) => isPasswordCharactersInt(value!),
+                      ),
                     ),
+                    const SizedBox(width: 8),
+                    SquareButton(
+                      callback: () => _generatePassword(),
+                      icon: _isNew ? UniconsLine.check : UniconsLine.redo,
+                      isPrimary: true,
+                    )
+                  ],
+                ),
+                if (_password.isNotEmpty)
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 40),
+                            Text(
+                              _password,
+                              style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                            ),
+                            Text(
+                              PASSWORD_CREATED,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            SizedBox(height: _height),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: _height),
+                      PrimaryButton(
+                        callback: () => _usePassword(),
+                        text: PASSWORD_USE,
+                      ),
+                    ],
                   ),
               ],
             ),

@@ -1,3 +1,5 @@
+import 'package:segura_app/service/text_service.dart';
+
 mixin ValidatorMixin {
   String? inNotEmpty(String? value) {
     if (value!.isEmpty) return "este campo é obrigatório";
@@ -21,11 +23,11 @@ mixin ValidatorMixin {
   //   return null;
   // }
 
-  // String? isSenhaCaracteresInt(String senha) {
-  //   int numero = int.parse(senha);
-  //   if (numero < 4 || numero > 32) return SENHA_CARACTERES_DESCRICAO;
-  //   return null;
-  // }
+  String? isPasswordCharactersInt(String senha) {
+    int numero = int.parse(senha);
+    if (numero < 4 || numero > 32) return PASSWORD_CHARACTERS_ERROR;
+    return null;
+  }
 
   String? combinarValidacao(List<String? Function()> validators) {
     for (final item in validators) {

@@ -40,7 +40,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
         child: Center(
           child: Text(
             widget._text,
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
       ),

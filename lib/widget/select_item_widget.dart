@@ -28,18 +28,18 @@ class _SelectItemWidgetState extends State<SelectItemWidget> {
     _listSelected = widget._initValue!;
   }
 
-  void _selectCharacter(String value) {
+  void _selectCharacter(String name) {
     setState(() {
-      _listSelected.contains(value)
-          ? _listSelected.remove(value)
-          : _listSelected.add(value);
+      _listSelected.contains(name)
+          ? _listSelected.remove(name)
+          : _listSelected.add(name);
     });
 
     widget._callback(_listSelected);
   }
 
-  bool isCharacters(String value) {
-    return _listSelected.contains(value) ? true : false;
+  bool isCharacters(String name) {
+    return _listSelected.contains(name) ? true : false;
   }
 
   @override
@@ -49,11 +49,11 @@ class _SelectItemWidgetState extends State<SelectItemWidget> {
       spacing: 8,
       children: widget._list.map((item) {
         return GestureDetector(
-          onTap: () => _selectCharacter(item.value),
+          onTap: () => _selectCharacter(item.name),
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
             decoration: BoxDecoration(
-              color: isCharacters(item.value)
+              color: isCharacters(item.name)
                   ? Theme.of(context).primaryColor
                   : Theme.of(context).chipTheme.backgroundColor,
               borderRadius: BorderRadius.circular(UiBorder.circle),

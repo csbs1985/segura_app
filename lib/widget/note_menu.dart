@@ -8,6 +8,7 @@ import 'package:segura_app/modal/category_select_modal.dart';
 import 'package:segura_app/modal/palette_modal.dart';
 import 'package:segura_app/modal/password_modal.dart';
 import 'package:segura_app/model/note_model.dart';
+import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_color.dart';
@@ -76,7 +77,6 @@ class _NoteBottomState extends State<NoteMenu> {
       shape: UiBorder.borderModal,
       builder: (context) => PasswordModal(
         callback: (value) => _setPassword(value),
-        note: widget._note,
       ),
     );
   }
@@ -100,7 +100,12 @@ class _NoteBottomState extends State<NoteMenu> {
         }));
   }
 
-  _setPassword(String value) {}
+  _setPassword(String value) {
+    String text = "${widget._note['note']}\n$PASSWORD: $value";
+    setState(() => widget._note['note'] = text);
+    widget._callback(widget._note);
+    context.pop();
+  }
 
   _openSharedModal(BuildContext context) {}
 

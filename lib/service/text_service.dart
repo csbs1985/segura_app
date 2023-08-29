@@ -52,17 +52,22 @@ const String NOTE_CREATE = "Criar nota";
 const String NOTE_EMPTY = "As notas adicionadas são exibidas aqui";
 const String NOTE_DISCARDED = "Nota descartada";
 const String NOTE_SAVE_ERROR = "Não foi possível salvar a nota";
-const String NOTE_CREATED = "senha gerada";
 const String NOTE_DESCRIPTION =
-    'O gerador de senhas permite criar uma senha aleatória com diversas opções. Selecione as opções, clique em "Gerar Senha", confira a senha gerada e clique no botão principal para utilizar a senha gerada.';
+    'O gerador de senhas possibilita a criação de senhas aleatórias com uma ampla variedade de opções personalizáveis. Você precisa escolher o formato, especificar o número de caracteres e, em seguida, clicar no botão adjacente. Pode visualizar a senha gerada e, caso satisfeito, pressionar o botão principal para utilizá-la.';
 const String NOTE_DELETAR_ERROR = "Não foi possível deletar no momento";
 const String NOTE_DELETAR_SUCCESS = "Movendo nota para a lixeira. Aguarde...";
 const String NOTE_COPIED = "Senha copiada para a área de transferência.";
 const String NOTES = "Notas";
 
+const String PASSWORD = "senha";
 const String PASSWORD_CHARACTERS = "Utilizar caracteres";
-const String PASSWORD_GENERATE = "Gerador de senha";
+const String PASSWORD_CHARACTERS_ERROR =
+    "a senha deve ter de 4 à 32 caracteres";
+const String PASSWORD_CREATED = "senha gerada";
+const String PASSWORD_GENERATOR = "Gerador de senha";
+const String PASSWORD_GENERATE = "Gerar senha";
 const String PASSWORD_SIZE = "Tamanho da senha";
+const String PASSWORD_USE = "Utilizar senha gerada";
 
 const String PIX_COPY = "Chave Pix copiada";
 const String PIX_CODE = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";
