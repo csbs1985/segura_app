@@ -52,16 +52,17 @@ const String NOTE_CREATE = "Criar nota";
 const String NOTE_EMPTY = "As notas adicionadas são exibidas aqui";
 const String NOTE_DISCARDED = "Nota descartada";
 const String NOTE_SAVE_ERROR = "Não foi possível salvar a nota";
-const String NOTE_CHARACTERS = "Utilizar caracteres";
 const String NOTE_CREATED = "senha gerada";
 const String NOTE_DESCRIPTION =
     'O gerador de senhas permite criar uma senha aleatória com diversas opções. Selecione as opções, clique em "Gerar Senha", confira a senha gerada e clique no botão principal para utilizar a senha gerada.';
-const String NOTE_GENERATE = "Gerador de senha";
-const String NOTE_SIZE = "Tamanho da senha";
 const String NOTE_DELETAR_ERROR = "Não foi possível deletar no momento";
 const String NOTE_DELETAR_SUCCESS = "Movendo nota para a lixeira. Aguarde...";
 const String NOTE_COPIED = "Senha copiada para a área de transferência.";
 const String NOTES = "Notas";
+
+const String PASSWORD_CHARACTERS = "Utilizar caracteres";
+const String PASSWORD_GENERATE = "Gerador de senha";
+const String PASSWORD_SIZE = "Tamanho da senha";
 
 const String PIX_COPY = "Chave Pix copiada";
 const String PIX_CODE = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";

@@ -6,6 +6,7 @@ import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/modal/category_select_modal.dart';
 import 'package:segura_app/modal/palette_modal.dart';
+import 'package:segura_app/modal/password_modal.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
@@ -68,7 +69,17 @@ class _NoteBottomState extends State<NoteMenu> {
         }));
   }
 
-  _openGeneratorModal(BuildContext context) {}
+  _openPasswordModal(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      barrierColor: UiColor.overlay,
+      shape: UiBorder.borderModal,
+      builder: (context) => PasswordModal(
+        callback: (value) => _setPassword(value),
+        note: widget._note,
+      ),
+    );
+  }
 
   _openCategoryModal(BuildContext context) {
     showCupertinoModalBottomSheet(
@@ -89,6 +100,8 @@ class _NoteBottomState extends State<NoteMenu> {
         }));
   }
 
+  _setPassword(String value) {}
+
   _openSharedModal(BuildContext context) {}
 
   @override
@@ -108,7 +121,7 @@ class _NoteBottomState extends State<NoteMenu> {
                 ),
                 SvgButton(
                   icon: UniconsLine.asterisk,
-                  callback: () => _openGeneratorModal(context),
+                  callback: () => _openPasswordModal(context),
                 ),
                 SvgButton(
                   icon: UniconsLine.label,

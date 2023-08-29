@@ -3,6 +3,7 @@ import 'package:segura_app/button/primary_button.dart';
 import 'package:segura_app/class/password_class.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/widget/default_input.dart';
+import 'package:segura_app/widget/select_item_widget.dart';
 
 class PasswordWidget extends StatefulWidget {
   const PasswordWidget({
@@ -21,27 +22,27 @@ class PasswordWidget extends StatefulWidget {
 
 class _GerarSenhaModalState extends State<PasswordWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // final SenhaClass _senhaClass = SenhaClass();
+  final PasswordClass _passwordClass = PasswordClass();
 
-  final String _senhaGerada = "";
+  String _senhaGerada = "";
   String _size = "8";
   bool isSelecionado = true;
-  List<String> listaSelecionado = [PasswordEnum.MINUSCULA.name];
+  List<String> listaSelecionado = [PasswordEnum.LOWER_CASE.name];
 
   final double _height = 16;
 
   void _gerarSenha() {
-    // if (_formKey.currentState!.validate()) {
-    //   if (isSelecionado) {
-    //     setState(() => _senhaGerada =
-    //         _senhaClass.gerarSenha(listaSelecionado, int.parse(tamanho)));
-    //     FocusScope.of(context).unfocus();
-    //   } else {
-    //     setState(() => _senhaGerada = "");
-    //   }
+    if (_formKey.currentState!.validate()) {
+      if (isSelecionado) {
+        setState(() => _senhaGerada =
+            _passwordClass.gerarSenha(listaSelecionado, int.parse(_size)));
+        FocusScope.of(context).unfocus();
+      } else {
+        setState(() => _senhaGerada = "");
+      }
 
-    //   widget._callback(_senhaGerada);
-    // }
+      widget._callback(_senhaGerada);
+    }
   }
 
   void _verificaSelecionados(List<String> value) {
@@ -63,7 +64,7 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  NOTE_GENERATE,
+                  PASSWORD_GENERATE,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: _height),
@@ -73,17 +74,19 @@ class _GerarSenhaModalState extends State<PasswordWidget> {
                 ),
                 SizedBox(height: _height),
                 Text(
-                  NOTE_CHARACTERS,
+                  PASSWORD_CHARACTERS,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),
-                // PadraoSelecionarWidget(
-                //   callback: (value) => _verificaSelecionados(value),
-                // ),
+                SelectItemWidget(
+                  callback: (value) => _verificaSelecionados(value),
+                  initValue: [PasswordEnum.LOWER_CASE.value],
+                  list: listPassword,
+                ),
                 // if (!isSelecionado) ErroText(SENHA_CARACTERES_ERRO),
                 SizedBox(height: _height),
                 Text(
-                  NOTE_SIZE,
+                  PASSWORD_SIZE,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: _height),

@@ -16,7 +16,7 @@ class PasswordPage extends StatefulWidget {
 class PasswordaPageState extends State<PasswordPage> {
   final CopyClass _copyClass = CopyClass();
 
-  String _senhaGerada = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +24,14 @@ class PasswordaPageState extends State<PasswordPage> {
       appBar: const BackAppBar(),
       body: PasswordWidget(
         type: PasswordTypeEnum.PAGE,
-        callback: (value) => setState(() => _senhaGerada = value),
+        callback: (value) => setState(() => _password = value),
       ),
-      floatingActionButton: _senhaGerada.isEmpty
+      floatingActionButton: _password.isEmpty
           ? null
           : PrimaryButton(
               callback: () => _copyClass.copy(
                 context: context,
-                text: _senhaGerada,
+                text: _password,
               ),
               text: NOTE_COPY,
             ),
