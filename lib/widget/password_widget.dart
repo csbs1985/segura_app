@@ -4,7 +4,7 @@ import 'package:segura_app/button/square_button.dart';
 import 'package:segura_app/class/password_class.dart';
 import 'package:segura_app/mixin/validator_mixin.dart';
 import 'package:segura_app/service/text_service.dart';
-import 'package:segura_app/widget/default_input.dart';
+import 'package:segura_app/input/default_input.dart';
 import 'package:segura_app/widget/select_item_widget.dart';
 import 'package:unicons/unicons.dart';
 

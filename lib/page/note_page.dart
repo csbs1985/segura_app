@@ -12,7 +12,7 @@ import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_color.dart';
 import 'package:segura_app/widget/category_item_widget.dart';
-import 'package:segura_app/widget/form_input.dart';
+import 'package:segura_app/input/form_input.dart';
 import 'package:segura_app/widget/note_menu.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';

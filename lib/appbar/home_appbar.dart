@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/avatar_button.dart';
-import 'package:segura_app/service/text_service.dart';
+import 'package:segura_app/button/search_button.dart';
+import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
-import 'package:segura_app/widget/default_input.dart';
 
 class HomeAppBar extends StatefulWidget {
-  const HomeAppBar({
-    super.key,
-    required Function avatar,
-    required Function search,
-  })  : _avatar = avatar,
-        _search = search;
-
-  final Function _avatar;
-  final Function _search;
+  const HomeAppBar({super.key});
 
   @override
   State<HomeAppBar> createState() => _HomeAppBarState();
@@ -30,18 +23,14 @@ class _HomeAppBarState extends State<HomeAppBar> {
       child: Row(
         children: [
           Expanded(
-            child: DefaultInput(
-              onSaved: (value) => widget._search(value),
-              hintText: SEARCH,
-              isCircle: true,
-              prefixIcon: Icons.search_outlined,
+            child: SearchButton(
+              callback: () => context.push(RouteEnum.SEARCH.value),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
-            child: GestureDetector(
-              onTap: () => widget._avatar(),
-              child: AvatarButton(callback: () => widget._avatar()),
+            child: AvatarButton(
+              callback: () => context.push(RouteEnum.MENU.value),
             ),
           ),
         ],

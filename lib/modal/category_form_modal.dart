@@ -6,7 +6,7 @@ import 'package:segura_app/class/category_class.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
-import 'package:segura_app/widget/default_input.dart';
+import 'package:segura_app/input/default_input.dart';
 import 'package:unicons/unicons.dart';
 import 'package:uuid/uuid.dart';
 

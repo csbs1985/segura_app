@@ -69,6 +69,8 @@ const String PASSWORD_GENERATE = "Gerar senha";
 const String PASSWORD_SIZE = "Tamanho da senha";
 const String PASSWORD_USE = "Utilizar senha gerada";
 
+const String PEOPLE = "Pessoas";
+
 const String PIX_COPY = "Chave Pix copiada";
 const String PIX_CODE = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";
 
