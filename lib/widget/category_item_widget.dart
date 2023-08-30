@@ -39,7 +39,7 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
           borderRadius: BorderRadius.circular(UiBorder.rounded),
           color: widget._isColor!
               ? Theme.of(context).chipTheme.backgroundColor
-              : null,
+              : Colors.transparent,
         ),
         child: Text(
           widget._category['category'],

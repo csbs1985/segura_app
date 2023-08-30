@@ -156,7 +156,7 @@ class _NotePageState extends State<NotePage> {
             height: double.infinity,
             decoration: BoxDecoration(
               color: _colorClass.getBackgroundColor(_noteForm['color']),
-              borderRadius: BorderRadius.circular(UiBorder.rounded),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: WillPopScope(
               onWillPop: () => _saveNote(context),

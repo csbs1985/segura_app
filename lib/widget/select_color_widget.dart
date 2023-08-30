@@ -63,8 +63,9 @@ class _SelectColorWidgetState extends State<SelectColorWidget> {
                   color: color,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color:
-                        index == 0 ? Theme.of(context).iconTheme.color! : color,
+                    color: index == 0
+                        ? Theme.of(context).iconTheme.color!.withOpacity(0.3)
+                        : color,
                     width: 0.3,
                   ),
                 ),

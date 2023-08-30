@@ -148,7 +148,6 @@ class _SearchPageState extends State<SearchPage> {
                                 return CategoryItemWidget(
                                   callback: () => {},
                                   category: item,
-                                  isColor: true,
                                   isSmall: false,
                                 );
                               }).toList(),

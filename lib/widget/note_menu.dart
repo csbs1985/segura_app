@@ -7,7 +7,6 @@ import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/modal/category_select_modal.dart';
 import 'package:segura_app/modal/palette_modal.dart';
 import 'package:segura_app/modal/password_modal.dart';
-import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
@@ -113,13 +112,15 @@ class _NoteBottomState extends State<NoteMenu> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: UiSize.icon,
-      child: ValueListenableBuilder(
-        valueListenable: currentNote,
-        builder: (BuildContext context, NoteModel note, _) {
-          return SingleChildScrollView(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const SizedBox(height: 4),
                 SvgButton(
                   icon: UniconsLine.palette,
                   callback: () => _openPaletteModal(context),
@@ -147,8 +148,8 @@ class _NoteBottomState extends State<NoteMenu> {
                   ),
               ],
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
