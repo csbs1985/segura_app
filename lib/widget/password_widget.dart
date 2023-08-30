@@ -53,6 +53,8 @@ class _PasswordWidgetState extends State<PasswordWidget> with ValidatorMixin {
       _listSelected = value.map((item) => item.toString()).toList();
       _isSelected = _listSelected.isEmpty ? false : true;
     });
+
+    _generatePassword();
   }
 
   void _usePassword() {
