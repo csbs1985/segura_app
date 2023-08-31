@@ -1,23 +1,18 @@
 import 'package:algolia/algolia.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/search_appbar.dart';
-import 'package:segura_app/class/category_class.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
-import 'package:segura_app/firestore/category_firestore.dart';
 import 'package:segura_app/model/note_model.dart';
+import 'package:segura_app/page/filter_page.dart';
 import 'package:segura_app/service/algolia_service.dart';
 import 'package:segura_app/service/routes_service.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
-import 'package:segura_app/skeleton/category_skeleton.dart';
 import 'package:segura_app/theme/ui_size.dart';
-import 'package:segura_app/widget/category_item_widget.dart';
 import 'package:segura_app/widget/message_widget.dart';
 import 'package:segura_app/widget/note_item_widget.dart';
-import 'package:segura_app/widget/select_color_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -27,14 +22,13 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final CategoryFirestore _categoryFirestore = CategoryFirestore();
-  final CategoryClass _categoryClass = CategoryClass();
   final SearchClass _searchClass = SearchClass();
 
   Algolia? algoliaSegura;
 
   List<Map<String, dynamic>> listNote = [];
-  final List<Map<String, dynamic>> _listCategories = [];
+  List<Map<String, dynamic>> listCategories = [];
+  List<Map<String, dynamic>> listShareds = [];
 
   bool isSearch = false;
 
@@ -110,68 +104,7 @@ class _SearchPageState extends State<SearchPage> {
                             },
                           ),
                   )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16),
-                      Text(
-                        CATEGORIES,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16),
-                      // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                      //   stream: _categoryFirestore
-                      //       .snapshotsCategory(currentUser.value.userId),
-                      //   builder: (
-                      //     BuildContext context,
-                      //     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                      //         snapshot,
-                      //   ) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       return const CategorySkeleton();
-                      //     } else if (!snapshot.hasData ||
-                      //         snapshot.data?.docs.isEmpty == true) {
-                      //       return MessageWidget(
-                      //         height: height,
-                      //         text: CATEGORY_EMPTY,
-                      //       );
-                      //     } else {
-                      //       _listCategories =
-                      //           _categoryClass.converterQuerySnapshotToList(
-                      //               snapshot.data!.docs);
-
-                      //       return Wrap(
-                      //         runSpacing: 8,
-                      //         spacing: 8,
-                      //         children: _listCategories.map((item) {
-                      //           return CategoryItemWidget(
-                      //             callback: () => {},
-                      //             category: item,
-                      //             isSmall: false,
-                      //           );
-                      //         }).toList(),
-                      //       );
-                      //     }
-                      //   },
-                      // ),
-                      const SizedBox(height: 16),
-                      Text(
-                        PEOPLE,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        COLOR,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16),
-                      SelectColorWidget(
-                        callback: (value) => {},
-                        color: 0,
-                      ),
-                    ],
-                  ),
+                : const FilterPage(),
           ],
         ),
       ),

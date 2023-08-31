@@ -29,6 +29,12 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
 
   Map<String, dynamic> _category = {};
 
+  @override
+  void initState() {
+    super.initState();
+    _fetchCategory();
+  }
+
   Future<void> _fetchCategory() async {
     _category = {};
 

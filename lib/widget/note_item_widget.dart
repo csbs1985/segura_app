@@ -88,7 +88,9 @@ class _NoteItemWidgetState extends State<NoteItemWidget> {
                         }).toList(),
                       ),
                     ),
-                  const SizedBox(width: 8),
+                  if (widget._item["category"].isNotEmpty &&
+                      widget._item["shared"].isNotEmpty)
+                    const SizedBox(width: 8),
                   if (widget._item["shared"].isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
