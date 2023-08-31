@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:segura_app/class/color_class.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:text_transformation_animation/text_transformation_animation.dart';
 
@@ -6,15 +7,18 @@ class CategoryElement extends StatefulWidget {
   const CategoryElement({
     super.key,
     required Function callback,
+    int? color = 0,
     required Map<String, dynamic> element,
     bool? isSelected = false,
     bool? isSmall = false,
   })  : _callback = callback,
+        _color = color,
         _element = element,
         _isSelected = isSelected,
         _isSmall = isSmall;
 
   final Function _callback;
+  final int? _color;
   final Map<String, dynamic> _element;
   final bool? _isSelected;
   final bool? _isSmall;
@@ -24,6 +28,8 @@ class CategoryElement extends StatefulWidget {
 }
 
 class _CategoryElementState extends State<CategoryElement> {
+  final ColorClass _colorClass = ColorClass();
+
   @override
   Widget build(BuildContext context) {
     TextStyle? textStyle = widget._isSmall!
@@ -42,14 +48,14 @@ class _CategoryElementState extends State<CategoryElement> {
         decoration: BoxDecoration(
           border: Border.all(
             color: widget._isSelected!
-                ? Theme.of(context).scaffoldBackgroundColor
+                ? Colors.transparent
                 : Theme.of(context).iconTheme.color!.withOpacity(0.3),
             width: 0.5,
           ),
           borderRadius: BorderRadius.circular(UiBorder.rounded),
           color: widget._isSelected!
               ? Theme.of(context).primaryColor
-              : Theme.of(context).scaffoldBackgroundColor,
+              : _colorClass.getColor(widget._color!),
         ),
         child: TextTransformationAnimation(
           text: widget._element.isEmpty ? "..." : widget._element['category'],

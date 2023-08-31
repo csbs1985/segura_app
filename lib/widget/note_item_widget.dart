@@ -83,6 +83,7 @@ class _NoteItemWidgetState extends State<NoteItemWidget> {
                         children: widget._item["category"].map<Widget>((item) {
                           return CategoryItemWidget(
                             category: item as String,
+                            color: widget._item["color"],
                             isSmall: true,
                           );
                         }).toList(),
