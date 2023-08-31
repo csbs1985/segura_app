@@ -56,7 +56,10 @@ class _DrawerPageState extends State<MenuPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AvatarButton(size: 48),
+                  AvatarButton(
+                    size: 48,
+                    userId: currentUser.value.userId,
+                  ),
                   const SizedBox(height: 24),
                   Text(
                     currentUser.value.userName,

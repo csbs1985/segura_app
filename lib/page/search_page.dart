@@ -34,7 +34,7 @@ class _SearchPageState extends State<SearchPage> {
   Algolia? algoliaSegura;
 
   List<Map<String, dynamic>> listNote = [];
-  List<Map<String, dynamic>> _listCategories = [];
+  final List<Map<String, dynamic>> _listCategories = [];
 
   bool isSearch = false;
 
@@ -119,42 +119,42 @@ class _SearchPageState extends State<SearchPage> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 16),
-                      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: _categoryFirestore
-                            .snapshotsCategory(currentUser.value.userId),
-                        builder: (
-                          BuildContext context,
-                          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                              snapshot,
-                        ) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CategorySkeleton();
-                          } else if (!snapshot.hasData ||
-                              snapshot.data?.docs.isEmpty == true) {
-                            return MessageWidget(
-                              height: height,
-                              text: CATEGORY_EMPTY,
-                            );
-                          } else {
-                            _listCategories =
-                                _categoryClass.converterQuerySnapshotToList(
-                                    snapshot.data!.docs);
+                      // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                      //   stream: _categoryFirestore
+                      //       .snapshotsCategory(currentUser.value.userId),
+                      //   builder: (
+                      //     BuildContext context,
+                      //     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                      //         snapshot,
+                      //   ) {
+                      //     if (snapshot.connectionState ==
+                      //         ConnectionState.waiting) {
+                      //       return const CategorySkeleton();
+                      //     } else if (!snapshot.hasData ||
+                      //         snapshot.data?.docs.isEmpty == true) {
+                      //       return MessageWidget(
+                      //         height: height,
+                      //         text: CATEGORY_EMPTY,
+                      //       );
+                      //     } else {
+                      //       _listCategories =
+                      //           _categoryClass.converterQuerySnapshotToList(
+                      //               snapshot.data!.docs);
 
-                            return Wrap(
-                              runSpacing: 8,
-                              spacing: 8,
-                              children: _listCategories.map((item) {
-                                return CategoryItemWidget(
-                                  callback: () => {},
-                                  category: item,
-                                  isSmall: false,
-                                );
-                              }).toList(),
-                            );
-                          }
-                        },
-                      ),
+                      //       return Wrap(
+                      //         runSpacing: 8,
+                      //         spacing: 8,
+                      //         children: _listCategories.map((item) {
+                      //           return CategoryItemWidget(
+                      //             callback: () => {},
+                      //             category: item,
+                      //             isSmall: false,
+                      //           );
+                      //         }).toList(),
+                      //       );
+                      //     }
+                      //   },
+                      // ),
                       const SizedBox(height: 16),
                       Text(
                         PEOPLE,

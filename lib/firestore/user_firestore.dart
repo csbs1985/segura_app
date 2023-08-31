@@ -6,4 +6,8 @@ class UserFirestore {
   Future<void> saveUser(Map<String, dynamic> user) async {
     return await users.doc(user['userId']).set(user);
   }
+
+  getCategoryId(String userId) async {
+    return await users.where('userId', isEqualTo: userId).get();
+  }
 }

@@ -27,7 +27,7 @@ class _CategoryPageState extends State<CategoryPage> {
   final CategoryFirestore _categoryFirestore = CategoryFirestore();
   final CategoryClass _categoryClass = CategoryClass();
 
-  List<Map<String, dynamic>> _listCategories = [];
+  final List<Map<String, dynamic>> _listCategories = [];
 
   void _openModal(BuildContext context, Map<String, dynamic> category) {
     showCupertinoModalBottomSheet(
@@ -56,41 +56,41 @@ class _CategoryPageState extends State<CategoryPage> {
                 CATEGORIES,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: 24),
-              StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: _categoryFirestore
-                    .snapshotsCategory(currentUser.value.userId),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
-                ) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CategorySkeleton();
-                  } else if (!snapshot.hasData ||
-                      snapshot.data?.docs.isEmpty == true) {
-                    return MessageWidget(
-                      height: height,
-                      text: CATEGORY_EMPTY,
-                    );
-                  } else {
-                    _listCategories = _categoryClass
-                        .converterQuerySnapshotToList(snapshot.data!.docs);
+              // const SizedBox(height: 24),
+              // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              //   stream: _categoryFirestore
+              //       .snapshotsCategory(currentUser.value.userId),
+              //   builder: (
+              //     BuildContext context,
+              //     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
+              //   ) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return const CategorySkeleton();
+              //     } else if (!snapshot.hasData ||
+              //         snapshot.data?.docs.isEmpty == true) {
+              //       return MessageWidget(
+              //         height: height,
+              //         text: CATEGORY_EMPTY,
+              //       );
+              //     } else {
+              //       _listCategories = _categoryClass
+              //           .converterQuerySnapshotToList(snapshot.data!.docs);
 
-                    return Wrap(
-                      runSpacing: 8,
-                      spacing: 8,
-                      children: _listCategories.map((item) {
-                        return CategoryItemWidget(
-                          callback: () => _openModal(context, item),
-                          category: item,
-                          isColor: true,
-                          isSmall: false,
-                        );
-                      }).toList(),
-                    );
-                  }
-                },
-              ),
+              //       return Wrap(
+              //         runSpacing: 8,
+              //         spacing: 8,
+              //         children: _listCategories.map((item) {
+              //           return CategoryItemWidget(
+              //             callback: () => _openModal(context, item),
+              //             category: item,
+              //             isColor: true,
+              //             isSmall: false,
+              //           );
+              //         }).toList(),
+              //       );
+              //     }
+              //   },
+              // ),
             ],
           ),
         ),

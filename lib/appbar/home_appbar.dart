@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:segura_app/button/avatar_button.dart';
 import 'package:segura_app/button/search_button.dart';
 import 'package:segura_app/service/routes_service.dart';
+import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
 
 class HomeAppBar extends StatefulWidget {
@@ -30,6 +31,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
           Padding(
             padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
             child: AvatarButton(
+              userId: currentUser.value.userId,
               callback: () => context.push(RouteEnum.MENU.value),
             ),
           ),

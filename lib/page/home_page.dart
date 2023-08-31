@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                         QueryDocumentSnapshot<dynamic> snapshot,
                       ) {
                         Map<String, dynamic> note = snapshot.data();
+
                         return NoteItemWidget(
                           item: note,
                           onTap: () => _selectNote(note),

@@ -11,7 +11,6 @@ import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/theme/ui_border.dart';
 import 'package:segura_app/theme/ui_color.dart';
-import 'package:segura_app/widget/category_item_widget.dart';
 import 'package:segura_app/input/form_input.dart';
 import 'package:segura_app/widget/note_menu.dart';
 import 'package:unicons/unicons.dart';
@@ -156,7 +155,7 @@ class _NotePageState extends State<NotePage> {
             height: double.infinity,
             decoration: BoxDecoration(
               color: _colorClass.getBackgroundColor(_noteForm['color']),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: WillPopScope(
               onWillPop: () => _saveNote(context),
@@ -197,28 +196,28 @@ class _NotePageState extends State<NotePage> {
                                 onSaved: (value) =>
                                     setState(() => _noteForm['note'] = value),
                               ),
-                            if (_listCategories.isNotEmpty)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                                child: ValueListenableBuilder<List<dynamic>>(
-                                  valueListenable: currentCategories,
-                                  builder: (context, selectedCategories, _) {
-                                    return Wrap(
-                                      runSpacing: 8,
-                                      spacing: 8,
-                                      children: _listCategories.map((item) {
-                                        return CategoryItemWidget(
-                                          callback: () =>
-                                              _openCategoryModal(context),
-                                          category: item,
-                                          isSmall: true,
-                                        );
-                                      }).toList(),
-                                    );
-                                  },
-                                ),
-                              ),
+                            // if (_listCategories.isNotEmpty)
+                            //   Padding(
+                            //     padding:
+                            //         const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                            //     child: ValueListenableBuilder<List<dynamic>>(
+                            //       valueListenable: currentCategories,
+                            //       builder: (context, selectedCategories, _) {
+                            //         return Wrap(
+                            //           runSpacing: 8,
+                            //           spacing: 8,
+                            //           children: _listCategories.map((item) {
+                            //             return CategoryItemWidget(
+                            //               callback: () =>
+                            //                   _openCategoryModal(context),
+                            //               category: item,
+                            //               isSmall: true,
+                            //             );
+                            //           }).toList(),
+                            //         );
+                            //       },
+                            //     ),
+                            //   ),
                           ],
                         ),
                       ),

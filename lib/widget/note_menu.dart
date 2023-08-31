@@ -137,15 +137,16 @@ class _NoteBottomState extends State<NoteMenu> {
                   icon: UniconsLine.user_plus,
                   callback: () => _openSharedModal(context),
                 ),
-                SvgButton(
-                  icon: UniconsLine.trash_alt,
-                  callback: () => _deleteNote(context),
-                ),
                 if (_isCopy())
                   SvgButton(
                     icon: UniconsLine.copy,
                     callback: () => _copyNote(),
                   ),
+                SvgButton(
+                  icon: UniconsLine.trash_alt,
+                  callback: () => _deleteNote(context),
+                ),
+                const SizedBox(height: 4),
               ],
             ),
           ),

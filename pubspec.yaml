@@ -28,6 +28,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   package_info_plus: ^4.0.2
   skeleton_animation: ^0.1.4
+  text_transformation_animation: ^0.1.4
   unicons: ^2.1.1
   uuid: ^3.0.7
 
