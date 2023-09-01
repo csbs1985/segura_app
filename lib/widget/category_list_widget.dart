@@ -4,18 +4,21 @@ import 'package:segura_app/element/category_element.dart';
 class CategoryListWidget extends StatefulWidget {
   const CategoryListWidget({
     super.key,
-    Function? callback,
+    required Function callback,
     required List<Map<String, dynamic>> categories,
-    bool? isColor = false,
-    bool? isSmall = true,
+    int? color = 0,
+    bool? isSelected = false,
+    bool? isSmall = false,
   })  : _callback = callback,
         _categories = categories,
-        _isColor = isColor,
+        _color = color,
+        _isSelected = isSelected,
         _isSmall = isSmall;
 
   final Function? _callback;
   final List<Map<String, dynamic>> _categories;
-  final bool? _isColor;
+  final int? _color;
+  final bool? _isSelected;
   final bool? _isSmall;
 
   @override
@@ -30,11 +33,11 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
       spacing: 8,
       children: widget._categories.map((item) {
         return CategoryElement(
-          callback: (value) => {
-            print(value),
-          },
+          callback: (value) => widget._callback!(value),
+          color: widget._color,
           element: item,
-          isSelected: true,
+          isSelected: widget._isSelected,
+          isSmall: widget._isSmall,
         );
       }).toList(),
     );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:segura_app/appbar/modal_appbar.dart';
 import 'package:segura_app/service/text_service.dart';
-import 'package:segura_app/widget/select_color_widget.dart';
+import 'package:segura_app/widget/color_select_widget.dart';
 
-class PaletteModal extends StatefulWidget {
-  const PaletteModal({
+class ColorModal extends StatefulWidget {
+  const ColorModal({
     super.key,
     required Function callback,
     required int color,
@@ -15,10 +15,10 @@ class PaletteModal extends StatefulWidget {
   final int _color;
 
   @override
-  State<PaletteModal> createState() => _PaletteModalState();
+  State<ColorModal> createState() => _ColorModalState();
 }
 
-class _PaletteModalState extends State<PaletteModal> {
+class _ColorModalState extends State<ColorModal> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -29,7 +29,7 @@ class _PaletteModalState extends State<PaletteModal> {
           children: [
             const ModalAppBar(text: COLOR),
             const SizedBox(height: 16),
-            SelectColorWidget(
+            ColorSelectWidget(
               callback: (value) => widget._callback(value),
               color: widget._color,
             ),

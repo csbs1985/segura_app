@@ -5,7 +5,7 @@ import 'package:segura_app/button/svg_button.dart';
 import 'package:segura_app/class/copy_class.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/modal/category_select_modal.dart';
-import 'package:segura_app/modal/palette_modal.dart';
+import 'package:segura_app/modal/color_modal.dart';
 import 'package:segura_app/modal/password_modal.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
@@ -50,12 +50,12 @@ class _NoteBottomState extends State<NoteMenu> {
         : context.pop();
   }
 
-  _openPaletteModal(BuildContext context) {
+  _openColorModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       barrierColor: UiColor.overlay,
       shape: UiBorder.borderModal,
-      builder: (context) => PaletteModal(
+      builder: (context) => ColorModal(
         callback: (value) => _setColor(value),
         color: widget._note['color'],
       ),
@@ -123,7 +123,7 @@ class _NoteBottomState extends State<NoteMenu> {
               children: [
                 SvgButton(
                   icon: UniconsLine.palette,
-                  callback: () => _openPaletteModal(context),
+                  callback: () => _openColorModal(context),
                 ),
                 SvgButton(
                   icon: UniconsLine.asterisk,

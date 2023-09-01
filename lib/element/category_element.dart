@@ -43,7 +43,7 @@ class _CategoryElementState extends State<CategoryElement> {
     return GestureDetector(
       child: Container(
         padding: widget._isSmall!
-            ? const EdgeInsets.fromLTRB(14, 8, 14, 8)
+            ? const EdgeInsets.fromLTRB(12, 8, 12, 8)
             : const EdgeInsets.fromLTRB(16, 10, 16, 10),
         decoration: BoxDecoration(
           border: Border.all(
