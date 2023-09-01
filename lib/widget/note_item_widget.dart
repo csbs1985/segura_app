@@ -101,7 +101,7 @@ class _NoteItemWidgetState extends State<NoteItemWidget> {
                         children: widget._item["shared"].map<Widget>((item) {
                           return AvatarButton(
                             userId: item as String,
-                            size: 28,
+                            size: UiSize.avatarSmall,
                           );
                         }).toList(),
                       ),

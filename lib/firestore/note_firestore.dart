@@ -7,7 +7,7 @@ class NoteFirestore {
     return await notes.doc(noteId).delete();
   }
 
-  getAllNotes(String userId) {
+  getNotes(String userId) {
     return notes
         .where('userId', isEqualTo: userId)
         .where('excluded', isEqualTo: false);
@@ -37,5 +37,9 @@ class NoteFirestore {
 
   noteExcludedTrue(String noteId) {
     return notes.doc(noteId).update({'excluded': true});
+  }
+
+  getAllNotes(String userId) async {
+    return await notes.where('userId', isEqualTo: userId).get();
   }
 }

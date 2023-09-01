@@ -1,6 +1,8 @@
 class UiSize {
   static const double appbar = 64;
   static const double avatar = 40;
+  static const double avatarLarge = 48;
+  static const double avatarSmall = 28;
   static const double button = 50;
   static const double chip = 40;
   static const double homeAppbar = 72;

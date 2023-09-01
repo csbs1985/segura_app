@@ -5,9 +5,11 @@ import 'package:segura_app/firestore/category_firestore.dart';
 import 'package:segura_app/service/text_service.dart';
 import 'package:segura_app/service/value_notifier_service.dart';
 import 'package:segura_app/skeleton/category_skeleton.dart';
+import 'package:segura_app/theme/ui_size.dart';
 import 'package:segura_app/widget/category_list_widget.dart';
 import 'package:segura_app/widget/message_widget.dart';
 import 'package:segura_app/widget/color_select_widget.dart';
+import 'package:segura_app/widget/user_list_widget.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
@@ -65,6 +67,11 @@ class _FilterPageState extends State<FilterPage> {
           Text(
             PEOPLE,
             style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 16),
+          UserListWidget(
+            callback: (value) => print(value),
+            size: UiSize.avatarLarge,
           ),
           const SizedBox(height: 16),
           Text(

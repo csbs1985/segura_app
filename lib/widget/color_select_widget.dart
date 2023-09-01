@@ -56,7 +56,7 @@ class _ColorSelectWidgetState extends State<ColorSelectWidget> {
               callback: (value) => _selectColor(value),
               color: index,
               size: size,
-              isSelected: true,
+              isSelected: false,
             );
           },
         ),

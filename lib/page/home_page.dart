@@ -51,8 +51,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     FirestoreListView(
-                      query:
-                          _noteFirestore.getAllNotes(currentUser.value.userId),
+                      query: _noteFirestore.getNotes(currentUser.value.userId),
                       pageSize: 30,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
