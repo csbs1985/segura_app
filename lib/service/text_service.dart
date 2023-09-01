@@ -1,4 +1,5 @@
 const String COLOR = "Cor";
+const String COLORS = "Cores";
 
 const String BY = "@dev.solitario · v";
 
@@ -73,6 +74,8 @@ const String PEOPLE = "Pessoas";
 
 const String PIX_COPY = "Chave Pix copiada";
 const String PIX_CODE = "7faa6851-5f31-45c8-831c-fbfafc47d3f9";
+
+const String RECENT = "Recentes";
 
 const String REPORT = "Relatar problema";
 const String REPORT_DESCRIPTION =

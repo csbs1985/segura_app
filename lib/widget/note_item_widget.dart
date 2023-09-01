@@ -72,7 +72,9 @@ class _NoteItemWidgetState extends State<NoteItemWidget> {
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                 ),
-              Row(
+              Wrap(
+                runSpacing: 8,
+                spacing: 8,
                 children: [
                   if (widget._item["category"].isNotEmpty)
                     Padding(
@@ -89,9 +91,6 @@ class _NoteItemWidgetState extends State<NoteItemWidget> {
                         }).toList(),
                       ),
                     ),
-                  if (widget._item["category"].isNotEmpty &&
-                      widget._item["shared"].isNotEmpty)
-                    const SizedBox(width: 8),
                   if (widget._item["shared"].isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),

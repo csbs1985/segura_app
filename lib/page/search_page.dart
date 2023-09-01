@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:segura_app/appbar/search_appbar.dart';
 import 'package:segura_app/class/note_class.dart';
 import 'package:segura_app/class/search_class.dart';
+import 'package:segura_app/hive/recent_hive.dart';
 import 'package:segura_app/model/note_model.dart';
 import 'package:segura_app/page/filter_page.dart';
 import 'package:segura_app/service/algolia_service.dart';
@@ -22,6 +23,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final RecentHive _recentHive = RecentHive();
   final SearchClass _searchClass = SearchClass();
 
   Algolia? algoliaSegura;
@@ -40,6 +42,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void _keyUp(String value) async {
     listNote = [];
+
     if (value.isNotEmpty) {
       setState(() => isSearch = true);
       if (value.length > 2) {
@@ -64,6 +67,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> _selectNote(Map<String, dynamic> note) async {
+    await _recentHive.saveRecent(note);
     currentNote.value = NoteModel.fromMap(note);
 
     context.pushNamed(RouteEnum.NOTE.value,
@@ -86,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
             isSearch
                 ? Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.only(top: UiSize.homeAppbar),
+                    padding: const EdgeInsets.only(top: 16),
                     child: listNote.isEmpty
                         ? MessageWidget(
                             height: height,
